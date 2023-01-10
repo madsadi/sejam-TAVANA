@@ -1,0 +1,20 @@
+@font-face {
+    font-family: "PelakFA";
+    font-style: normal;
+    font-weight: normal;
+    src: url('./fonts/Pelak-FontFamily/webfonts/eot/Pelak-Medium.eot');
+    src: url('./fonts/Pelak-FontFamily/ttf/Pelak-Medium.ttf') format('ttf'),
+        /* IE6-8 */
+        url('./fonts/Pelak-FontFamily/webfonts/woff/Pelak-Medium.woff') format('woff');
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+
+@font-face {
+    font-family: "Farhang";
+    font-style: normal;
+    font-weight: normal;
+    src: url('./fonts/Farhang/woff/Farhang2-Medium.woff') format('woff'),
+        /* IE6-8 */
+        url('./fonts/Farhang/ttf/Farhang2-Medium.ttf') format('ttf');
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}

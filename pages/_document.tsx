@@ -2,9 +2,11 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
-    <Html lang="en">
-      <Head />
-      <body>
+    <Html className="h-full" dir="rtl" lang='fa'>
+      <Head>
+        <link rel='shortcut icon' href='/img.png' />
+      </Head>
+      <body className={"h-screen bg-gray-200 text-black flex flex-col"}>
         <Main />
         <NextScript />
       </body>
