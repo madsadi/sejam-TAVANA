@@ -77,6 +77,12 @@ input[type=number] {
     left: unset !important;
     right: 2px;
   }
+
+  .highlight {
+    @apply text-tavanaGreen text-xl font-bold;
+  }
+
+
 }
 
 @layer utilities {

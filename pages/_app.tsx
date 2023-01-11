@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>کارگزاری توانا</title>
+        <title> ثبت نام در کارگزاری توانا</title>
       </Head>
       <ThemeProvider>
         <Component {...pageProps} />
