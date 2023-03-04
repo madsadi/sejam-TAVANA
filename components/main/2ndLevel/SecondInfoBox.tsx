@@ -39,7 +39,7 @@ export default function SecondInfoBox({ setLevel }: { setLevel: any }) {
                             <Input label="ایمیل" />
                         </div>
                     </div>
-                    <button className='bg-tavanaGreen text-white mx-auto text-xs px-16'>
+                    <button className='button mx-auto text-xs w-fit'>
                         ثبت اطلاعات
                     </button>
                 </form>
@@ -47,10 +47,12 @@ export default function SecondInfoBox({ setLevel }: { setLevel: any }) {
                     <ExclamationCircleIcon className='h-7 w-7 text-tavanaGreen' />
                     <span>اطلاعات ساناز صادقی صدر با موفقیت از سامانه سجام دریافت شد، لطفا ثبت نام خود را تکمیل نمایید</span>
                 </div>
-                <BankAccountCard />
+                <div className={'grid grid-cols-3 gap-3 my-2'}>
+                    <BankAccountCard />
+                </div>
             </div>
             <div className="flex mt-5">
-                <button className="bg-tavanaGreen text-white rounded mr-auto" onClick={() => setLevel(3)}>
+                <button className="button w-fit mr-auto" onClick={() => setLevel(3)}>
                     مرحله بعد
                 </button>
             </div>

@@ -8,6 +8,16 @@
         url('./fonts/Pelak-FontFamily/webfonts/woff/Pelak-Medium.woff') format('woff');
     /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 }
+@font-face {
+    font-family: "PelakFA";
+    font-style: normal;
+    font-weight: 600;
+    src: url('./fonts/Pelak-FontFamily/webfonts/eot/Pelak-SemiBold.eot');
+    src: url('./fonts/Pelak-FontFamily/ttf/Pelak-SemiBold.ttf') format('ttf'),
+        /* IE6-8 */
+        url('./fonts/Pelak-FontFamily/webfonts/woff/Pelak-SemiBold.woff') format('woff');
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
 
 @font-face {
     font-family: "Farhang";

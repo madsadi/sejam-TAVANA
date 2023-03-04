@@ -19,7 +19,7 @@ export default function Main() {
     }[level]
 
     return (
-        <div className="container flex flex-col h-full text-sm md:text-md">
+        <div className="container flex flex-col h-full py-10 text-sm md:text-md">
             <ProgressBar level={level} setLevel={setLevel} />
             {Components}
         </div>

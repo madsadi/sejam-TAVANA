@@ -30,6 +30,9 @@ a {
   text-decoration: none;
 }
 
+.ltr{
+  direction: ltr;
+}
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -46,13 +49,30 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   h2 {
-    @apply text-4xl my-16 text-tavanaGreen text-center;
+    @apply text-4xl sm:mt-5 sm:mb-10 mb-5 text-tavanaGreen text-center;
+  }
+
+  h4 {
+    @apply text-xl font-semibold text-center;
   }
 
   label {
@@ -62,11 +82,6 @@ input[type=number] {
   html {
     font-family: "PelakFA", system-ui, sans-serif;
   }
-
-  button {
-    @apply px-5 py-2 rounded
-  }
-
 
   .peer>div {
     left: 5px;
@@ -88,5 +103,20 @@ input[type=number] {
 @layer utilities {
   .font-sans {
     font-family: "PelakFA", system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .input {
+    @apply border border-border px-2 p-1 w-full rounded focus:outline-0
+  }
+  .hover-button {
+    @apply border-b hover:border-tavanaGreen border-transparent transition-all w-fit p-1
+  }
+  .button {
+    @apply text-white bg-tavanaGreen text-center rounded py-2 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50
+  }
+  .prevButton {
+    @apply text-white bg-tavanBrown text-center rounded py-2 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50
   }
 }

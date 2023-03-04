@@ -66,8 +66,8 @@ export default function ForthInfoBox({ setLevel }: { setLevel: any }) {
                                     {
                                         question.options.map((option: string) => {
                                             return (
-                                                <div key={option}>
-                                                    <input type="checkbox" />
+                                                <div className={'flex items-center'} key={option}>
+                                                    <input className={'checkbox'} type="checkbox" />
                                                     <label className='mr-2'>{option}</label>
                                                 </div>
                                             )
@@ -80,10 +80,10 @@ export default function ForthInfoBox({ setLevel }: { setLevel: any }) {
                 }
             </div>
             <div className="flex justify-between mt-5">
-                <button className="bg-tavanBrown text-white rounded" onClick={() => setLevel(3)}>
+                <button className="prevButton w-fit" onClick={() => setLevel(3)}>
                     مرحله قبل
                 </button>
-                <button className="bg-tavanaGreen text-white rounded" onClick={() => setLevel(5)}>
+                <button className="button w-fit" onClick={() => setLevel(5)}>
                     مرحله بعد
                 </button>
             </div>

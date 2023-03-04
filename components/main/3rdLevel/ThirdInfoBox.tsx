@@ -48,10 +48,10 @@ export default function ThirdInfoBox({ setLevel }: { setLevel: any }) {
                 </ul>
             </div>
             <div className="flex justify-between mt-5">
-                <button className="bg-tavanBrown text-white rounded" onClick={() => setLevel(2)}>
+                <button className="prevButton w-fit" onClick={() => setLevel(2)}>
                     مرحله قبل
                 </button>
-                <button className="bg-tavanaGreen text-white rounded" onClick={() => setLevel(4)}>
+                <button className="button w-fit" onClick={() => setLevel(4)}>
                     مرحله بعد
                 </button>
             </div>

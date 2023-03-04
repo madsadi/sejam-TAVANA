@@ -33,14 +33,14 @@ export default function FifthInfoBox({ setLevel }: { setLevel: any }) {
                         <ExclamationCircleIcon className='h-7 w-7 text-tavanaGreen' />
                         <span>برای ادامه لطفا تعهدنامه را تایید کنید</span>
                     </div>
-                    <button className='border border-tavanaGreen rounded text-tavanaGreen mx-auto text-xs'>تایید تعهد نامه</button>
+                    <button className='button w-fit mx-auto text-xs'>تایید تعهد نامه</button>
                 </div>
             </div>
             <div className="flex justify-between mt-5">
-                <button className="bg-tavanBrown text-white rounded" onClick={() => setLevel(4)}>
+                <button className="prevButton w-fit" onClick={() => setLevel(4)}>
                     مرحله قبل
                 </button>
-                <button className="bg-tavanaGreen text-white rounded" onClick={() => setLevel(6)}>
+                <button className="button w-fit" onClick={() => setLevel(6)}>
                     مرحله بعد
                 </button>
             </div>

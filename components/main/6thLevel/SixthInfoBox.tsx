@@ -261,10 +261,10 @@ export default function SixthInfoBox({ setLevel }: { setLevel: any }) {
                 </div>
             </div>
             <div className="flex justify-between mt-5">
-                <button className="bg-tavanBrown text-white rounded" onClick={() => setLevel(5)}>
+                <button className="prevButton w-fit" onClick={() => setLevel(5)}>
                     مرحله قبل
                 </button>
-                <button className="bg-tavanaGreen text-white rounded">
+                <button className="button w-fit">
                     تایید نهایی
                 </button>
             </div>

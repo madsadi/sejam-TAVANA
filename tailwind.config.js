@@ -40,10 +40,12 @@ module.exports = withMT({
       pink: colors.pink,
       rose: colors.rose,
       tavanaGreen: '#00603a',
-      tavanBrown: '#A27F2C'
+      tavanBrown: '#A27F2C',
+      border: '#eee',
     }),
   },
   plugins: [
+    require("daisyui"),
     function ({ addComponents }) {
       addComponents({
         '.container': {
@@ -58,10 +60,13 @@ module.exports = withMT({
             maxWidth: '990px',
           },
           '@screen xl': {
-            maxWidth: '1140px',
+            maxWidth: '1300px',
           },
         }
       })
     }
-  ]
+  ],
+  daisyui: {
+    rtl: true,
+  },
 })
