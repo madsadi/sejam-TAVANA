@@ -789,6 +789,11 @@ cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+crypto-js@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.1.1.tgz#9e485bcf03521041bd85844786b83fb7619736cf"
+  integrity sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==
+
 css-mediaquery@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/css-mediaquery/-/css-mediaquery-0.1.2.tgz#6a2c37344928618631c54bd33cedd301da18bea0"
@@ -1985,6 +1990,11 @@ json5@^1.0.1:
     array-includes "^3.1.5"
     object.assign "^4.1.3"
 
+jwt-decode@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+  integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
+
 language-subtag-registry@~0.3.2:
   version "0.3.22"
   resolved "https://registry.yarnpkg.com/language-subtag-registry/-/language-subtag-registry-0.3.22.tgz#2e1500861b2e457eba7e7ae86877cbd08fa1fd1d"
@@ -2256,6 +2266,14 @@ object.values@^1.1.5, object.values@^1.1.6:
     define-properties "^1.1.4"
     es-abstract "^1.20.4"
 
+oidc-client-ts@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/oidc-client-ts/-/oidc-client-ts-2.2.2.tgz#3656f7b7c98e14b3185d2a53fe277da67fd3f87a"
+  integrity sha512-tEpnC1xQX6PMhnDMNEvDhpqnsu0buh29b/sA9a1I5tq6lD87wRAW1rTj49B2+5925I0sQlvU64DoK0Pxeiu7Dg==
+  dependencies:
+    crypto-js "^4.1.1"
+    jwt-decode "^3.1.2"
+
 once@^1.3.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/once/-/once-1.4.0.tgz#583b1aa775961d4b113ac17d9c50baef9dd76bd1"
@@ -2517,6 +2535,11 @@ react-modern-calendar-datepicker@^3.1.6:
   integrity sha512-lnMqEMj9Wn32/sm119tjCl5lOkq4u9vJE7wggi7hdXV4s8rPdKlH56FVVehlBi0dfYeWQVZ9npY384Zprjn4WA==
   dependencies:
     jalaali-js "^1.1.0"
+
+react-oidc-context@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-oidc-context/-/react-oidc-context-2.2.2.tgz#aa9b66596b63f1373d312007099c32b112646396"
+  integrity sha512-rke8goKuxxQhSAR11h8wVn56m7kEa1mcAfYDlIycsIgmbZOFzKA0Un0y0RodHZ/M/CG6u0JD1I8RKZHqRJjWnA==
 
 react-otp-input@^2.4.0:
   version "2.4.0"

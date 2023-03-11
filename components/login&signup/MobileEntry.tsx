@@ -1,11 +1,11 @@
 import React, {useContext, useState} from "react";
-import CaptchaComponent from "../common/CaptchaComponent";
+import CaptchaComponent from "../common/component/CaptchaComponent";
 import {Form, Formik} from "formik";
 import {smsNotification} from "../../api/login-signup.api";
 import {toast} from "react-toastify";
-import InputComponent from "../common/InputComponent";
+import InputComponent from "../common/component/InputComponent";
 import {IdpContext} from "../../pages";
-import {mobileEntry} from "./schema";
+import {mobileEntry} from "../common/shcema/schema";
 
 
 export default function MobileEntry() {
@@ -35,7 +35,7 @@ export default function MobileEntry() {
 
     const submitHandler = async (v: any) => {
         await smsNotification({phoneNumber: v.mobile, captchaToken: info.uuid + '_' + v.captcha})
-            .then((res) => {
+            .then(() => {
                 setMobile(v.mobile)
                 setLevel('confirmation')
             })
@@ -72,7 +72,7 @@ export default function MobileEntry() {
                             </button>
                             <button
                                 className={'mt-4 hover-button mx-auto'}
-                                onClick={() => setLevel('logIn')}>
+                                onClick={() => setLevel('login')}>
                                 <span>آیا در توانا حساب دارید؟</span>
                                 <span className={'text-active'}> وارد شوید</span>
                             </button>

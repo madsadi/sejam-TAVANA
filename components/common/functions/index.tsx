@@ -1,3 +1,5 @@
+import moment from "jalali-moment";
+
 const banks = [
     {"number":627412,"name":"بانک اقتصاد نوین","logo":"EGHTESAD_NOVIN"},
     {"number":627381,"name":"بانک سپه","logo":"SEPAH"},
@@ -47,9 +49,22 @@ const banks = [
 
 export function findBank(account:string) {
     if (account){
-        const bankSelected : any = banks.find((item:any)=>String(item.number).startsWith(account?.slice(0,6)))
+        // const bankSelected : any = banks.find((item:any)=>String(item.number).startsWith(account?.slice(0,6)))
+        const bankSelected : any = banks.find((item:any)=>item.name===account)
         return bankSelected;
     }else{
         return ''
     }
 }
+
+
+export const jalali = (date: string) => {
+    const jalali = moment(date).locale('fa');
+    return {date: jalali.format("YYYY/MM/DD"), time: jalali.format("HH:mm:ss")}
+}
+
+export const formatNumber = (params: any) => {
+        return Math.floor(params)
+            .toString()
+            .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+};

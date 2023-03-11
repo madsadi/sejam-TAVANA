@@ -48,7 +48,7 @@ export default function SecondInfoBox({ setLevel }: { setLevel: any }) {
                     <span>اطلاعات ساناز صادقی صدر با موفقیت از سامانه سجام دریافت شد، لطفا ثبت نام خود را تکمیل نمایید</span>
                 </div>
                 <div className={'grid grid-cols-3 gap-3 my-2'}>
-                    <BankAccountCard />
+                    {/*<BankAccountCard />*/}
                 </div>
             </div>
             <div className="flex mt-5">

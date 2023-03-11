@@ -42,3 +42,4 @@ export const register = async (body:any) => {
         })
     return log
 }
+

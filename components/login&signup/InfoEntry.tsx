@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
-import InputComponent from "../common/InputComponent";
+import InputComponent from "../common/component/InputComponent";
 import {toast} from "react-toastify";
 import {Form, Formik} from "formik";
 import {register} from "../../api/login-signup.api";
 import {IdpContext} from "../../pages";
-import {infoEntry} from "./schema";
+import {infoEntry} from "../common/shcema/schema";
 
 const initialValue = {
     token: '',
@@ -51,7 +51,7 @@ export default function InfoEntry() {
     const registerHandler = async (v: any) => {
         if (v?.["passwordConfirm"] === v.password) {
             await register({...v, phoneNumber: mobile, token: token})
-                .then((res) => {
+                .then(() => {
                     setLevel('success')
                 })
                 .catch((err) => {

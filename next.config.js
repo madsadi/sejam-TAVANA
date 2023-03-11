@@ -5,6 +5,7 @@ const nextConfig = {
   env: {
     idpApi: 'https://cluster.tech1a.co/api/account/',
     sejamApi: 'http://cluster.tech1a.co:9072/api/request/',
+    fileServerApi: 'http://cluster.tech1a.co:9073/api/file-manager/',
     captchaApi: 'https://cluster.tech1a.co:8543/api/'
   },
 }

@@ -3,6 +3,7 @@ import React, {createContext, useState} from 'react'
 import Confirmation from "../components/login&signup/confirmation";
 import MobileEntry from "../components/login&signup/MobileEntry";
 import InfoEntry from "../components/login&signup/InfoEntry";
+import Login from "../components/login&signup/Login";
 
 export const IdpContext = createContext<any>({})
 export default function Home() {
@@ -13,7 +14,8 @@ export default function Home() {
     const Components = {
         'mobileEntry': <MobileEntry />,
         'confirmation': <Confirmation />,
-        'infoEntry': <InfoEntry/>
+        'infoEntry': <InfoEntry/>,
+        'login': <Login/>
     }[level]
 
     return (

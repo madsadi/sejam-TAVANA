@@ -1,9 +1,11 @@
 import {
     ExclamationCircleIcon,
 } from '@heroicons/react/24/solid'
+import {useState} from "react";
+import BeforeAfterComponent from "../../common/component/Before&After.component";
 
-export default function ForthInfoBox({ setLevel }: { setLevel: any }) {
-
+export default function TestLevel() {
+    const [answers,setAnswers] = useState<any>({0:'',1:'',2:'',3:'',4:'',5:'',6:'',7:'',8:'',9:''})
     const questions = [
         {
             title: 'در نماد وبانک، حرف اول *و* چه چیز را نشان می دهد؟',
@@ -46,6 +48,18 @@ export default function ForthInfoBox({ setLevel }: { setLevel: any }) {
             options: ['100 ریال', '10000 ریال', '10 ریال', '1000 ریال']
         }
     ]
+
+    const answerHandler = (respond:any,question:any)=>{
+        let _answers = {...answers};
+        if (answers[question] === respond){
+            _answers[question] = ''
+            setAnswers(_answers)
+        }else{
+            _answers[question] = respond
+            setAnswers(_answers)
+        }
+    }
+
     return (
         <div className='pb-5'>
             <div className="bg-white p-5">
@@ -64,10 +78,10 @@ export default function ForthInfoBox({ setLevel }: { setLevel: any }) {
                                 </span>
                                 <div className='space-y-2 mt-3'>
                                     {
-                                        question.options.map((option: string) => {
+                                        question.options.map((option: string,i:number) => {
                                             return (
                                                 <div className={'flex items-center'} key={option}>
-                                                    <input className={'checkbox'} type="checkbox" />
+                                                    <input className={'checkbox'} checked={answers[index]!=='' ? Number(answers[index])===i:false} onChange={()=>answerHandler(i,index)} type="checkbox" />
                                                     <label className='mr-2'>{option}</label>
                                                 </div>
                                             )
@@ -79,14 +93,7 @@ export default function ForthInfoBox({ setLevel }: { setLevel: any }) {
                     })
                 }
             </div>
-            <div className="flex justify-between mt-5">
-                <button className="prevButton w-fit" onClick={() => setLevel(3)}>
-                    مرحله قبل
-                </button>
-                <button className="button w-fit" onClick={() => setLevel(5)}>
-                    مرحله بعد
-                </button>
-            </div>
+            <BeforeAfterComponent condition={Object.values(answers).every((item:any)=>item!=='')} warning={'لطفا تمام سوالات را پاسخ دهید.'}/>
         </div>
     )
 }

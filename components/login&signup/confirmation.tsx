@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import CountDown from "../common/CountDown";
+import CountDown from "../common/component/CountDown";
 import OtpInput from 'react-otp-input';
 import {toast} from "react-toastify";
 import {verifyToken} from "../../api/login-signup.api";
@@ -23,7 +23,7 @@ export default function CodeVerify() {
         e.preventDefault()
         setIsSubmitting(true)
         await verifyToken({...info, PhoneNumber: mobile,RefCode:router.query?.refCode?.[0]})
-            .then((res) => {
+            .then(() => {
                 setIsSubmitting(false)
                 setToken(info.Token)
                 setLevel('infoEntry')
@@ -50,7 +50,7 @@ export default function CodeVerify() {
                     <span className={'mx-2'}>{mobile}</span>را وارد کنید.
                 </div>
             </div>
-            <form className={'grow flex flex-col'} onSubmit={codeVerifyHandler}>
+            <div className={'grow flex flex-col'}>
                 <OtpInput
                     value={info.Token}
                     onChange={(v: string) => infoUpdate('Token', v)}
@@ -65,7 +65,7 @@ export default function CodeVerify() {
                 </button>
                 <div className={'mt-auto text-center'}>
                     <button className={'button'}
-                            type={'submit'}
+                            onClick={codeVerifyHandler}
                             disabled={isSubmitting}
                     >
                         <div className={'flex items-center mx-auto w-fit'}>
@@ -80,7 +80,7 @@ export default function CodeVerify() {
                     </button>
                     <CountDown step={'mobileEntry'}/>
                 </div>
-            </form>
+            </div>
         </>
     )
 }

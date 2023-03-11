@@ -1,6 +1,16 @@
 @font-face {
     font-family: "PelakFA";
     font-style: normal;
+    font-weight: 300;
+    src: url('./fonts/Pelak-FontFamily/webfonts/eot/Pelak-light.eot');
+    src: url('./fonts/Pelak-FontFamily/ttf/Pelak-light.ttf') format('ttf'),
+        /* IE6-8 */
+        url('./fonts/Pelak-FontFamily/webfonts/woff/Pelak-light.woff') format('woff');
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+    font-family: "PelakFA";
+    font-style: normal;
     font-weight: normal;
     src: url('./fonts/Pelak-FontFamily/webfonts/eot/Pelak-Medium.eot');
     src: url('./fonts/Pelak-FontFamily/ttf/Pelak-Medium.ttf') format('ttf'),

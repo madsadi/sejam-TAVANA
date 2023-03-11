@@ -1,10 +1,11 @@
 import {findBank} from "../../common/functions";
 import Image from 'next/image'
+import {accountNumber} from "../1stLevel/types";
 
-export default function BankAccountCard({account='603799'}) {
-    const bank_info = findBank(account)
+export default function BankAccountCard({accountInfo}: { accountInfo: accountNumber }) {
+    const bank_info = findBank(accountInfo.bank.name)
 
-    const separator = (account:string)=>{
+    const separator = (account: string) => {
         const cardValue = account
             .match(/.{1,4}/g)
 
@@ -13,25 +14,21 @@ export default function BankAccountCard({account='603799'}) {
     return (
         <div className="p-3 bg-gray-200 rounded-md">
             <div className="flex items-center justify-between">
+                <div className="highlight">{bank_info?.name}</div>
                 <div>
-                    <Image src={`/bankIcons/${bank_info.logo}.svg`} height={24}
-                           width={24} alt={bank_info.name}/>
-                </div>
-                <div className="highlight">{bank_info.name}</div>
-                <div>
-                    <Image src={`/bankIcons/${bank_info.logo}.svg`} height={24}
-                           width={24} alt={bank_info.name}/>
+                    <Image src={`/bankIcons/${bank_info?.logo}.svg`} height={24}
+                           width={24} alt={bank_info?.name}/>
                 </div>
             </div>
-            <div className="my-7 text-lg font-bold text-center">
-                    <span>{separator('6037997572947886')}</span>
+            <div className="my-5 text-lg font-bold text-center">
+                <span>{separator(accountInfo.accountNumber)}</span>
             </div>
-            <div className={'flex justify-between'}>
-                <div>
-                    <div>محمد سعید انوری</div>
-                    <div>IR380170000000225216721008</div>
+            <div className={'space-y-3'}>
+                <div className={'flex items-center'}>
+                    <div className={'ml-2 text-xs font-light'}>شعبه:</div>
+                    {accountInfo.branchName && <div className={'font-semibold'}>{accountInfo.branchName + ' ' + accountInfo.branchCode}</div>}
                 </div>
-                <div></div>
+                <div className={'text-sm'}>{accountInfo?.sheba}</div>
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import {v4 as uuidv4} from "uuid";
 import {ArrowPathIcon} from "@heroicons/react/20/solid";
 import React, {useEffect, useState} from "react";
-import {createCaptchaApi} from "../../api/captcha";
+import {createCaptchaApi} from "../../../api/captcha";
 import {useField} from "formik";
 
 const CaptchaComponent: React.FC<any> = ({info,infoUpdate,...props}) =>  {
@@ -25,7 +25,10 @@ const CaptchaComponent: React.FC<any> = ({info,infoUpdate,...props}) =>  {
 
     return (
         <div>
-            <label className={'block'}>کد امنیتی</label>
+            <label className={'flex items-center mb-1'}>
+                کد امنیتی
+                {meta.error && <div className={'text-red-300 text-sm mr-1'}>{meta.error}</div>}
+            </label>
             <div className={'relative w-full border border-border rounded-xl overflow-hidden mb-3'}>
                 <img className={'h-[60px] w-3/5 bg-contain'} src={generatedCaptcha}/>
                 <div role={'button'}
@@ -40,7 +43,6 @@ const CaptchaComponent: React.FC<any> = ({info,infoUpdate,...props}) =>  {
                    {...props}
                    {...field}
             />
-            {meta.error && <div className={'text-red-300 text-sm mt-1'}>{meta.error}</div>}
         </div>
     )
 }
