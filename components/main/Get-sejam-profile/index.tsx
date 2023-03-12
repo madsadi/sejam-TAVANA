@@ -18,7 +18,7 @@ const initialValue = {
     uuid: '',
 }
 export default function GetSejamProfile() {
-    const {setUserData, setLevel} = useContext<any>(SejamContext)
+    const {setLevel} = useContext<any>(SejamContext)
     const [info, setInfo] = useState<initialType>(initialValue)
     const infoUpdate = (key: string, value: any) => {
         let _info: any = {};
@@ -30,7 +30,6 @@ export default function GetSejamProfile() {
     const submitHandler = async (v: initialType) => {
         await getSejamProfile({SejamToken: v.SejamToken, CaptchaCode: info.uuid + '_' + v.captcha})
             .then((res) => {
-                setUserData(res?.result);
                 setLevel(1)
             })
             .catch((err) => {

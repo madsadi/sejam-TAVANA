@@ -1,6 +1,7 @@
 export type SejamInfoType = {
     addresses: addressesDetail[],
     accounts: accountNumber[],
+    uniqueIdentifier:string,
     financialInfo: {
         assetsValue: number,
         cExchangeTransaction: number,
@@ -77,6 +78,32 @@ export type accountNumber = {
     isDefault: boolean
     sheba: string
     type: string
+}
+export type bankAccount = {
+    "accountNumber": string,
+    "iban": string,
+    "type": number,
+    "cityId": number,
+    "isDefault": boolean
+}
+
+export type countryType = {
+    "countryId": number,
+    "countryName": string,
+}
+export type provinceType = {
+    "countryId": number,
+    "countryName": string,
+    "provinceId": number,
+    "provinceName": string
+}
+export type cityType = {
+    "countryId":number,
+    "countryName": string,
+    "provinceId":number,
+    "provinceName": string,
+    "cityId": number,
+    "cityName": string
 }
 
 type financialBrokers = {

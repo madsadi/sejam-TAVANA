@@ -1,6 +1,6 @@
 import {findBank} from "../../common/functions";
 import Image from 'next/image'
-import {accountNumber} from "../1stLevel/types";
+import {accountNumber} from "./types";
 
 export default function BankAccountCard({accountInfo}: { accountInfo: accountNumber }) {
     const bank_info = findBank(accountInfo.bank.name)
@@ -12,7 +12,7 @@ export default function BankAccountCard({accountInfo}: { accountInfo: accountNum
         return cardValue?.reverse().join(' ')
     }
     return (
-        <div className="p-3 bg-gray-200 rounded-md">
+        <div className="p-3 px-8 bg-gray-200 rounded-md">
             <div className="flex items-center justify-between">
                 <div className="highlight">{bank_info?.name}</div>
                 <div>

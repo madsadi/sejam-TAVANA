@@ -1,17 +1,18 @@
 import {createContext, useState} from 'react';
-import UploadDocumentsLevel from '../components/main/3rdLevel/UploadDocuments.level';
-import TestLevel from '../components/main/4thLevel/Test.level';
-import FifthInfoBox from '../components/main/5thLevel/FifthInfoBox';
-import SixthInfoBox from '../components/main/6thLevel/SixthInfoBox';
-import ProgressBar from "../components/main/ProgressBar";
-import ProfileSetter from "../components/main/ProfileSetter";
-import GetSejamProfile from "../components/main/GetSejamProfile";
-import SejamInfoLevel from "../components/main/1stLevel/SejamInfo.level";
+import ProgressBar from "../components/common/component/ProgressBar";
+import AgreementLevel from "../components/main/agreement/Agreement.level";
+import ProfileSetter from "../components/main/Profile-setter";
+import GetSejamProfile from "../components/main/Get-sejam-profile";
+import SejamInfoLevel from "../components/main/sejam-info/SejamInfo.level";
+import UploadDocumentsLevel from "../components/main/upload-documents/UploadDocuments.level";
+import TestLevel from "../components/main/test/Test.level";
+import SixthInfoBox from "../components/main/final/SixthInfoBox";
+import {SejamInfoType} from "../components/main/sejam-info/types";
 
 export const SejamContext = createContext({})
 export default function Main() {
-    const [level, setLevel] = useState(0)
-    const [userData, setUserData] = useState([])
+    const [level, setLevel] = useState<number>(0)
+    const [userData, setUserData] = useState<SejamInfoType[]|any>({})
 
     const Components = {
         0: <ProfileSetter/>,
@@ -19,7 +20,7 @@ export default function Main() {
         2: <SejamInfoLevel />,
         3: <UploadDocumentsLevel />,
         4: <TestLevel />,
-        5: <FifthInfoBox setLevel={setLevel}/>,
+        5: <AgreementLevel />,
         6: <SixthInfoBox setLevel={setLevel}/>
     }[level]
 

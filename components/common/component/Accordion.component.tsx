@@ -3,7 +3,7 @@ import { ChevronLeftIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 export default function AccordionComponent({children,title}:{children:any,title:string}){
 
     return(
-        <div className="collapse border-b-2 first:border-t-2 border-border font-[PelakFA]">
+        <div className="relative collapse border-b-2 first:border-t-2 border-border font-[PelakFA]">
             <input type="checkbox" className="peer w-full" />
             <div className="collapse-title bg-transparent flex items-center px-2 py-4 peer-checked:hidden">
                 <ChevronLeftIcon className={'h-7 w-7 '} />

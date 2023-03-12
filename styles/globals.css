@@ -75,6 +75,10 @@ input[type=number] {
     @apply text-xl font-semibold text-center;
   }
 
+  h5 {
+    @apply font-bold text-lg mt-5;
+  }
+
   label {
     @apply text-gray-400
   }

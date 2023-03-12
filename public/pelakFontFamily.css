@@ -28,6 +28,16 @@
         url('./fonts/Pelak-FontFamily/webfonts/woff/Pelak-SemiBold.woff') format('woff');
     /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 }
+@font-face {
+    font-family: "PelakFA";
+    font-style: normal;
+    font-weight: 800;
+    src: url('./fonts/Pelak-FontFamily/webfonts/eot/Pelak-Bold.eot');
+    src: url('./fonts/Pelak-FontFamily/ttf/Pelak-Bold.ttf') format('ttf'),
+        /* IE6-8 */
+        url('./fonts/Pelak-FontFamily/webfonts/woff/Pelak-Bold.woff') format('woff');
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
 
 @font-face {
     font-family: "Farhang";

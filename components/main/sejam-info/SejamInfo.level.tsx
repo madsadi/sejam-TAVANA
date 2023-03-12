@@ -1,34 +1,41 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import AccordionComponent from "../../common/component/Accordion.component";
-import {getBankAccounts, getSejamInfo} from "../../../api/FIrst-Info-box.api";
+import {getBankAccounts, getSejamInfo} from "../../../api/sejam-info.api";
 import {accountNumber, SejamInfoType} from "./types";
 import {formatNumber, jalali} from "../../common/functions";
 import LabelValue from "../../common/component/LabelValue";
-import BankAccountCard from "../2ndLevel/BankAccountCard";
+import BankAccountCard from "./BankAccountCard";
 import {tradingKnowledgeLevelEnums, transactionLevelPrivatePersonEnums} from "../../common/enums";
 import ConfirmComponent from "../../common/component/Confirm.component";
+import {PlusCircleIcon} from "@heroicons/react/24/outline";
+import Modal from "../../common/component/Modal";
+import AddAccountComponent from "./AddAccountComponent";
+import {SejamContext} from "../../../pages/main";
 
 export default function SejamInfoLevel() {
+    const {setUserData}=useContext<any>(SejamContext)
     const [data, setData] = useState<SejamInfoType | any>({})
-    const [banks, setBanks] = useState<accountNumber | any>({})
+    const [banks, setBanks] = useState<accountNumber | any>([])
+    const [addModal, setAddModal] = useState<boolean>(false)
+
+    const sejamInfo = async () => {
+        await getSejamInfo()
+            .then((res) => {
+                setData(JSON.parse(res?.result?.sejamProfile))
+                setUserData(JSON.parse(res?.result?.sejamProfile))
+            })
+    }
+    const bankAccounts = async () => {
+        await getBankAccounts()
+            .then((res) => {
+                setBanks(res?.result?.bankAccounts)
+            })
+    }
 
     useEffect(() => {
-        const sejamInfo = async () => {
-            await getSejamInfo()
-                .then((res) => {
-                    setData(JSON.parse(res?.result?.sejamProfile))
-                })
-        }
-        const bankAccounts = async () => {
-            await getBankAccounts()
-                .then((res) => {
-                    setBanks(res?.result?.bankAccounts)
-                })
-        }
         bankAccounts()
         sejamInfo()
     }, [])
-
 
     return (
         <>
@@ -70,7 +77,7 @@ export default function SejamInfoLevel() {
                                         <LabelValue key={index} title={'شماره همراه'} value={item?.mobile}/>
                                         <LabelValue key={index} title={'شماره ثابت'} value={item?.tel}/>
                                         <LabelValue key={index} title={'شماره تماس اضطراری'}
-                                                    value={item?.emergencyTelCityPrefix + item?.emergencyTel}/>
+                                                    value={item?.emergencyTelCityPrefix +'-'+ item?.emergencyTel}/>
                                         <LabelValue key={index} title={'کد پستی'} value={item?.postalCode}/>
                                         <LabelValue key={index} title={'آدرس'}
                                                     value={item?.country.name + ' ' + item?.city?.name + ' ' + item?.section?.name + ' ' + item?.remnantAddress + ' ' + item?.alley + ' ' + item?.plaque}/>
@@ -81,7 +88,10 @@ export default function SejamInfoLevel() {
                     </div>
                 </AccordionComponent>
                 <AccordionComponent title={'حساب های بانکی'}>
-                    <div className="grid grid-cols-4 gap-3">
+                    <Modal title={'حساب جدید'} setOpen={setAddModal} open={addModal}>
+                        <AddAccountComponent fetch={bankAccounts} banks={banks} setAddModal={setAddModal}/>
+                    </Modal>
+                    <div className="flex overflow-x-auto space-x-reverse space-x-4">
                         {
                             banks?.map((item: any) => {
                                 return (
@@ -90,6 +100,9 @@ export default function SejamInfoLevel() {
                             })
                         }
                     </div>
+                    <button className={'float-left'} onClick={()=>setAddModal(true)}>
+                        <PlusCircleIcon className={'h-7 w-7 text-tavanaGreen'}/>
+                    </button>
                 </AccordionComponent>
                 <AccordionComponent title={'اطلاعات مالی'}>
                     <div className="grid grid-cols-4 gap-3">

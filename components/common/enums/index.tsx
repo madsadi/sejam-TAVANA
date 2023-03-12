@@ -141,14 +141,14 @@ export const onlineRegistrationStatus =  [
         "title": "تکمیل شماره حساب بانکی"
     },
     {
-        "id": 14,
-        "code": 14,
+        "id": 15,
+        "code": 15,
         "enTitle": "IdentitficationScanUploaded",
         "title": "بارگذاری مدارک"
     },
     {
-        "id": 15,
-        "code": 15,
+        "id": 14,
+        "code": 14,
         "enTitle": "FinancialInfoCompleted",
         "title": "تکمیل اطلاعات مالی"
     },
@@ -308,4 +308,48 @@ export const fileTypeEnums = [
         "enTitle": "MarketerCommissionBill",
         "description": null
     }
+]
+
+export const accountTypeEnums = [
+    {
+        id: 1,
+        faTitle:'بلند مدت',
+        enTitle: "LongTermAccount"
+    },
+    {
+        id: 2,
+        faTitle:'کوناه مدت',
+        enTitle: "ShortTermAccount"
+    },
+    {
+        id: 3,
+        faTitle:'حساب جاری',
+        enTitle: "CurrentAccount"
+    },
+    {
+        id: 4,
+        faTitle:'قرض الحسنه',
+        enTitle: "SavingAccount"
+    }
+]
+
+export const personType = [
+    {
+        "id": 1,
+        "code": 1,
+        "enTitle": "PrivatePerson",
+        "title": "حقیقی"
+    },
+    {
+        "id": 2,
+        "code": 2,
+        "enTitle": "LegalPerson",
+        "title": "حقوقی"
+    },
+    // {
+    //     "id": 3,
+    //     "code": 3,
+    //     "enTitle": "PrivatePortfolio",
+    //     "title": "سبد اختصاصی"
+    // }
 ]

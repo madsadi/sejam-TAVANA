@@ -3,7 +3,7 @@ import {
 } from '@heroicons/react/24/solid'
 import { useMediaQuery } from 'react-responsive'
 import {useContext} from "react";
-import {SejamContext} from "../../pages/main";
+import {SejamContext} from "../../../pages/main";
 
 export default function ProgressBar() {
     const {level ,setLevel} = useContext<any>(SejamContext)
@@ -11,7 +11,7 @@ export default function ProgressBar() {
 
     const progress = [
         {
-            title: 'اطلاعات اولیه',
+            title: 'ایجاد کاربر',
             level: 0,
         },
         {
@@ -39,6 +39,7 @@ export default function ProgressBar() {
             level: 6,
         }
     ]
+
     return (
         <div className="flex mb-5 border border-gray-400 bg-gray-300">
             {
