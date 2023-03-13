@@ -3,7 +3,7 @@ import {SejamContext} from "../../../pages/main";
 import {jalali} from "../../common/functions";
 
 export default function TotalBrokerageAgreement() {
-    const {userData} = useContext<any>(SejamContext)
+    const {userData,userDefaultBank} = useContext<any>(SejamContext)
 
     return (
         <div className={'leading-8 text-justify'}>
@@ -69,95 +69,71 @@ export default function TotalBrokerageAgreement() {
                             <span>{userData?.addresses?.[0]?.email}</span>
                         </td>
                     </tr>
-                    {/*<tr>*/}
-                    {/*    <div className="col-6 custom-border">*/}
-                    {/*        <p>نام و کد بانک: <span*/}
-                    {/*            className="font-weight-bold">{{data.userBankName}}-{{data.userBankCode}}</span>*/}
-                    {/*        </p>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-6 custom-border">*/}
-                    {/*        <p>شماره‌حساب بانکی: <span*/}
-                    {/*            className="font-weight-bold">{{data.userAccountNumb}}</span>*/}
-                    {/*        </p>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="col-12 custom-border">*/}
-                    {/*        <p>آدرس منزل: <span*/}
-                    {/*            className="font-weight-bold">{{data.addressesRemnant}}</span>*/}
-                    {/*        </p>*/}
-                    {/*    </div>*/}
-                    {/*</tr>*/}
+                    <tr>
+                        <td>
+                            <span> نام بانک:  </span>
+                            <span>{userDefaultBank?.bank?.name + ' ' + userDefaultBank?.branchCode}</span>
+                        </td>
+                        <td>
+                            <span> شماره‌حساب بانکی:  </span>
+                            <span>{userDefaultBank?.accountNumber}</span>
+                        </td>
+                        <td>
+                            <span> آدرس منزل:  </span>
+                            <span>{userData?.addresses[0]?.remnantAddress}</span>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
             <div className="text-right">
                 <h5>ب) مشتري حقوقی: </h5>
-                {/*<div className="row">*/}
-                {/*    <div className="col-6 custom-border">*/}
-                {/*        <p> نام موسسه/شرکت:*/}
-                {/*            <!--              <span class="font-weight-bold">{{data.userFirstName + ' ' + data.userLastName}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*    <div className="col-6 custom-border">*/}
-                {/*        <p>شناسه ملی:*/}
-                {/*            <!--              <span-->*/}
-                {/*            <!--              class="font-weight-bold">{{data.userFatherName}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*    <div className="col-6 custom-border">*/}
-                {/*        <p>نمایندگان قانونی:*/}
-                {/*            <!--              <span-->*/}
-                {/*            <!--              class="font-weight-bold">{{data.userShNumber}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*    <div className="col-6 custom-border">*/}
-                {/*        <p>نمابر:*/}
-                {/*            <!--              <span-->*/}
-                {/*            <!--              class="font-weight-bold">{{data.userNationalCode}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*    <div className="col-6 custom-border">*/}
-                {/*        <p>کد پستی:*/}
-                {/*            <!--              <span-->*/}
-                {/*            <!--              class="font-weight-bold">{{data.addressesTel}}-{{data.addressesCityPrefix}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*    <div className="col-6 custom-border">*/}
-                {/*        <p>تلفن همراه نمایندگان شرکت:*/}
-                {/*            <!--              <span-->*/}
-                {/*            <!--              class="font-weight-bold">{{data.addressesPostalCode}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*    <div className="col-6 custom-border">*/}
-                {/*        <p>نام و کد بانک:*/}
-                {/*            <!--              <span-->*/}
-                {/*            <!--              class="font-weight-bold">{{data.addressesMobile}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*    <div className="col-6 custom-border">*/}
-                {/*        <p>شماره‌حساب بانکی:*/}
-                {/*            <!--              <span-->*/}
-                {/*            <!--              class="font-weight-bold">{{data.addressesEmail}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*    <div className="col-6 custom-border">*/}
-                {/*        <p>نام و کد بانک:*/}
-                {/*            <!--              <span-->*/}
-                {/*            <!--              class="font-weight-bold">{{data.userBankName}}-{{data.userBankCode}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*    <div className="col-6 custom-border">*/}
-                {/*        <p>شماره‌حساب بانکی:*/}
-                {/*            <!--              <span-->*/}
-                {/*            <!--              class="font-weight-bold">{{data.userAccountNumb}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*    <div className="col-12 custom-border">*/}
-                {/*        <p>آدرس دفتر مرکزی:*/}
-                {/*            <!--              <span-->*/}
-                {/*            <!--              class="font-weight-bold">{{data.addressesRemnant}}</span>-->*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <table className={'table table-compact w-full'}>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <span> نام موسسه/شرکت:</span>
+                            <span>{userData?.legalPerson?.companyName}</span>
+                        </td>
+                        <td>
+                            <span>شناسه ملی:</span>
+                            <span>{userData?.legalPerson?.registerNumber}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>تلفن ثابت:</span>
+                            <span>{userData?.addresses?.[0]?.tel}</span>
+                        </td>
+                        <td>
+                            <span>کد پستی منزل:</span>
+                            <span>{userData?.addresses?.[0]?.email}</span>
+                        </td>
+                        <td>
+                            <span>شماره تلفن همراه:</span>
+                            <span>{userData?.addresses?.[0]?.mobile}</span>
+                        </td>
+                        <td>
+                            <span>آدرس پست الکترونیکی:</span>
+                            <span>{userData?.addresses?.[0]?.email}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span> نام بانک:  </span>
+                            <span>{userDefaultBank?.bank?.name + ' ' + userDefaultBank?.branchCode}</span>
+                        </td>
+                        <td>
+                            <span> شماره‌حساب بانکی:  </span>
+                            <span>{userDefaultBank?.accountNumber}</span>
+                        </td>
+                        <td>
+                            <span> آدرس دفتر مرکزی:  </span>
+                            <span>{userData?.addresses[0]?.remnantAddress}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div className="text-right">
@@ -451,7 +427,7 @@ export default function TotalBrokerageAgreement() {
             <div className="mt-5">
                 <p>
                     این قرارداد در 16 ماده و 7 تبصره در دو نسخه که در حکم واحد می‌باشد تنظیم گردید و در تاریخ
-                    {jalali('2000').date} به امضاي طرفین رسید.
+                    {jalali('undefined').date} به امضاي طرفین رسید.
                 </p>
             </div>
         </div>

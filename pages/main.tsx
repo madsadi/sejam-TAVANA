@@ -1,4 +1,4 @@
-import {createContext, useState} from 'react';
+import {createContext, useEffect, useState} from 'react';
 import ProgressBar from "../components/common/component/ProgressBar";
 import AgreementLevel from "../components/main/agreement/Agreement.level";
 import ProfileSetter from "../components/main/Profile-setter";
@@ -6,29 +6,77 @@ import GetSejamProfile from "../components/main/Get-sejam-profile";
 import SejamInfoLevel from "../components/main/sejam-info/SejamInfo.level";
 import UploadDocumentsLevel from "../components/main/upload-documents/UploadDocuments.level";
 import TestLevel from "../components/main/test/Test.level";
-import SixthInfoBox from "../components/main/final/SixthInfoBox";
 import {SejamInfoType} from "../components/main/sejam-info/types";
+import UserStateLevel from "../components/main/final/UserStateLevel";
+import Lottie from "react-lottie";
+import avatar from "../public/avatar.json";
+import pencil from "../public/pencil.json";
+import scan from "../public/scan-document.json";
+import sms from "../public/sms.json";
 
 export const SejamContext = createContext({})
 export default function Main() {
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: avatar,
+    };
     const [level, setLevel] = useState<number>(0)
-    const [userData, setUserData] = useState<SejamInfoType[]|any>({})
+    const [option, setOption] = useState<any>(defaultOptions)
+    const [userData, setUserData] = useState<SejamInfoType[] | any>({})
+    const [userDefaultBank, setUserDefaultBank] = useState<any>({})
+
+
+    useEffect(() => {
+        const optionHandler = (level: number) => {
+            switch (level) {
+                case 1:
+                    setOption({
+                        loop: true,
+                        autoplay: true,
+                        animationData: sms,
+                    })
+                    break;
+                case 2:
+                case 4:
+                    setOption({
+                        loop: true,
+                        autoplay: true,
+                        animationData: pencil,
+                    })
+                    break;
+                case 3:
+                    setOption({
+                        loop: true,
+                        autoplay: true,
+                        animationData: scan,
+                    })
+                    break;
+            }
+        }
+        optionHandler(level)
+    }, [level])
 
     const Components = {
         0: <ProfileSetter/>,
         1: <GetSejamProfile/>,
-        2: <SejamInfoLevel />,
-        3: <UploadDocumentsLevel />,
-        4: <TestLevel />,
-        5: <AgreementLevel />,
-        6: <SixthInfoBox setLevel={setLevel}/>
+        2: <SejamInfoLevel/>,
+        3: <UploadDocumentsLevel/>,
+        4: <TestLevel/>,
+        5: <AgreementLevel/>,
+        6: <UserStateLevel/>
     }[level]
 
     return (
-        <SejamContext.Provider value={{setLevel,setUserData,userData,level}}>
+        <SejamContext.Provider value={{setLevel, setUserData, userData, level,setUserDefaultBank,userDefaultBank}}>
             <div className="container flex flex-col h-full py-10 text-sm md:text-md">
-                <ProgressBar />
+                <ProgressBar/>
                 {Components}
+                {level < 5 ? <div className={'md:block hidden fixed top-10 right-10 w-[150px] h-[200px] opacity-30'}>
+                    <Lottie
+                        options={option}
+                    />
+                </div> : null}
             </div>
         </SejamContext.Provider>
     )

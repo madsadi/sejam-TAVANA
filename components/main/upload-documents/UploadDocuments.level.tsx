@@ -53,7 +53,7 @@ export default function UploadDocumentsLevel() {
 
     return (
         <>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 bg-white p-3">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 bg-white p-3 rounded-md">
                 {
                     document.map((item: any) => {
                         return (

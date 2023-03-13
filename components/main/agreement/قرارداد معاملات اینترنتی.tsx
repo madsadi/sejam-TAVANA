@@ -1,9 +1,10 @@
 import {useContext} from "react";
 import {SejamContext} from "../../../pages/main";
 import {jalali} from "../../common/functions";
+import {accountTypeEnums} from "../../common/enums";
 
 export default function OfflineTradingAgreement(){
-    const {userData} = useContext<any>(SejamContext)
+    const {userData,userDefaultBank} = useContext<any>(SejamContext)
 
     return(
         <div className={'leading-8 text-justify'}>
@@ -105,25 +106,25 @@ export default function OfflineTradingAgreement(){
                     <tr>
                         <td>
                             <span> نام بانک: </span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank.bank?.name}</span>
                         </td>
                         <td>
                             <span> نوع حساب: </span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle}</span>
                         </td>
                         <td>
                             <span> نام شعبه: </span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank?.branchName}</span>
                         </td>
                         <td>
                             <span> شماره حساب بانکی: </span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank?.accountNumber}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <span> شماره شبا:</span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank?.sheba}</span>
                         </td>
                     </tr>
                     </tbody>
@@ -277,7 +278,7 @@ export default function OfflineTradingAgreement(){
                 از
                 <span>{userData?.privatePerson?.placeOfIssue}</span>
                 در تاریخ
-                {jalali('2020').date}
+                {jalali('undefined').date}
                  شناسه کاربري و رمز عبور خود را در پاکت در بسته دریافت کردم.
             </div>
         </div>
