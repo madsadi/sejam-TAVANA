@@ -36,7 +36,7 @@ export default function AgreementLevel() {
                 {agreements.map((a:agreement) => {
                     return (
                         <AccordionComponent key={a.id} title={a.name}>
-                            {agreementsContext?.[`${a.name}`]}
+                            {agreementsContext?.OnlineRegistrationAgreement}
                         </AccordionComponent>
                     )
                 })}
