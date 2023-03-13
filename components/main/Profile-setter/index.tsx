@@ -54,7 +54,7 @@ export default function ProfileSetter() {
                 await getSejamKYCToken()
                     .then(()=> {
                         toast.success('کد برای شماره همراه شما ارسال شد')
-                        setLevel(0.5)
+                        setLevel(1)
                     })
                     .catch((err)=> {
                         toast.error(`${err?.response?.data?.error?.message}`)
@@ -90,7 +90,7 @@ export default function ProfileSetter() {
     }
 
     return (
-        <div className={'bg-white p-5'}>
+        <div className={'bg-white p-5 rounded-md'}>
             <Formik initialValues={initialValue} validationSchema={profileSetter} onSubmit={submitHandler}>
                 {({isSubmitting}) => (
                     <Form className={'flex flex-col'}>

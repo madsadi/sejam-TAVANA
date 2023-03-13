@@ -30,7 +30,7 @@ export default function GetSejamProfile() {
     const submitHandler = async (v: initialType) => {
         await getSejamProfile({SejamToken: v.SejamToken, CaptchaCode: info.uuid + '_' + v.captcha})
             .then((res) => {
-                setLevel(1)
+                setLevel(2)
             })
             .catch((err) => {
                 toast.error(`${err?.response?.data?.error?.message}`)
@@ -38,7 +38,7 @@ export default function GetSejamProfile() {
     }
 
     return (
-        <div className={'bg-white p-5 '}>
+        <div className={'bg-white p-5 rounded-md'}>
             <Formik initialValues={initialValue} validationSchema={getSejamProfileSchema} onSubmit={submitHandler}>
                 {({isSubmitting}) => (
                     <Form className={'flex flex-col '}>

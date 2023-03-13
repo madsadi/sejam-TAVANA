@@ -1,9 +1,10 @@
 import {useContext} from "react";
 import {SejamContext} from "../../../pages/main";
 import {jalali} from "../../common/functions";
+import {accountTypeEnums, legalPersonTypeCategoryEnums} from "../../common/enums";
 
 export default function PhoneTradingAgreement(){
-    const {userData} = useContext<any>(SejamContext)
+    const {userData,userDefaultBank} = useContext<any>(SejamContext)
 
     return(
         <div className={'leading-8 text-justify'}>
@@ -64,25 +65,25 @@ export default function PhoneTradingAgreement(){
                             </td>
                             <td>
                                 <span> نام بانک: </span>
-                                {/*<span>{userData?.privatePerson?.placeOfBirth}</span>*/}
+                                <span>{userDefaultBank?.bank?.name}</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <span> نوع حساب: </span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle}</span>
                             </td>
                             <td>
                                 <span> نام شعبه: </span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{userDefaultBank?.branchName}</span>
                             </td>
                             <td>
                                 <span> شماره حساب بانکی: </span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{userDefaultBank?.accountNumber}</span>
                             </td>
                             <td>
                                 <span> شماره شبا:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{userDefaultBank?.sheba}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -96,49 +97,39 @@ export default function PhoneTradingAgreement(){
                     <tr>
                         <td>
                             <span>نام: </span>
-                            {/*<span>*/}
-                            {/*        {userData.userGender === 'Male' ? 'مرد' : 'زن'}*/}
-                            {/*    </span>*/}
+                            <span>{userData?.legalPerson?.companyName}</span>
                         </td>
                         <td>
                             <span>شماره ثبت:</span>
-                            {/*<span>{userData?.privatePerson?.fatherName}</span>*/}
+                            <span>{userData?.legalPerson?.registerNumber}</span>
                         </td>
                         <td>
                             <span>محل ثبت:</span>
-                            {/*<span>{userData?.addresses?.[0]?.mobile}</span>*/}
+                            <span>{userData?.legalPerson?.registerPlace}</span>
                         </td>
                         <td>
                             <span>تاریخ ثبت:</span>
-                            {/*<span>ناموجود</span>*/}
+                            <span>{userData?.legalPerson?.registerDate}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <span>نوع شخصیت:</span>
-                            {/*<span>{userData.privatePerson?.lastName}</span>*/}
+                            <span>{legalPersonTypeCategoryEnums.find((item:any)=>item.id===userData.legalPerson?.legalPersonTypeCategory)?.title}</span>
                         </td>
                         <td>
                             <span>نشانی پست الکترونیک:</span>
-                            {/*<span>{userData.uniqueIdentifier}</span>*/}
-                        </td>
-                        <td>
-                            <span>نشانی پست الکترونیک:</span>
-                            {/*<span>{userData?.addresses?.[0]?.email}</span>*/}
-                        </td>
-                        <td>
-                            <span>نشانی سایت الکترونیک:</span>
-                            {/*<span>{userData?.privatePerson?.placeOfBirth}</span>*/}
+                            <span>{userData?.addresses?.[0]?.email}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <span> شماره حساب بانکی: </span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank?.accountNumber}</span>
                         </td>
                         <td>
                             <span>شماره شبا:</span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank?.sheba}</span>
                         </td>
                     </tr>
                     </tbody>
@@ -333,23 +324,23 @@ export default function PhoneTradingAgreement(){
                     <tr>
                         <td>
                             <span>نام بانک:</span>
-                            {/*<span>{userData.privatePerson?.firstName}</span>*/}
+                            <span>{userDefaultBank?.bank?.name}</span>
                         </td>
                         <td>
                             <span>نوع حساب:</span>
-                            {/*<span>{userData.privatePerson?.lastName}</span>*/}
+                            <span>{accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle}</span>
                         </td>
                         <td>
                             <span>نام شعبه:</span>
-                            {/*<span>{userData.uniqueIdentifier}</span>*/}
+                            <span>{userDefaultBank?.branchName}</span>
                         </td>
                         <td>
                             <span>شماره حساب بانکی:</span>
-                            {/*<span>{userData.uniqueIdentifier}</span>*/}
+                            <span>{userDefaultBank?.accountNumber}</span>
                         </td>
                         <td>
                             <span>شماره شبا:</span>
-                            {/*<span>{userData.uniqueIdentifier}</span>*/}
+                            <span>{userDefaultBank?.sheba}</span>
                         </td>
                     </tr>
                     </tbody>
@@ -429,7 +420,7 @@ export default function PhoneTradingAgreement(){
                     این قرارداد مطابق ماده 10 قانون مدنی تنظیم و تابع شرایط مندرج در متن قرارداد و سایر قوانین و مقررات
                     جاري
                     کشور می‌باشد. این قرارداد در 12 ماده و در 2 نسخه واحد الاعتبار در تاریخ
-                    {jalali('2020').date} توسط طرفین قرارداد منعقد شد و یک نسخه به شرکت کارگزاري و یک نسخه به مشتري
+                    {jalali('undefined').date} توسط طرفین قرارداد منعقد شد و یک نسخه به شرکت کارگزاري و یک نسخه به مشتري
                     تحویل
                     گردید.
                 </p>

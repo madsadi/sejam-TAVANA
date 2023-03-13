@@ -1,9 +1,10 @@
 import {useContext} from "react";
 import {SejamContext} from "../../../pages/main";
 import {jalali} from "../../common/functions";
+import {accountTypeEnums, legalPersonTypeCategoryEnums} from "../../common/enums";
 
 export default function OnlineTradingAgreement() {
-    const {userData} = useContext<any>(SejamContext)
+    const {userData,userDefaultBank} = useContext<any>(SejamContext)
 
     return (
         <div className={'leading-8 text-justify'}>
@@ -50,12 +51,6 @@ export default function OnlineTradingAgreement() {
                     <tbody>
                     <tr>
                         <td>
-                            <span> جنسیت: </span>
-                            <span>
-                                    {userData.userGender === 'Male' ? 'مرد' : 'زن'}
-                                </span>
-                        </td>
-                        <td>
                             <span>نام پدر:</span>
                             <span>{userData?.privatePerson?.fatherName}</span>
                         </td>
@@ -83,25 +78,25 @@ export default function OnlineTradingAgreement() {
                         </td>
                         <td>
                             <span> نام بانک: </span>
-                            {/*<span>{userData?.privatePerson?.placeOfBirth}</span>*/}
+                            <span>{userDefaultBank.bank?.name}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <span> نوع حساب: </span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle}</span>
                         </td>
                         <td>
                             <span> نام شعبه: </span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank?.branchName}</span>
                         </td>
                         <td>
                             <span> شماره حساب بانکی: </span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank?.accountNumber}</span>
                         </td>
                         <td>
                             <span> شماره شبا:</span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank?.sheba}</span>
                         </td>
                     </tr>
                     </tbody>
@@ -115,49 +110,33 @@ export default function OnlineTradingAgreement() {
                     <tr>
                         <td>
                             <span>نام: </span>
-                            {/*<span>*/}
-                            {/*        {userData.userGender === 'Male' ? 'مرد' : 'زن'}*/}
-                            {/*    </span>*/}
+                            <span>{userData?.legalPerson?.companyName}</span>
                         </td>
                         <td>
                             <span>شماره ثبت:</span>
-                            {/*<span>{userData?.privatePerson?.fatherName}</span>*/}
+                            <span>{userData?.legalPerson?.registerNumber}</span>
                         </td>
                         <td>
                             <span>محل ثبت:</span>
-                            {/*<span>{userData?.addresses?.[0]?.mobile}</span>*/}
+                            <span>{userData?.legalPerson?.registerPlace}</span>
                         </td>
                         <td>
                             <span>تاریخ ثبت:</span>
-                            {/*<span>ناموجود</span>*/}
+                            <span>{jalali(userData?.legalPerson?.registerDate)?.date}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <span>نوع شخصیت:</span>
-                            {/*<span>{userData.privatePerson?.lastName}</span>*/}
+                            <span>{legalPersonTypeCategoryEnums.find((item:any)=>item.id===userData.legalPerson?.legalPersonTypeCategory)?.title}</span>
                         </td>
-                        <td>
-                            <span>نشانی پست الکترونیک:</span>
-                            {/*<span>{userData.uniqueIdentifier}</span>*/}
-                        </td>
-                        <td>
-                            <span>نشانی پست الکترونیک:</span>
-                            {/*<span>{userData?.addresses?.[0]?.email}</span>*/}
-                        </td>
-                        <td>
-                            <span>نشانی سایت الکترونیک:</span>
-                            {/*<span>{userData?.privatePerson?.placeOfBirth}</span>*/}
-                        </td>
-                    </tr>
-                    <tr>
                         <td>
                             <span> شماره حساب بانکی: </span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank?.accountNumber}</span>
                         </td>
                         <td>
                             <span>شماره شبا:</span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                            <span>{userDefaultBank?.sheba}</span>
                         </td>
                     </tr>
                     </tbody>
@@ -165,65 +144,65 @@ export default function OnlineTradingAgreement() {
             </div>
 
 
-            <div className=" mt-4">
-                <h5>ج) اشخاص خارجی (حقیقی/حقوقی): </h5>
-                <table className={'table table-compact w-full'}>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <span>نام: </span>
-                            {/*<span>*/}
-                            {/*        {userData.userGender === 'Male' ? 'مرد' : 'زن'}*/}
-                            {/*    </span>*/}
-                        </td>
-                        <td>
-                            <span>شماره پاسپورت/شماره ثبت:</span>
-                            {/*<span>{userData?.privatePerson?.fatherName}</span>*/}
-                        </td>
-                        <td>
-                            <span>شماره تلفن ثابت/شماره دفتر مرکزی:</span>
-                            {/*<span>{userData?.addresses?.[0]?.mobile}</span>*/}
-                        </td>
-                        <td>
-                            <span>تابعیت:</span>
-                            {/*<span>ناموجود</span>*/}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span>شماره سرمایه‌گذاری خارجی:</span>
-                            {/*<span>{userData.privatePerson?.lastName}</span>*/}
-                        </td>
-                        <td>
-                            <span>نشانی پست الکترونیک:</span>
-                            {/*<span>{userData.uniqueIdentifier}</span>*/}
-                        </td>
-                        <td>
-                            <span>نام بانک:</span>
-                            {/*<span>{userData?.addresses?.[0]?.email}</span>*/}
-                        </td>
-                        <td>
-                            <span>نوع حساب:</span>
-                            {/*<span>{userData?.privatePerson?.placeOfBirth}</span>*/}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span>نام شعبه:</span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
-                        </td>
-                        <td>
-                            <span>شماره حساب بانکی:</span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
-                        </td>
-                        <td>
-                            <span>شماره شبا:</span>
-                            {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            {/*<div className=" mt-4">*/}
+            {/*    <h5>ج) اشخاص خارجی (حقیقی/حقوقی): </h5>*/}
+            {/*    <table className={'table table-compact w-full'}>*/}
+            {/*        <tbody>*/}
+            {/*        <tr>*/}
+            {/*            <td>*/}
+            {/*                <span>نام: </span>*/}
+            {/*                /!*<span>*!/*/}
+            {/*                /!*        {userData.userGender === 'Male' ? 'مرد' : 'زن'}*!/*/}
+            {/*                /!*    </span>*!/*/}
+            {/*            </td>*/}
+            {/*            <td>*/}
+            {/*                <span>شماره پاسپورت/شماره ثبت:</span>*/}
+            {/*                /!*<span>{userData?.privatePerson?.fatherName}</span>*!/*/}
+            {/*            </td>*/}
+            {/*            <td>*/}
+            {/*                <span>شماره تلفن ثابت/شماره دفتر مرکزی:</span>*/}
+            {/*                /!*<span>{userData?.addresses?.[0]?.mobile}</span>*!/*/}
+            {/*            </td>*/}
+            {/*            <td>*/}
+            {/*                <span>تابعیت:</span>*/}
+            {/*                /!*<span>ناموجود</span>*!/*/}
+            {/*            </td>*/}
+            {/*        </tr>*/}
+            {/*        <tr>*/}
+            {/*            <td>*/}
+            {/*                <span>شماره سرمایه‌گذاری خارجی:</span>*/}
+            {/*                /!*<span>{userData.privatePerson?.lastName}</span>*!/*/}
+            {/*            </td>*/}
+            {/*            <td>*/}
+            {/*                <span>نشانی پست الکترونیک:</span>*/}
+            {/*                /!*<span>{userData.uniqueIdentifier}</span>*!/*/}
+            {/*            </td>*/}
+            {/*            <td>*/}
+            {/*                <span>نام بانک:</span>*/}
+            {/*                /!*<span>{userData?.addresses?.[0]?.email}</span>*!/*/}
+            {/*            </td>*/}
+            {/*            <td>*/}
+            {/*                <span>نوع حساب:</span>*/}
+            {/*                /!*<span>{userData?.privatePerson?.placeOfBirth}</span>*!/*/}
+            {/*            </td>*/}
+            {/*        </tr>*/}
+            {/*        <tr>*/}
+            {/*            <td>*/}
+            {/*                <span>نام شعبه:</span>*/}
+            {/*                /!*<span>{userData?.privatePerson?.placeOfIssue}</span>*!/*/}
+            {/*            </td>*/}
+            {/*            <td>*/}
+            {/*                <span>شماره حساب بانکی:</span>*/}
+            {/*                /!*<span>{userData?.privatePerson?.placeOfIssue}</span>*!/*/}
+            {/*            </td>*/}
+            {/*            <td>*/}
+            {/*                <span>شماره شبا:</span>*/}
+            {/*                /!*<span>{userData?.privatePerson?.placeOfIssue}</span>*!/*/}
+            {/*            </td>*/}
+            {/*        </tr>*/}
+            {/*        </tbody>*/}
+            {/*    </table>*/}
+            {/*</div>*/}
             <div className=" mt-4">
                 <h5>د) مشخصات نماینده قانونی (حقیقی/ حقوقی) در مواردي که مشتري داراي نماینده است، قرارداد توسط وي امضاء
                     می‌شود. </h5>
@@ -236,82 +215,68 @@ export default function OnlineTradingAgreement() {
                         <tr>
                             <td>
                                 <span>نام شخصیت حقیقی:</span>
-                                {/*<span>*/}
-                                {/*        {userData.userGender === 'Male' ? 'مرد' : 'زن'}*/}
-                                {/*    </span>*/}
+                                <span>{userData.privatePerson?.firstName}</span>
                             </td>
                             <td>
                                 <span>نام خانوداگی:</span>
-                                {/*<span>{userData?.privatePerson?.fatherName}</span>*/}
+                                <span>{userData?.privatePerson?.lastName}</span>
                             </td>
                             <td>
                                 <span>نام پدر:</span>
-                                {/*<span>{userData?.addresses?.[0]?.mobile}</span>*/}
-                            </td>
-                            <td>
-                                <span>تابعیت:</span>
-                                {/*<span>ناموجود</span>*/}
+                                <span>{userData?.privatePerson?.fatherName}</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <span>تلفن ثابت نماینده قانونی:</span>
-                                {/*<span>{userData.privatePerson?.lastName}</span>*/}
+                                <span>{userData?.addresses?.[0]?.tel}</span>
                             </td>
                             <td>
                                 <span>تلفن همراه نماینده قانونی:</span>
-                                {/*<span>{userData.uniqueIdentifier}</span>*/}
+                                <span>{userData?.addresses?.[0]?.mobile}</span>
                             </td>
                             <td>
                                 <span>کد ملی:</span>
-                                {/*<span>{userData?.addresses?.[0]?.email}</span>*/}
+                                <span>{userData?.privatePerson?.uniqueIdentifier}</span>
                             </td>
                             <td>
-                                <span>درس محل سکونت نماینده:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfBirth}</span>*/}
+                                <span>درس محل سکونت:</span>
+                                <span>{userData?.addresses?.[0]?.remnantAddress}</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <span>آدرس محل سکونت نماینده:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
-                            </td>
-                            <td>
                                 <span>نوع شخصیت حقوقی:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{legalPersonTypeCategoryEnums.find((item:any)=>item.id===userData.legalPerson?.legalPersonTypeCategory)?.title}</span>
                             </td>
                             <td>
                                 <span>تاریخ ثبت:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{jalali(userData?.legalPerson?.registerDate)?.date}</span>
                             </td>
                             <td>
                                 <span>تلفن ثابت نماینده قانونی:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{userData?.addresses?.[0]?.tel}</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <span>نام شرکت:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{userData?.legalPerson?.companyName}</span>
                             </td>
                             <td>
                                 <span>شماره ثبت:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{userData?.legalPerson?.economicCode}</span>
                             </td>
                             <td>
                                 <span>شناسه ملی:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{userData?.legalPerson?.registerNumber}</span>
                             </td>
                             <td>
                                 <span>محل ثبت:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
+                                <span>{userData?.legalPerson?.registerPlace}</span>
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <span>آدرس دفتر:</span>
-                                {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
-                            </td>
                             <td>
                                 <span>شماره قیم‌نامه/ وکالتنامه:</span>
                                 {/*<span>{userData?.privatePerson?.placeOfIssue}</span>*/}
@@ -387,7 +352,7 @@ export default function OnlineTradingAgreement() {
                 </h5>
                 <p>
                     این قرارداد از تاریخ
-                    {jalali('2020').date}
+                    {jalali('undeifned').date}
                     به مدت نامحدود معتبر است.
                 </p>
             </div>
@@ -863,14 +828,14 @@ export default function OnlineTradingAgreement() {
                     <span>{userData?.privatePerson?.placeOfIssue}</span>
                     که اصالتاً / بعنوان نماینده قانونی
                     (ولی/قیم/وصی) آقاي/خانم ........................ در تاریخ
-                    {jalali('2020').date}
+                    {jalali('undeifie').date}
                     شناسه کاربري و رمز
                     عبور خود را در پاکت در بسته دریافت کردم.
                 </p>
 
                 <p>
                     این قرارداد در 14 ماده و دو نسخه تنظیم گردیده و در تاریخ
-                    {jalali('2020').date}
+                    {jalali('undeifie').date}
                     به امضاي طرفین
                     رسیده است. هرگونه تغییر در مفاد آن، منوط به تأیید سازمان بورس اوراق بهادار می‌باشد. در صورتی که در
                     قوانین و

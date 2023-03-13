@@ -1,7 +1,31 @@
 export type SejamInfoType = {
     addresses: addressesDetail[],
     accounts: accountNumber[],
-    uniqueIdentifier:string,
+    uniqueIdentifier: string,
+    legalPersonShareholders:LegalPersonShareholderType[],
+    legalPersonStakeholders:legalPersonStakeholdertype[]
+    agent:{
+        type:string,
+        expirationDate:string,
+        description:string,
+        uniqueIdentifier:string,
+        firstName:string,
+        lastName:string,
+        isConfirmed:string,
+    },
+    legalPerson: {
+        companyName: string,
+        registerNumber: string,
+        registerPlace: string,
+        registerDate: string,
+        economicCode: string,
+        evidenceReleaseCompany: string,
+        evidenceReleaseDate: string,
+        evidenceExpirationDate: string,
+        legalPersonTypeCategory: string,
+        legalPersonTypeSubCategory: string,
+    },
+    tradingCodes: tradingCode[],
     financialInfo: {
         assetsValue: number,
         cExchangeTransaction: number,
@@ -86,6 +110,13 @@ export type bankAccount = {
     "cityId": number,
     "isDefault": boolean
 }
+export type tradingCode = {
+    code: string
+    firstPart: string
+    secondPart: string
+    thirdPart: string
+    type: string
+}
 
 export type countryType = {
     "countryId": number,
@@ -98,9 +129,9 @@ export type provinceType = {
     "provinceName": string
 }
 export type cityType = {
-    "countryId":number,
+    "countryId": number,
     "countryName": string,
-    "provinceId":number,
+    "provinceId": number,
     "provinceName": string,
     "cityId": number,
     "cityName": string
@@ -112,4 +143,26 @@ type financialBrokers = {
         title: string,
         code: string
     }
+}
+
+
+export type LegalPersonShareholderType = {
+    uniqueIdentifier:string,
+    firstName:string,
+    lastName:string,
+    postalCode:string,
+    address:string,
+    positionType:string,
+    percentageVotingRight:number,
+}
+
+export type legalPersonStakeholdertype = {
+    uniqueIdentifier:string,
+    type:string,
+    positionType:string,
+    startAt:string,
+    endAt:string,
+    isOwnerSignature:boolean,
+    lastName:string,
+    firstName:string,
 }

@@ -156,13 +156,13 @@ export const onlineRegistrationStatus =  [
         "id": 16,
         "code": 16,
         "enTitle": "AgreementsConfirmed",
-        "title": "تکمیل تعهدنامه ها"
+        "title": "تمکیل آزمون"
     },
     {
         "id": 17,
         "code": 17,
         "enTitle": "ExamPassed",
-        "title": "تمکیل آزمون"
+        "title": "تکمیل تعهدنامه ها"
     },
     {
         "id": 18,
@@ -207,16 +207,16 @@ export const transactionLevelPrivatePersonEnums = [
         title:'کمتر از 250 میلیون ریال',
         id:'One'
     },{
-        title:'بین 250 تا 1000 میلیون ریال ',
+        title:'بین 250 تا 1,000 میلیون ریال ',
         id:'Two'
     },{
-        title:'بین 1000 تا 5000 میلیون ریال ',
+        title:'بین 1,000 تا 5,000 میلیون ریال ',
         id:'Three'
     },{
-        title:'بین 5000 تا 10000 میلیون ریال',
+        title:'بین 5,000 تا 10,000 میلیون ریال',
         id:'Four'
     },{
-        title:'بیش از 10000 میلیون ریال ',
+        title:'بیش از 10,000 میلیون ریال ',
         id:'Five'
     },
 ]
@@ -226,16 +226,16 @@ export const transactionLevelLegalPersonEnums = [
         title:'کمتر از 500 میلیون ریال',
         id:'eleven'
     },{
-        title:'بین 500 تا 1000 میلیون ریال ',
+        title:'بین 500 تا 1,000 میلیون ریال ',
         id:'twelve'
     },{
-        title:'بین 1000 تا 5000 میلیون ریال',
+        title:'بین 1,000 تا 5,000 میلیون ریال',
         id:'thirteen'
     },{
-        title:'بین 5000 تا 10000 میلیون ریال ',
+        title:'بین 5,000 تا 10,000 میلیون ریال ',
         id:'fourteen'
     },{
-        title:'بیش از 10000 میلیون ریال',
+        title:'بیش از 10,000 میلیون ریال',
         id:'fifteen'
     },
 ]
@@ -352,4 +352,209 @@ export const personType = [
     //     "enTitle": "PrivatePortfolio",
     //     "title": "سبد اختصاصی"
     // }
+]
+
+export const legalPersonTypeCategoryEnums = [
+    {
+        id:'commercial',
+        title:'شرکتهای تجاری'
+    },
+    {
+        id:'NonCommercial',
+        title:'شرکتهای غیرتجاری'
+    },
+    {
+        id:'RegisteredWithLaw',
+        title:'ثبت شده به موجب قانون'
+    },
+    {
+        id:'InvestmentFunds',
+        title:'صندوق سرمایه گذاری'
+    }
+]
+
+export const tradingCodeTypeEnums = [
+    {
+        id:'Energy',
+        title:'انرژی'
+    },
+    {
+        id:'Product',
+        title:'کالا'
+    },
+    {
+        id:'StockExchange',
+        title:'بورس-فرابورس'
+    },
+    {
+        id:'None',
+        title:'نامشخص'
+    }
+]
+
+export const legalPersonTypeSubCategory = [
+    {
+        id:'PrivateCompany',
+        title:'سهامی خاص'
+    },
+    {
+        id:'LimitedCompany',
+        title:'با مسئولیت محدود'
+    },
+    {
+        id:'PublicCompany',
+        title:'سهامی عام'
+    },
+    {
+        id:'CooperativeCompany',
+        title:'تعاونی'
+    },
+    {
+        id:'GeneralPartnership',
+        title:'تضامنی'
+    },
+    {
+        id:'ProportionalLiabilityPartnership',
+        title:'نسبی'
+    },
+    {
+        id:'JointMixedCompany',
+        title:'مختلط سهامی'
+    },
+    {
+        id:'Profit',
+        title:'انتفاعی'
+    },
+    {
+        id:'NonProfit',
+        title:'غیر انتفاعی'
+    },
+    {
+        id:'LimitedPartnershipCompany',
+        title:'مختلط غیر سهامی'
+    },
+    {
+        id:'Governmental',
+        title:'شخصیت حقوقی دولتی'
+    },
+    {
+        id:'NonGovernmental',
+        title:'شخصیت حقوقی عمومی'
+    },
+    {
+        id:'DedicatedMarketing',
+        title:'اختصاصی بازارگردانی'
+    },
+    {
+        id:'RealEstate',
+        title:'امالک و مستغالت'
+    },
+    {
+        id:'Project',
+        title:'پروژه ای'
+    },
+    {
+        id:'VentureCapitalFund',
+        title:'جسورانه'
+    },
+    {
+        id:'Private',
+        title:'خصوصی'
+    },
+    {
+        id:'FixedIncomeSecurities',
+        title:'در اوراق بهادار با درآمد ثابت'
+    },
+    {
+        id:'SecuritiesWithCommodityDeposits',
+        title:'در اوراق بهادار مبتنی بر سپرده کاالیی'
+    },
+    {
+        id:'InStock',
+        title:'در سهام'
+    },
+    {
+        id:'LandAndBuildings',
+        title:'زمین و ساختمان'
+    },
+    {
+        id:'Mixed',
+        title:'مختلط'
+    }
+]
+
+export const agentTypeEnums = [
+    {
+        id:'Attorney',
+        title:'وکیل'
+    },{
+        id:'Province',
+        title:'ولی'
+    },{
+        id:'Conspiracy',
+        title:'قیم'
+    },{
+        id:'Prescriptive',
+        title:'وصی'
+    },
+]
+
+export const LegalPersonShareholderViewModelEnums = [
+    {
+        id:'Chairman',
+        title:'رئیس هیئت مدیره'
+    },
+    {
+        id:'DeputyChairman',
+        title:'نایب رئیس هیئت مدیره'
+    },
+    {
+        id:'Ceo',
+        title:'مدیرعامل'
+    },
+    {
+        id:'Member',
+        title:'عضو هیئت مدیره'
+    },
+    {
+        id:'others',
+        title:'سایر'
+    },
+    {
+        id:'inspector',
+        title:'بازرس'
+    },
+    {
+        id:'auditor',
+        title:'حسابرس'
+    },
+    {
+        id:'FinancialAccountHolder',
+        title:'ذیحساب مالی'
+    },{
+        id:'Deputy',
+        title:'قائم مقام'
+    },{
+        id:'Agent',
+        title:'نماینده'
+    }
+]
+
+export const LegalPersonStakeholderTypeEnums = [
+    {
+        id:'Manager',
+        title:'عضو هیئت مدیره'
+    },
+    {
+        id:'TakeAccess',
+        title:'عضو دارای حق برداشت'
+    },
+    {
+        id:'OrderAccess',
+        title:'عضو دارای حق سفارش'
+    },
+    {
+        id:'Agent',
+        title:'نماینده'
+    }
 ]

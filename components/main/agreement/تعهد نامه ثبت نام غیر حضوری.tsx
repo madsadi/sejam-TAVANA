@@ -1,10 +1,10 @@
 import {useContext} from "react";
 import {SejamContext} from "../../../pages/main";
 import {formatNumber, jalali} from "../../common/functions";
-import {tradingKnowledgeLevelEnums, transactionLevelPrivatePersonEnums} from "../../common/enums";
+import {accountTypeEnums, tradingKnowledgeLevelEnums, transactionLevelPrivatePersonEnums} from "../../common/enums";
 
 export default function OnlineRegistrationAgreement() {
-    const {userData} = useContext<any>(SejamContext)
+    const {userData,userDefaultBank} = useContext<any>(SejamContext)
 
     return (
         <div className={'leading-8 text-justify'}>
@@ -164,48 +164,46 @@ export default function OnlineRegistrationAgreement() {
 
             <div className="text-right mt-4">
                 <h5>اطلاعات حساب بانکی</h5>
-                {/*<div className="row mt-4">*/}
-                {/*    <p className="col-3"><span*/}
-                {/*        className="font-weight-bold"> نام بانک:  </span> {{ data.userBankName ? data.userBankName : 'ناموجود'}}</p>*/}
-                {/*    <p className="col-3"><span*/}
-                {/*        className="font-weight-bold"> نام صاحب حساب:  </span> {{*/}
-                {/*        data*/}
-                {/*        .userFirstName + ' ' + data.userLastName*/}
-                {/*    }}*/}
-                {/*    </p>*/}
-                {/*    <p className="col-3"><span*/}
-                {/*        className="font-weight-bold"> نوع حساب:  </span> {{*/}
-                {/*        data*/}
-                {/*        .userBankType ? data.userBankType : 'ناموجود'*/}
-                {/*    }}*/}
-                {/*    </p>*/}
-                {/*    <p className="col-3"><span*/}
-                {/*        className="font-weight-bold"> نام شعبه:  </span> {{*/}
-                {/*        data*/}
-                {/*        .userBankBranch ? data.userBankBranch : 'ناموجود'*/}
-                {/*    }}*/}
-                {/*    </p>*/}
-
-                {/*</div>*/}
-                {/*<div className="row mt-2">*/}
-                {/*    <p className="col-3"><span*/}
-                {/*        className="font-weight-bold"> کد  شعبه:  </span> {{*/}
-                {/*        data*/}
-                {/*        .userBankCode ? data.userBankCode : 'ناموجود'*/}
-                {/*    }}*/}
-                {/*    </p>*/}
-                {/*    <p className="col-3"><span*/}
-                {/*        className="font-weight-bold"> شماره‌حساب:  </span> {{*/}
-                {/*        data*/}
-                {/*        .userAccountNumb ? data.userAccountNumb : 'ناموجود'*/}
-                {/*    }}*/}
-                {/*    </p>*/}
-                {/*    <p className="col-4"><span*/}
-                {/*        className="font-weight-bold"> شماره شبا:  </span> {{*/}
-                {/*        data*/}
-                {/*        .userSheba ? data.userSheba : 'ناموجود'*/}
-                {/*    }}</p>*/}
-                {/*</div>*/}
+                <table className={'table table-compact w-full'}>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <span> نام بانک:  </span>
+                            <span>{userDefaultBank.bank?.name}</span>
+                        </td>
+                        <td>
+                            <span>نام صاحب حساب:  </span>
+                            <span>{userData.privatePerson?.firstName + '-' + userData.privatePerson?.lastName}</span>
+                        </td>
+                        <td>
+                            <span> نوع حساب:  </span>
+                            <span>{accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle}</span>
+                        </td>
+                        <td>
+                            <span>  نام شعبه:  </span>
+                            <span>{userDefaultBank?.branchName}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span> کد  شعبه:  </span>
+                            <span>{userDefaultBank?.branchCode}</span>
+                        </td>
+                        <td>
+                            <span>شماره‌حساب:  </span>
+                            <span>{userDefaultBank?.accountNumber}</span>
+                        </td>
+                        <td>
+                            <span>  شماره شبا:  </span>
+                            <span>{userDefaultBank?.sheba}</span>
+                        </td>
+                        <td>
+                            <span>  نام شعبه:  </span>
+                            <span>{userDefaultBank?.branchName}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div className="text-right mt-4">
                 <p>
