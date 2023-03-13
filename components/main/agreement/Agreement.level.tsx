@@ -43,12 +43,12 @@ export default function AgreementLevel() {
     }, [])
 
     const agreementsContext:any = {
-        'OnlineRegistrationAgreement':<OnlineRegistrationAgreement/>,
-        'TotalBrokerageAgreement':<TotalBrokerageAgreement/>,
-        'PrivatePersonAgreement':<PrivatePersonAgreement/>,
-        'PhoneTradingAgreement':<PhoneTradingAgreement/>,
-        'OfflineTradingAgreement':<OfflineTradingAgreement/>,
-        'OnlineTradingAgreement':<OnlineTradingAgreement/>,
+        '0864ddc1-d7c3-4046-887f-1e94ad0ec1ca':<OnlineRegistrationAgreement/>,
+        '9a09f999-7d05-4cdf-8c53-293563666397':<TotalBrokerageAgreement/>,
+        'ae3fde88-04c4-4ba2-a589-d88b7b05bdf2':<PrivatePersonAgreement/>,
+        'f8aefb04-b0eb-4e39-b074-d7293f648aac':<PhoneTradingAgreement/>,
+        '89a75475-b23d-4592-a985-704915dbfc88':<OfflineTradingAgreement/>,
+        'b8966013-1d76-47d6-a962-f87d2ffef944':<OnlineTradingAgreement/>,
     }
 
     return (
@@ -57,7 +57,7 @@ export default function AgreementLevel() {
                 {agreements.map((a:agreement) => {
                     return (
                         <AccordionComponent key={a.id} title={a.name}>
-                            {agreementsContext?.OnlineRegistrationAgreement}
+                            {agreementsContext?.[`${a.id}`]}
                         </AccordionComponent>
                     )
                 })}
