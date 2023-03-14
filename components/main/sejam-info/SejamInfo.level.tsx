@@ -53,7 +53,7 @@ export default function SejamInfoLevel() {
             <div className="grow bg-white p-5 rounded-md">
                 {data?.legalPerson ?
                     <AccordionComponent title={'اطلاعات هویتی حقوقی'}>
-                        <div className="grid grid-cols-4 gap-3">
+                        <div className="grid md:grid-cols-4 grid-cols-2 gap-3">
                             <LabelValue title={'نام شخص حقوقی'} value={data?.legalPerson?.companyName}/>
                             <LabelValue title={'شماره ثبت شخص حقوقی'} value={data?.legalPerson?.registerNumber}/>
                             <LabelValue title={' تاریخ ثبت'} value={jalali(data?.legalPerson?.registerDate).date}/>
@@ -71,7 +71,7 @@ export default function SejamInfoLevel() {
                         </div>
                     </AccordionComponent>
                     : <AccordionComponent title={'اطلاعات هویتی'}>
-                        <div className="grid grid-cols-4 gap-3">
+                        <div className="grid md:grid-cols-4 grid-cols-2 gap-3">
                             <LabelValue title={'نام'} value={data?.privatePerson?.firstName}/>
                             <LabelValue title={'نام خانوادگی'} value={data?.privatePerson?.lastName}/>
                             <LabelValue title={'تاریخ تولد'} value={jalali(data?.privatePerson?.birthDate).date}/>
@@ -84,7 +84,7 @@ export default function SejamInfoLevel() {
                         </div>
                     </AccordionComponent>}
                 <AccordionComponent title={'اطلاعات شغلی'}>
-                    <div className="grid grid-cols-4 gap-3">
+                    <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
                         <LabelValue title={'نام شرکت'} value={data?.jobInfo?.companyName}/>
                         <LabelValue title={'ایمیل کاری'} value={data?.jobInfo?.companyEmail}/>
                         <LabelValue title={'شماره شرکت'}
@@ -101,7 +101,7 @@ export default function SejamInfoLevel() {
                     {
                         data?.legalPersonShareholders?.map((item: LegalPersonShareholderType) => {
                             return (
-                                <div className="grid grid-cols-4 gap-3" key={item?.uniqueIdentifier}>
+                                <div className="grid md:grid-cols-4 grid-cols-2  gap-3" key={item?.uniqueIdentifier}>
                                     <LabelValue title={'نام'} value={item?.firstName}/>
                                     <LabelValue title={'نام خانوادگی'} value={item?.lastName}/>
                                     <LabelValue title={'کد ملی'}
@@ -120,7 +120,7 @@ export default function SejamInfoLevel() {
                     {
                         data?.legalPersonStakeholders?.map((item: legalPersonStakeholdertype) => {
                             return (
-                                <div className="grid grid-cols-4 gap-3" key={item?.uniqueIdentifier}>
+                                <div className="grid md:grid-cols-4 grid-cols-2  gap-3" key={item?.uniqueIdentifier}>
                                     <LabelValue title={'نام'} value={item?.firstName}/>
                                     <LabelValue title={'نام خانوادگی'} value={item?.lastName}/>
                                     <LabelValue title={'کد ملی'} value={item?.uniqueIdentifier}/>
@@ -138,7 +138,7 @@ export default function SejamInfoLevel() {
                     }
                 </AccordionComponent>:null}
                 {data?.tradingCodes?.length && <AccordionComponent title={'کد های بورسی'}>
-                    <div className="grid grid-cols-4 gap-3">
+                    <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
                         {
                             data?.tradingCodes?.map((item: tradingCode) => {
                                 return (
@@ -153,7 +153,7 @@ export default function SejamInfoLevel() {
                     </div>
                 </AccordionComponent>}
                 {data?.agent ? <AccordionComponent title={'وکیل / نماینده'}>
-                    <div className="grid grid-cols-4 gap-3">
+                    <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
                         <LabelValue title={'مشخص کننده نوع نماینده'}
                                     value={agentTypeEnums.find((item: any) => item.id === data?.agent?.type)?.title}/>
                         <LabelValue title={'تاریخ انقضای نمایندگی'} value={jalali(data?.agent?.expirationDate).date}/>
@@ -166,7 +166,7 @@ export default function SejamInfoLevel() {
                     </div>
                 </AccordionComponent>:null}
                 <AccordionComponent title={'اطلاعات ارتباطی'}>
-                    <div className="grid grid-cols-4 gap-3">
+                    <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
                         {
                             data?.addresses?.map((item: any, index: number) => {
                                 return (
@@ -203,7 +203,7 @@ export default function SejamInfoLevel() {
                     </button>
                 </AccordionComponent>
                 <AccordionComponent title={'اطلاعات مالی'}>
-                    <div className="grid grid-cols-4 gap-3">
+                    <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
                         <LabelValue title={'ارزش دارایی'} value={formatNumber(data?.financialInfo?.assetsValue)}/>
                         <LabelValue title={'متوسط درآمد ماهیانه'}
                                     value={formatNumber(data?.financialInfo?.inComingAverage)}/>

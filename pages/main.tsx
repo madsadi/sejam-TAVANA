@@ -21,7 +21,7 @@ export default function Main() {
         autoplay: true,
         animationData: avatar,
     };
-    const [level, setLevel] = useState<number>(0)
+    const [level, setLevel] = useState<number>(6)
     const [option, setOption] = useState<any>(defaultOptions)
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
     const [userDefaultBank, setUserDefaultBank] = useState<any>(null)
@@ -72,7 +72,7 @@ export default function Main() {
             <div className="container flex flex-col h-full py-10 text-sm md:text-md">
                 <ProgressBar/>
                 {Components}
-                {level < 5 ? <div className={'md:block hidden fixed top-10 right-10 w-[150px] h-[200px] opacity-30'}>
+                {level < 5 ? <div className={'md:block hidden fixed top-10 right-10 w-[150px] h-[200px] opacity-30'} suppressHydrationWarning={true}>
                     <Lottie
                         options={option}
                     />

@@ -6,7 +6,7 @@ import {onlineRegistrationStatus} from "../../common/enums";
 import {getRegistrationState} from "../../../api/resgistration.api";
 
 export default function UserStateLevel() {
-    const [state,setState] = useState<string|undefined>('')
+    const [state, setState] = useState<string | undefined>('')
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -14,16 +14,16 @@ export default function UserStateLevel() {
 
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         const registrationState = async () => {
             await getRegistrationState()
                 .then((res) => {
-                    setState(onlineRegistrationStatus.find((item: any) => item.id ===res?.result?.registrationState)?.title)
+                    setState(onlineRegistrationStatus.find((item: any) => item.id === res?.result?.registrationState)?.title)
                 })
         }
 
         registrationState()
-    },[])
+    }, [])
 
     return (
         <div className="grow flex flex-col bg-white p-5 rounded-md">
@@ -32,11 +32,15 @@ export default function UserStateLevel() {
                 height={'50%'}
                 width={'50%'}
             />
-            <p className={'flex w-fit mx-auto items-center'}>
-                شما در وضعیت
-                <h2 className={'mx-2'}>{state}</h2>
-                هستید
-            </p>
+            <div>
+                <div className={'flex w-fit mx-auto items-center'}>
+                    شما در وضعیت
+                    <h2 suppressHydrationWarning={true}>
+                        {state}
+                    </h2>
+                    هستید
+                </div>
+            </div>
         </div>
     )
 }

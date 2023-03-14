@@ -25,10 +25,10 @@ axios.interceptors.response.use(
     },
     async (error) => {
         if (error.response) {
-            if (error.response.status === 401) {
-                localStorage.removeItem('oidc.user:https://cluster.tech1a.co:online-trading-gateway');
-                Router.push('/');
-            }
+            // if (error.response.status === 401) {
+            //     localStorage.removeItem('oidc.user:https://cluster.tech1a.co:online-trading-gateway');
+            //     Router.push('/');
+            // }
         }
 
         return Promise.reject(error);
