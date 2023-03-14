@@ -8,3 +8,11 @@ export const getAllPossibleAgreements = async () => {
         })
     return log
 }
+
+export const approveAgreements = async (body:any) => {
+    const log = await axios.post(`${sejamApi}ApproveUserAgreements`,{agreements:body})
+        .then(({data}) => {
+            return data
+        })
+    return log
+}

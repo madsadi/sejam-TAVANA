@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {profileSetter} from "../../common/shcema/schema";
 import {Form, Formik} from "formik";
 import CaptchaComponent from "../../common/component/CaptchaComponent";
@@ -9,6 +9,7 @@ import {personType, sejamStatusEnums} from "../../common/enums";
 import {countryType} from "../sejam-info/types";
 import {searchCountry} from "../../../api/sejam-info.api";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
+import {getCurruntUserInfo} from "../../../api/login-signup.api";
 
 type initialType = {
     mobileNumber: string,
@@ -25,7 +26,7 @@ const initialValue = {
     uniqueId: '',
     email: '',
     personType: '',
-    countryId: '',
+    countryId: 1,
     foriegnCSDCode: '',
     captcha: '',
     uuid: ''
@@ -33,8 +34,8 @@ const initialValue = {
 
 export default function ProfileSetter() {
     const {setLevel} = useContext<any>(SejamContext)
-    const [info, setInfo] = useState<initialType>(initialValue)
-    const [country, setCountry] = useState<countryType>({countryName: 'کشور', countryId: 0})
+    const [info, setInfo] = useState<initialType|any>(initialValue)
+    const [country, setCountry] = useState<countryType>({countryName: 'ایران', countryId: 1})
     const [countries, setCountries] = useState<countryType[]>([])
 
     const searchCountryHandler = async (e: any) => {
@@ -88,6 +89,22 @@ export default function ProfileSetter() {
                 toast.error(`${err?.response?.data?.error?.message}`)
             })
     }
+
+    useEffect(()=>{
+        const userInfo = async ()=>{
+            await getCurruntUserInfo()
+                .then((res)=>{
+                    Object.keys(res?.result).map((item:any)=>{
+                        if (item==='phoneNumber'){
+                            infoUpdate('mobileNumber',res?.result.phoneNumber)
+                        }else if (info?.[item]!==undefined){
+                            infoUpdate(item,res?.result[item])
+                        }
+                    })
+                })
+        }
+        userInfo()
+    },[])
 
     return (
         <div className={'bg-white p-5 rounded-md'}>
