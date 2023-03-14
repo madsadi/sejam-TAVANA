@@ -23,8 +23,8 @@ export default function Main() {
     };
     const [level, setLevel] = useState<number>(0)
     const [option, setOption] = useState<any>(defaultOptions)
-    const [userData, setUserData] = useState<SejamInfoType[] | any>({})
-    const [userDefaultBank, setUserDefaultBank] = useState<any>({})
+    const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
+    const [userDefaultBank, setUserDefaultBank] = useState<any>(null)
 
 
     useEffect(() => {

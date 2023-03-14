@@ -76,7 +76,7 @@ export default function ProgressBar() {
                 .then((res) => findLevel(res?.result?.registrationState))
         }
 
-        // registrationState()
+        registrationState()
     }, [])
 
     return (

@@ -62,6 +62,14 @@ input[type=number] {
   border-radius: 4px;
 }
 
+@media print {
+  .page{
+    padding:16px;
+    direction: rtl;
+    text-align: justify;
+  }
+
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

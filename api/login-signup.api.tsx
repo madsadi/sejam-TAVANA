@@ -8,7 +8,7 @@ export const smsNotification = async (body:any) => {
             bodyToQuery.push(`${item}=`+body[`${item}`])
         }
     })
-    const log = await axios.get(`${idpApi}notifications/register/sms?${bodyToQuery.join('&')}`)
+    const log = await axios.get(`${idpApi}account/notifications/register/sms?${bodyToQuery.join('&')}`)
         .then(({data}) => {
             return data
         })
@@ -29,6 +29,14 @@ export const verifyToken = async (body:any) => {
     return log
 }
 
+export const getCurruntUserInfo = async () => {
+    const log = await axios.get(`${idpApi}users/GetCurrentUserInfo`)
+        .then(({data}) => {
+            return data
+        })
+    return log
+}
+
 export const register = async (body:any) => {
     let bodyToPost:any= {};
     Object.keys(body).map((item:any)=>{
@@ -36,7 +44,7 @@ export const register = async (body:any) => {
             bodyToPost[item] = body[`${item}`]
         }
     })
-    const log = await axios.post(`${idpApi}register`,bodyToPost)
+    const log = await axios.post(`${idpApi}account/register`,bodyToPost)
         .then(({data}) => {
             return data
         })
