@@ -103,8 +103,8 @@ export default function AgreementLevel() {
             <div className="grow bg-white p-5 rounded-md">
                 {agreements.filter((item:any)=>!item.isDeleted).map((a:agreement) => {
                     return (
-                        <div className={'flex items-center'} key={a.id}>
-                            <input className={'checkbox ml-7'} checked={approvedAgreements.find((item:any)=>item.agreementId===a.id).status===2} onChange={()=>approveHandler(a.id)} type="checkbox" />
+                        <div className={'flex'} key={a.id}>
+                            <input className={'checkbox ml-7 mt-4'} checked={approvedAgreements.find((item:any)=>item.agreementId===a.id).status===2} onChange={()=>approveHandler(a.id)} type="checkbox" />
                             <AccordionComponent title={a.name} extra={a.isRequired ? <ExclamationCircleIcon className={'h-5 w-5 text-red-500'}/>:null}>
                                 {agreementsContext?.[`${a.id}`]}
                             </AccordionComponent>
