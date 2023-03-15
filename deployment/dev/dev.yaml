@@ -1,0 +1,75 @@
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: sejam-react
+  labels:
+    name: sejam-react
+    instance: sejam-react
+data:
+  idpApi: "https://cluster.tech1a.co/api/"
+  sejamApi: "http://cluster.tech1a.co:9072/api/request/"
+  fileServerApi: "http://cluster.tech1a.co:9073/api/file-manager/"
+  captchaApi: "https://cluster.tech1a.co:8543/api/"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sejam-react
+spec:
+  selector:
+    matchLabels:
+      app: sejam-react
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sejam-react
+    spec:
+      containers:
+      - name: sejam-react
+        image: "registry.tech1a.co:81/repository/tech1a-docker-registry/sejam-react:latest"
+        envFrom:
+          - configMapRef:
+              name: sejam-react
+        ports:
+          - name: http
+            containerPort: 3000
+            protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sejam-react
+  labels:
+    app: sejam-react
+spec:
+  type: ClusterIP
+  selector:
+    app: sejam-react
+  ports:
+    - port: 443
+      protocol: TCP
+      targetPort: 3000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sejam-react
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - devsejam-react.tech1a.co
+    secretName: tech1a-co
+  rules:
+    - host: devsejam-react.tech1a.co
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: sejam-react
+              port:
+                number: 443
