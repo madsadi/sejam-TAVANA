@@ -41,8 +41,8 @@ export default function GetSejamProfile() {
         <div className={'bg-white p-5 rounded-md'}>
             <Formik initialValues={initialValue} validationSchema={getSejamProfileSchema} onSubmit={submitHandler}>
                 {({isSubmitting}) => (
-                    <Form className={'flex flex-col '}>
-                        <div className={' w-1/2 mx-auto space-y-4'}>
+                    <Form className={'flex flex-col'}>
+                        <div className={'md:w-1/2 md:mx-auto space-y-4'}>
                             <InputComponent
                                 label={'کد ارسال شده'}
                                 name={'SejamToken'}

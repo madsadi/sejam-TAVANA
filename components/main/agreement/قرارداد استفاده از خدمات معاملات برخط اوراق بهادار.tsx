@@ -5,6 +5,7 @@ import {accountTypeEnums, legalPersonTypeCategoryEnums} from "../../common/enums
 import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
+import PageHeaderFooter from "./PageHeaderFooter";
 
 export default function OnlineTradingAgreement() {
     const {userData,userDefaultBank} = useContext<any>(SejamContext)
@@ -79,6 +80,8 @@ export default function OnlineTradingAgreement() {
                 trigger={reactToPrintTrigger}
             />
             <div className={'leading-8 text-justify page'}>
+                <PageHeaderFooter/>
+
                 <div className="text-center">
                     <h4>
                         قرارداد استفاده از خدمات معاملات برخط اوراق بهادار
@@ -122,16 +125,20 @@ export default function OnlineTradingAgreement() {
                         <tbody>
                         <tr>
                             <td>
+                                <span>جنسیت:</span>
+                                <span>{userData?.privatePerson?.gender==='Male' ? 'مرد':'زن'}</span>
+                            </td>
+                            <td>
+                                <span> نام و نام خانوادگی: </span>
+                                <span>{userData.privatePerson?.firstName+' '+userData.privatePerson?.lastName}</span>
+                            </td>
+                            <td>
                                 <span>نام پدر:</span>
                                 <span>{userData?.privatePerson?.fatherName}</span>
                             </td>
                             <td>
                                 <span>شماره تلفن همراه:</span>
                                 <span>{userData?.addresses?.[0]?.mobile}</span>
-                            </td>
-                            <td>
-                                <span> تاهل: </span>
-                                <span>ناموجود</span>
                             </td>
                         </tr>
                         <tr>
@@ -810,16 +817,16 @@ export default function OnlineTradingAgreement() {
                         &lrm;<span className={'mx-1'}>{userData.privatePerson?.firstName+' '+userData.privatePerson?.lastName}</span>&lrm;
                         به شماره شناسنامه
                         <span>{userData.uniqueIdentifier}</span>
-                        ، صادره از
-                        <span>{userData?.privatePerson?.placeOfIssue}</span>
+                        &lrm;، صادره از&lrm;
+                        &lrm;<span>{userData?.privatePerson?.placeOfIssue}</span>&lrm;
                         متولد
                         <span>{jalali(userData?.privatePerson?.birthDate).date}</span>
                         ، نام پدر
                         <span>{userData?.privatePerson?.fatherName}</span>
                         ، با کد ملی
                         <span>{userData.uniqueIdentifier}</span>
-                        متولد شهر
-                        <span>{userData?.privatePerson?.placeOfBirth}</span>
+                        &lrm;متولد&lrm;
+                        &lrm;<span>{userData?.privatePerson?.placeOfBirth}</span>&lrm;
                         به نمایندگی از شخص حقوقی به نام .............................. به شناسه ملی
                         ................................
                         ، که اصالتاً به عنوان نماینده قانونی (ولی / قیم / وصی) آقاي/خانم با کد ملی یا
@@ -893,10 +900,10 @@ export default function OnlineTradingAgreement() {
                         <span>{userData.uniqueIdentifier}</span>
                         و کد ملی
                         <span>{userData.uniqueIdentifier}</span>
-                        متولد
-                        <span>{userData?.privatePerson?.placeOfBirth}</span>
-                        صادره از
-                        <span>{userData?.privatePerson?.placeOfIssue}</span>
+                        &lrm;متولد&lrm;
+                        &lrm;<span>{userData?.privatePerson?.placeOfBirth}</span>&lrm;
+                        &lrm; صادره از&lrm;
+                        &lrm;<span>{userData?.privatePerson?.placeOfIssue}</span>&lrm;
                         که اصالتاً / بعنوان نماینده قانونی
                         (ولی/قیم/وصی) آقاي/خانم ........................ در تاریخ
                         {moment().locale('fa').format("YYYY/MM/DD")}

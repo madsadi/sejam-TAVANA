@@ -76,7 +76,7 @@ export default function ProgressBar() {
                 .then((res) => findLevel(res?.result?.registrationState))
         }
 
-        registrationState()
+        // registrationState()
     }, [])
 
     return (
@@ -87,7 +87,7 @@ export default function ProgressBar() {
                         <div
                             className={`flex relative items-center text-sm h-8 transition-all text-white ${level === step.level ? `animate-pulse z-[4] rounded-l-full bg-green-400 ${step.level !== 0 && 'shadow-[16px_0_0_0_rgb(74,222,128)]'}` : ''} ${step.level === 6 ? 'w-fit rounded-l-none' : 'grow'}`}
                             key={step.level}>
-                            <div className="mx-2 z-10">{isMobile ? index + 1 : step.title}</div>
+                            <div className="mx-2 z-10" suppressHydrationWarning={true}>{isMobile ? index + 1 : step.title}</div>
                             <div
                                 className={`absolute h-full right-0 transition-all duration-500 z-[5] ${level > step.level ? 'w-full bg-green-600' : (level < step.level ? '' : 'bg-green-400')} ${step.level !== 6 ? 'rounded-l-full' : 'rounded-l-none'} ${step.level > 0 ? 'shadow-[16px_0_0_0_rgb(22,163,74)]' : 'shadow-none'}`}/>
                             {step.level !== 6 && <ChevronLeftIcon className='h-full w-5 mr-auto z-10'/>}
