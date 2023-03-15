@@ -12,6 +12,7 @@ import {SejamContext} from "../../../pages/main";
 import {getBankAccounts, getSejamInfo} from "../../../api/sejam-info.api";
 import {ExclamationCircleIcon} from "@heroicons/react/24/outline";
 import {toast} from "react-toastify";
+import OptionalAgreement from "./قراردادمعاملات اختیاری";
 
 export default function AgreementLevel() {
     const {setLevel,level} = useContext<any>(SejamContext)
@@ -78,6 +79,7 @@ export default function AgreementLevel() {
         'f8aefb04-b0eb-4e39-b074-d7293f648aac':<PhoneTradingAgreement/>,
         '89a75475-b23d-4592-a985-704915dbfc88':<OfflineTradingAgreement/>,
         'b8966013-1d76-47d6-a962-f87d2ffef944':<OnlineTradingAgreement/>,
+        'bfd4daf5-5b1e-4e3c-b0fe-75713131913b':<OptionalAgreement/>,
     }
 
     const approveHandler = (key:string)=>{
@@ -104,7 +106,7 @@ export default function AgreementLevel() {
                 {agreements.filter((item:any)=>!item.isDeleted).map((a:agreement) => {
                     return (
                         <div className={'flex'} key={a.id}>
-                            <input className={'checkbox ml-7 mt-4'} checked={approvedAgreements.find((item:any)=>item.agreementId===a.id).status===2} onChange={()=>approveHandler(a.id)} type="checkbox" />
+                            <input className={'checkbox ml-7 mt-4'} checked={approvedAgreements.find((item:any)=>item.agreementId===a.id)?.status===2} onChange={()=>approveHandler(a.id)} type="checkbox" />
                             <AccordionComponent title={a.name} extra={a.isRequired ? <ExclamationCircleIcon className={'h-5 w-5 text-red-500'}/>:null}>
                                 {agreementsContext?.[`${a.id}`]}
                             </AccordionComponent>

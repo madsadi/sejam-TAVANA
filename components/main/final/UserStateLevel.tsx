@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {SejamContext} from "../../../pages/main";
 import Lottie from 'react-lottie';
-import animationData from '../../../public/customer-service.json';
+import animationData from '../../../public/icons/customer-service.json';
 import {onlineRegistrationStatus} from "../../common/enums";
 import {getRegistrationState} from "../../../api/resgistration.api";
 

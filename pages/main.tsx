@@ -9,10 +9,10 @@ import TestLevel from "../components/main/test/Test.level";
 import {SejamInfoType} from "../components/main/sejam-info/types";
 import UserStateLevel from "../components/main/final/UserStateLevel";
 import Lottie from "react-lottie";
-import avatar from "../public/avatar.json";
-import pencil from "../public/pencil.json";
-import scan from "../public/scan-document.json";
-import sms from "../public/sms.json";
+import avatar from "../public/icons/avatar.json";
+import pencil from "../public/icons/pencil.json";
+import scan from "../public/icons/scan-document.json";
+import sms from "../public/icons/sms.json";
 
 export const SejamContext = createContext({})
 export default function Main() {
@@ -21,7 +21,7 @@ export default function Main() {
         autoplay: true,
         animationData: avatar,
     };
-    const [level, setLevel] = useState<number>(6)
+    const [level, setLevel] = useState<number>(5)
     const [option, setOption] = useState<any>(defaultOptions)
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
     const [userDefaultBank, setUserDefaultBank] = useState<any>(null)

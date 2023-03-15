@@ -10,6 +10,7 @@ import {countryType} from "../sejam-info/types";
 import {searchCountry} from "../../../api/sejam-info.api";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
 import {getCurruntUserInfo} from "../../../api/login-signup.api";
+import Image from 'next/image';
 
 type initialType = {
     mobileNumber: string,
@@ -34,9 +35,10 @@ const initialValue = {
 
 export default function ProfileSetter() {
     const {setLevel} = useContext<any>(SejamContext)
-    const [info, setInfo] = useState<initialType|any>(initialValue)
+    const [info, setInfo] = useState<initialType | any>(initialValue)
     const [country, setCountry] = useState<countryType>({countryName: 'ایران', countryId: 1})
     const [countries, setCountries] = useState<countryType[]>([])
+    const [error, setError] = useState<{ message: string, link: string }>({message: '', link: ''})
 
     const searchCountryHandler = async (e: any) => {
         await searchCountry(e.target.value)
@@ -50,37 +52,57 @@ export default function ProfileSetter() {
     }
 
     const submitHandler = async (v: any) => {
-        const checkPoints = async ()=>{
-            const KYC =async ()=>{
+        const checkPoints = async () => {
+            const KYC = async () => {
                 await getSejamKYCToken()
-                    .then(()=> {
+                    .then(() => {
                         toast.success('کد برای شماره همراه شما ارسال شد')
                         setLevel(1)
                     })
-                    .catch((err)=> {
+                    .catch((err) => {
                         toast.error(`${err?.response?.data?.error?.message}`)
                     })
             }
-            const status = async ()=>{
+            const status = async () => {
                 await sejamStatus()
-                    .then((res)=> {
-                        toast.success(`${sejamStatusEnums.find((item:any)=>item.id === res?.result?.sejamStatus)?.title}`)
-                        KYC();
+                    .then((res) => {
+                        toast.success(`${sejamStatusEnums.find((item: any) => item.id === res?.result?.sejamStatus)?.title}`)
+                        if (res?.result?.sejamStatus !== 7) {
+                            KYC();
+                        } else {
+                            if (res?.result?.sejamStatus === 9) {
+                                toast.success('قابلیت ثبت نام برای این اطلاعات امکان ندارد')
+                            } else {
+                                setError({
+                                    message: 'عملیات ثبت نام شما در سامانه سجام انجام و یا کامل نشده است. <br> لطفا در سامانه سجام ثبت نام نموده، سپس مجددا اقدام نمایید.'
+                                    , link: 'http://profilesejam.csdiran.ir/'
+                                })
+                            }
+                        }
                     })
-                    .catch((err)=> {
+                    .catch((err) => {
                         toast.error(`${err?.response?.data?.error?.message}`)
                     })
             }
             await isSejami()
-                .then(()=> {
+                .then(() => {
                     toast.success('شما سجامی هستید')
                     status();
                 })
-                .catch((err)=> {
+                .catch((err) => {
+                    setError({
+                        message: 'کاربر گرامی شما احراز هویت نشده اید، لطفا جهت احراز هویت به یکی از مراکز احراز هویت در آدرس زیر مراجعه نمایید',
+                        link: 'https://www.sejam.ir/fa/AU'
+                    })
                     toast.error(`${err?.response?.data?.error?.message}`)
                 })
         }
-        await addCustomerProfileInfo({...v,personType:Number(v.personType),countryId:Number(v.countryId), captchaCode: info.uuid + '_' + v.captcha})
+        await addCustomerProfileInfo({
+            ...v,
+            personType: Number(v.personType),
+            countryId: Number(v.countryId),
+            captchaCode: info.uuid + '_' + v.captcha
+        })
             .then(() => {
                 checkPoints()
             })
@@ -90,21 +112,21 @@ export default function ProfileSetter() {
             })
     }
 
-    useEffect(()=>{
-        const userInfo = async ()=>{
+    useEffect(() => {
+        const userInfo = async () => {
             await getCurruntUserInfo()
-                .then((res)=>{
-                    Object.keys(res?.result).map((item:any)=>{
-                        if (item==='phoneNumber'){
-                            infoUpdate('mobileNumber',res?.result.phoneNumber)
-                        }else if (info?.[item]!==undefined){
-                            infoUpdate(item,res?.result[item])
+                .then((res) => {
+                    Object.keys(res?.result).map((item: any) => {
+                        if (item === 'phoneNumber') {
+                            infoUpdate('mobileNumber', res?.result.phoneNumber)
+                        } else if (info?.[item] !== undefined) {
+                            infoUpdate(item, res?.result[item])
                         }
                     })
                 })
         }
         userInfo()
-    },[])
+    }, [])
 
     return (
         <div className={'bg-white p-5 rounded-md'}>
@@ -117,15 +139,15 @@ export default function ProfileSetter() {
                                     حقیقی یا حقوقی
                                 </label>
                                 <div tabIndex={1} className="input flex w-full items-center cursor-pointer">
-                                    {personType.find((item:any)=>item.id===info.personType)?.title}
+                                    {personType.find((item: any) => item.id === info.personType)?.title}
                                     <ChevronDownIcon className={'h-5 w-5 mr-auto'}/>
                                 </div>
                                 <ul tabIndex={0}
-                                                        className="dropdown-content max-h-[200px] overflow-y-auto menu p-2 shadow-md bg-base-100 w-full"
-                                                        style={{flexWrap: 'unset'}}>
+                                    className="dropdown-content max-h-[200px] overflow-y-auto menu p-2 shadow-md bg-base-100 w-full"
+                                    style={{flexWrap: 'unset'}}>
                                     {personType.map((item: any) => {
                                         return (
-                                            <li key={item.id} onClick={()=>infoUpdate('personType',item.id)}
+                                            <li key={item.id} onClick={() => infoUpdate('personType', item.id)}
                                                 className={'odd:bg-gray-200 cursor-pointer hover:bg-gray-100 px-2 py-1'}>
                                                 {item.title}
                                             </li>
@@ -147,7 +169,10 @@ export default function ProfileSetter() {
                                                         style={{flexWrap: 'unset'}}>
                                     {countries.map((item: countryType) => {
                                         return (
-                                            <li key={item.countryId} onClick={()=>{setCountry(item);infoUpdate('countryId',item.countryId)}}
+                                            <li key={item.countryId} onClick={() => {
+                                                setCountry(item);
+                                                infoUpdate('countryId', item.countryId)
+                                            }}
                                                 className={'odd:bg-gray-200 cursor-pointer hover:bg-gray-100 px-2 py-1'}>
                                                 {item.countryName}
                                             </li>
@@ -162,20 +187,20 @@ export default function ProfileSetter() {
                                 <input className={`input`}
                                        dir={'ltr'}
                                        type={'number'}
-                                       onChange={(e)=>infoUpdate('mobileNumber',e.target.value)}
+                                       onChange={(e) => infoUpdate('mobileNumber', e.target.value)}
                                 />
                             </div>
                             <div>
                                 <label className={'flex items-center mb-1'}>
-                                    {info.personType===1 ? (info.countryId === '1' ? 'کد ملی':(info.countryId ? 'شماره پاسپورت':'کد ملی')):'شناسه ملی'}
+                                    {info.personType === 1 ? (info.countryId === '1' ? 'کد ملی' : (info.countryId ? 'شماره پاسپورت' : 'کد ملی')) : 'شناسه ملی'}
                                 </label>
                                 <input className={`input`}
                                        dir={'ltr'}
                                        type={'number'}
-                                       onChange={(e)=>infoUpdate('uniqueId',e.target.value)}
+                                       onChange={(e) => infoUpdate('uniqueId', e.target.value)}
                                 />
                             </div>
-                            {(info.countryId!==1 && info.countryId) ? <div>
+                            {(info.countryId !== 1 && info.countryId) ? <div>
                                 <label className={'flex items-center mb-1'}>
                                     کد اتباع خارجی
                                 </label>
@@ -184,7 +209,7 @@ export default function ProfileSetter() {
                                        type={'number'}
                                        onChange={(e) => infoUpdate('foriegnCSDCode', e.target.value)}
                                 />
-                            </div>:null}
+                            </div> : null}
                             <div>
                                 <label className={'flex items-center mb-1'}>
                                     ایمیل
@@ -192,7 +217,7 @@ export default function ProfileSetter() {
                                 <input className={`input`}
                                        dir={'ltr'}
                                        type={'email'}
-                                       onChange={(e)=>infoUpdate('email',e.target.value)}
+                                       onChange={(e) => infoUpdate('email', e.target.value)}
                                 />
                             </div>
                             <span>
@@ -201,17 +226,27 @@ export default function ProfileSetter() {
                                                   name={'captcha'}/>
                             </span>
                         </div>
-                        <button className={'button w-fit mr-auto mt-5'} disabled={isSubmitting} type={'submit'}>
-                            <div className={'flex items-center mx-auto '}>
-                                ثبت اطلاعات
-                                {isSubmitting && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                            stroke-width="4"></circle>
-                                    <path className="opacity-75" fill="currentColor"
-                                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>}
-                            </div>
-                        </button>
+                        <div className={'flex items-center space-x-2 space-x-reverse mr-auto mt-5'}>
+                            {error?.message ? <a className={'button bg-red-500 w-fit'} href={error.link}>
+                                <div className={'flex items-center mx-auto '}>
+                                    <span className={'h-[24px]'}>
+                                        <Image src={'/icons/sejam.svg'} alt={'sejam'} height={24} width={24}/>
+                                    </span>
+                                    {error.message}
+                                </div>
+                            </a>:null}
+                            <button className={'button w-fit'} disabled={isSubmitting} type={'submit'}>
+                                <div className={'flex items-center mx-auto '}>
+                                    ثبت اطلاعات
+                                    {isSubmitting && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                stroke-width="4"></circle>
+                                        <path className="opacity-75" fill="currentColor"
+                                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>}
+                                </div>
+                            </button>
+                        </div>
                     </Form>
                 )}
             </Formik>
