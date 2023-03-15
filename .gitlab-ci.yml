@@ -162,7 +162,7 @@ deploy-pro:
     - mkdir -p ~/.kube
     - chmod 700 ~/.kube
     - echo "$K8S_PRO" | base64 -d > ~/.kube/config
-    - kubectl -n "$NAMESPACE_Pro" apply -f deployment/pro/pro.yaml
+    #- kubectl -n "$NAMESPACE_Pro" apply -f deployment/pro/pro.yaml
     - kubectl set image -n "$NAMESPACE_Pro" deployment/$IMAGE_NAME $IMAGE_NAME=$REGISTRY_HOST/repository/tech1a-docker-registry/$IMAGE_NAME:$IMAGE_TAG_TAG
   needs:
     - job: build
