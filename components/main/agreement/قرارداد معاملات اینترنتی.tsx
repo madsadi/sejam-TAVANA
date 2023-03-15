@@ -5,6 +5,7 @@ import {accountTypeEnums} from "../../common/enums";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import ReactToPrint from "react-to-print";
 import moment from "jalali-moment";
+import PageHeaderFooter from "./PageHeaderFooter";
 
 export default function OfflineTradingAgreement(){
     const {userData,userDefaultBank} = useContext<any>(SejamContext)
@@ -78,7 +79,9 @@ export default function OfflineTradingAgreement(){
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
-            <div className={'leading-8 text-justify'}>
+            <div className={'leading-8 text-justify page'}>
+                <PageHeaderFooter/>
+
                 <div className="text-center">
                     <h4>قرارداد معاملات اینترنتی </h4>
                 </div>

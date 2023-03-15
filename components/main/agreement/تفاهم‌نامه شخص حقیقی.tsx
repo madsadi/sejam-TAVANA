@@ -2,6 +2,7 @@ import React, {useCallback, useContext, useEffect, useRef, useState} from "react
 import {SejamContext} from "../../../pages/main";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import ReactToPrint from "react-to-print";
+import PageHeaderFooter from "./PageHeaderFooter";
 
 export default function PrivatePersonAgreement(){
     const {userData} = useContext<any>(SejamContext)
@@ -76,6 +77,8 @@ export default function PrivatePersonAgreement(){
                 trigger={reactToPrintTrigger}
             />
             <div className={'leading-8 text-justify page'}>
+                <PageHeaderFooter/>
+
                 <div className="text-center">
                     <h4>
                         تفاهم‌نامه شخص حقیقی

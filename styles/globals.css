@@ -62,11 +62,84 @@ input[type=number] {
   border-radius: 4px;
 }
 
+/*.page{*/
+/*  position:relative;*/
+/*  padding-top: 150px;*/
+/*  padding-bottom: 150px;*/
+/*  margin-top: 60px;*/
+/*}*/
+.page-footer{
+  display: none;
+}
+.page-header{
+  display: none;
+}
+
+.page-footer, .page-footer-space {
+  height: 150px;
+}
+
+.page-footer {
+  position: running(footer-right-data);
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid black; /* for demo */
+  background: transparent; /* for demo */
+}
+/*.page-header, .page-header-space {*/
+/*  height: 150px;*/
+/*}*/
+
+.page-header {
+  position: running(header-first-top-data);
+  top: 0;
+  width: 100%;
+  background: transparent; /* for demo */
+}
+
 @media print {
   .page{
     padding:16px;
     direction: rtl;
     text-align: justify;
+  }
+
+  .print-sign {
+    display: block;
+  }
+
+  .no-print {
+    display: none;
+  }
+  .page {
+    display: block;
+    page-break-inside: avoid;
+    margin: 0;
+  }
+
+
+  .sign-card,.sing-img {
+    width: 200px;
+    height: 100px;
+  }
+  .logo-card,.logo-img {
+    width: 140px;
+    height: 140px;
+  }
+
+  body {margin: 0;}
+  button {display: none;}
+  thead {display: table-header-group;}
+  tfoot {display: table-footer-group;}
+
+  .page-footer{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .page-header{
+    display: flex;
+    justify-content: space-between;
   }
 
 }

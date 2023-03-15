@@ -4,6 +4,7 @@ import {jalali} from "../../common/functions";
 import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
+import PageHeaderFooter from "./PageHeaderFooter";
 
 export default function TotalBrokerageAgreement() {
     const {userData,userDefaultBank} = useContext<any>(SejamContext)
@@ -78,6 +79,8 @@ export default function TotalBrokerageAgreement() {
                 trigger={reactToPrintTrigger}
             />
             <div className={'leading-8 text-justify page'}>
+                <PageHeaderFooter/>
+
                 <div className="text-center">
                     <h4 className={'mb-5'}>قرارداد جامع مشتري و کارگزار (در خصوص اوراق بهادار) </h4>
                     <p>

@@ -103,6 +103,7 @@ export type accountNumber = {
     sheba: string
     type: string
 }
+
 export type bankAccount = {
     "accountNumber": string,
     "iban": string,

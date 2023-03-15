@@ -4,6 +4,8 @@ import {formatNumber, jalali} from "../../common/functions";
 import {accountTypeEnums, tradingKnowledgeLevelEnums, transactionLevelPrivatePersonEnums} from "../../common/enums";
 import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
+import moment from "jalali-moment";
+import PageHeaderFooter from "./PageHeaderFooter";
 
 export default function OnlineRegistrationAgreement() {
     const {userData, userDefaultBank} = useContext<any>(SejamContext)
@@ -79,6 +81,7 @@ export default function OnlineRegistrationAgreement() {
             />
             <div ref={componentRef}>
                 <div className={'leading-8 text-justify page'}>
+                    <PageHeaderFooter/>
                     <div className="text-center">
                         <p>تعهد نامه ثبت نام غیر حضوری</p>
                     </div>

@@ -5,6 +5,7 @@ import {accountTypeEnums, legalPersonTypeCategoryEnums} from "../../common/enums
 import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
+import PageHeaderFooter from "./PageHeaderFooter";
 
 export default function OnlineTradingAgreement() {
     const {userData,userDefaultBank} = useContext<any>(SejamContext)
@@ -79,6 +80,8 @@ export default function OnlineTradingAgreement() {
                 trigger={reactToPrintTrigger}
             />
             <div className={'leading-8 text-justify page'}>
+                <PageHeaderFooter/>
+
                 <div className="text-center">
                     <h4>
                         قرارداد استفاده از خدمات معاملات برخط اوراق بهادار
@@ -122,16 +125,20 @@ export default function OnlineTradingAgreement() {
                         <tbody>
                         <tr>
                             <td>
+                                <span>جنسیت:</span>
+                                <span>{userData?.privatePerson?.gender==='Male' ? 'مرد':'زن'}</span>
+                            </td>
+                            <td>
+                                <span> نام و نام خانوادگی: </span>
+                                <span>{userData.privatePerson?.firstName+' '+userData.privatePerson?.lastName}</span>
+                            </td>
+                            <td>
                                 <span>نام پدر:</span>
                                 <span>{userData?.privatePerson?.fatherName}</span>
                             </td>
                             <td>
                                 <span>شماره تلفن همراه:</span>
                                 <span>{userData?.addresses?.[0]?.mobile}</span>
-                            </td>
-                            <td>
-                                <span> تاهل: </span>
-                                <span>ناموجود</span>
                             </td>
                         </tr>
                         <tr>
