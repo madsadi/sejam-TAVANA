@@ -98,7 +98,7 @@ export default function OfflineTradingAgreement(){
                         <tr>
                             <td>
                                 <span> نام:</span>
-                                <span>{userData.privatePerson?.firstName}</span>
+                                <span>{userData?.privatePerson?.firstName}</span>
                             </td>
                             <td>
                                 <span>نام پدر:</span>
@@ -110,13 +110,13 @@ export default function OfflineTradingAgreement(){
                             </td>
                             <td>
                                 <span> نام خانوادگی:</span>
-                                <span>{userData.privatePerson?.lastName}</span>
+                                <span>{userData?.privatePerson?.lastName}</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <span>کد ملی:</span>
-                                <span>{userData.uniqueIdentifier}</span>
+                                <span>{userData?.uniqueIdentifier}</span>
                             </td>
                             <td>
                                 <span>آدرس پست الکترونیکی:</span>
@@ -181,7 +181,7 @@ export default function OfflineTradingAgreement(){
                         <tr>
                             <td>
                                 <span> نام بانک: </span>
-                                <span>{userDefaultBank.bank?.name}</span>
+                                <span>{userDefaultBank?.bank?.name}</span>
                             </td>
                             <td>
                                 <span> نوع حساب: </span>
@@ -340,13 +340,13 @@ export default function OfflineTradingAgreement(){
 
                 <div >
                     اینجانب
-                    <span>{userData.privatePerson?.firstName+' '+userData.privatePerson?.lastName}</span>
+                    <span>{userData?.privatePerson?.firstName+' '+userData?.privatePerson?.lastName}</span>
                     فرزند
                     <span>{userData?.privatePerson?.fatherName}</span>
                     به شماره شناسنامه
-                    <span>{userData.uniqueIdentifier}</span>
+                    <span>{userData?.uniqueIdentifier}</span>
                     و کد ملی
-                    <span>{userData.uniqueIdentifier}</span>
+                    <span>{userData?.uniqueIdentifier}</span>
                     متولد
                     <span>{userData?.privatePerson?.placeOfBirth}</span>
                     صادره

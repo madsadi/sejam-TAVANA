@@ -154,7 +154,7 @@ export default function OptionalAgreement() {
                             </td>
                             <td>
                                 <span> نام و نام خانوادگی: </span>
-                                <span>{userData.privatePerson?.firstName + ' ' + userData.privatePerson?.lastName}</span>
+                                <span>{userData?.privatePerson?.firstName + ' ' + userData?.privatePerson?.lastName}</span>
                             </td>
                             <td>
                                 <span>نام پدر:</span>
@@ -168,15 +168,15 @@ export default function OptionalAgreement() {
                         <tr>
                             <td>
                                 <span> تاریخ تولد:</span>
-                                <span>{jalali(userData.privatePerson?.birthDate).date}</span>
+                                <span>{jalali(userData?.privatePerson?.birthDate).date}</span>
                             </td>
                             <td>
                                 <span> محل تولد: </span>
-                                <span>{userDefaultBank.privatePerson?.placeOfBirth}</span>
+                                <span>{userDefaultBank?.privatePerson?.placeOfBirth}</span>
                             </td>
                             <td>
                                 <span>کد ملی:</span>
-                                <span>{userData.uniqueIdentifier}</span>
+                                <span>{userData?.uniqueIdentifier}</span>
                             </td>
                             <td>
                                 <span>آدرس پست الکترونیکی:</span>
@@ -190,7 +190,7 @@ export default function OptionalAgreement() {
                             </td>
                             <td>
                                 <span> صادره از: </span>
-                                <span>{userDefaultBank.privatePerson?.placeOfIssue}</span>
+                                <span>{userDefaultBank?.privatePerson?.placeOfIssue}</span>
                             </td>
                             <td>
                                 <span> شماره تلفن منزل با کد شهر: </span>
@@ -407,7 +407,7 @@ export default function OptionalAgreement() {
                         ١) حضوری و اخذ امضای مشتری؛
                     </p>
                     <p>
-                        ) ارسال به شماره فاكس {userData?.addresses[0]?.fax}   و پست الكترونيكي به آدرس {userData?.addresses[0]?.email}  و يا تماس با شماره {userData?.addresses[0]?.mobile}2
+                        ) ارسال به شماره فاكس {userData?.addresses?.[0]?.fax}   و پست الكترونيكي به آدرس {userData?.addresses?.[0]?.email}  و يا تماس با شماره {userData?.addresses?.[0]?.mobile}2
                     </p>
                     <p>
                         1٤ . كارگزار موظف است اگر مشتری مشمول دريافت اخطاريه افزايش وجه تضمين شده است، تا پيش از واريز وجوه يا بستن موقعيت های باز توسط مشتری، متناسب با اخطاريه افزايش وجه تضمين، سفارش های افزاينده موقعيت های باز مشتری را نپذيرد.

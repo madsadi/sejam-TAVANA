@@ -130,7 +130,7 @@ export default function OnlineTradingAgreement() {
                             </td>
                             <td>
                                 <span> نام و نام خانوادگی: </span>
-                                <span>{userData.privatePerson?.firstName+' '+userData.privatePerson?.lastName}</span>
+                                <span>{userData?.privatePerson?.firstName+' '+userData?.privatePerson?.lastName}</span>
                             </td>
                             <td>
                                 <span>نام پدر:</span>
@@ -144,11 +144,11 @@ export default function OnlineTradingAgreement() {
                         <tr>
                             <td>
                                 <span> نام خانوادگی:</span>
-                                <span>{userData.privatePerson?.lastName}</span>
+                                <span>{userData?.privatePerson?.lastName}</span>
                             </td>
                             <td>
                                 <span>کد ملی:</span>
-                                <span>{userData.uniqueIdentifier}</span>
+                                <span>{userData?.uniqueIdentifier}</span>
                             </td>
                             <td>
                                 <span>آدرس پست الکترونیکی:</span>
@@ -156,7 +156,7 @@ export default function OnlineTradingAgreement() {
                             </td>
                             <td>
                                 <span> نام بانک: </span>
-                                <span>{userDefaultBank.bank?.name}</span>
+                                <span>{userDefaultBank?.bank?.name}</span>
                             </td>
                         </tr>
                         <tr>
@@ -249,7 +249,7 @@ export default function OnlineTradingAgreement() {
                 {/*        <tr>*/}
                 {/*            <td>*/}
                 {/*                <span>شماره سرمایه‌گذاری خارجی:</span>*/}
-                {/*                /!*<span>{userData.privatePerson?.lastName}</span>*!/*/}
+                {/*                /!*<span>{userData?.privatePerson?.lastName}</span>*!/*/}
                 {/*            </td>*/}
                 {/*            <td>*/}
                 {/*                <span>نشانی پست الکترونیک:</span>*/}
@@ -293,7 +293,7 @@ export default function OnlineTradingAgreement() {
                             <tr>
                                 <td>
                                     <span>نام شخصیت حقیقی:</span>
-                                    <span>{userData.privatePerson?.firstName}</span>
+                                    <span>{userData?.privatePerson?.firstName}</span>
                                 </td>
                                 <td>
                                     <span>نام خانوداگی:</span>
@@ -814,9 +814,9 @@ export default function OnlineTradingAgreement() {
                     <h5>ماده 13 -تعهدنامه استفاده از زیرساخت برخط </h5>
                     <p>
                         &lrm;<span>اینجانب</span>&lrm;
-                        &lrm;<span className={'mx-1'}>{userData.privatePerson?.firstName+' '+userData.privatePerson?.lastName}</span>&lrm;
+                        &lrm;<span className={'mx-1'}>{userData?.privatePerson?.firstName+' '+userData?.privatePerson?.lastName}</span>&lrm;
                         به شماره شناسنامه
-                        <span>{userData.uniqueIdentifier}</span>
+                        <span>{userData?.uniqueIdentifier}</span>
                         &lrm;، صادره از&lrm;
                         &lrm;<span>{userData?.privatePerson?.placeOfIssue}</span>&lrm;
                         متولد
@@ -824,7 +824,7 @@ export default function OnlineTradingAgreement() {
                         ، نام پدر
                         <span>{userData?.privatePerson?.fatherName}</span>
                         ، با کد ملی
-                        <span>{userData.uniqueIdentifier}</span>
+                        <span>{userData?.uniqueIdentifier}</span>
                         &lrm;متولد&lrm;
                         &lrm;<span>{userData?.privatePerson?.placeOfBirth}</span>&lrm;
                         به نمایندگی از شخص حقوقی به نام .............................. به شناسه ملی
@@ -892,14 +892,14 @@ export default function OnlineTradingAgreement() {
 
                     <p>
                         &lrm;اینجانب آقاي/خانم&lrm;
-                        &lrm;<span>{userData.privatePerson?.firstName+' '+userData.privatePerson?.lastName}</span>&lrm;
+                        &lrm;<span>{userData?.privatePerson?.firstName+' '+userData?.privatePerson?.lastName}</span>&lrm;
                         فرزند
                         <span>{userData?.privatePerson?.fatherName}</span>
                         به شماره
                         شناسنامه
-                        <span>{userData.uniqueIdentifier}</span>
+                        <span>{userData?.uniqueIdentifier}</span>
                         و کد ملی
-                        <span>{userData.uniqueIdentifier}</span>
+                        <span>{userData?.uniqueIdentifier}</span>
                         &lrm;متولد&lrm;
                         &lrm;<span>{userData?.privatePerson?.placeOfBirth}</span>&lrm;
                         &lrm; صادره از&lrm;

@@ -99,10 +99,10 @@ export default function PrivatePersonAgreement(){
                         نشانی سایت اینترنتی <a href="https://www.tavana.net">www.tavana.net</a> که
                         داراي پایگاه
                         اطلاعاتی سامان بورس از یکسو و آقا/خانم
-                        <span>{userData.privatePerson?.firstName + '-' + userData.privatePerson?.lastName}</span>
+                        <span>{userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}</span>
                         به کد
                         ملی با مشخصات
-                        <span>{userData.uniqueIdentifier}</span>
+                        <span>{userData?.uniqueIdentifier}</span>
                         مندرج در فرم احراز هویت پیوست منعقد می‌شود.
                     </p>
                     <p><span className="font-semibold">تبصره : </span> در صورتی که سفارش راجع به فروش اوراق بهاداري

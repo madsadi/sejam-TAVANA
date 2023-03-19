@@ -111,7 +111,7 @@ export default function TotalBrokerageAgreement() {
                         <tr>
                             <td>
                                 <span>نام و نام خانوادگی:</span>
-                                <span>{userData.privatePerson?.firstName + '-' + userData.privatePerson?.lastName}</span>
+                                <span>{userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}</span>
                             </td>
                             <td>
                                 <span>نام پدر:</span>
@@ -123,7 +123,7 @@ export default function TotalBrokerageAgreement() {
                             </td>
                             <td>
                                 <span>کد ملی:</span>
-                                <span>{userData.uniqueIdentifier}</span>
+                                <span>{userData?.uniqueIdentifier}</span>
                             </td>
                         </tr>
                         <tr>
@@ -155,7 +155,7 @@ export default function TotalBrokerageAgreement() {
                             </td>
                             <td>
                                 <span> آدرس منزل:  </span>
-                                <span>{userData?.addresses[0]?.remnantAddress}</span>
+                                <span>{userData?.addresses?.[0]?.remnantAddress}</span>
                             </td>
                         </tr>
                         </tbody>
@@ -204,7 +204,7 @@ export default function TotalBrokerageAgreement() {
                             </td>
                             <td>
                                 <span> آدرس دفتر مرکزی:  </span>
-                                <span>{userData?.addresses[0]?.remnantAddress}</span>
+                                <span>{userData?.addresses?.[0]?.remnantAddress}</span>
                             </td>
                         </tr>
                         </tbody>

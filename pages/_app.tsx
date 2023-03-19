@@ -1,4 +1,4 @@
-import {useRef} from 'react'
+import React,{useRef} from 'react'
 import '../styles/globals.css'
 import type {AppProps} from 'next/app'
 import Head from 'next/head';
@@ -13,14 +13,14 @@ export default function App({Component, pageProps}: AppProps) {
     const toast: any = useRef()
     const authorityPath = 'https://cluster.tech1a.co';
     // const authorityPath = 'http://localhost:3000';
-    const clientId = 'online-trading-gateway';
+    const clientId = 'sejam-gateway';
     const clientURL = typeof window !== 'undefined' && window.location.origin;
 
     const oidcConfig = {
         userStore: typeof window !== 'undefined' ? new WebStorageStateStore({store: window.localStorage}) : undefined,
         authority: `${authorityPath}`,
         client_id: `${clientId}`,
-        scope: 'openid IdentityServerApi customerinfo',
+        scope: 'openid',
         response_type: 'code',
         redirect_uri: `${clientURL}/authentication/callback`,
         post_logout_redirect_uri: `${clientURL}`, // Auth0 uses returnTo
@@ -39,6 +39,7 @@ export default function App({Component, pageProps}: AppProps) {
     const onSignIn = () => {
         Router.push('/main')
     }
+
     return (
         <AuthProvider {...oidcConfig} onSigninCallback={onSignIn}>
             <Head>

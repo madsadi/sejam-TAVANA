@@ -7,6 +7,65 @@ import {PrinterIcon} from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
 import PageHeaderFooter from "./PageHeaderFooter";
 
+import {Page, Text, Document, StyleSheet,PDFViewer} from "@react-pdf/renderer";
+import TablePDF from "./TablePDF";
+import {Table, TableBody, TableCell, TableHeader,DataTableCell} from "@david.kucsai/react-pdf-table";
+
+const styles = StyleSheet.create({
+    body: {
+        paddingTop: 35,
+        paddingBottom: 65,
+        paddingHorizontal: 35,
+        display:"flex",
+        flexDirection: "column",
+    },
+    title: {
+        fontSize: 24,
+        textAlign: 'center',
+        fontFamily: 'PelakFA'
+    },
+    author: {
+        fontSize: 12,
+        textAlign: 'center',
+        marginBottom: 40,
+    },
+    subtitle: {
+        fontSize: 18,
+        margin: 12,
+        fontFamily: 'PelakFA'
+    },
+    text: {
+        margin: 12,
+        fontSize: 14,
+        textAlign: 'justify',
+        fontFamily: 'PelakFA'
+    },
+    list: {
+        margin: 12,
+        fontSize: 14,
+        textAlign: 'justify',
+        fontFamily: 'PelakFA'
+    },
+    image: {
+        marginVertical: 15,
+        marginHorizontal: 100,
+    },
+    header: {
+        fontSize: 12,
+        marginBottom: 20,
+        textAlign: 'center',
+        color: 'grey',
+    },
+    pageNumber: {
+        position: 'absolute',
+        fontSize: 12,
+        bottom: 30,
+        left: 0,
+        right: 0,
+        textAlign: 'center',
+        color: 'grey',
+    },
+});
 export default function OnlineRegistrationAgreement() {
     const {userData, userDefaultBank} = useContext<any>(SejamContext)
     const [loading, setLoading] = useState(false);
@@ -63,13 +122,78 @@ export default function OnlineRegistrationAgreement() {
                             stroke-width="4"></circle>
                     <path className="opacity-75" fill="currentColor"
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>:<PrinterIcon className={'h-5 w-5 mr-2'}/>}
+                </svg> : <PrinterIcon className={'h-5 w-5 mr-2'}/>}
             </button>
         ); // eslint-disable-line max-len
     }
 
     return (
         <>
+            {/*<Document>*/}
+            {/*    <Page>*/}
+            {/*        <Text style={styles.title}>تعهد نامه ثبت نام غیر حضوری</Text>*/}
+            {/*        <Text style={styles.subtitle}>*/}
+            {/*            فرم مشخصات اشخاص حقیقی ایرانی (مشتري / نماینده)*/}
+            {/*        </Text>*/}
+            {/*        <Text style={styles.list}>*/}
+            {/*            اطلاعات این فرم محرمانه محسوب شده و در اختیار اشخاص غیر مجاز قرار داده نمی‌شود. تکمیل*/}
+            {/*            قسمت*/}
+            {/*            هاي*/}
+            {/*            ستاره‌دار*/}
+            {/*            الزامی و سایر قسمت‌ها اختیاري است.*/}
+            {/*        </Text>*/}
+            {/*        <Text style={styles.list}>*/}
+            {/*            بخش‌های مشترك این فرم باید توسط مشتري یا نماینده تکمیل شود سایر بخش‌ها*/}
+            {/*            که*/}
+            {/*            با*/}
+            {/*            عبارت‌های*/}
+            {/*            /!* eslint-disable-next-line react/no-unescaped-entities *!/*/}
+            {/*            "اطلاعات مشتري" و"اطلاعات نماینده" مشخص شده است با توجه به نقش شخص تکمیل کننده (مشتري یا*/}
+            {/*            نماینده)*/}
+            {/*            بخش مربوط*/}
+            {/*            به شخص تکمیل گردد.*/}
+            {/*        </Text>*/}
+            {/*        <Text>*/}
+            {/*            نماینده شخص حقوقی و اشخاص مجاز به ارائه سفارش از طرف شخص حقوقی، طبق تبصره 1 بند 4-2-1 ماده 4*/}
+            {/*            دستورالعمل*/}
+            {/*            شناسایی مشتریان در بازار سرمایه، باید طبق ضوابط مقرر در مورد اشخاص حقیقی مورد شناسایی قرار*/}
+            {/*            گیرند.*/}
+            {/*        </Text>*/}
+            {/*        <Text style={styles.subtitle}>*/}
+            {/*            اطلاعات هویتی*/}
+            {/*        </Text>*/}
+            {/*        <Table*/}
+            {/*            data={[*/}
+            {/*                {firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000"}*/}
+            {/*            ]}*/}
+            {/*        >*/}
+            {/*            <TableHeader>*/}
+            {/*                <TableCell>*/}
+            {/*                    First Name*/}
+            {/*                </TableCell>*/}
+            {/*                <TableCell>*/}
+            {/*                    Last Name*/}
+            {/*                </TableCell>*/}
+            {/*                <TableCell>*/}
+            {/*                    DOB*/}
+            {/*                </TableCell>*/}
+            {/*                <TableCell>*/}
+            {/*                    Country*/}
+            {/*                </TableCell>*/}
+            {/*                <TableCell>*/}
+            {/*                    Phone Number*/}
+            {/*                </TableCell>*/}
+            {/*            </TableHeader>*/}
+            {/*            <TableBody>*/}
+            {/*                <DataTableCell getContent={(r) => r.firstName}/>*/}
+            {/*                <DataTableCell getContent={(r) => r.lastName}/>*/}
+            {/*                <DataTableCell getContent={(r) => r.dob.toLocaleString()}/>*/}
+            {/*                <DataTableCell getContent={(r) => r.country}/>*/}
+            {/*                <DataTableCell getContent={(r) => r.phoneNumber}/>*/}
+            {/*            </TableBody>*/}
+            {/*        </Table>*/}
+            {/*    </Page>*/}
+            {/*</Document>*/}
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="تعهد نامه ثبت نام غیر حضوری"
@@ -125,19 +249,19 @@ export default function OnlineRegistrationAgreement() {
                             <tr>
                                 <td>
                                     <span>نام:</span>
-                                    <span>{userData.privatePerson?.firstName}</span>
+                                    <span>{userData?.privatePerson?.firstName}</span>
                                 </td>
                                 <td>
                                     <span>نام خانوادگی:</span>
-                                    <span>{userData.privatePerson?.lastName}</span>
+                                    <span>{userData?.privatePerson?.lastName}</span>
                                 </td>
                                 <td>
                                     <span>کد ملی:</span>
-                                    <span>{userData.uniqueIdentifier}</span>
+                                    <span>{userData?.uniqueIdentifier}</span>
                                 </td>
                                 <td>
                                     <span>به شماره شناسنامه:</span>
-                                    <span>{userData.uniqueIdentifier}</span>
+                                    <span>{userData?.uniqueIdentifier}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -253,7 +377,7 @@ export default function OnlineRegistrationAgreement() {
                                 </td>
                                 <td>
                                     <span>نام صاحب حساب:  </span>
-                                    <span>{userData.privatePerson?.firstName + '-' + userData.privatePerson?.lastName}</span>
+                                    <span>{userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}</span>
                                 </td>
                                 <td>
                                     <span> نوع حساب:  </span>

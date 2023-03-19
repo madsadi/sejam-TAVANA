@@ -109,7 +109,7 @@ export default function PhoneTradingAgreement(){
                                 <td>
                                     <span> جنسیت: </span>
                                     <span>
-                                    {userData.privatePerson.gender === 'Male' ? 'مرد' : 'زن'}
+                                    {userData?.privatePerson.gender === 'Male' ? 'مرد' : 'زن'}
                                 </span>
                                 </td>
                                 <td>
@@ -128,11 +128,11 @@ export default function PhoneTradingAgreement(){
                             <tr>
                                 <td>
                                     <span> نام خانوادگی:</span>
-                                    <span>{userData.privatePerson?.lastName}</span>
+                                    <span>{userData?.privatePerson?.lastName}</span>
                                 </td>
                                 <td>
                                     <span>کد ملی:</span>
-                                    <span>{userData.uniqueIdentifier}</span>
+                                    <span>{userData?.uniqueIdentifier}</span>
                                 </td>
                                 <td>
                                     <span>آدرس پست الکترونیکی:</span>
