@@ -47,8 +47,8 @@ export default function PageHeaderFooter(){
             <div className="page-footer">
                 <div className="text-right">
                     <div className={'titleValue'}>نمونه امضاء مشتري / نماینده :</div>
-                    <div className="sign-card">
-                        <Image src={document?.[0]?.image} height={90} width={150} alt="singPhoto"/>
+                    <div className="sign-card relative">
+                        <Image src={document?.[0]?.image} fill alt="singPhoto"/>
                     </div>
                 </div>
                 <div className="text-left">

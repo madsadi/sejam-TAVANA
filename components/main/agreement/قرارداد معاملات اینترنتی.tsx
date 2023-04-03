@@ -16,16 +16,8 @@ export default function OfflineTradingAgreement(){
 
     const onBeforeGetContentResolve = useRef(null);
 
-    const handleAfterPrint = useCallback(() => {
-        console.log("`onAfterPrint` called");
-    }, []);
-
-    const handleBeforePrint = useCallback(() => {
-        console.log("`onBeforePrint` called");
-    }, []);
 
     const handleOnBeforeGetContent = useCallback(() => {
-        console.log("`onBeforeGetContent` called");
         setLoading(true);
         setText("Loading new text...");
 
@@ -73,9 +65,7 @@ export default function OfflineTradingAgreement(){
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="قرارداد معاملات اینترنتی "
-                onAfterPrint={handleAfterPrint}
                 onBeforeGetContent={handleOnBeforeGetContent}
-                onBeforePrint={handleBeforePrint}
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
@@ -111,22 +101,24 @@ export default function OfflineTradingAgreement(){
                                                 <div className={'titleValue'}>{userData?.privatePerson?.firstName}</div>
                                             </td>
                                             <td>
+                                                <div className={'title'}> نام خانوادگی:</div>
+                                                <div className={'titleValue'}>{userData?.privatePerson?.lastName}</div>
+                                            </td>
+                                            <td>
                                                 <div className={'title'}>نام پدر:</div>
                                                 <div className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
                                             </td>
                                             <td>
-                                                <div className={'title'}>شماره تلفن همراه:</div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.mobile}</div>
+                                                <div className={'title'}>کد ملی:</div>
+                                                <div className={'titleValue'}>{userData?.uniqueIdentifier}</div>
                                             </td>
-                                            <td>
-                                                <div className={'title'}> نام خانوادگی:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.lastName}</div>
-                                            </td>
+
+
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div className={'title'}>کد ملی:</div>
-                                                <div className={'titleValue'}>{userData?.uniqueIdentifier}</div>
+                                                <div className={'title'}>شماره تلفن همراه:</div>
+                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.mobile}</div>
                                             </td>
                                             <td>
                                                 <div className={'title'}>آدرس پست الکترونیکی:</div>

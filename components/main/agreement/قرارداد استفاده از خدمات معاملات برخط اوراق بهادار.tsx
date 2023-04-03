@@ -21,16 +21,7 @@ export default function OnlineTradingAgreement() {
 
     const onBeforeGetContentResolve = useRef(null);
 
-    const handleAfterPrint = useCallback(() => {
-        console.log("`onAfterPrint` called");
-    }, []);
-
-    const handleBeforePrint = useCallback(() => {
-        console.log("`onBeforePrint` called");
-    }, []);
-
     const handleOnBeforeGetContent = useCallback(() => {
-        console.log("`onBeforeGetContent` called");
         setLoading(true);
         setText("Loading new text...");
 
@@ -78,9 +69,7 @@ export default function OnlineTradingAgreement() {
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="قرارداد استفاده از خدمات معاملات برخط اوراق بهادار"
-                onAfterPrint={handleAfterPrint}
                 onBeforeGetContent={handleOnBeforeGetContent}
-                onBeforePrint={handleBeforePrint}
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
@@ -132,29 +121,72 @@ export default function OnlineTradingAgreement() {
                                         1587946317 و مشتري حقیقی به مشخصات زیر که از این پس در این قرارداد "مشتري" نامیده می‌شود:
                                     </p>
                                 </div>
-                                <div className=" mt-4">
-
-                                    <table className={'table table-compact w-full'}>
+                                <div className="my-4">
+                                    {userData?.legalPerson ? <table className={'table table-compact w-full'}>
+                                            <thead>
+                                            <tr><td><h5>ب) اشخاص حقوقی ایرانی: </h5></td></tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div className={'title'}>نام: </div>
+                                                    <div className={'titleValue'}>{userData?.legalPerson?.companyName}</div>
+                                                </td>
+                                                <td>
+                                                    <div className={'title'}>شماره ثبت:</div>
+                                                    <div className={'titleValue'}>{userData?.legalPerson?.registerNumber}</div>
+                                                </td>
+                                                <td>
+                                                    <div className={'title'}>محل ثبت:</div>
+                                                    <div className={'titleValue'}>{userData?.legalPerson?.registerPlace}</div>
+                                                </td>
+                                                <td>
+                                                    <div className={'title'}>تاریخ ثبت:</div>
+                                                    <div className={'titleValue'}>{jalali(userData?.legalPerson?.registerDate)?.date}</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div className={'title'}>نوع شخصیت:</div>
+                                                    <div className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item:any)=>item.id===userData?.legalPerson?.legalPersonTypeCategory)?.title}</div>
+                                                </td>
+                                                <td>
+                                                    <div className={'title'}> شماره حساب بانکی: </div>
+                                                    <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
+                                                </td>
+                                                <td>
+                                                    <div className={'title'}>شماره شبا:</div>
+                                                    <div className={'titleValue'}>{userDefaultBank?.sheba}</div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>:
+                                        <table className={'table table-compact w-full'}>
                                         <thead>
-                                        <tr><td>
-                                            <h5>
-                                                الف) اشخاص حقیقی / نماینده ایرانی:
-                                            </h5>
-                                        </td></tr>
+                                        <tr>
+                                            <td>
+                                                <h5>
+                                                    الف) اشخاص حقیقی / نماینده ایرانی:
+                                                </h5>
+                                            </td>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td>
                                                 <div className={'title'}>جنسیت:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.gender==='Male' ? 'مرد':'زن'}</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.gender === 'Male' ? 'مرد' : 'زن'}</div>
                                             </td>
                                             <td>
-                                                <div className={'title'}> نام و نام خانوادگی: </div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.firstName+' '+userData?.privatePerson?.lastName}</div>
+                                                <div className={'title'}> نام و نام خانوادگی:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.firstName + ' ' + userData?.privatePerson?.lastName}</div>
                                             </td>
                                             <td>
                                                 <div className={'title'}>نام پدر:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
                                             </td>
                                             <td>
                                                 <div className={'title'}>شماره تلفن همراه:</div>
@@ -175,21 +207,22 @@ export default function OnlineTradingAgreement() {
                                                 <div className={'titleValue'}>{userData?.addresses?.[0]?.email}</div>
                                             </td>
                                             <td>
-                                                <div className={'title'}> نام بانک: </div>
+                                                <div className={'title'}> نام بانک:</div>
                                                 <div className={'titleValue'}>{userDefaultBank?.bank?.name}</div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div className={'title'}> نوع حساب: </div>
-                                                <div className={'titleValue'}>{accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle}</div>
+                                                <div className={'title'}> نوع حساب:</div>
+                                                <div
+                                                    className={'titleValue'}>{accountTypeEnums.find((item: any) => item.id === userDefaultBank?.type)?.faTitle}</div>
                                             </td>
                                             <td>
-                                                <div className={'title'}> نام شعبه: </div>
+                                                <div className={'title'}> نام شعبه:</div>
                                                 <div className={'titleValue'}>{userDefaultBank?.branchName}</div>
                                             </td>
                                             <td>
-                                                <div className={'title'}> شماره حساب بانکی: </div>
+                                                <div className={'title'}> شماره حساب بانکی:</div>
                                                 <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
                                             </td>
                                             <td>
@@ -198,50 +231,7 @@ export default function OnlineTradingAgreement() {
                                             </td>
                                         </tr>
                                         </tbody>
-                                    </table>
-                                </div>
-
-                                <div className=" mt-4">
-
-                                    <table className={'table table-compact w-full'}>
-                                        <thead>
-                                        <tr><td><h5>ب) اشخاص حقوقی ایرانی: </h5></td></tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <div className={'title'}>نام: </div>
-                                                <div className={'titleValue'}>{userData?.legalPerson?.companyName}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>شماره ثبت:</div>
-                                                <div className={'titleValue'}>{userData?.legalPerson?.registerNumber}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>محل ثبت:</div>
-                                                <div className={'titleValue'}>{userData?.legalPerson?.registerPlace}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>تاریخ ثبت:</div>
-                                                <div className={'titleValue'}>{jalali(userData?.legalPerson?.registerDate)?.date}</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div className={'title'}>نوع شخصیت:</div>
-                                                <div className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item:any)=>item.id===userData?.legalPerson?.legalPersonTypeCategory)?.title}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}> شماره حساب بانکی: </div>
-                                                <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>شماره شبا:</div>
-                                                <div className={'titleValue'}>{userDefaultBank?.sheba}</div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    </table>}
                                 </div>
 
 
@@ -307,82 +297,69 @@ export default function OnlineTradingAgreement() {
                                 <div className=" mt-4">
                                     <div className="row">
 
-                                        <table className={'table table-compact w-full'}>
+                                        {userData?.agent ?
+                                            <table className={'table table-compact w-full'}>
                                             <thead>
-                                            <td><tr>
-                                                <h5>ج) مشخصات نماینده قانونی (حقیقی/ حقوقی) در مواردي که مشتري داراي نماینده است، قرارداد توسط وي امضاء
-                                                    می‌شود. </h5>
-                                                <div className="col-12 custom-border">
-                                                    نوع نمایندگی قانونی: وکالتنامه رسمی
-                                                </div>
-                                            </tr></td>
+                                            <td>
+                                                <tr>
+                                                    <h5>ب) مشخصات نماینده قانونی (حقیقی/ حقوقی) در مواردي که مشتري داراي
+                                                        نماینده است، قرارداد توسط وي امضاء
+                                                        می‌شود. </h5>
+                                                    <div className="col-12 custom-border">
+                                                        نوع نمایندگی قانونی: وکالتنامه رسمی
+                                                    </div>
+                                                </tr>
+                                            </td>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td>
                                                     <div className={'title'}>نام شخصیت حقیقی:</div>
-                                                    <div className={'titleValue'}>{userData?.privatePerson?.firstName}</div>
+                                                    <div
+                                                        className={'titleValue'}>{userData?.privatePerson?.firstName}</div>
                                                 </td>
                                                 <td>
                                                     <div className={'title'}>نام خانوداگی:</div>
-                                                    <div className={'titleValue'}>{userData?.privatePerson?.lastName}</div>
+                                                    <div
+                                                        className={'titleValue'}>{userData?.privatePerson?.lastName}</div>
                                                 </td>
                                                 <td>
                                                     <div className={'title'}>نام پدر:</div>
-                                                    <div className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
+                                                    <div
+                                                        className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     <div className={'title'}>تلفن ثابت نماینده قانونی:</div>
-                                                    <div className={'titleValue'}>{userData?.addresses?.[0]?.tel}</div>
+                                                    <div className={'titleValue'}>{userData?.agent?.tel}</div>
                                                 </td>
                                                 <td>
                                                     <div className={'title'}>تلفن همراه نماینده قانونی:</div>
-                                                    <div className={'titleValue'}>{userData?.addresses?.[0]?.mobile}</div>
+                                                    <div
+                                                        className={'titleValue'}>{userData?.agent?.mobile}</div>
                                                 </td>
                                                 <td>
                                                     <div className={'title'}>کد ملی:</div>
-                                                    <div className={'titleValue'}>{userData?.uniqueIdentifier}</div>
+                                                    <div className={'titleValue'}>{userData?.agent?.uniqueIdentifier}</div>
                                                 </td>
-                                                <td>
-                                                    <div className={'title'}>درس محل سکونت:</div>
-                                                    <div className={'titleValue'}>{userData?.addresses?.[0]?.remnantAddress}</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
+                                                {/*<td>*/}
+                                                {/*    <div className={'title'}>آدرس محل سکونت:</div>*/}
+                                                {/*    <div*/}
+                                                {/*        className={'titleValue'}>{userData?.addresses?.[0]?.remnantAddress}</div>*/}
+                                                {/*</td>*/}
                                                 <td>
                                                     <div className={'title'}>نوع شخصیت حقوقی:</div>
-                                                    <div className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item:any)=>item.id===userData?.legalPerson?.legalPersonTypeCategory)?.title}</div>
-                                                </td>
-                                                <td>
-                                                    <div className={'title'}>تاریخ ثبت:</div>
-                                                    <div className={'titleValue'}>{jalali(userData?.legalPerson?.registerDate)?.date}</div>
-                                                </td>
-                                                <td>
-                                                    <div className={'title'}>تلفن ثابت نماینده قانونی:</div>
-                                                    <div className={'titleValue'}>{userData?.addresses?.[0]?.tel}</div>
+                                                    <div
+                                                        className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item: any) => item.id === userData?.agent?.type)?.title}</div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div className={'title'}>نام شرکت:</div>
-                                                    <div className={'titleValue'}>{userData?.legalPerson?.companyName}</div>
+                                                    <div className={'title'}>نام نماینده:</div>
+                                                    <div
+                                                        className={'titleValue'}>{userData?.agent?.firstName + ' ' + userData?.agent?.lastName}</div>
                                                 </td>
-                                                <td>
-                                                    <div className={'title'}>شماره ثبت:</div>
-                                                    <div className={'titleValue'}>{userData?.legalPerson?.economicCode}</div>
-                                                </td>
-                                                <td>
-                                                    <div className={'title'}>شناسه ملی:</div>
-                                                    <div className={'titleValue'}>{userData?.legalPerson?.registerNumber}</div>
-                                                </td>
-                                                <td>
-                                                    <div className={'title'}>محل ثبت:</div>
-                                                    <div className={'titleValue'}>{userData?.legalPerson?.registerPlace}</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
                                                 <td>
                                                     <div className={'title'}>شماره قیم‌نامه/ وکالتنامه:</div>
                                                     {/*<div className='titleValue>{userData?.privatePerson?.placeOfIssue}</span>*/}
@@ -407,7 +384,7 @@ export default function OnlineTradingAgreement() {
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table>
+                                        </table>:null}
                                         <div className="col-12 custom-border">
                                             آیا وکیل حق دریافت وجه حاصل از فروش را دارد؟
                                         </div>

@@ -111,7 +111,9 @@ export default function PrivatePersonAgreement(){
                                         نشانی سایت اینترنتی <a href="https://www.tavana.net">www.tavana.net</a> که
                                         داراي پایگاه
                                         اطلاعاتی سامان بورس از یکسو و آقا/خانم
+                                        &lrm;
                                         <span>{userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}</span>
+                                        &lrm;
                                         به کد
                                         ملی با مشخصات
                                         <span>{userData?.uniqueIdentifier}</span>

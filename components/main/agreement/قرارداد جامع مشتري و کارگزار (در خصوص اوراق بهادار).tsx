@@ -5,7 +5,12 @@ import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
 import PageHeaderFooter from "./PageHeaderFooter";
-import {accountTypeEnums, tradingKnowledgeLevelEnums, transactionLevelPrivatePersonEnums} from "../../common/enums";
+import {
+    accountTypeEnums,
+    legalPersonTypeCategoryEnums,
+    tradingKnowledgeLevelEnums,
+    transactionLevelPrivatePersonEnums
+} from "../../common/enums";
 
 export default function TotalBrokerageAgreement() {
     const {userData,userDefaultBank} = useContext<any>(SejamContext)
@@ -115,22 +120,82 @@ export default function TotalBrokerageAgreement() {
                                         به شرح مواد ذیل منعقد گردید.
                                     </p>
                                 </div>
-                                <div className="text-right">
-                                    <h5>الف) مشتري حقیقی: </h5>
-                                    <table className={'table table-compact w-full'}>
+                                <div className="text-right my-5">
+                                    {userData?.legalPerson ? <table className={'table table-compact w-full'}>
+                                            <thead>
+                                            <tr>
+                                                <td><h5>ب) مشتري حقوقی:</h5></td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div className={'title'}>نام:</div>
+                                                    <div
+                                                        className={'titleValue'}>{userData?.legalPerson?.companyName}</div>
+                                                </td>
+                                                <td>
+                                                    <div className={'title'}>شماره ثبت:</div>
+                                                    <div
+                                                        className={'titleValue'}>{userData?.legalPerson?.registerNumber}</div>
+                                                </td>
+                                                <td>
+                                                    <div className={'title'}>محل ثبت:</div>
+                                                    <div
+                                                        className={'titleValue'}>{userData?.legalPerson?.registerPlace}</div>
+                                                </td>
+                                                <td>
+                                                    <div className={'title'}>تاریخ ثبت:</div>
+                                                    <div
+                                                        className={'titleValue'}>{userData?.legalPerson?.registerDate}</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div className={'title'}>نوع شخصیت:</div>
+                                                    <div
+                                                        className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item: any) => item.id === userData.legalPerson?.legalPersonTypeCategory)?.title}</div>
+                                                </td>
+                                                <td>
+                                                    <div className={'title'}>نشانی پست الکترونیک:</div>
+                                                    <div
+                                                        className={'titleValue'}>{userData?.addresses?.[0]?.email}</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div className={'title'}> شماره حساب بانکی:</div>
+                                                    <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
+                                                </td>
+                                                <td>
+                                                    <div className={'title'}>شماره شبا:</div>
+                                                    <div className={'titleValue'}>{userDefaultBank?.sheba}</div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>:
+                                        <table className={'table table-compact w-full'}>
+                                        <thead>
+                                        <tr>
+                                            <td><h5>الف) مشتري حقیقی: </h5></td>
+                                        </tr>
+                                        </thead>
                                         <tbody>
                                         <tr>
                                             <td>
                                                 <div className={'title'}>نام و نام خانوادگی:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}</div>
                                             </td>
                                             <td>
                                                 <div className={'title'}>نام پدر:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
                                             </td>
                                             <td>
                                                 <div className={'title'}> شماره شناسنامه:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.serial + `/` + userData?.privatePerson?.seriShChar + userData?.privatePerson?.seriSh}</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.serial + `/` + userData?.privatePerson?.seriShChar + userData?.privatePerson?.seriSh}</div>
                                             </td>
                                             <td>
                                                 <div className={'title'}>کد ملی:</div>
@@ -157,69 +222,22 @@ export default function TotalBrokerageAgreement() {
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div className={'title'}> نام بانک:  </div>
-                                                <div className={'titleValue'}>{userDefaultBank?.bank?.name + ' ' + userDefaultBank?.branchCode}</div>
+                                                <div className={'title'}> نام بانک:</div>
+                                                <div
+                                                    className={'titleValue'}>{userDefaultBank?.bank?.name + ' ' + (userDefaultBank?.branchCode ? userDefaultBank?.branchCode:'')}</div>
                                             </td>
                                             <td>
-                                                <div className={'title'}> شماره‌حساب بانکی:  </div>
+                                                <div className={'title'}> شماره‌حساب بانکی:</div>
                                                 <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
                                             </td>
                                             <td>
-                                                <div className={'title'}> آدرس منزل:  </div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.remnantAddress}</div>
+                                                <div className={'title'}> آدرس منزل:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.addresses?.[0]?.remnantAddress}</div>
                                             </td>
                                         </tr>
                                         </tbody>
-                                    </table>
-                                </div>
-                                <div className="text-right">
-                                    <h5>ب) مشتري حقوقی: </h5>
-                                    <table className={'table table-compact w-full'}>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <div className={'title'}> نام موسسه/شرکت:</div>
-                                                <div className={'titleValue'}>{userData?.legalPerson?.companyName}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>شناسه ملی:</div>
-                                                <div className={'titleValue'}>{userData?.legalPerson?.registerNumber}</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div className={'title'}>تلفن ثابت:</div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.tel}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>کد پستی منزل:</div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.email}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>شماره تلفن همراه:</div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.mobile}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>آدرس پست الکترونیکی:</div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.email}</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div className={'title'}> نام بانک:  </div>
-                                                <div className={'titleValue'}>{userDefaultBank?.bank?.name + ' ' + userDefaultBank?.branchCode}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}> شماره‌حساب بانکی:  </div>
-                                                <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}> آدرس دفتر مرکزی:  </div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.remnantAddress}</div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    </table>}
                                 </div>
 
                                 <div className="text-right">

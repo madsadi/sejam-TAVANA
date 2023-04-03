@@ -92,6 +92,7 @@ input[type=number] {
   .sign-card,.sing-img {
     width: 200px;
     height: 100px;
+    background-size: contain;
   }
   .logo-card,.logo-img {
     width: 140px;
