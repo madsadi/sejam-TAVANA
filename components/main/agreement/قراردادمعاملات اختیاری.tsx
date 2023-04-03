@@ -287,7 +287,7 @@ export default function OptionalAgreement() {
                                             </td>
                                             <td>
                                                 <div className={'title'}> شماره تلفن منزل با کد شهر: </div>
-                                                <div className={'titleValue'}>{userData.addresses?.[0].cityPrefix + '-' + userData.addresses?.[0].tel}</div>
+                                                <div className={'titleValue'}>{userData?.addresses?.[0].cityPrefix + '-' + userData?.addresses?.[0].tel}</div>
                                             </td>
                                             <td>
                                                 <div className={'title'}>تلفن محل کار:  </div>
@@ -336,7 +336,7 @@ export default function OptionalAgreement() {
                                             </td>
                                             <td>
                                                 <div className={'title'}>نوع شخصیت:</div>
-                                                <div className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item: any) => item.id === userData.legalPerson?.legalPersonTypeCategory)?.title}</div>
+                                                <div className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item: any) => item.id === userData?.legalPerson?.legalPersonTypeCategory)?.title}</div>
                                             </td>
                                             <td>
                                                 <div className={'title'}> شماره حساب بانکی: </div>

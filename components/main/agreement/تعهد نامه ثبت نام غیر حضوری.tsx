@@ -293,7 +293,7 @@ export default function OnlineRegistrationAgreement() {
                                         <tr>
                                             <td>
                                                 <div className={'title'}> نام بانک:</div>
-                                                <div className={'titleValue'}>{userDefaultBank.bank?.name}</div>
+                                                <div className={'titleValue'}>{userDefaultBank?.bank?.name}</div>
                                             </td>
                                             <td>
                                                 <div className={'title'}>نام صاحب حساب:</div>

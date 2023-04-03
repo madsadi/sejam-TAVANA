@@ -229,7 +229,7 @@ export default function OnlineTradingAgreement() {
                                         <tr>
                                             <td>
                                                 <div className={'title'}>نوع شخصیت:</div>
-                                                <div className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item:any)=>item.id===userData.legalPerson?.legalPersonTypeCategory)?.title}</div>
+                                                <div className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item:any)=>item.id===userData?.legalPerson?.legalPersonTypeCategory)?.title}</div>
                                             </td>
                                             <td>
                                                 <div className={'title'}> شماره حساب بانکی: </div>
@@ -353,7 +353,7 @@ export default function OnlineTradingAgreement() {
                                             <tr>
                                                 <td>
                                                     <div className={'title'}>نوع شخصیت حقوقی:</div>
-                                                    <div className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item:any)=>item.id===userData.legalPerson?.legalPersonTypeCategory)?.title}</div>
+                                                    <div className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item:any)=>item.id===userData?.legalPerson?.legalPersonTypeCategory)?.title}</div>
                                                 </td>
                                                 <td>
                                                     <div className={'title'}>تاریخ ثبت:</div>
