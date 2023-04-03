@@ -55,44 +55,28 @@ input[type=number] {
   border-radius: 4px;
 }
 
-/*.page{*/
-/*  position:relative;*/
-/*  padding-top: 150px;*/
-/*  padding-bottom: 150px;*/
-/*  margin-top: 60px;*/
-/*}*/
-.page-footer{
-  display: none;
-}
-.page-header{
-  display: none;
+.page{
+  overflow: hidden;
+  margin: 20px 0;
 }
 
-.page-footer, .page-footer-space {
-  height: 150px;
+.page-footer,.page-header {
+  display: none
 }
 
-.page-footer {
-  position: running(footer-right-data);
-  bottom: 0;
-  width: 100%;
-  border-top: 1px solid black; /* for demo */
-  background: transparent; /* for demo */
+@page {
+  size: A4;
+  margin: 11mm 17mm 17mm 17mm;
 }
-/*.page-header, .page-header-space {*/
-/*  height: 150px;*/
-/*}*/
-
-.page-header {
-  position: running(header-first-top-data);
-  top: 0;
-  width: 100%;
-  background: transparent; /* for demo */
-}
-
 @media print {
+  .page-header-space,.page-footer-space{
+    height: 150px;
+  }
+
   .page{
-    padding:16px;
+    display: block;
+    page-break-inside: avoid;
+    margin: 0;
     direction: rtl;
     text-align: justify;
   }
@@ -104,12 +88,6 @@ input[type=number] {
   .no-print {
     display: none;
   }
-  .page {
-    display: block;
-    page-break-inside: avoid;
-    margin: 0;
-  }
-
 
   .sign-card,.sing-img {
     width: 200px;
@@ -117,7 +95,7 @@ input[type=number] {
   }
   .logo-card,.logo-img {
     width: 140px;
-    height: 140px;
+    height: 100px;
   }
 
   body {margin: 0;}
@@ -126,13 +104,24 @@ input[type=number] {
   tfoot {display: table-footer-group;}
 
   .page-footer{
+    direction: rtl;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
     display: flex;
     justify-content: space-between;
+    height: 140px;
+    overflow: hidden;
   }
 
   .page-header{
+    direction: rtl;
+    position: fixed;
+    width: 100%;
+    top: 0;
     display: flex;
     justify-content: space-between;
+    height: 150px;
   }
 
 }
@@ -141,6 +130,21 @@ input[type=number] {
 @tailwind utilities;
 
 @layer base {
+  table {
+    table-layout: fixed;
+    page-break-inside: avoid;
+  }
+
+  .content tr{
+    border-bottom: 1px solid rgba(157, 157, 157, 0.14);
+  }
+
+  td{
+    overflow-wrap: anywhere;
+    word-wrap: break-word
+
+  }
+
   h2 {
     @apply text-4xl sm:mt-5 sm:mb-10 mb-5 text-tavanaGreen text-center;
   }
@@ -175,7 +179,16 @@ input[type=number] {
     @apply text-tavanaGreen text-xl font-bold;
   }
 
-
+  .title{
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
+  .titleValue{
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    overflow-wrap: break-word;
+  }
 }
 
 @layer utilities {

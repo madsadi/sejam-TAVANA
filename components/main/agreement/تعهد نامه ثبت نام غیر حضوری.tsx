@@ -4,68 +4,8 @@ import {formatNumber, jalali} from "../../common/functions";
 import {accountTypeEnums, tradingKnowledgeLevelEnums, transactionLevelPrivatePersonEnums} from "../../common/enums";
 import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
-import moment from "jalali-moment";
 import PageHeaderFooter from "./PageHeaderFooter";
 
-import {Page, Text, Document, StyleSheet,PDFViewer} from "@react-pdf/renderer";
-import TablePDF from "./TablePDF";
-import {Table, TableBody, TableCell, TableHeader,DataTableCell} from "@david.kucsai/react-pdf-table";
-
-const styles = StyleSheet.create({
-    body: {
-        paddingTop: 35,
-        paddingBottom: 65,
-        paddingHorizontal: 35,
-        display:"flex",
-        flexDirection: "column",
-    },
-    title: {
-        fontSize: 24,
-        textAlign: 'center',
-        fontFamily: 'PelakFA'
-    },
-    author: {
-        fontSize: 12,
-        textAlign: 'center',
-        marginBottom: 40,
-    },
-    subtitle: {
-        fontSize: 18,
-        margin: 12,
-        fontFamily: 'PelakFA'
-    },
-    text: {
-        margin: 12,
-        fontSize: 14,
-        textAlign: 'justify',
-        fontFamily: 'PelakFA'
-    },
-    list: {
-        margin: 12,
-        fontSize: 14,
-        textAlign: 'justify',
-        fontFamily: 'PelakFA'
-    },
-    image: {
-        marginVertical: 15,
-        marginHorizontal: 100,
-    },
-    header: {
-        fontSize: 12,
-        marginBottom: 20,
-        textAlign: 'center',
-        color: 'grey',
-    },
-    pageNumber: {
-        position: 'absolute',
-        fontSize: 12,
-        bottom: 30,
-        left: 0,
-        right: 0,
-        textAlign: 'center',
-        color: 'grey',
-    },
-});
 export default function OnlineRegistrationAgreement() {
     const {userData, userDefaultBank} = useContext<any>(SejamContext)
     const [loading, setLoading] = useState(false);
@@ -129,71 +69,6 @@ export default function OnlineRegistrationAgreement() {
 
     return (
         <>
-            {/*<Document>*/}
-            {/*    <Page>*/}
-            {/*        <Text style={styles.title}>تعهد نامه ثبت نام غیر حضوری</Text>*/}
-            {/*        <Text style={styles.subtitle}>*/}
-            {/*            فرم مشخصات اشخاص حقیقی ایرانی (مشتري / نماینده)*/}
-            {/*        </Text>*/}
-            {/*        <Text style={styles.list}>*/}
-            {/*            اطلاعات این فرم محرمانه محسوب شده و در اختیار اشخاص غیر مجاز قرار داده نمی‌شود. تکمیل*/}
-            {/*            قسمت*/}
-            {/*            هاي*/}
-            {/*            ستاره‌دار*/}
-            {/*            الزامی و سایر قسمت‌ها اختیاري است.*/}
-            {/*        </Text>*/}
-            {/*        <Text style={styles.list}>*/}
-            {/*            بخش‌های مشترك این فرم باید توسط مشتري یا نماینده تکمیل شود سایر بخش‌ها*/}
-            {/*            که*/}
-            {/*            با*/}
-            {/*            عبارت‌های*/}
-            {/*            /!* eslint-disable-next-line react/no-unescaped-entities *!/*/}
-            {/*            "اطلاعات مشتري" و"اطلاعات نماینده" مشخص شده است با توجه به نقش شخص تکمیل کننده (مشتري یا*/}
-            {/*            نماینده)*/}
-            {/*            بخش مربوط*/}
-            {/*            به شخص تکمیل گردد.*/}
-            {/*        </Text>*/}
-            {/*        <Text>*/}
-            {/*            نماینده شخص حقوقی و اشخاص مجاز به ارائه سفارش از طرف شخص حقوقی، طبق تبصره 1 بند 4-2-1 ماده 4*/}
-            {/*            دستورالعمل*/}
-            {/*            شناسایی مشتریان در بازار سرمایه، باید طبق ضوابط مقرر در مورد اشخاص حقیقی مورد شناسایی قرار*/}
-            {/*            گیرند.*/}
-            {/*        </Text>*/}
-            {/*        <Text style={styles.subtitle}>*/}
-            {/*            اطلاعات هویتی*/}
-            {/*        </Text>*/}
-            {/*        <Table*/}
-            {/*            data={[*/}
-            {/*                {firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000"}*/}
-            {/*            ]}*/}
-            {/*        >*/}
-            {/*            <TableHeader>*/}
-            {/*                <TableCell>*/}
-            {/*                    First Name*/}
-            {/*                </TableCell>*/}
-            {/*                <TableCell>*/}
-            {/*                    Last Name*/}
-            {/*                </TableCell>*/}
-            {/*                <TableCell>*/}
-            {/*                    DOB*/}
-            {/*                </TableCell>*/}
-            {/*                <TableCell>*/}
-            {/*                    Country*/}
-            {/*                </TableCell>*/}
-            {/*                <TableCell>*/}
-            {/*                    Phone Number*/}
-            {/*                </TableCell>*/}
-            {/*            </TableHeader>*/}
-            {/*            <TableBody>*/}
-            {/*                <DataTableCell getContent={(r) => r.firstName}/>*/}
-            {/*                <DataTableCell getContent={(r) => r.lastName}/>*/}
-            {/*                <DataTableCell getContent={(r) => r.dob.toLocaleString()}/>*/}
-            {/*                <DataTableCell getContent={(r) => r.country}/>*/}
-            {/*                <DataTableCell getContent={(r) => r.phoneNumber}/>*/}
-            {/*            </TableBody>*/}
-            {/*        </Table>*/}
-            {/*    </Page>*/}
-            {/*</Document>*/}
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="تعهد نامه ثبت نام غیر حضوری"
@@ -204,235 +79,294 @@ export default function OnlineRegistrationAgreement() {
                 trigger={reactToPrintTrigger}
             />
             <div ref={componentRef}>
-                <div className={'leading-8 text-justify page'}>
-                    <PageHeaderFooter/>
-                    <div className="text-center">
-                        <p>تعهد نامه ثبت نام غیر حضوری</p>
-                    </div>
+                <table className={'w-full'} dir={'rtl'}>
+                    <thead>
+                    <tr>
+                        <td>
+                            <div className="page-header-space">&nbsp;</div>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td className={'w-full content'}>
+                            <div className={'relative leading-8 text-justify page'}>
+                                <div className="text-center">
+                                    <p>تعهد نامه ثبت نام غیر حضوری</p>
+                                </div>
 
-                    <div className="text-center">
-                        <h4 className="font-weight-bolder">
-                            فرم مشخصات اشخاص حقیقی ایرانی (مشتري / نماینده)
-                        </h4>
-                    </div>
-                    <div className="text-right mt-4">
-                        <ul>
-                            <li>اطلاعات این فرم محرمانه محسوب شده و در اختیار اشخاص غیر مجاز قرار داده نمی‌شود. تکمیل
-                                قسمت
-                                هاي
-                                ستاره‌دار
-                                الزامی و سایر قسمت‌ها اختیاري است.
-                            </li>
-                            <li className="mt-4">بخش‌های مشترك این فرم باید توسط مشتري یا نماینده تکمیل شود سایر بخش‌ها
-                                که
-                                با
-                                عبارت‌های
-                                {/* eslint-disable-next-line react/no-unescaped-entities */}
-                                "اطلاعات مشتري" و"اطلاعات نماینده" مشخص شده است با توجه به نقش شخص تکمیل کننده (مشتري یا
-                                نماینده)
-                                بخش مربوط
-                                به شخص تکمیل گردد.
-                            </li>
-                        </ul>
-                        <p>
-                            نماینده شخص حقوقی و اشخاص مجاز به ارائه سفارش از طرف شخص حقوقی، طبق تبصره 1 بند 4-2-1 ماده 4
-                            دستورالعمل
-                            شناسایی مشتریان در بازار سرمایه، باید طبق ضوابط مقرر در مورد اشخاص حقیقی مورد شناسایی قرار
-                            گیرند.
-                        </p>
-                    </div>
+                                <div className="text-center">
+                                    <h4 className="font-weight-bolder">
+                                        فرم مشخصات اشخاص حقیقی ایرانی (مشتري / نماینده)
+                                    </h4>
+                                </div>
+                                <div className="text-right mt-4">
+                                    <ul>
+                                        <li>اطلاعات این فرم محرمانه محسوب شده و در اختیار اشخاص غیر مجاز قرار داده
+                                            نمی‌شود. تکمیل
+                                            قسمت
+                                            هاي
+                                            ستاره‌دار
+                                            الزامی و سایر قسمت‌ها اختیاري است.
+                                        </li>
+                                        <li className="mt-4">بخش‌های مشترك این فرم باید توسط مشتري یا نماینده تکمیل شود
+                                            سایر بخش‌ها
+                                            که
+                                            با
+                                            عبارت‌های
+                                            {/* eslint-disable-next-line react/no-unescaped-entities */}
+                                            "اطلاعات مشتري" و"اطلاعات نماینده" مشخص شده است با توجه به نقش شخص تکمیل
+                                            کننده (مشتري یا
+                                            نماینده)
+                                            بخش مربوط
+                                            به شخص تکمیل گردد.
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        نماینده شخص حقوقی و اشخاص مجاز به ارائه سفارش از طرف شخص حقوقی، طبق تبصره 1 بند
+                                        4-2-1 ماده 4
+                                        دستورالعمل
+                                        شناسایی مشتریان در بازار سرمایه، باید طبق ضوابط مقرر در مورد اشخاص حقیقی مورد
+                                        شناسایی قرار
+                                        گیرند.
+                                    </p>
+                                </div>
 
-                    <div className="text-right mt-4">
-                        <h5>اطلاعات هویتی</h5>
-                        <table className={'table table-compact w-full'}>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <span>نام:</span>
-                                    <span>{userData?.privatePerson?.firstName}</span>
-                                </td>
-                                <td>
-                                    <span>نام خانوادگی:</span>
-                                    <span>{userData?.privatePerson?.lastName}</span>
-                                </td>
-                                <td>
-                                    <span>کد ملی:</span>
-                                    <span>{userData?.uniqueIdentifier}</span>
-                                </td>
-                                <td>
-                                    <span>به شماره شناسنامه:</span>
-                                    <span>{userData?.uniqueIdentifier}</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span> سریال شناسنامه:</span>
-                                    <span>{`${userData?.privatePerson?.serial + `/` + userData?.privatePerson?.seriShChar + userData?.privatePerson?.seriSh}`}</span>
-                                </td>
-                                <td>
-                                    <span>نام پدر:</span>
-                                    <span>{userData?.privatePerson?.fatherName}</span>
-                                </td>
-                                <td>
-                                    <span>کد بورسی:</span>
-                                    <span>{userData?.privatePerson?.fatherName}</span>
-                                </td>
-                                <td>
-                                    <span>تاریخ تولد:</span>
-                                    <span>{jalali(userData?.privatePerson?.birthDate).date}</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>محل تولد:</span>
-                                    <span>{userData?.privatePerson?.placeOfBirth}</span>
-                                </td>
-                                <td>
-                                    <span>محل صدور:</span>
-                                    <span>{userData?.privatePerson?.placeOfIssue}</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                <div className="text-right mt-4">
 
-                    <div className="text-right mt-4">
-                        <h5>اطلاعات محل سکونت</h5>
-                        <table className={'table table-compact w-full'}>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <span>کشور:</span>
-                                    <span>{userData?.addresses?.[0]?.country.name}</span>
-                                </td>
-                                <td>
-                                    <span>استان:</span>
-                                    <span>{userData?.addresses?.[0]?.city.name}</span>
-                                </td>
-                                <td>
-                                    <span>کوچه: </span>
-                                    <span>{userData?.addresses?.[0]?.alley}</span>
-                                </td>
-                                <td>
-                                    <span>خیابان:</span>
-                                    <span>{userData?.addresses?.[0]?.remnantAddress}</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span> تلفن ثابت:  </span>
-                                    <span>{userData?.addresses?.[0]?.tel}</span>
-                                </td>
-                                <td>
-                                    <span>	 پست الکترونیک:</span>
-                                    <span>{userData?.addresses?.[0]?.email}</span>
-                                </td>
-                                <td>
-                                    <span>تلفن همراه:  </span>
-                                    <span>{userData?.addresses?.[0]?.mobile}</span>
-                                </td>
-                                <td>
-                                    <span>	 کد پستی:  </span>
-                                    <span>{userData?.addresses?.[0]?.postalCode}</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    <table className={'w-full'}>
+                                        <thead>
+                                        <tr>
+                                            <td><h5>اطلاعات هویتی</h5></td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div className={'title'}>نام:</div>
+                                                <div className={'titleValue'}>{userData?.privatePerson?.firstName}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>نام خانوادگی:</div>
+                                                <div className={'titleValue'}>{userData?.privatePerson?.lastName}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>کد ملی:</div>
+                                                <div className={'titleValue'}>{userData?.uniqueIdentifier}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>به شماره شناسنامه:</div>
+                                                <div className={'titleValue'}>{userData?.uniqueIdentifier}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div className={'title'}> سریال شناسنامه:</div>
+                                                <div
+                                                    className={'titleValue'}>{`${userData?.privatePerson?.serial + `/` + userData?.privatePerson?.seriShChar + userData?.privatePerson?.seriSh}`}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>نام پدر:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>کد بورسی:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>تاریخ تولد:</div>
+                                                <div
+                                                    className={'titleValue'}>{jalali(userData?.privatePerson?.birthDate).date}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div className={'title'}>محل تولد:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.placeOfBirth}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>محل صدور:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.placeOfIssue}</div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                    <div className="text-right mt-4">
-                        <h5>اطلاعات محل کار</h5>
-                        <table className={'table table-compact w-full'}>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <span> عنوان شغل:  </span>
-                                    <span>{userData.jobInfo?.companyName ? userData.jobInfo?.companyName : 'ناموجود'}</span>
-                                </td>
-                                <td>
-                                    <span>تلفن محل کار:  </span>
-                                    <span>{userData?.jobInfo?.companyCityPrefix + '-' + userData?.jobInfo?.companyPhone}</span>
-                                </td>
-                                <td>
-                                    <span> نشانی محل کار:  </span>
-                                    <span>{userData?.jobInfo?.companyAddress}</span>
-                                </td>
-                                <td>
-                                    <span> نمابر:  </span>
-                                    <span>{userData?.jobInfo?.companyFax}</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                <div className="text-right mt-4">
+                                    <table className={'w-full'}>
+                                        <thead>
+                                        <tr>
+                                            <td><h5>اطلاعات محل سکونت</h5></td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div className={'title'}>کشور:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.addresses?.[0]?.country.name}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>استان:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.addresses?.[0]?.city.name}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>کوچه:</div>
+                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.alley}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>خیابان:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.addresses?.[0]?.remnantAddress}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div className={'title'}> تلفن ثابت:</div>
+                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.tel}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}> پست الکترونیک:</div>
+                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.email}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>تلفن همراه:</div>
+                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.mobile}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}> کد پستی:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.addresses?.[0]?.postalCode}</div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                    <div className="text-right mt-4">
-                        <h5>اطلاعات حساب بانکی</h5>
-                        <table className={'table table-compact w-full'}>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <span> نام بانک:  </span>
-                                    <span>{userDefaultBank.bank?.name}</span>
-                                </td>
-                                <td>
-                                    <span>نام صاحب حساب:  </span>
-                                    <span>{userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}</span>
-                                </td>
-                                <td>
-                                    <span> نوع حساب:  </span>
-                                    <span>{accountTypeEnums.find((item: any) => item.id === userDefaultBank?.type)?.faTitle}</span>
-                                </td>
-                                <td>
-                                    <span>  نام شعبه:  </span>
-                                    <span>{userDefaultBank?.branchName}</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span> کد  شعبه:  </span>
-                                    <span>{userDefaultBank?.branchCode}</span>
-                                </td>
-                                <td>
-                                    <span>شماره‌حساب:  </span>
-                                    <span>{userDefaultBank?.accountNumber}</span>
-                                </td>
-                                <td>
-                                    <span>  شماره شبا:  </span>
-                                    <span>{userDefaultBank?.sheba}</span>
-                                </td>
-                                <td>
-                                    <span>  نام شعبه:  </span>
-                                    <span>{userDefaultBank?.branchName}</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className="text-right mt-4">
-                        <p>
+                                <div className="text-right mt-4">
+
+                                    <table className={'w-full'}>
+                                        <thead>
+                                        <tr>
+                                            <td><h5>اطلاعات محل کار</h5></td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div className={'title'}> عنوان شغل:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.jobInfo?.companyName ? userData?.jobInfo?.companyName : 'ناموجود'}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>تلفن محل کار:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.jobInfo?.companyCityPrefix + '-' + userData?.jobInfo?.companyPhone}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}> نشانی محل کار:</div>
+                                                <div className={'titleValue'}>{userData?.jobInfo?.companyAddress}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}> نمابر:</div>
+                                                <div className={'titleValue'}>{userData?.jobInfo?.companyFax}</div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div className="text-right mt-4">
+                                    <table className={'w-full'}>
+                                        <thead>
+                                        <tr>
+                                            <td><h5>اطلاعات حساب بانکی</h5></td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div className={'title'}> نام بانک:</div>
+                                                <div className={'titleValue'}>{userDefaultBank.bank?.name}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>نام صاحب حساب:</div>
+                                                <div
+                                                    className={'titleValue'}>{userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}> نوع حساب:</div>
+                                                <div
+                                                    className={'titleValue'}>{accountTypeEnums.find((item: any) => item.id === userDefaultBank?.type)?.faTitle}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}> نام شعبه:</div>
+                                                <div className={'titleValue'}>{userDefaultBank?.branchName}</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div className={'title'}> کد شعبه:</div>
+                                                <div className={'titleValue'}>{userDefaultBank?.branchCode}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}>شماره‌حساب:</div>
+                                                <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}> شماره شبا:</div>
+                                                <div className={'titleValue'}>{userDefaultBank?.sheba}</div>
+                                            </td>
+                                            <td>
+                                                <div className={'title'}> نام شعبه:</div>
+                                                <div className={'titleValue'}>{userDefaultBank?.branchName}</div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className="text-right mt-4">
+                                    <p>
                     <span className="font-weight-bold">
                         * میزان آشنایی شما با مفاهیم مالی و سرمایه‌گذاری در اوراق بهادار:
                     </span>
-                            {tradingKnowledgeLevelEnums.find((item: { id: string, title: string }) => item.id === userData?.financialInfo?.tradingKnowledgeLevel)?.title}
-                        </p>
-                        <p>
+                                        {tradingKnowledgeLevelEnums.find((item: { id: string, title: string }) => item.id === userData?.financialInfo?.tradingKnowledgeLevel)?.title}
+                                    </p>
+                                    <p>
                     <span className="font-weight-bold">
                         * متوسط درآمد ماهیانه شما از مشاغل و منابع مختلف در حال حاضر چقدراست؟
                     </span>
-                            {formatNumber(userData?.financialInfo?.inComingAverage)}
-                        </p>
-                        <p>
+                                        {formatNumber(userData?.financialInfo?.inComingAverage)}
+                                    </p>
+                                    <p>
                     <span className="font-weight-bold">
                         * پیش‌ بینی می‌کنید سطح معاملات شما در بازار سرمایه طی یک سال چه مبلغی باشد؟
                     </span>
-                            {transactionLevelPrivatePersonEnums.find((item: { id: string, title: string }) => item.id === userData?.financialInfo?.transactionLevel)?.title}
-                        </p>
-                        <p><span
-                            className="font-weight-bold"> * نام شرکت کارگزاري که شما قبلاً از طریق آن معامله نموده‌اید، ذکر نمایید:</span>
-                        </p>
-                    </div>
-                </div>
+                                        {transactionLevelPrivatePersonEnums.find((item: { id: string, title: string }) => item.id === userData?.financialInfo?.transactionLevel)?.title}
+                                    </p>
+                                    <p><span
+                                        className="font-weight-bold"> * نام شرکت کارگزاري که شما قبلاً از طریق آن معامله نموده‌اید، ذکر نمایید:</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td>
+                            <div className="page-footer-space">&nbsp;</div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+                <PageHeaderFooter/>
             </div>
         </>
     )
