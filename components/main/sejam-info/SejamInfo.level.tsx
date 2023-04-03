@@ -105,7 +105,7 @@ export default function SejamInfoLevel() {
                                     <LabelValue title={'نام'} value={item?.firstName}/>
                                     <LabelValue title={'نام خانوادگی'} value={item?.lastName}/>
                                     <LabelValue title={'کد ملی'}
-                                                value={item.uniqueIdentifier}/>
+                                                value={item?.uniqueIdentifier}/>
                                     <LabelValue title={'کد پستی'} value={item.postalCode}/>
                                     <LabelValue title={'نشانی کامل'} value={item.address}/>
                                     <LabelValue title={'سمت'}

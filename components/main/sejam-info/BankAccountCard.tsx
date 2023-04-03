@@ -3,7 +3,7 @@ import Image from 'next/image'
 import {accountNumber} from "./types";
 
 export default function BankAccountCard({accountInfo}: { accountInfo: accountNumber }) {
-    const bank_info = findBank(accountInfo.bank.name)
+    const bank_info = findBank(accountInfo?.bank.name)
 
     const separator = (account: string) => {
         const cardValue = account

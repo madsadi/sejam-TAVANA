@@ -72,11 +72,11 @@ export default function Main() {
             <div className="container flex flex-col h-full py-10 text-sm md:text-md">
                 <ProgressBar/>
                 {Components}
-                {level < 5 ? <div className={'md:block hidden fixed top-10 right-10 w-[150px] h-[200px] opacity-30'} suppressHydrationWarning={true}>
-                    <Lottie
-                        options={option}
-                    />
-                </div> : null}
+                {/*{level < 5 ? <div className={'md:block hidden fixed top-10 right-10 w-[150px] h-[200px] opacity-30'} suppressHydrationWarning={true}>*/}
+                {/*    <Lottie*/}
+                {/*        options={option}*/}
+                {/*    />*/}
+                {/*</div> : null}*/}
             </div>
         </SejamContext.Provider>
     )
