@@ -28,20 +28,20 @@ export default function PageHeaderFooter(){
             })
     },[])
     useEffect(()=>{
-        getDocument()
+        // getDocument()
     },[])
 
     return(
         <>
             <div className="page-header">
                 <div className="logo-card">
-                    <Image src={"/icons/logo.jpg"} height={90} width={150} alt="singPhoto"/>
+                    <Image src={"/icons/logo.jpg"} height={90} width={150} alt="tavana"/>
                 </div>
-                <div className="mt-5 font-weight-bold">
-                    <div> تاریخ :</div>
-                    <div>
+                <div className="mt-5 flex font-weight-bold">
+                    <div className={'text-sm ml-2'}> تاریخ :</div>
+                    <span>
                         {moment().locale('fa').format('YYYY/MM/DD')}
-                    </div>
+                    </span>
                 </div>
             </div>
             <div className="page-footer">

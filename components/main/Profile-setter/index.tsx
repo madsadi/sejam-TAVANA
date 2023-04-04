@@ -9,8 +9,9 @@ import {personType, sejamStatusEnums} from "../../common/enums";
 import {countryType} from "../sejam-info/types";
 import {searchCountry} from "../../../api/sejam-info.api";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
-import {getCurruntUserInfo} from "../../../api/login-signup.api";
+import {getCurrentUserInfo} from "../../../api/login-signup.api";
 import Image from 'next/image';
+import {useAuth} from "react-oidc-context";
 
 type initialType = {
     mobileNumber: string,
@@ -114,7 +115,7 @@ export default function ProfileSetter() {
 
     useEffect(() => {
         const userInfo = async () => {
-            await getCurruntUserInfo()
+            await getCurrentUserInfo()
                 .then((res) => {
                     Object.keys(res?.result).map((item: any) => {
                         if (item === 'phoneNumber') {
@@ -125,7 +126,10 @@ export default function ProfileSetter() {
                     })
                 })
         }
-        userInfo()
+        if (typeof window !== "undefined") {
+            // console.log(typeof window)
+            // userInfo()
+        }
     }, [])
 
     return (

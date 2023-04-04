@@ -142,8 +142,8 @@ input[type=number] {
 
   td{
     overflow-wrap: anywhere;
-    word-wrap: break-word
-
+    word-wrap: break-word;
+    vertical-align:baseline;
   }
 
   h2 {

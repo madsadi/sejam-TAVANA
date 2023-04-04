@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
+import React, {useCallback, useContext, useRef, useState} from "react";
 import {SejamContext} from "../../../pages/main";
 import {formatNumber, jalali} from "../../common/functions";
 import {accountTypeEnums, tradingKnowledgeLevelEnums, transactionLevelPrivatePersonEnums} from "../../common/enums";
@@ -9,46 +9,8 @@ import PageHeaderFooter from "./PageHeaderFooter";
 export default function OnlineRegistrationAgreement() {
     const {userData, userDefaultBank} = useContext<any>(SejamContext)
     const [loading, setLoading] = useState(false);
-    const [text, setText] = useState("old boring text");
 
     const componentRef = useRef(null);
-
-    const onBeforeGetContentResolve = useRef(null);
-
-    const handleAfterPrint = useCallback(() => {
-        console.log("`onAfterPrint` called");
-    }, []);
-
-    const handleBeforePrint = useCallback(() => {
-        console.log("`onBeforePrint` called");
-    }, []);
-
-    const handleOnBeforeGetContent = useCallback(() => {
-        console.log("`onBeforeGetContent` called");
-        setLoading(true);
-        setText("Loading new text...");
-
-        return new Promise<void>((resolve) => {
-            // @ts-ignore
-            onBeforeGetContentResolve.current = resolve;
-
-            setTimeout(() => {
-                setLoading(false);
-                setText("New, Updated Text!");
-                resolve();
-            }, 2000);
-        });
-    }, [setLoading, setText]);
-
-    useEffect(() => {
-        if (
-            text === "New, Updated Text!" &&
-            typeof onBeforeGetContentResolve.current === "function"
-        ) {
-            // @ts-ignore
-            onBeforeGetContentResolve.current();
-        }
-    }, [onBeforeGetContentResolve.current, text]);
 
     const reactToPrintContent = useCallback(() => {
         return componentRef.current;
@@ -72,9 +34,6 @@ export default function OnlineRegistrationAgreement() {
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="تعهد نامه ثبت نام غیر حضوری"
-                onAfterPrint={handleAfterPrint}
-                onBeforeGetContent={handleOnBeforeGetContent}
-                onBeforePrint={handleBeforePrint}
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />

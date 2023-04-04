@@ -1,64 +1,23 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
+import React, {useCallback, useContext, useRef, useState} from "react";
 import {SejamContext} from "../../../pages/main";
-import {formatNumber, jalali} from "../../common/functions";
 import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
 import PageHeaderFooter from "./PageHeaderFooter";
 import {
-    accountTypeEnums,
-    legalPersonTypeCategoryEnums,
-    tradingKnowledgeLevelEnums,
-    transactionLevelPrivatePersonEnums
+    legalPersonTypeCategoryEnums
 } from "../../common/enums";
 
 export default function TotalBrokerageAgreement() {
     const {userData,userDefaultBank} = useContext<any>(SejamContext)
     const [loading, setLoading] = useState(false);
-    const [text, setText] = useState("old boring text");
 
     const componentRef = useRef(null);
-
-    const onBeforeGetContentResolve = useRef(null);
-
-    const handleAfterPrint = useCallback(() => {
-        console.log("`onAfterPrint` called");
-    }, []);
-
-    const handleBeforePrint = useCallback(() => {
-        console.log("`onBeforePrint` called");
-    }, []);
-
-    const handleOnBeforeGetContent = useCallback(() => {
-        console.log("`onBeforeGetContent` called");
-        setLoading(true);
-        setText("Loading new text...");
-
-        return new Promise<void>((resolve) => {
-            // @ts-ignore
-            onBeforeGetContentResolve.current = resolve;
-
-            setTimeout(() => {
-                setLoading(false);
-                setText("New, Updated Text!");
-                resolve();
-            }, 2000);
-        });
-    }, [setLoading, setText]);
-
-    useEffect(() => {
-        if (
-            text === "New, Updated Text!" &&
-            typeof onBeforeGetContentResolve.current === "function"
-        ) {
-            // @ts-ignore
-            onBeforeGetContentResolve.current();
-        }
-    }, [onBeforeGetContentResolve.current, text]);
 
     const reactToPrintContent = useCallback(() => {
         return componentRef.current;
     }, [componentRef.current]);
+
     const reactToPrintTrigger = () => {
         return (
             <button className={'flex item-center button bg-red-600 w-fit text-white float-left'}>
@@ -78,9 +37,6 @@ export default function TotalBrokerageAgreement() {
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="تعهد نامه ثبت نام غیر حضوریقرارداد جامع مشتري و کارگزار (در خصوص اوراق بهادار) "
-                onAfterPrint={handleAfterPrint}
-                onBeforeGetContent={handleOnBeforeGetContent}
-                onBeforePrint={handleBeforePrint}
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
@@ -99,27 +55,27 @@ export default function TotalBrokerageAgreement() {
                             <div className={'leading-8 text-justify page'}>
                                 <div className="text-center">
                                     <h4 className={'mb-5'}>قرارداد جامع مشتري و کارگزار (در خصوص اوراق بهادار) </h4>
-                                    <p>
-                                        <span className="font-weight-bold">این قرارداد بین شرکت کارگزاري توانا (مشاوران سهام سابق)</span>
-                                        به
-                                        شماره
-                                        ثبت
-                                        159302 کد اقتصادي
-                                        ۴۱۱۱۴۴۸۴۴۴۸۷ به نمایندگی آقاي/خانم <span
-                                        className="font-weight-bold">آقاي علی یزدانی با سمت رئیس هیأت مدیره</span>
-                                        و آقاي/خانم آقاي
-                                        <span className="font-weight-bold">حمیدرضا طریقی با سمت مدیرعامل </span> بر اساس آخرین روزنامه رسمی
-                                        به
-                                        نشانی
-                                        تهران،خیابان میرعماد، نبش کوچه ی سوم , روبروی فرمانداری پلاک 10 طبقه ی دوم شرقی
-                                        کد پستی 1587946317 شماره تلفن <span className="font-weight-bold">42906-021</span> و
-                                        نشانی سایت اینترنتی <a href="https://www.tavana.net">www.tavana.net</a> که
-                                        {/* eslint-disable-next-line react/no-unescaped-entities */}
-                                        از این پس در این قرارداد "کارگزار" نامیده می‌شود از یک طرف و "مشتري" با مشخصات مندرج در جدول زیر از
-                                        طرف دیگر،
-                                        به شرح مواد ذیل منعقد گردید.
-                                    </p>
                                 </div>
+                                <p>
+                                    <span className="font-weight-bold">این قرارداد بین شرکت کارگزاري توانا (مشاوران سهام سابق)</span>
+                                    به
+                                    شماره
+                                    ثبت
+                                    159302 کد اقتصادي
+                                    ۴۱۱۱۴۴۸۴۴۴۸۷ به نمایندگی آقاي/خانم
+                                    &lrm;<span className="font-weight-bold"> علی یزدانی با سمت رئیس هیأت مدیره</span>&lrm;
+                                    &lrm;و آقاي/خانم&lrm;
+                                    &lrm;<span className="font-weight-bold">حمیدرضا طریقی با سمت مدیرعامل </span> بر اساس آخرین روزنامه رسمی&lrm;
+                                    به
+                                    نشانی
+                                    تهران،خیابان میرعماد، نبش کوچه ی سوم , روبروی فرمانداری پلاک 10 طبقه ی دوم شرقی
+                                    کد پستی 1587946317 شماره تلفن <span className="font-weight-bold">42906-021</span> و
+                                    نشانی سایت اینترنتی <a href="https://www.tavana.net">www.tavana.net</a> که
+                                    {/* eslint-disable-next-line react/no-unescaped-entities */}
+                                    از این پس در این قرارداد "کارگزار" نامیده می‌شود از یک طرف و "مشتري" با مشخصات مندرج در جدول زیر از
+                                    طرف دیگر،
+                                    به شرح مواد ذیل منعقد گردید.
+                                </p>
                                 <div className="text-right my-5">
                                     {userData?.legalPerson ? <table className={'table table-compact w-full'}>
                                             <thead>

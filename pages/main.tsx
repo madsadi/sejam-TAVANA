@@ -21,7 +21,7 @@ export default function Main() {
         autoplay: true,
         animationData: avatar,
     };
-    const [level, setLevel] = useState<number>(5)
+    const [level, setLevel] = useState<number>(0)
     const [option, setOption] = useState<any>(defaultOptions)
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
     const [userDefaultBank, setUserDefaultBank] = useState<any>(null)

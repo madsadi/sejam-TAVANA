@@ -1,5 +1,6 @@
 import axios from "axios";
 import {idpApi,sejamApi} from "./constants";
+import {useAuth} from "react-oidc-context";
 
 export const smsNotification = async (body:any) => {
     let bodyToQuery:any=[];
@@ -28,8 +29,7 @@ export const verifyToken = async (body:any) => {
         })
     return log
 }
-
-export const getCurruntUserInfo = async () => {
+export const getCurrentUserInfo = async () => {
     const log = await axios.get(`${idpApi}users/GetCurrentUserInfo`)
         .then(({data}) => {
             return data

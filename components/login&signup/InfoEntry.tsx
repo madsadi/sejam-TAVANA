@@ -52,6 +52,7 @@ export default function InfoEntry() {
         if (v?.["passwordConfirm"] === v.password) {
             await register({...v, phoneNumber: mobile, token: token})
                 .then(() => {
+                    toast.success('ثبت نام شما با موفقیت انجام شد.')
                     setLevel('login')
                 })
                 .catch((err) => {

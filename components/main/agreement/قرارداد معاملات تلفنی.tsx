@@ -1,11 +1,8 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
+import React, {useCallback, useContext, useRef, useState} from "react";
 import {SejamContext} from "../../../pages/main";
-import {formatNumber, jalali} from "../../common/functions";
 import {
     accountTypeEnums,
-    legalPersonTypeCategoryEnums,
-    tradingKnowledgeLevelEnums,
-    transactionLevelPrivatePersonEnums
+    legalPersonTypeCategoryEnums
 } from "../../common/enums";
 import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
@@ -15,37 +12,8 @@ import PageHeaderFooter from "./PageHeaderFooter";
 export default function PhoneTradingAgreement(){
     const {userData,userDefaultBank} = useContext<any>(SejamContext)
     const [loading, setLoading] = useState(false);
-    const [text, setText] = useState("old boring text");
 
     const componentRef = useRef(null);
-
-    const onBeforeGetContentResolve = useRef(null);
-
-    const handleOnBeforeGetContent = useCallback(() => {
-        setLoading(true);
-        setText("Loading new text...");
-
-        return new Promise<void>((resolve) => {
-            // @ts-ignore
-            onBeforeGetContentResolve.current = resolve;
-
-            setTimeout(() => {
-                setLoading(false);
-                setText("New, Updated Text!");
-                resolve();
-            }, 2000);
-        });
-    }, [setLoading, setText]);
-
-    useEffect(() => {
-        if (
-            text === "New, Updated Text!" &&
-            typeof onBeforeGetContentResolve.current === "function"
-        ) {
-            // @ts-ignore
-            onBeforeGetContentResolve.current();
-        }
-    }, [onBeforeGetContentResolve.current, text]);
 
     const reactToPrintContent = useCallback(() => {
         return componentRef.current;
@@ -69,7 +37,6 @@ export default function PhoneTradingAgreement(){
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="قرارداد معاملات تلفنی"
-                onBeforeGetContent={handleOnBeforeGetContent}
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />

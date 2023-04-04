@@ -1,7 +1,6 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
+import React, {useCallback, useContext, useRef, useState} from "react";
 import {SejamContext} from "../../../pages/main";
-import {formatNumber, jalali} from "../../common/functions";
-import {accountTypeEnums, tradingKnowledgeLevelEnums, transactionLevelPrivatePersonEnums} from "../../common/enums";
+import {accountTypeEnums} from "../../common/enums";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import ReactToPrint from "react-to-print";
 import moment from "jalali-moment";
@@ -10,38 +9,8 @@ import PageHeaderFooter from "./PageHeaderFooter";
 export default function OfflineTradingAgreement(){
     const {userData,userDefaultBank} = useContext<any>(SejamContext)
     const [loading, setLoading] = useState(false);
-    const [text, setText] = useState("old boring text");
 
     const componentRef = useRef(null);
-
-    const onBeforeGetContentResolve = useRef(null);
-
-
-    const handleOnBeforeGetContent = useCallback(() => {
-        setLoading(true);
-        setText("Loading new text...");
-
-        return new Promise<void>((resolve) => {
-            // @ts-ignore
-            onBeforeGetContentResolve.current = resolve;
-
-            setTimeout(() => {
-                setLoading(false);
-                setText("New, Updated Text!");
-                resolve();
-            }, 2000);
-        });
-    }, [setLoading, setText]);
-
-    useEffect(() => {
-        if (
-            text === "New, Updated Text!" &&
-            typeof onBeforeGetContentResolve.current === "function"
-        ) {
-            // @ts-ignore
-            onBeforeGetContentResolve.current();
-        }
-    }, [onBeforeGetContentResolve.current, text]);
 
     const reactToPrintContent = useCallback(() => {
         return componentRef.current;
@@ -65,7 +34,6 @@ export default function OfflineTradingAgreement(){
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="قرارداد معاملات اینترنتی "
-                onBeforeGetContent={handleOnBeforeGetContent}
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
