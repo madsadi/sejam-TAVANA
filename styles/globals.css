@@ -10,7 +10,22 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  color-scheme: only light;
 }
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: light;
+  }
+}
+
+/* If the user prefers light mode,
+we still enforce color-scheme: dark, despite the user preference */
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: light;
+  }
+}
+
 
 #__next {
   min-height: 100vh;
@@ -196,6 +211,7 @@ input[type=number] {
     line-height: 1.5rem;
     overflow-wrap: break-word;
   }
+
 }
 
 @layer utilities {
@@ -205,8 +221,14 @@ input[type=number] {
 }
 
 @layer components {
+  .steps .step{
+    min-width: 2rem;
+  }
   .input {
-    @apply border border-border px-2 p-1 w-full rounded focus:outline-0
+    @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white
+  }
+  .steps .step:before {
+    @apply bg-gray-200
   }
   .hover-button {
     @apply border-b hover:border-tavanaGreen border-transparent transition-all w-fit p-1
