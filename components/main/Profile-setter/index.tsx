@@ -40,6 +40,7 @@ export default function ProfileSetter() {
     const [country, setCountry] = useState<countryType>({countryName: 'ایران', countryId: 1})
     const [countries, setCountries] = useState<countryType[]>([])
     const [error, setError] = useState<{ message: string, link: string }>({message: '', link: ''})
+    const [retry, setRetry] = useState<boolean>(false)
 
     const searchCountryHandler = async (e: any) => {
         await searchCountry(e.target.value)
@@ -61,6 +62,7 @@ export default function ProfileSetter() {
                         setLevel(1)
                     })
                     .catch((err) => {
+                        setRetry(!retry)
                         toast.error(`${err?.response?.data?.error?.message}`)
                     })
             }
@@ -71,6 +73,7 @@ export default function ProfileSetter() {
                         if (res?.result?.sejamStatus !== 7) {
                             KYC();
                         } else {
+                            setRetry(!retry)
                             if (res?.result?.sejamStatus === 9) {
                                 toast.success('قابلیت ثبت نام برای این اطلاعات امکان ندارد')
                             } else {
@@ -91,6 +94,7 @@ export default function ProfileSetter() {
                     status();
                 })
                 .catch((err) => {
+                    setRetry(!retry)
                     setError({
                         message: 'کاربر گرامی شما احراز هویت نشده اید، لطفا جهت احراز هویت به یکی از مراکز احراز هویت در آدرس زیر مراجعه نمایید',
                         link: 'https://www.sejam.ir/fa/AU'
@@ -108,6 +112,7 @@ export default function ProfileSetter() {
                 checkPoints()
             })
             .catch((err) => {
+                setRetry(!retry)
                 checkPoints()
                 toast.error(`${err?.response?.data?.error?.message}`)
             })
@@ -133,7 +138,7 @@ export default function ProfileSetter() {
     }, [])
 
     return (
-        <div className={'bg-white p-5 rounded-md'}>
+        <div className={'bg-white rounded-md'}>
             <Formik initialValues={initialValue} validationSchema={profileSetter} onSubmit={submitHandler}>
                 {({isSubmitting}) => (
                     <Form className={'flex flex-col'}>
@@ -227,7 +232,7 @@ export default function ProfileSetter() {
                             <span>
                                 <CaptchaComponent infoUpdate={infoUpdate}
                                                   info={info}
-                                                  name={'captcha'}/>
+                                                  name={'captcha'} retry={retry}/>
                             </span>
                         </div>
                         <div className={'flex items-center space-x-2 space-x-reverse mr-auto mt-5'}>

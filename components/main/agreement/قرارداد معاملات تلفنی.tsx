@@ -8,6 +8,7 @@ import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
 import PageHeaderFooter from "./PageHeaderFooter";
+import LabelValue from "../../common/component/LabelValue";
 
 export default function PhoneTradingAgreement(){
     const {userData,userDefaultBank} = useContext<any>(SejamContext)
@@ -73,134 +74,112 @@ export default function PhoneTradingAgreement(){
                                     </div>
 
                                     <div className="mt-5">
-                                        {userData?.legalPerson ?
-                                            <table className={'table table-compact w-full'}>
+                                        <table className={'table table-compact w-full'}>
                                             <thead>
                                             <tr>
-                                                <td><h5>ب) اشخاص حقوقی ایرانی:</h5></td>
+                                                <td><h5>الف) مشتري حقیقی: </h5></td>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <div className={'title'}>نام:</div>
-                                                    <div
-                                                        className={'titleValue'}>{userData?.legalPerson?.companyName}</div>
+                                                    <LabelValue title={'نام و نام خانوادگی'} value={userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}/>
                                                 </td>
                                                 <td>
-                                                    <div className={'title'}>شماره ثبت:</div>
-                                                    <div
-                                                        className={'titleValue'}>{userData?.legalPerson?.registerNumber}</div>
+                                                    <LabelValue title={'نام پدر'} value={userData?.privatePerson?.fatherName}/>
                                                 </td>
                                                 <td>
-                                                    <div className={'title'}>محل ثبت:</div>
-                                                    <div
-                                                        className={'titleValue'}>{userData?.legalPerson?.registerPlace}</div>
+                                                    <LabelValue title={'شماره شناسنامه'} value={userData?.privatePerson?.serial + `/` + userData?.privatePerson?.seriShChar + userData?.privatePerson?.seriSh}/>
                                                 </td>
                                                 <td>
-                                                    <div className={'title'}>تاریخ ثبت:</div>
-                                                    <div
-                                                        className={'titleValue'}>{userData?.legalPerson?.registerDate}</div>
+                                                    <LabelValue title={'کد ملی'} value={userData?.uniqueIdentifier}/>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div className={'title'}>نوع شخصیت:</div>
-                                                    <div
-                                                        className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item: any) => item.id === userData.legalPerson?.legalPersonTypeCategory)?.title}</div>
+                                                    <LabelValue title={'تلفن ثابت'} value={userData?.addresses?.[0]?.tel}/>
                                                 </td>
                                                 <td>
-                                                    <div className={'title'}>نشانی پست الکترونیک:</div>
-                                                    <div
-                                                        className={'titleValue'}>{userData?.addresses?.[0]?.email}</div>
+                                                    <LabelValue title={'کد پستی منزل'} value={userData?.addresses?.[0]?.fax}/>
+                                                </td>
+                                                <td>
+                                                    <LabelValue title={'شماره تلفن همراه'} value={userData?.addresses?.[0]?.mobile}/>
+                                                </td>
+                                                <td>
+                                                    <LabelValue title={'آدرس پست الکترونیکی'} value={userData?.addresses?.[0]?.email}/>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div className={'title'}> شماره حساب بانکی:</div>
-                                                    <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
+                                                    <LabelValue title={' نام بانک'} value={userDefaultBank?.bank?.name + ' ' + (userDefaultBank?.branchCode ? userDefaultBank?.branchCode : '')}/>
                                                 </td>
                                                 <td>
-                                                    <div className={'title'}>شماره شبا:</div>
-                                                    <div className={'titleValue'}>{userDefaultBank?.sheba}</div>
+                                                    <LabelValue title={'شماره‌حساب بانکی'} value={userDefaultBank?.accountNumber}/>
+                                                </td>
+                                                <td>
+                                                    <LabelValue title={'آدرس منزل'} value={userData?.addresses?.[0]?.remnantAddress}/>
                                                 </td>
                                             </tr>
                                             </tbody>
-                                        </table>:
-                                            <table className={'table table-compact w-full'}>
-                                                <thead>
-                                                <tr><td><h5>الف) اشخاص حقیقی / نماینده ایرانی:</h5></td></tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
+                                        </table>
 
-                                                    <td>
-                                                        <div className={'title'}> نام :</div>
-                                                        <div className={'titleValue'}>{userData?.privatePerson?.firstName}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div className={'title'}> نام خانوادگی:</div>
-                                                        <div className={'titleValue'}>{userData?.privatePerson?.lastName}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div className={'title'}> جنسیت: </div>
-                                                        <div className={'titleValue'}>
-                                                            {userData?.privatePerson.gender === 'Male' ? 'مرد' : 'زن'}
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className={'title'}>نام پدر:</div>
-                                                        <div className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
-                                                    </td>
+                                        <table className={'table table-compact w-full'}>
+                                            <thead>
+                                            <tr>
+                                                <td><h5>ب) مشتري حقوقی:</h5></td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <LabelValue title={'نام'} value={userData?.legalPerson?.companyName}/>
+                                                </td>
+                                                <td>
+                                                    <LabelValue title={'شماره ثبت'} value={userData?.legalPerson?.registerNumber}/>
+                                                </td>
+                                                <td>
+                                                    <LabelValue title={'محل ثبت'} value={userData?.legalPerson?.registerPlace}/>
+                                                </td>
+                                                <td>
+                                                    <LabelValue title={'تاریخ ثبت'} value={userData?.legalPerson?.registerDate}/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <LabelValue title={'نوع شخصیت'} value={legalPersonTypeCategoryEnums.find((item: any) => item.id === userData?.legalPerson?.legalPersonTypeCategory)?.title}/>
+                                                </td>
+                                                <td>
+                                                    <LabelValue title={'نشانی پست الکترونیک'} value={userData?.legalPerson ? userData?.addresses?.[0]?.email:''}/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <LabelValue title={'شماره حساب بانکی'} value={userData?.legalPerson ? userDefaultBank?.accountNumber:''}/>
+                                                </td>
+                                                <td>
+                                                    <LabelValue title={'شماره شبا'} value={userData?.legalPerson ? userDefaultBank?.sheba:''}/>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
 
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className={'title'}>شماره تلفن همراه:</div>
-                                                        <div className={'titleValue'}>{userData?.addresses?.[0]?.mobile}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div className={'title'}> تاهل: </div>
-                                                        <div className={'titleValue'}>ناموجود</div>
-                                                    </td>
-
-                                                    <td>
-                                                        <div className={'title'}>کد ملی:</div>
-                                                        <div className={'titleValue'}>{userData?.uniqueIdentifier}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div className={'title'}>آدرس پست الکترونیکی:</div>
-                                                        <div className={'titleValue'}>{userData?.addresses?.[0]?.email}</div>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className={'title'}> نام بانک: </div>
-                                                        <div className={'titleValue'}>{userDefaultBank?.bank?.name}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div className={'title'}> نوع حساب: </div>
-                                                        <div className={'titleValue'}>{accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div className={'title'}> نام شعبه: </div>
-                                                        <div className={'titleValue'}>{userDefaultBank?.branchName}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div className={'title'}> شماره حساب بانکی: </div>
-                                                        <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className={'title'}> شماره شبا:</div>
-                                                        <div className={'titleValue'}>{userDefaultBank?.sheba}</div>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>}
+                                        <table className={'table table-compact w-full'}>
+                                            <thead>
+                                            <tr>
+                                                <td><h5>ج) نماینده حقوقی:</h5></td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <LabelValue title={'نام و نام خانوادگی'} value={userData?.agent ? (userData?.agent?.firstName + ' '+ userData?.agent?.lastName):''}/>
+                                                </td>
+                                                <td>
+                                                    <LabelValue title={'کد ملی'} value={userData?.agent?.uniqueIdentifier}/>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
 
@@ -392,24 +371,19 @@ export default function PhoneTradingAgreement(){
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <div className={'title'}>نام بانک:</div>
-                                                <div className={'titleValue'}>{userDefaultBank?.bank?.name}</div>
+                                                <LabelValue title={"نام بانک"} value={userDefaultBank?.bank?.name}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>نوع حساب:</div>
-                                                <div className={'titleValue'}>{accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle}</div>
+                                                <LabelValue title={"نوع حساب"} value={accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>نام شعبه:</div>
-                                                <div className={'titleValue'}>{userDefaultBank?.branchName}</div>
+                                                <LabelValue title={"نام شعبه"} value={userDefaultBank?.branchName}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>شماره حساب بانکی:</div>
-                                                <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
+                                                <LabelValue title={"شماره حساب بانکی"} value={userDefaultBank?.accountNumber}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>شماره شبا:</div>
-                                                <div className={'titleValue'}>{userDefaultBank?.sheba}</div>
+                                                <LabelValue title={"شماره شبا"} value={userDefaultBank?.sheba}/>
                                             </td>
                                         </tr>
                                         </tbody>

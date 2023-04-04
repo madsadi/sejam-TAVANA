@@ -5,6 +5,7 @@ import {PrinterIcon} from "@heroicons/react/24/outline";
 import ReactToPrint from "react-to-print";
 import moment from "jalali-moment";
 import PageHeaderFooter from "./PageHeaderFooter";
+import LabelValue from "../../common/component/LabelValue";
 
 export default function OfflineTradingAgreement(){
     const {userData,userDefaultBank} = useContext<any>(SejamContext)
@@ -65,32 +66,26 @@ export default function OfflineTradingAgreement(){
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <div className={'title'}> نام:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.firstName}</div>
+                                                <LabelValue value={userData?.privatePerson?.firstName} title={'نام'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}> نام خانوادگی:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.lastName}</div>
+                                                <LabelValue value={userData?.privatePerson?.lastName} title={'نام خانوادگی'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>نام پدر:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
+                                                <LabelValue value={userData?.privatePerson?.fatherName} title={'نام پدر'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>کد ملی:</div>
-                                                <div className={'titleValue'}>{userData?.uniqueIdentifier}</div>
+                                                <LabelValue value={userData?.uniqueIdentifier} title={'کد ملی'}/>
                                             </td>
 
 
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div className={'title'}>شماره تلفن همراه:</div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.mobile}</div>
+                                                <LabelValue value={userData?.addresses?.[0]?.mobile} title={'شماره تلفن همراه'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>آدرس پست الکترونیکی:</div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.email}</div>
+                                                <LabelValue value={userData?.addresses?.[0]?.email} title={'آدرس پست الکترونیکی'}/>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -150,26 +145,21 @@ export default function OfflineTradingAgreement(){
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <div className={'title'}> نام بانک: </div>
-                                                <div className={'titleValue'}>{userDefaultBank?.bank?.name}</div>
+                                                <LabelValue value={userDefaultBank?.bank?.name} title={'نام بانک'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}> نوع حساب: </div>
-                                                <div className={'titleValue'}>{accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle}</div>
+                                                <LabelValue value={accountTypeEnums.find((item:any)=>item.id===userDefaultBank?.type)?.faTitle} title={'نوع حساب'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}> نام شعبه: </div>
-                                                <div className={'titleValue'}>{userDefaultBank?.branchName}</div>
+                                                <LabelValue value={userDefaultBank?.branchName} title={'نام شعبه'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}> شماره حساب بانکی: </div>
-                                                <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
+                                                <LabelValue value={userDefaultBank?.accountNumber} title={'شماره حساب بانکی'}/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div className={'title'}> شماره شبا:</div>
-                                                <div className={'titleValue'}>{userDefaultBank?.sheba}</div>
+                                                <LabelValue value={userDefaultBank?.sheba} title={'شماره شبا'}/>
                                             </td>
                                         </tr>
                                         </tbody>

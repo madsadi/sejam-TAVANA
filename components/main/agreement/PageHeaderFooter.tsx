@@ -28,7 +28,7 @@ export default function PageHeaderFooter(){
             })
     },[])
     useEffect(()=>{
-        // getDocument()
+        getDocument()
     },[])
 
     return(

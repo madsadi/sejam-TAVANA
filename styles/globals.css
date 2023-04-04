@@ -64,6 +64,12 @@ input[type=number] {
   display: none
 }
 
+@media (max-width: 720px){
+  html,
+  body {
+    font-size: 0.9rem;
+  }
+}
 @page {
   size: A4;
   margin: 11mm 17mm 17mm 17mm;
@@ -143,7 +149,7 @@ input[type=number] {
   td{
     overflow-wrap: anywhere;
     word-wrap: break-word;
-    vertical-align:baseline;
+    vertical-align:baseline !important;
   }
 
   h2 {

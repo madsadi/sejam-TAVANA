@@ -24,6 +24,7 @@ export default function MobileEntry() {
         uuid: ''
     }
     const [info, setInfo] = useState<initialType>(initialValue)
+    const [retry, setRetry] = useState<boolean>(false)
 
     const infoUpdate = (key: string, value: any) => {
         let _info: any = {};
@@ -40,6 +41,7 @@ export default function MobileEntry() {
                 setLevel('confirmation')
             })
             .catch((err) => {
+                setRetry(!retry)
                 toast.error(`${err?.response?.data?.error?.message}`)
             })
     }
@@ -56,7 +58,9 @@ export default function MobileEntry() {
                         <span className={'mt-4'}>
                             <CaptchaComponent infoUpdate={infoUpdate}
                                               info={info}
-                                              name={'captcha'}/>
+                                              name={'captcha'}
+                                              retry={retry}
+                            />
                         </span>
                         <div className={'mt-auto text-center'}>
                             <button className={'button'} disabled={isSubmitting} type={'submit'}>

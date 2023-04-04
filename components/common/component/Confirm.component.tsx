@@ -16,7 +16,7 @@ export default function ConfirmComponent(){
     return(
         <div className="flex justify-between mt-5">
             <div className="flex items-center">
-                <input className="ml-2 checkbox" checked={isChecked} onChange={(e)=>setIsChecked(e.target.checked)} type="checkbox" dir={'ltr'} name="confirm"/>
+                <input className="ml-2 checkbox checkbox-accent" checked={isChecked} onChange={(e)=>setIsChecked(e.target.checked)} type="checkbox" dir={'ltr'} name="confirm"/>
                 <label htmlFor="confirm">اطلاعات مورد تایید است</label>
             </div>
             <button className="button w-fit" onClick={proceed}>

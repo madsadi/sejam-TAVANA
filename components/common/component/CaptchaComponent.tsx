@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {createCaptchaApi} from "../../../api/captcha";
 import {useField} from "formik";
 
-const CaptchaComponent: React.FC<any> = ({info,infoUpdate,...props}) =>  {
+const CaptchaComponent: React.FC<any> = ({retry,info,infoUpdate,...props}) =>  {
     const [field,meta]=useField(props)
     const [generatedCaptcha, setGeneratedCaptcha] = useState<any>(null);
 
@@ -15,7 +15,7 @@ const CaptchaComponent: React.FC<any> = ({info,infoUpdate,...props}) =>  {
 
     useEffect(() => {
         infoUpdate('uuid', uuidv4())
-    }, [])
+    }, [retry])
 
     useEffect(() => {
         if (info.uuid) {

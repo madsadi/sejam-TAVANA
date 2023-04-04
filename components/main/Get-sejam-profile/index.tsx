@@ -20,6 +20,8 @@ const initialValue = {
 export default function GetSejamProfile() {
     const {setLevel} = useContext<any>(SejamContext)
     const [info, setInfo] = useState<initialType>(initialValue)
+    const [retry, setRetry] = useState<boolean>(false)
+
     const infoUpdate = (key: string, value: any) => {
         let _info: any = {};
         _info[key] = value;
@@ -33,12 +35,13 @@ export default function GetSejamProfile() {
                 setLevel(2)
             })
             .catch((err) => {
+                setRetry(!retry)
                 toast.error(`${err?.response?.data?.error?.message}`)
             })
     }
 
     return (
-        <div className={'bg-white p-5 rounded-md'}>
+        <div className={'bg-white rounded-md'}>
             <Formik initialValues={initialValue} validationSchema={getSejamProfileSchema} onSubmit={submitHandler}>
                 {({isSubmitting}) => (
                     <Form className={'flex flex-col'}>
@@ -50,7 +53,7 @@ export default function GetSejamProfile() {
                             <div className={'mt-4'}>
                                 <CaptchaComponent infoUpdate={infoUpdate}
                                                   info={info}
-                                                  name={'captcha'}/>
+                                                  name={'captcha'} retry={retry}/>
                             </div>
                         </div>
                         <button className={'button w-fit mt-4 mr-auto'} disabled={isSubmitting} type={'submit'}>
