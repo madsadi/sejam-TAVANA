@@ -18,12 +18,14 @@ export default function PageHeaderFooter(){
         await getContent(1)
             .then((res)=> {
                 let _D = initialDocuments;
-                res?.result?.map((item:any)=>{
-                    let _documentIndex = _D.findIndex((i:any)=>i.fileType===item.fileType)
-                    if (_documentIndex>=0 && item?.content){
-                        _D.splice(_documentIndex,1,{..._D[_documentIndex],id:item.id,image:`data:image/${(item.extension).split('.')[1]};base64,`+item.content})
-                    }
-                })
+                if (res?.result.length){
+                    res?.result?.map((item:any)=>{
+                        let _documentIndex = _D.findIndex((i:any)=>i.fileType===item.fileType)
+                        if (_documentIndex>=0 && item?.content){
+                            _D.splice(_documentIndex,1,{..._D[_documentIndex],id:item.id,image:`data:image/${(item.extension).split('.')[1]};base64,`+item.content})
+                        }
+                    })
+                }
                 setDocuments(_D)
             })
     },[])
@@ -48,7 +50,7 @@ export default function PageHeaderFooter(){
                 <div className="text-right">
                     <div className={'titleValue'}>نمونه امضاء مشتري / نماینده :</div>
                     <div className="sign-card relative">
-                        <Image src={document?.[0]?.image} fill alt="singPhoto"/>
+                        <Image src={document?.[0]?.image ? document?.[0]?.image:''} fill alt="singPhoto"/>
                     </div>
                 </div>
                 <div className="text-left">

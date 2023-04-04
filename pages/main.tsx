@@ -14,6 +14,7 @@ import pencil from "../public/icons/pencil.json";
 import scan from "../public/icons/scan-document.json";
 import sms from "../public/icons/sms.json";
 import {getRegistrationState} from "../api/resgistration.api";
+import {toast} from "react-toastify";
 
 export const SejamContext = createContext({})
 export default function Main() {
@@ -90,6 +91,10 @@ export default function Main() {
         const registrationState = async () => {
             await getRegistrationState()
                 .then((res) => findLevel(res?.result?.registrationState))
+                .catch((err)=> {
+                    setLevel(0)
+                    toast.error(`${err?.response?.data?.error?.message}`)
+                })
         }
         registrationState()
     }, [])

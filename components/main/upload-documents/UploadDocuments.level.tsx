@@ -17,6 +17,11 @@ export default function UploadDocumentsLevel() {
             image: null
         },
         {
+            title: 'تصویر صفحه توضیحات شناسنامه',
+            fileType:4,
+            image: null
+        },
+        {
             title: 'تصویر روی کارت ملی',
             fileType:6,
             image: null
@@ -24,11 +29,6 @@ export default function UploadDocumentsLevel() {
         {
             title: 'تصویر پشت کارت ملی',
             fileType:7,
-            image: null
-        },
-        {
-            title: 'تصویر صفحه آخر شناسنامه',
-            fileType:5,
             image: null
         }
     ]
@@ -51,13 +51,14 @@ export default function UploadDocumentsLevel() {
         getDocument()
     },[])
 
+    console.log(document)
     return (
         <>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4 bg-white p-3 rounded-md">
                 {
                     document.map((item: any) => {
                         return (
-                            <UploadComponent item={item} documents={document} key={item} />
+                            <UploadComponent item={item} documents={document} setDocuments={setDocuments} key={item} />
                         )
                     })
                 }
