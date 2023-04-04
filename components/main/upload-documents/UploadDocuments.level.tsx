@@ -12,22 +12,22 @@ export default function UploadDocumentsLevel() {
             image: null
         },
         {
-            title: 'شناسه تصویر صفحه اول شناسنامه',
+            title: 'تصویر صفحه اول شناسنامه',
             fileType:3,
             image: null
         },
         {
-            title: 'شناسه تصویر روی کارت ملی',
+            title: 'تصویر روی کارت ملی',
             fileType:6,
             image: null
         },
         {
-            title: 'شناسه تصویر پشت کارت ملی',
+            title: 'تصویر پشت کارت ملی',
             fileType:7,
             image: null
         },
         {
-            title: 'شناسه تصویر صفحه آخر شناسنامه',
+            title: 'تصویر صفحه آخر شناسنامه',
             fileType:5,
             image: null
         }
