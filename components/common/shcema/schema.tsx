@@ -11,10 +11,10 @@ export const profileSetter = yup.object().shape({
         .string()
         .required("الزامی می باشد."),
     personType: yup
-        .string()
+        .number()
         .required("الزامی می باشد."),
     countryId: yup
-        .string()
+        .number()
         .required("الزامی می باشد."),
     captcha:yup
         .string()
