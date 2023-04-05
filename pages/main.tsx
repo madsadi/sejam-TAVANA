@@ -23,7 +23,7 @@ export default function Main() {
         autoplay: true,
         animationData: avatar,
     };
-    const [level, setLevel] = useState<number>(-1)
+    const [level, setLevel] = useState<number>(5)
     const [option, setOption] = useState<any>(defaultOptions)
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
     const [userDefaultBank, setUserDefaultBank] = useState<any>(null)
@@ -96,7 +96,7 @@ export default function Main() {
                     toast.error(`${err?.response?.data?.error?.message}`)
                 })
         }
-        registrationState()
+        // registrationState()
     }, [])
 
     const Components = {

@@ -10,11 +10,19 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  color-scheme: only light;
 }
+
+:root {
+  color-scheme: light !important;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: light;
+  }
+  :root{
+    color-scheme:light !important;
+    --b3:180 1.9608% 90% !important;
   }
 }
 
@@ -223,6 +231,10 @@ input[type=number] {
 @layer components {
   .steps .step{
     min-width: 2rem;
+  }
+  .steps .step-active::after{
+    background-color: white;
+    border: 1px solid green;
   }
   .input {
     @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white

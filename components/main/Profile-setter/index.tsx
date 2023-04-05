@@ -100,7 +100,7 @@ export default function ProfileSetter() {
                     setIsSubmitting(false)
                     setRetry(!retry)
                     setError({
-                        message: 'کاربر گرامی شما احراز هویت نشده اید، لطفا جهت احراز هویت به یکی از مراکز احراز هویت در آدرس زیر مراجعه نمایید',
+                        message: 'کاربر گرامی شما در سجام احراز هویت نشده اید، لطفا جهت احراز هویت به یکی از مراکز احراز هویت در آدرس زیر مراجعه نمایید',
                         link: 'https://www.sejam.ir/fa/AU'
                     })
                     toast.error(`${err?.response?.data?.error?.message}`)

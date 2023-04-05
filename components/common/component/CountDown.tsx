@@ -31,7 +31,7 @@ export default function CountDown({step}:{step:string}){
         <div className={'flex mt-4 text-sm'}>
             <div className={'w-[35px]'}> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</div>
             <div className={'mr-2'}> معتبر بودن کد یکبار مصرف</div>
-            <button className={'py-0 px-2 mr-auto bg-active text-white p-1 rounded disabled:text-gray-400 disabled:bg-gray-300'} type={"button"} disabled={disable}
+            <button className={'py-0 px-2 mr-auto bg-tavanBrown text-white p-1 rounded disabled:text-gray-400 disabled:bg-gray-300'} type={"button"} disabled={disable}
                     onClick={()=>setLevel(step)}>ارسال مجدد کد</button>
         </div>
     )

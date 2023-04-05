@@ -42,7 +42,7 @@ export default function ProgressBar() {
                 {
                     progress.map((step: any) => {
                         return (
-                            <li suppressHydrationWarning={true} className={`step ${level >= step.level ? 'step-success':''}`} key={step.level}>{isMobile ? '':step.title}</li>
+                            <li suppressHydrationWarning={true} className={`step ${level > step.level ? 'step-success':(level === step.level ? 'step-active':'')}`} key={step.level}>{isMobile ? '':step.title}</li>
                         )
                     })
                 }
