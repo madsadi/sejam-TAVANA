@@ -141,7 +141,7 @@ export default function ProfileSetter() {
         }
         if (typeof window !== "undefined") {
             // console.log(typeof window)
-            userInfo()
+            // userInfo()
         }
     }, [])
 
