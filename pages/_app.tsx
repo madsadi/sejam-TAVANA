@@ -20,7 +20,7 @@ export default function App({Component, pageProps}: AppProps) {
         userStore: typeof window !== 'undefined' ? new WebStorageStateStore({store: window.localStorage}) : undefined,
         authority: `${authorityPath}`,
         client_id: `${clientId}`,
-        scope: 'openid',
+        scope: 'openid IdentityServerApi',
         response_type: 'code',
         redirect_uri: `${clientURL}/authentication/callback`,
         post_logout_redirect_uri: `${clientURL}`, // Auth0 uses returnTo

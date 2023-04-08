@@ -130,19 +130,20 @@ export default function ProfileSetter() {
         const userInfo = async () => {
             await getCurrentUserInfo()
                 .then((res) => {
+                    let _info = {mobileNumber:'',uniqueId:'',email:''}
                     Object.keys(res?.result).map((item: any) => {
                         if (item === 'phoneNumber') {
-                            infoUpdate('mobileNumber', res?.result.phoneNumber)
-                        } else if (info?.[item] !== undefined) {
-                            infoUpdate(item, res?.result[item])
+                            _info['mobileNumber'] = res?.result.phoneNumber
+                        } else if (item === 'nationalId') {
+                            _info['uniqueId'] = res?.result.nationalId
+                        } else if (item === 'email') {
+                            _info['email'] = res?.result.email
                         }
                     })
+                    setInfo({...info,..._info})
                 })
         }
-        if (typeof window !== "undefined") {
-            // console.log(typeof window)
-            // userInfo()
-        }
+        userInfo()
     }, [])
 
     return (
@@ -206,7 +207,6 @@ export default function ProfileSetter() {
                                         </label>
                                         <input className={`input`}
                                                dir={'ltr'}
-                                               type={'number'}
                                                value={info.uniqueId}
                                                onChange={(e) => infoUpdate('uniqueId', e.target.value)}
                                         />
@@ -227,8 +227,8 @@ export default function ProfileSetter() {
                                         شماره همراه:
                                     </label>
                                     <input className={`input`}
+                                           name={'mobile'}
                                            dir={'ltr'}
-                                           type={'number'}
                                            value={info.mobileNumber}
                                            onChange={(e) => infoUpdate('mobileNumber', e.target.value)}
                                     />
