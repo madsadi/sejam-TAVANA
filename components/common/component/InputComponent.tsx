@@ -17,7 +17,6 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
             .then((res) => setCountries(res?.result?.response))
     }
 
-    console.log(field,meta)
     if (type === 'password') {
         return (
             <div>

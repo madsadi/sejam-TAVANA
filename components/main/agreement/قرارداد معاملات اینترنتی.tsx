@@ -55,7 +55,7 @@ export default function OfflineTradingAgreement(){
                                     <h4>قرارداد معاملات اینترنتی </h4>
                                 </div>
 
-                                <div >
+                                <div>
                                     <p>
                                         {/* eslint-disable-next-line react/no-unescaped-entities */}
                                         این توافقنامه در اجراي ماده 24 آیین‌نامه "معاملات در بورس اوراق بهادار تهران" بین شرکت کارگزاري

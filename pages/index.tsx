@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, {createContext, useState} from 'react'
+import React, {createContext, useEffect, useState} from 'react'
 import Confirmation from "../components/login&signup/confirmation";
 import MobileEntry from "../components/login&signup/MobileEntry";
 import InfoEntry from "../components/login&signup/InfoEntry";

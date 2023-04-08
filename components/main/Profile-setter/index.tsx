@@ -126,7 +126,6 @@ export default function ProfileSetter() {
             toast.warning('همه ی ورودی ها الزامی می باشند.')
         }
     }
-
     useEffect(() => {
         const userInfo = async () => {
             await getCurrentUserInfo()
@@ -142,13 +141,14 @@ export default function ProfileSetter() {
         }
         if (typeof window !== "undefined") {
             // console.log(typeof window)
-            // userInfo()
+            userInfo()
         }
     }, [])
 
     return (
         <div className={'bg-white rounded-md p-5'}>
                     <form className={'flex flex-col'} onSubmit={submitHandler}>
+                        <p className={'mb-5'}>اطلاعات زیر را جهت ایجاد پروفایل تکمیل کنید</p>
                         <div className={'grid md:grid-cols-2 grid-cols-1 gap-4'}>
                             <div className={'grid grid-cols-1 gap-4'}>
                                 <div className="dropdown flex flex-col md:flex-row space-y-3 md:space-y-0 w-full ">
