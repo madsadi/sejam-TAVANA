@@ -3,7 +3,7 @@ import {IdpContext} from "../../../pages";
 
 export default function CountDown({step}:{step:string}){
     const {setLevel} = useContext<any>(IdpContext)
-    const [minutes, setMinutes] = useState(2);
+    const [minutes, setMinutes] = useState(10);
     const [seconds, setSeconds] = useState(0);
     const [disable, setDisabled] = useState(true);
 

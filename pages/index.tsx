@@ -4,12 +4,14 @@ import Confirmation from "../components/login&signup/confirmation";
 import MobileEntry from "../components/login&signup/MobileEntry";
 import InfoEntry from "../components/login&signup/InfoEntry";
 import Login from "../components/login&signup/Login";
+import {useAuth} from "react-oidc-context";
 
 export const IdpContext = createContext<any>({})
 export default function Home() {
     const [level, setLevel] = useState('mobileEntry')
     const [mobile,setMobile] = useState('')
     const [token, setToken] = useState<string>('')
+    const auth = useAuth()
 
     const Components = {
         'mobileEntry': <MobileEntry />,

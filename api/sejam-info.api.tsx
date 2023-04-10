@@ -27,7 +27,7 @@ export const registerBankAccount = async (body: { bankAccounts:bankAccount|any[]
 }
 
 export const searchCountry = async (CountryName:string) => {
-    const log = await axios.get(`${sejamApi}SearchCountry?CountryName=${CountryName}`)
+    const log = await axios.get(`${sejamApi}SearchCountry${CountryName ? `?CountryName=${CountryName}`:''}`)
         .then(({data}) => {
             return data
         })

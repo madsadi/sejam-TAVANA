@@ -120,7 +120,7 @@ export type tradingCode = {
 }
 
 export type countryType = {
-    "countryId": number,
+    "countryId": any,
     "countryName": string,
 }
 export type provinceType = {

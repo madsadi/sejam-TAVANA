@@ -26,7 +26,7 @@ export default function App({Component, pageProps}: AppProps) {
         post_logout_redirect_uri: `${clientURL}`, // Auth0 uses returnTo
         silent_redirect_uri: `${clientURL}/authentication/silent_callback`,
         automaticSilentRenew: true,
-        loadUserInfo: true,
+        loadUserInfo: false,
         metadata: {
             issuer: `${authorityPath}/`,
             authorization_endpoint: `${authorityPath}/connect/authorize`,

@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import ProgressBar from "../components/common/component/ProgressBar";
 import AgreementLevel from "../components/main/agreement/Agreement.level";
 import ProfileSetter from "../components/main/Profile-setter";
@@ -8,55 +8,20 @@ import UploadDocumentsLevel from "../components/main/upload-documents/UploadDocu
 import TestLevel from "../components/main/test/Test.level";
 import {SejamInfoType} from "../components/main/sejam-info/types";
 import UserStateLevel from "../components/main/final/UserStateLevel";
-import Lottie from "react-lottie";
-import avatar from "../public/icons/avatar.json";
-import pencil from "../public/icons/pencil.json";
-import scan from "../public/icons/scan-document.json";
-import sms from "../public/icons/sms.json";
 import {getRegistrationState} from "../api/resgistration.api";
 import {toast} from "react-toastify";
+import {ArrowLeftOnRectangleIcon} from "@heroicons/react/24/outline";
+import {useAuth} from "react-oidc-context";
+import Router from "next/router";
+import {SejamiStatus} from "../components/main/sejami-status";
 
 export const SejamContext = createContext({})
 export default function Main() {
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: avatar,
-    };
     const [level, setLevel] = useState<number>(0)
-    const [option, setOption] = useState<any>(defaultOptions)
+    const [regInfo, setRegInfo] = useState<any>({})
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
     const [userDefaultBank, setUserDefaultBank] = useState<any>(null)
-
-    useEffect(() => {
-        const optionHandler = (level: number) => {
-            switch (level) {
-                case 1:
-                    setOption({
-                        loop: true,
-                        autoplay: true,
-                        animationData: sms,
-                    })
-                    break;
-                case 2:
-                case 4:
-                    setOption({
-                        loop: true,
-                        autoplay: true,
-                        animationData: pencil,
-                    })
-                    break;
-                case 3:
-                    setOption({
-                        loop: true,
-                        autoplay: true,
-                        animationData: scan,
-                    })
-                    break;
-            }
-        }
-        optionHandler(level)
-    }, [level])
+    const auth = useAuth();
 
     const findLevel = (no: number) => {
         //Enums(RegistrationState) are available in ../components/common/enums
@@ -90,8 +55,11 @@ export default function Main() {
     useEffect(() => {
         const registrationState = async () => {
             await getRegistrationState()
-                .then((res) => findLevel(res?.result?.registrationState))
-                .catch((err)=> {
+                .then((res) => {
+                    findLevel(res?.result?.registrationState);
+                    setRegInfo(res?.result)
+                })
+                .catch((err) => {
                     setLevel(0)
                     toast.error(`${err?.response?.data?.error?.message}`)
                 })
@@ -100,7 +68,8 @@ export default function Main() {
     }, [])
 
     const Components = {
-        0: <ProfileSetter/>,
+        0: <ProfileSetter regInfo={regInfo}/>,
+        0.5: <SejamiStatus/>,
         1: <GetSejamProfile/>,
         2: <SejamInfoLevel/>,
         3: <UploadDocumentsLevel/>,
@@ -109,20 +78,23 @@ export default function Main() {
         6: <UserStateLevel/>
     }[level]
 
-        return (
-            <SejamContext.Provider value={{setLevel, setUserData, userData, level, setUserDefaultBank, userDefaultBank}}>
-                <div className="container relative flex flex-col h-full py-10 text-sm md:text-md">
-                    <ProgressBar/>
-                    {level>=0 ? <div className={'flex flex-col grow pt-16 md:pt-24 pb-5'}>
-                        {Components}
-                    </div>:null}
-                    {/*{level < 5 ? <div className={'md:block hidden fixed top-10 right-10 w-[150px] h-[200px] opacity-30'} suppressHydrationWarning={true}>*/}
-                    {/*    <Lottie*/}
-                    {/*        options={option}*/}
-                    {/*    />*/}
-                    {/*</div> : null}*/}
-                </div>
-            </SejamContext.Provider>
-        )
+    return (
+        <SejamContext.Provider value={{setLevel, setUserData, userData, level, setUserDefaultBank, userDefaultBank}}>
+            <div className="container relative flex flex-col h-full py-10 text-sm md:text-md">
+                <ProgressBar/>
+                {level >= 0 ? <div className={'flex flex-col grow pt-16 md:pt-24 pb-5'}>
+                    {Components}
+                </div> : null}
+                <button
+                    className={'md:flex hidden fixed top-10 left-10 rounded bg-gray-300 py-2 px-5 w-fit hover:opacity-70 transition-colors'} onClick={() => {
+                    void auth.signoutRedirect({id_token_hint: auth.user?.id_token})
+                    Router.push('/')
+                }}>
+                    <ArrowLeftOnRectangleIcon className={'h-5 w-5'}/>
+                    خروج
+                </button>
+            </div>
+        </SejamContext.Provider>
+    )
 }
 
