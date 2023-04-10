@@ -25,7 +25,7 @@ export const SejamiStatus=()=>{
                 await sejamStatus()
                     .then((res) => {
                         toast.success(`${sejamStatusEnums.find((item: any) => item.id === res?.result?.sejamStatus)?.title}`)
-                        if (res?.result?.sejamStatus !== 7) {
+                        if (res?.result?.sejamStatus === 7) {
                             KYC();
                         } else {
                             if (res?.result?.sejamStatus === 9) {

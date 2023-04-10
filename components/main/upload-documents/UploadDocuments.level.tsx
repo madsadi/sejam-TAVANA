@@ -51,6 +51,7 @@ export default function UploadDocumentsLevel() {
         getDocument()
     },[])
 
+    console.log(document)
     return (
         <>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4 bg-white p-3 rounded-md">

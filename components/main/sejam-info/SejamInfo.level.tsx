@@ -138,19 +138,17 @@ export default function SejamInfoLevel() {
                     }
                 </AccordionComponent>:null}
                 {data?.tradingCodes?.length && <AccordionComponent title={'کد های بورسی'}>
-                    <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
                         {
                             data?.tradingCodes?.map((item: tradingCode) => {
                                 return (
-                                    <>
+                                    <div className={'grid md:grid-cols-4 grid-cols-2 gap-3'} key={item.code}>
                                         <LabelValue title={'کد'} value={item?.code}/>
                                         <LabelValue title={'نوع کد بورسی'}
                                                     value={tradingCodeTypeEnums.find((i: any) => i.id === item?.type)?.title}/>
-                                    </>
+                                    </div>
                                 )
                             })
                         }
-                    </div>
                 </AccordionComponent>}
                 {data?.agent ? <AccordionComponent title={'وکیل / نماینده'}>
                     <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
@@ -166,11 +164,10 @@ export default function SejamInfoLevel() {
                     </div>
                 </AccordionComponent>:null}
                 <AccordionComponent title={'اطلاعات ارتباطی'}>
-                    <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
                         {
                             data?.addresses?.map((item: any, index: number) => {
                                 return (
-                                    <>
+                                    <div className={'grid md:grid-cols-4 grid-cols-2  gap-3 w-full'} key={item?.alley + item?.plaque}>
                                         <LabelValue key={index} title={'ایمیل'} value={item?.email}/>
                                         <LabelValue key={index} title={'شماره همراه'} value={item?.mobile}/>
                                         <LabelValue key={index} title={'شماره ثابت'} value={item?.tel}/>
@@ -179,11 +176,10 @@ export default function SejamInfoLevel() {
                                         <LabelValue key={index} title={'کد پستی'} value={item?.postalCode}/>
                                         <LabelValue key={index} title={'آدرس'}
                                                     value={item?.country.name + ' ' + item?.city?.name + ' ' + item?.section?.name + ' ' + item?.remnantAddress + ' ' + item?.alley + ' ' + item?.plaque}/>
-                                    </>
+                                    </div>
                                 )
                             })
                         }
-                    </div>
                 </AccordionComponent>
                 <AccordionComponent title={'حساب های بانکی'}>
                     <Modal title={'حساب جدید'} setOpen={setAddModal} open={addModal}>

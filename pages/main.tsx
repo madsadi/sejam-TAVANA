@@ -21,7 +21,6 @@ export default function Main() {
     const [regInfo, setRegInfo] = useState<any>({})
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
     const [userDefaultBank, setUserDefaultBank] = useState<any>(null)
-    const auth = useAuth();
 
     const findLevel = (no: number) => {
         //Enums(RegistrationState) are available in ../components/common/enums
@@ -29,9 +28,9 @@ export default function Main() {
             case no <= 5:
                 setLevel(0);
                 break;
-            case no === 6:
-                setLevel(1);
-                break
+            // case no === 6:
+            //     setLevel(1);
+            //     break
             case no <= 14:
                 setLevel(2);
                 break
@@ -82,17 +81,9 @@ export default function Main() {
         <SejamContext.Provider value={{setLevel, setUserData, userData, level, setUserDefaultBank, userDefaultBank}}>
             <div className="container relative flex flex-col h-full py-10 text-sm md:text-md">
                 <ProgressBar/>
-                {level >= 0 ? <div className={'flex flex-col grow pt-16 md:pt-24 pb-5'}>
+                {level >= 0 ? <div className={'flex flex-col grow pt-5 md:pt-5 pb-5'}>
                     {Components}
                 </div> : null}
-                <button
-                    className={'md:flex hidden fixed top-10 left-10 rounded bg-gray-300 py-2 px-5 w-fit hover:opacity-70 transition-colors'} onClick={() => {
-                    void auth.signoutRedirect({id_token_hint: auth.user?.id_token})
-                    Router.push('/')
-                }}>
-                    <ArrowLeftOnRectangleIcon className={'h-5 w-5'}/>
-                    خروج
-                </button>
             </div>
         </SejamContext.Provider>
     )

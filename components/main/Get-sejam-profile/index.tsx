@@ -41,7 +41,7 @@ export default function GetSejamProfile() {
     }
 
     return (
-        <div className={'bg-white rounded-md'}>
+        <div className={'bg-white rounded-md p-5'}>
             <Formik initialValues={initialValue} validationSchema={getSejamProfileSchema} onSubmit={submitHandler}>
                 {({isSubmitting}) => (
                     <Form className={'flex flex-col'}>
