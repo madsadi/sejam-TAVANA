@@ -40,6 +40,7 @@ const CaptchaComponent: React.FC<any> = ({retry,info,infoUpdate,...props}) =>  {
             </div>
             <input className={`input ${meta.touched && meta.error ? 'border-red-300':''}`}
                    type={'number'}
+                   dir={'ltr'}
                    {...props}
                    {...field}
             />

@@ -10,10 +10,9 @@ import {SejamInfoType} from "../components/main/sejam-info/types";
 import UserStateLevel from "../components/main/final/UserStateLevel";
 import {getRegistrationState} from "../api/resgistration.api";
 import {toast} from "react-toastify";
-import {ArrowLeftOnRectangleIcon} from "@heroicons/react/24/outline";
-import {useAuth} from "react-oidc-context";
-import Router from "next/router";
 import {SejamiStatus} from "../components/main/sejami-status";
+import Lottie from "react-lottie";
+import Loader from "../public/multi-shape-loader.json";
 
 export const SejamContext = createContext({})
 export default function Main() {
@@ -21,9 +20,13 @@ export default function Main() {
     const [regInfo, setRegInfo] = useState<any>({})
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
     const [userDefaultBank, setUserDefaultBank] = useState<any>(null)
-
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: Loader,
+    };
     const findLevel = (no: number) => {
-        //Enums(RegistrationState) are available in ../components/common/enums
+        //Enums(OnlineRegistrationStatus) are available in ../components/common/enums
         switch (true) {
             case no <= 5:
                 setLevel(0);
@@ -79,11 +82,17 @@ export default function Main() {
 
     return (
         <SejamContext.Provider value={{setLevel, setUserData, userData, level, setUserDefaultBank, userDefaultBank}}>
-            <div className="container relative flex flex-col h-full py-10 text-sm md:text-md">
+            <div className="container relative flex flex-col h-full md:py-10 py-5 text-sm md:text-md">
                 <ProgressBar/>
                 {level >= 0 ? <div className={'flex flex-col grow pt-5 md:pt-5 pb-5'}>
                     {Components}
-                </div> : null}
+                </div> : <div className={'flex flex-col grow pt-5 md:pt-5 pb-5 bg-white rounded w-full'}>
+                    <div className={'m-auto md:h-[400px] h-[250px] md:w-[400px] w-[250px]'}>
+                    <Lottie
+                        options={defaultOptions}
+                    />
+                    </div>
+                </div>}
             </div>
         </SejamContext.Provider>
     )

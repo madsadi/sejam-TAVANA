@@ -70,7 +70,7 @@ export default function InfoEntry() {
                     اطلاعات اولیه
                 </h2>
             </div>
-            <Formik initialValues={initialValue} validationSchema={infoEntry} onSubmit={registerHandler}>
+            <Formik initialValues={initialValue} validationSchema={infoEntry} validateOnChange={false} onSubmit={registerHandler}>
                 {({isSubmitting}) => (
                     <Form className={'grow flex flex-col'}>
                         <div className={'relative grow overflow-y-auto custom-scrollbar'}>

@@ -49,7 +49,7 @@ export default function MobileEntry() {
     return (
         <>
             <h2>ثبت نام</h2>
-            <Formik initialValues={initialValue} validationSchema={mobileEntry} onSubmit={submitHandler}>
+            <Formik initialValues={initialValue} validationSchema={mobileEntry} validateOnChange={false} onSubmit={submitHandler}>
                 {({isSubmitting}) => (
                     <Form className={'grow flex flex-col'}>
                         <InputComponent label={'شماره همراه'}

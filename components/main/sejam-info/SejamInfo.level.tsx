@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import AccordionComponent from "../../common/component/Accordion.component";
-import {getBankAccounts, getSejamInfo} from "../../../api/sejam-info.api";
+import {getBankAccounts, getSejamInfo, registerBankAccount} from "../../../api/sejam-info.api";
 import {
     accountNumber,
     LegalPersonShareholderType,
@@ -12,6 +12,7 @@ import {formatNumber, jalali} from "../../common/functions";
 import LabelValue from "../../common/component/LabelValue";
 import BankAccountCard from "./BankAccountCard";
 import {
+    accountTypeEnums,
     agentTypeEnums, LegalPersonShareholderViewModelEnums, LegalPersonStakeholderTypeEnums,
     legalPersonTypeCategoryEnums, legalPersonTypeSubCategory, tradingCodeTypeEnums,
     tradingKnowledgeLevelEnums, transactionLevelLegalPersonEnums,
@@ -41,6 +42,20 @@ export default function SejamInfoLevel() {
             .then((res) => {
                 setBanks(res?.result?.bankAccounts)
             })
+    }
+
+    const setDefaultBank = async (defaultBank:accountNumber)=>{
+        let restOfAccounts = banks.map((b:accountNumber)=>{
+            return ({
+                "accountNumber": b.accountNumber,
+                "iban": b.sheba,
+                "type": accountTypeEnums.find((item:any)=>item.enTitle===b.type)?.id,
+                "cityId": b.branchCity.id,
+                "isDefault": false
+            })
+        })
+        await registerBankAccount({bankAccounts:[...restOfAccounts, {...defaultBank,isDefault:true}]})
+            .then(()=> bankAccounts())
     }
 
     useEffect(() => {
@@ -74,7 +89,7 @@ export default function SejamInfoLevel() {
                         <div className="grid md:grid-cols-4 grid-cols-2 gap-3">
                             <LabelValue title={'نام'} value={data?.privatePerson?.firstName}/>
                             <LabelValue title={'نام خانوادگی'} value={data?.privatePerson?.lastName}/>
-                            <LabelValue title={'تاریخ تولد'} value={jalali(data?.privatePerson?.birthDate).date}/>
+                            <LabelValue title={'تاریخ تولد'} value={data?.privatePerson?.birthDate ? jalali(data?.privatePerson?.birthDate).date:''}/>
                             <LabelValue title={'نام پدر'} value={data?.privatePerson?.fatherName}/>
                             <LabelValue title={'محل تولد'} value={data?.privatePerson?.placeOfBirth}/>
                             <LabelValue title={'صادره از'} value={data?.privatePerson?.placeOfIssue}/>
@@ -91,7 +106,7 @@ export default function SejamInfoLevel() {
                                     value={data?.jobInfo?.companyCityPrefix + data?.jobInfo?.companyPhone}/>
                         <LabelValue title={'کد پستی شرکت'} value={data?.jobInfo?.companyPostalCode}/>
                         <LabelValue title={'سایت شرکت'} value={data?.jobInfo?.companyWebSite}/>
-                        <LabelValue title={'تاریخ استخدام'} value={jalali(data?.jobInfo?.employmentDate)?.date}/>
+                        <LabelValue title={'تاریخ استخدام'} value={data?.jobInfo?.employmentDate ? jalali(data?.jobInfo?.employmentDate)?.date:''}/>
                         <LabelValue title={'عنوان شغل'} value={data?.jobInfo?.job?.title}/>
                         <LabelValue title={'سمت کاری'} value={data?.jobInfo?.position}/>
                         <LabelValue title={'آدرس شرکت'} value={data?.jobInfo?.companyAddress}/>
@@ -154,7 +169,7 @@ export default function SejamInfoLevel() {
                     <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
                         <LabelValue title={'مشخص کننده نوع نماینده'}
                                     value={agentTypeEnums.find((item: any) => item.id === data?.agent?.type)?.title}/>
-                        <LabelValue title={'تاریخ انقضای نمایندگی'} value={jalali(data?.agent?.expirationDate).date}/>
+                        <LabelValue title={'تاریخ انقضای نمایندگی'} value={data?.agent?.expirationDate ? jalali(data?.agent?.expirationDate).date:''}/>
                         <LabelValue title={'توضیحات'} value={data?.agent?.description}/>
                         <LabelValue title={'کد ملی'} value={data?.agent?.uniqueIdentifier}/>
                         <LabelValue title={'نام'} value={data?.agent?.firstName}/>
@@ -185,11 +200,11 @@ export default function SejamInfoLevel() {
                     <Modal title={'حساب جدید'} setOpen={setAddModal} open={addModal}>
                         <AddAccountComponent fetch={bankAccounts} banks={banks} setAddModal={setAddModal}/>
                     </Modal>
-                    <div className="flex overflow-x-auto space-x-reverse space-x-4">
+                    <div className="flex overflow-x-auto space-x-reverse space-x-4 p-4">
                         {
                             banks?.map((item: any) => {
                                 return (
-                                    <BankAccountCard accountInfo={item} key={item?.accountNumber}/>
+                                    <BankAccountCard accountInfo={item} setDefaultBank={setDefaultBank} key={item?.accountNumber}/>
                                 )
                             })
                         }

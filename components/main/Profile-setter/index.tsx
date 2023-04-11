@@ -1,15 +1,19 @@
-import React, {useContext, useEffect, useState} from "react";
-import {addCustomerProfileInfo, getSejamKYCToken, isSejami, sejamStatus} from "../../../api/ProfileSetter.api";
+import React, {Fragment, useContext, useEffect, useState} from "react";
+import {addCustomerProfileInfo} from "../../../api/ProfileSetter.api";
 import {SejamContext} from "../../../pages/main";
 import {toast} from "react-toastify";
-import {personType, sejamStatusEnums} from "../../common/enums";
+import {personType} from "../../common/enums";
 import {countryType} from "../sejam-info/types";
 import {searchCountry} from "../../../api/sejam-info.api";
-import {ChevronDownIcon} from "@heroicons/react/24/outline";
+import {ChevronDownIcon,MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {getCurrentUserInfo} from "../../../api/login-signup.api";
-import Image from 'next/image';
 import CaptchaComponentNotFormik from "../../common/component/CaptchaComponentNotFormik";
+import { Listbox, Transition } from '@headlessui/react'
+import { CheckIcon } from '@heroicons/react/20/solid'
 
+function classNames(...classes:any) {
+    return classes.filter(Boolean).join(' ')
+}
 type initialType = {
     mobileNumber: string,
     uniqueId: string,
@@ -35,6 +39,7 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
     const [retry, setRetry] = useState<boolean>(false)
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const [uuid, setUuid] = useState<string>('')
+    const [open, setOpen] = useState<boolean>(false)
 
     const searchCountryHandler = async (e: any) => {
         setCountry({countryName: e.target.value, countryId: -1})
@@ -112,56 +117,142 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                 <p className={'mb-5'}>اطلاعات زیر را جهت ایجاد پروفایل تکمیل کنید</p>
                 <div className={'grid md:grid-cols-2 grid-cols-1 gap-4'}>
                     <div className={'grid grid-cols-1 gap-4'}>
-                        <div className="dropdown flex flex-col md:flex-row space-y-3 md:space-y-0 w-full ">
-                            <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
-                                حقیقی یا حقوقی:
-                            </label>
-                            <div className={'relative w-full'}>
-                                <div tabIndex={1} className="input flex w-full items-center cursor-pointer">
-                                    {personType.find((item: any) => item.id === info.personType)?.title}
-                                    <ChevronDownIcon className={'h-5 w-5 mr-auto'}/>
+                        <Listbox value={info.personType} onChange={(e)=>infoUpdate('personType', e)}>
+                            {({ open }) => (
+                                <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full '} >
+                                    <label className="flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]">حقیقی یا حقوقی:</label>
+                                    <div className="relative mt-2 grow">
+                                        <Listbox.Button className="relative input w-full bg-white py-1.5 pr-3 pl-10 h-12">
+                                          <span className="flex items-center">
+                                            <span className="ml-3 block truncate">{personType.find((item: any) => item.id === info.personType)?.title}</span>
+                                          </span>
+                                          <span className="pointer-events-none absolute inset-y-0 left-0 mr-3 flex items-center pl-2">
+                                            <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                          </span>
+                                        </Listbox.Button>
+
+                                        <Transition
+                                            show={open}
+                                            as={Fragment}
+                                            leave="transition ease-in duration-100"
+                                            leaveFrom="opacity-100"
+                                            leaveTo="opacity-0"
+                                        >
+                                            <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                {personType.map((person) => (
+                                                    <Listbox.Option
+                                                        key={person.id}
+                                                        className={({ active }) =>
+                                                            classNames(
+                                                                active ? 'bg-gray-200' : 'text-gray-900',
+                                                                'relative select-none py-2 pl-3 pr-9 cursor-pointer'
+                                                            )
+                                                        }
+                                                        value={person.id}
+                                                    >
+                                                        {({ selected, active }) => (
+                                                            <>
+                                                                <div className="flex items-center">
+                                                                    <span
+                                                                        className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block')}
+                                                                    >
+                                                                        {person.title}
+                                                                      </span>
+                                                                </div>
+
+                                                                {selected ? (
+                                                                    <span
+                                                                        className={classNames(
+                                                                            active ? '' : '',
+                                                                            'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                                        )}
+                                                                    >
+                                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                      </span>
+                                                                ) : null}
+                                                            </>
+                                                        )}
+                                                    </Listbox.Option>
+                                                ))}
+                                            </Listbox.Options>
+                                        </Transition>
+                                    </div>
                                 </div>
-                                <ul tabIndex={0}
-                                    className="dropdown-content max-h-[200px] overflow-y-auto menu p-2 shadow-md bg-base-100 w-full"
-                                    style={{flexWrap: 'unset'}}>
-                                    {personType.map((item: any) => {
-                                        return (
-                                            <li key={item.id} onClick={() => infoUpdate('personType', item.id)}
-                                                className={'odd:bg-gray-200 cursor-pointer hover:bg-gray-100 px-2 py-1'}>
-                                                {item.title}
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
+                            )}
+                        </Listbox>
+                        <Listbox value={info.countryId} onChange={(e)=> {
+                            infoUpdate('countryId',e.countryId)
+                            setCountry(e)
+                            setOpen(false)
+                        }}>
+                            <>
+                            <div className="flex h-12 items-center">
+                                <label className="flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]">کشور:</label>
+                                <div className={'relative w-full bg-white grow '}>
+                                        <input type="text" value={country.countryName}
+                                               className="input text-black input-bordered w-full"
+                                               onChange={(e)=> {
+                                                   searchCountryHandler(e);
+                                                   setOpen(true)
+                                               }}/>
+                                    <span className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-0 mr-3 flex items-center pl-2">
+                                                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                    </span>
+                                    <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full '} >
+                                        <div className="relative grow">
+                                            <Transition
+                                                show={open}
+                                                as={Fragment}
+                                                leave="transition ease-in duration-100"
+                                                leaveFrom="opacity-100"
+                                                leaveTo="opacity-0"
+                                            >
+                                                <Listbox.Options
+                                                    className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                    {countries.map((country) => (
+                                                        <Listbox.Option
+                                                            key={country.countryId}
+                                                            className={({active}) =>
+                                                                classNames(
+                                                                    active ? 'bg-gray-200' : 'text-gray-900',
+                                                                    'relative select-none py-2 pl-3 pr-9 cursor-pointer'
+                                                                )
+                                                            }
+                                                            value={country}
+                                                        >
+                                                            {({selected, active}) => (
+                                                                <>
+                                                                    <div className="flex items-center">
+                                                                    <span
+                                                                        className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block')}
+                                                                    >
+                                                                        {country.countryName}
+                                                                      </span>
+                                                                    </div>
+
+                                                                    {selected ? (
+                                                                        <span
+                                                                            className={classNames(
+                                                                                active ? '' : '',
+                                                                                'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                                            )}
+                                                                        >
+                                                                        <CheckIcon className="h-5 w-5"
+                                                                                   aria-hidden="true"/>
+                                                                      </span>
+                                                                    ) : null}
+                                                                </>
+                                                            )}
+                                                        </Listbox.Option>
+                                                    ))}
+                                                </Listbox.Options>
+                                            </Transition>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div className="dropdown flex flex-col md:flex-row space-y-3 md:space-y-0 w-full ">
-                            <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
-                                کشور:
-                            </label>
-                            <div className={'w-full relative'}>
-                                <label className="label flex p-0 min-w-[110px]">
-                                    <input type="text" value={country.countryName}
-                                           className="input text-black input-bordered w-full"
-                                           onChange={searchCountryHandler}/>
-                                </label>
-                                {countries.length ? <ul tabIndex={0}
-                                                        className="dropdown-content max-h-[200px] overflow-y-auto menu p-2 shadow-md bg-base-100 w-full"
-                                                        style={{flexWrap: 'unset'}}>
-                                    {countries.map((item: countryType) => {
-                                        return (
-                                            <li key={item.countryId} onClick={() => {
-                                                setCountry(item);
-                                                infoUpdate('countryId', item.countryId)
-                                            }}
-                                                className={'odd:bg-gray-200 cursor-pointer hover:bg-gray-100 px-2 py-1'}>
-                                                {item.countryName}
-                                            </li>
-                                        )
-                                    })}
-                                </ul> : null}
-                            </div>
-                        </div>
+                            </>
+                        </Listbox>
                         <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
                             <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
                                 {info.personType === 1 ? (info.countryId === 1 ? 'کد ملی:' : (info.countryId ? 'شماره پاسپورت:' : 'کد ملی:')) : 'شناسه ملی:'}
