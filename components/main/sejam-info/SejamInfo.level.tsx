@@ -65,7 +65,7 @@ export default function SejamInfoLevel() {
 
     return (
         <>
-            <div className="grow bg-white p-5 rounded-md">
+            <div className="grow bg-white/50 p-5 rounded-md backdrop-blur-md">
                 {data?.legalPerson ?
                     <AccordionComponent title={'اطلاعات هویتی حقوقی'}>
                         <div className="grid md:grid-cols-4 grid-cols-2 gap-3">
@@ -187,7 +187,7 @@ export default function SejamInfoLevel() {
                                         <LabelValue key={index} title={'شماره همراه'} value={item?.mobile}/>
                                         <LabelValue key={index} title={'شماره ثابت'} value={item?.tel}/>
                                         <LabelValue key={index} title={'شماره تماس اضطراری'}
-                                                    value={item?.emergencyTelCityPrefix + '-' + item?.emergencyTel}/>
+                                                    value={item?.emergencyTel ? (item?.emergencyTelCityPrefix ? item?.emergencyTelCityPrefix:'') + '-' + item?.emergencyTel:''}/>
                                         <LabelValue key={index} title={'کد پستی'} value={item?.postalCode}/>
                                         <LabelValue key={index} title={'آدرس'}
                                                     value={item?.country.name + ' ' + item?.city?.name + ' ' + item?.section?.name + ' ' + item?.remnantAddress + ' ' + item?.alley + ' ' + item?.plaque}/>

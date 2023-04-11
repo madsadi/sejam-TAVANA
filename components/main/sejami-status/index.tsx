@@ -58,7 +58,7 @@ export const SejamiStatus=()=>{
         checkPoints()
     },[])
     return(
-        <div className={'bg-white rounded-md p-5'}>
+        <div className={'bg-white/50 backdrop-blur-md rounded-md p-5'}>
             <div className={'w-full'}>
             {error?.message ?
                 <a className={`bg-red-300 transition-all`}

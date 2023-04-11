@@ -26,7 +26,7 @@ export default function UserStateLevel() {
     }, [])
 
     return (
-        <div className="grow flex flex-col bg-white p-5 rounded-md bg-[url(/icons/logo.jpg)] bg-[length:200px_200px] bg-left-bottom bg-no-repeat">
+        <div className="grow flex flex-col bg-white/50 backdrop-blur-md p-5 rounded-md bg-[url(/icons/logo.jpg)] bg-[length:200px_200px] bg-left-bottom bg-no-repeat">
             <Lottie
                 options={defaultOptions}
                 height={'50%'}

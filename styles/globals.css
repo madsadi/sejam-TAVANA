@@ -23,6 +23,8 @@ body {
   :root{
     color-scheme:light !important;
     --b3:180 1.9608% 90% !important;
+    --b1:0 0% 100% !important;
+    --b2:0 0% 94.902% !important;
   }
 }
 
@@ -232,19 +234,26 @@ input[type=number] {
   .steps .step{
     min-width: 2rem;
   }
+
   .steps .step-active::after{
-    background-color: white;
+    background-color: white !important;
     border: 1px solid rgba(0, 128, 0, 0.73);
   }
   .steps .step-active:before{
     background-color: white !important;
     border: 1px solid rgba(0, 128, 0, 0.73);
   }
+  .steps .step-success:after{
+    background-color: hsl(var(--su) / var(--tw-bg-opacity)) !important;
+  }
   .input {
     @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white
   }
   .steps .step:before {
-    @apply bg-gray-200
+    @apply bg-gray-300 shadow-md
+  }
+  .steps .step:after {
+    @apply bg-gray-300 shadow-md
   }
   .hover-button {
     @apply border-b hover:border-tavanaGreen border-transparent transition-all w-fit p-1

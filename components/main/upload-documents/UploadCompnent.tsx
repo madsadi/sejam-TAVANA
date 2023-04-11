@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import ImageUploading, {ImageType} from 'react-images-uploading';
 import {
     CloudArrowUpIcon
@@ -7,9 +7,9 @@ import Image from 'next/image';
 import {downloadContent, uploadPhoto} from "../../../api/Upload-documents.api";
 import {toast} from "react-toastify";
 
-export default function UploadComponent({ item, documents,setDocuments }: { item: any, documents: any ,setDocuments:any}) {
+export default function UploadComponent({ item, documents,setDocs }: { item: any, documents: any ,setDocs:Dispatch<any>}) {
     const [images, setImages] = useState<ImageType[]>([]);
-    const _documents = documents;
+    let _documents = [...documents];
     const target = _documents.findIndex((i:any)=>i.fileType===item.fileType)
     const onChange = async (imageList: any, addUpdateIndex: any) => {
         if (item.fileType===1){
@@ -24,10 +24,9 @@ export default function UploadComponent({ item, documents,setDocuments }: { item
                     setImages(imageList);
                     let index = _documents.findIndex((i:any)=>i.fileType===item.fileType)
                     _documents.splice(index,1,{...item,image:imageList[0].data_url})
-                    setDocuments(_documents)
+                    setDocs(_documents)
                 })
                 .catch((err)=>toast.error(`${err?.response?.data?.error?.message}`))
-            // data for submit
         }
     };
 

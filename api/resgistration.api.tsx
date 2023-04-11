@@ -8,3 +8,11 @@ export const getRegistrationState = async () => {
         })
     return log
 }
+
+export const updateRegState = async (registrationState:number) => {
+    const log = await axios.post(`${sejamApi}UpdateRegistrationState`,{registrationState:registrationState})
+        .then(({data}) => {
+            return data
+        })
+    return log
+}

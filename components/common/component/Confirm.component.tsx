@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import {SejamContext} from "../../../pages/main";
 import {toast} from "react-toastify";
+import {updateRegState} from "../../../api/resgistration.api";
 
 export default function ConfirmComponent(){
     const {setLevel,level} = useContext<any>(SejamContext)
@@ -8,7 +9,12 @@ export default function ConfirmComponent(){
 
     const proceed = ()=>{
         if (isChecked){
-            setLevel(level+1)
+            const updateReg = async ()=>{
+                await updateRegState(15)
+                    .then((res)=>setLevel(level+1))
+                    .catch((err)=> toast.error(`${err?.response?.data?.error?.message}`))
+            }
+            updateReg()
         }else{
             toast.warning('برای ادامه به مرحله بعدی، اطلاعات را می بایست تایید کنید.')
         }

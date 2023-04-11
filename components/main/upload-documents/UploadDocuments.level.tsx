@@ -51,14 +51,13 @@ export default function UploadDocumentsLevel() {
         getDocument()
     },[])
 
-    console.log(document)
     return (
         <>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 bg-white p-3 rounded-md">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 bg-white/50 backdrop-blur-md p-3 rounded-md">
                 {
                     document.map((item: any) => {
                         return (
-                            <UploadComponent item={item} documents={document} setDocuments={setDocuments} key={item} />
+                            <UploadComponent item={item} documents={document} setDocs={setDocuments} key={item.fileType} />
                         )
                     })
                 }
@@ -74,7 +73,7 @@ export default function UploadDocumentsLevel() {
                     <li>چنانچه مشتری زیر سن قانونی (18 سال) هست و دارای کارت ملی نمی باشد، در فیلد تصویر کارت ملی می توانید مجددا تصویر شناسنامه مشتری را بارگزاری نمایید</li>
                 </ul>
             </div>
-            <BeforeAfterComponent condition={document.every((item:any)=>item.image)} warning={'لطفا مدارک لازم را بارگزاری کنید'}/>
+            <BeforeAfterComponent condition={document.every((item:any)=>item.image)} warning={'لطفا مدارک لازم را بارگذاری کنید'}/>
         </>
     )
 }

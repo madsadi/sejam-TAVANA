@@ -16,9 +16,10 @@ import Loader from "../public/multi-shape-loader.json";
 
 export const SejamContext = createContext({})
 export default function Main() {
-    const [level, setLevel] = useState<number>(0)
+    const [level, setLevel] = useState<number>(-1)
     const [regInfo, setRegInfo] = useState<any>({})
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
+    const [error, setError] = useState<string>('')
     const [userDefaultBank, setUserDefaultBank] = useState<any>(null)
     const defaultOptions = {
         loop: true,
@@ -58,11 +59,13 @@ export default function Main() {
         const registrationState = async () => {
             await getRegistrationState()
                 .then((res) => {
-                    findLevel(res?.result?.registrationState);
+                    setTimeout(()=>{
+                        findLevel(res?.result?.registrationState);
+                    },1000)
                     setRegInfo(res?.result)
                 })
                 .catch((err) => {
-                    setLevel(0)
+                    setError('مشکلی پیش آمده.')
                     toast.error(`${err?.response?.data?.error?.message}`)
                 })
         }
@@ -86,11 +89,14 @@ export default function Main() {
                 <ProgressBar/>
                 {level >= 0 ? <div className={'flex flex-col grow pt-5 md:pt-5 pb-5'}>
                     {Components}
-                </div> : <div className={'flex flex-col grow pt-5 md:pt-5 pb-5 bg-white rounded w-full'}>
+                </div> : <div className={'flex flex-col grow pt-5 md:pt-5 pb-5 bg-white/30 backdrop-blur-md rounded w-full'}>
                     <div className={'m-auto md:h-[400px] h-[250px] md:w-[400px] w-[250px]'}>
                     <Lottie
                         options={defaultOptions}
                     />
+                        <p className={'text-center'}>
+                        {error}
+                        </p>
                     </div>
                 </div>}
             </div>

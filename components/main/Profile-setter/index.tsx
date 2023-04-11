@@ -112,7 +112,7 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
     }
 
     return (
-        <div className={'bg-white rounded-md p-5'}>
+        <div className={'bg-white/50 rounded-md p-5 backdrop-blur-md'}>
             <form className={'flex flex-col'} onSubmit={submitHandler}>
                 <p className={'mb-5'}>اطلاعات زیر را جهت ایجاد پروفایل تکمیل کنید</p>
                 <div className={'grid md:grid-cols-2 grid-cols-1 gap-4'}>
