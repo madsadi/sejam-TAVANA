@@ -41,7 +41,7 @@ export default function App({Component, pageProps}: AppProps) {
     }
 
     return (
-        <AuthProvider {...oidcConfig} onSigninCallback={onSignIn}>
+        <AuthProvider {...oidcConfig} onSigninCallback={onSignIn} prompt={'login'}>
             <Head>
                 <title> ثبت نام در کارگزاری توانا</title>
             </Head>
