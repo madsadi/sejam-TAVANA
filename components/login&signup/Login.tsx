@@ -1,7 +1,5 @@
 import React from "react";
 import { useAuth } from 'react-oidc-context';
-import {router} from "next/client";
-import {ExtraSigninRequestArgs} from "oidc-client-ts";
 
 export default function Login(){
     const auth = useAuth();

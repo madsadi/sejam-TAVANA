@@ -43,9 +43,13 @@ export const SejamiStatus=()=>{
                     })
             }
             await isSejami()
-                .then(() => {
-                    toast.success('شما سجامی هستید')
-                    status();
+                .then((res) => {
+                    if (res?.result?.isSejami){
+                        toast.success('شما سجامی هستید')
+                        status();
+                    }else{
+                        toast.error('شما سجامی نیستید')
+                    }
                 })
                 .catch((err) => {
                     setError({

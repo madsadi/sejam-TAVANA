@@ -9,6 +9,7 @@ import {infoEntry} from "../common/shcema/schema";
 const initialValue = {
     token: '',
     phoneNumber: '',
+    userName: '',
     password: '',
     firstName: '',
     lastName: '',
@@ -20,6 +21,10 @@ export default function InfoEntry() {
     const {setLevel, mobile, token} = useContext<any>(IdpContext)
 
     const forum = [
+        {
+            title: 'نام کاربری',
+            name: 'userName',
+        },
         {
             title: 'کد ملی',
             name: 'nationalId',
