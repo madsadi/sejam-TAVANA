@@ -45,6 +45,9 @@ export const infoEntry = yup.object().shape({
     firstName:yup
         .string()
         .required("الزامی می باشد."),
+    userName:yup
+        .string()
+        .required("الزامی می باشد."),
     lastName:yup
         .string()
         .required("الزامی می باشد."),

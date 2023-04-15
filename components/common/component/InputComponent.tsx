@@ -26,7 +26,7 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
                 </label>
                 <div className={'relative'}>
                     <input className={`input text-left ${meta.touched && meta.error ? 'border-red-300' : ''}`}
-                           dir={'ltr'}
+                           dir={label==='lastName' || label==='firstName' ? 'rtl':'ltr'}
                            {...props}
                            {...field}
                            type={showPass ? 'text' : 'password'}
