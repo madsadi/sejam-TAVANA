@@ -16,7 +16,7 @@ import Loader from "../public/multi-shape-loader.json";
 
 export const SejamContext = createContext({})
 export default function Main() {
-    const [level, setLevel] = useState<number>(2)
+    const [level, setLevel] = useState<number>(-1)
     const [regInfo, setRegInfo] = useState<any>({})
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
     const [error, setError] = useState<string>('')
@@ -61,7 +61,7 @@ export default function Main() {
             await getRegistrationState()
                 .then((res) => {
                     setTimeout(()=>{
-                        // findLevel(res?.result?.registrationState);
+                        findLevel(res?.result?.registrationState);
                     },1000)
                     setRegInfo(res?.result)
                 })
