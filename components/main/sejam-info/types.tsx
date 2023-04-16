@@ -124,16 +124,10 @@ export type countryType = {
     "countryName": string,
 }
 export type provinceType = {
-    "countryId": number,
-    "countryName": string,
     "provinceId": number,
     "provinceName": string
 }
 export type cityType = {
-    "countryId": number,
-    "countryName": string,
-    "provinceId": number,
-    "provinceName": string,
     "cityId": number,
     "cityName": string
 }

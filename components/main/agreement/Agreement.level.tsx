@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import AccordionComponent from "../../common/component/Accordion.component";
-import {approveAgreements, getAllPossibleAgreements} from "../../../api/agreement.api";
+import {approveAgreements, getAllAgreements, getAllPossibleAgreements} from "../../../api/agreement.api";
 import {agreement} from "./types";
 import OnlineRegistrationAgreement from "./تعهد نامه ثبت نام غیر حضوری";
 import TotalBrokerageAgreement from "./قرارداد جامع مشتري و کارگزار (در خصوص اوراق بهادار)";
@@ -51,10 +51,31 @@ export default function AgreementLevel() {
     const [agreements, setAgreements] = useState<agreement[]>([])
     const [approvedAgreements, setApprove] = useState<any>(initialApprovedStates)
 
+    const approveHandler = (key:string,status:number=-1)=>{
+        let _approves:any = [...approvedAgreements];
+        let index = _approves.findIndex((item:any)=>item.agreementId===key);
+        if (status>0){
+            _approves.splice(index,1,{agreementId:key,status:status})
+        }else{
+            if (_approves[index].status===3){
+                _approves.splice(index,1,{agreementId:key,status:2})
+            }else{
+                _approves.splice(index,1,{agreementId:key,status:3})
+            }
+        }
+        setApprove(_approves)
+    }
+
     useEffect(() => {
         const getAgreements = async () => {
             await getAllPossibleAgreements()
-                .then((res) => setAgreements(res?.result?.agreements))
+                .then((res) => {
+                    let agreements = res?.result?.agreements
+                    setAgreements(agreements)
+                    agreements?.map((item:any)=>approveHandler(item.id,item.status))
+                })
+            // await getAllAgreements()
+            //     .then((res)=>(res?.result?.agreements)?.map((item:any)=>approveHandler(item.id,item.status)))
         }
         const sejamInfo = async () => {
             await getSejamInfo()
@@ -85,18 +106,6 @@ export default function AgreementLevel() {
         '89a75475-b23d-4592-a985-704915dbfc88':<OfflineTradingAgreement/>,
         'b8966013-1d76-47d6-a962-f87d2ffef944':<OnlineTradingAgreement/>,
         'bfd4daf5-5b1e-4e3c-b0fe-75713131913b':<OptionalAgreement/>,
-    }
-
-    const approveHandler = (key:string)=>{
-        let _approves:any = [...approvedAgreements];
-        let index = _approves.findIndex((item:any)=>item.agreementId===key);
-        if (_approves[index].status===3){
-            _approves.splice(index,1,{agreementId:key,status:2})
-            setApprove(_approves)
-        }else{
-            _approves.splice(index,1,{agreementId:key,status:3})
-            setApprove(_approves)
-        }
     }
 
     const proceed =async ()=>{
