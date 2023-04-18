@@ -236,12 +236,12 @@ input[type=number] {
   }
 
   .steps .step-active::after{
-    background-color: white !important;
-    border: 1px solid rgba(0, 128, 0, 0.73);
+    background-color: rgb(175, 137, 60) !important;
+    border: 1px solid rgb(175, 137, 60);
   }
   .steps .step-active:before{
-    background-color: white !important;
-    border: 1px solid rgba(0, 128, 0, 0.73);
+    background-color: rgb(175, 137, 60) !important;
+    border: 1px solid rgb(175, 137, 60);
   }
   .steps .step-success:after{
     background-color: hsl(var(--su) / var(--tw-bg-opacity)) !important;

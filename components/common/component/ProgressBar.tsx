@@ -7,7 +7,7 @@ import Router from "next/router";
 import {useAuth} from "react-oidc-context";
 
 export default function ProgressBar() {
-    const {level} = useContext<any>(SejamContext)
+    const {level,regInfo} = useContext<any>(SejamContext)
     const isMobile = useMediaQuery({query: `(max-width: 760px)`});
     const progress = [
         {
@@ -53,7 +53,7 @@ export default function ProgressBar() {
                         progress.map((step: any) => {
                             return (
                                 <li suppressHydrationWarning={true}
-                                    className={`step ${level > step.level ? 'step-success' : (level === step.level ? 'step-active' : '')}`}
+                                    className={`step ${level > step.level ? 'step-success' : (level === step.level ? (regInfo.registrationState===18 ? 'step-success':'step-active') : '')}`}
                                     key={step.level}>{isMobile ? '' : step.title}</li>
                             )
                         })
