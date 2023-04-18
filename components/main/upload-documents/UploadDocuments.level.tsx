@@ -1,9 +1,11 @@
 import UploadComponent from './UploadCompnent';
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getContent} from "../../../api/Upload-documents.api";
 import BeforeAfterComponent from "../../common/component/Before&After.component";
+import {SejamContext} from "../../../pages/main";
 
 export default function UploadDocumentsLevel() {
+    const {regInfo} = useContext<any>(SejamContext)
 
     let initialDocuments: any = [
         {
@@ -25,12 +27,126 @@ export default function UploadDocumentsLevel() {
             title: 'تصویر روی کارت ملی',
             fileType:6,
             image: null
+        }
+    ]
+    let agentDocuments: any = [
+        {
+            title: 'تصویر امضاء دریافت شده از سجام',
+            fileType:1,
+            image: null
         },
         {
-            title: 'تصویر پشت کارت ملی',
-            fileType:7,
+            title: 'تصویر صفحه اول شناسنامه',
+            fileType:3,
             image: null
-        }
+        },
+        {
+            title: 'تصویر صفحه توضیحات شناسنامه',
+            fileType:4,
+            image: null
+        },
+        {
+            title: 'تصویر روی کارت ملی',
+            fileType:6,
+            image: null
+        },
+        {
+            fileType: 9,
+            title: "تصویر صفحه توضیحات شناسنامه وکیل",
+            image: null
+        },
+        {
+            fileType: 10,
+            title: "تصویر روی کارت ملی وکیل",
+            image: null
+        },
+        {
+            fileType: 11,
+            title: "تصویر وکالت نامه",
+            image: null
+        },
+    ]
+    let legalDocuments: any = [
+        {
+            fileType: 9,
+            title: "تصویر صفحه توضیحات شناسنامه وکیل",
+            image: null
+        },
+        {
+            fileType: 10,
+            title: "تصویر روی کارت ملی وکیل",
+            image: null
+        },
+        {
+            fileType: 11,
+            title: "تصویر وکالت نامه",
+            image: null
+        },
+        {
+            fileType: 12,
+            title: "تصویر آخرین روزنامه رسمی اعضای هیات مدیره",
+            image: null
+        },
+        {
+            fileType: 13,
+            title: "تصویر امضاء رئیس هیات مدیره",
+            image: null
+        },
+        {
+            fileType: 14,
+            title: "تصویر صفحه اول شناسنامه رئیس هیات مدیره",
+            image: null
+        },
+        {
+            fileType: 15,
+            title: "تصویر صفحه توضیحات شناسنامه رئیس هیات مدیره",
+            image: null
+        },
+        {
+            fileType: 16,
+            title: "تصویر روی کارت ملی رئیس هیات مدیره",
+            image: null
+        },
+        {
+            fileType: 17,
+            title: "تصویر امضاء مدیر عامل",
+            image: null
+        },
+        {
+            fileType: 18,
+            title: "تصویر صفحه اول شناسنامه مدیر عامل",
+            image: null
+        },
+        {
+            fileType: 19,
+            title: "تصویر صفحه توضیحات شناسنامه مدیر عامل",
+            image: null
+        },
+        {
+            fileType: 20,
+            title: "تصویر روی کارت ملی مدیر عامل",
+            image: null
+        },
+        {
+            fileType: 21,
+            title: "تصویر امضاء عضو هیئت مدیره",
+            image: null
+        },
+        {
+            fileType: 22,
+            title: "تصویر صفحه اول شناسنامه عضو هیات مدیره (صاحب امضاء)",
+            image: null
+        },
+        {
+            fileType: 23,
+            title: "تصویر صفحه توضیحات شناسنامه عضو هیات مدیره (صاحب امضاء)",
+            image: null
+        },
+        {
+            fileType: 24,
+            title: "تصویر روی کارت ملی عضو هیات مدیره (صاحب امضاء)",
+            image: null
+        },
     ]
     const [document,setDocuments] = useState<any>([])
 
@@ -38,7 +154,14 @@ export default function UploadDocumentsLevel() {
         const getDocument = async ()=>{
             await getContent()
                 .then((res)=> {
-                    let _D = initialDocuments;
+                    let _D:any
+                    if (regInfo.hasAgent){
+                        _D = agentDocuments;
+                    }else if (regInfo.personType===2){
+                        _D = legalDocuments;
+                    }else{
+                        _D = initialDocuments;
+                    }
                     res?.result?.map((item:any)=>{
                         let _documentIndex = _D.findIndex((i:any)=>i.fileType===item.fileType)
                         if (_documentIndex>=0 && item?.content){
@@ -53,7 +176,7 @@ export default function UploadDocumentsLevel() {
 
     return (
         <>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 bg-white/50 backdrop-blur-md p-3 rounded-md">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/50 backdrop-blur-md p-3 rounded-md">
                 {
                     document.map((item: any) => {
                         return (

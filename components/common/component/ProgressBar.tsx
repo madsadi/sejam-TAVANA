@@ -46,7 +46,7 @@ export default function ProgressBar() {
     const auth = useAuth();
 
     return (
-        <div className={'flex sticky top-5 md:flex-row flex-col items-center mb-5 z-10'}>
+        <div className={'flex md:flex-row flex-col items-center mb-5 z-10'}>
             <div className={'relative grow h-[60px] w-full'}>
                 <ul className="steps transition-all min-h-fit absolute top-0 z-10 w-full right-0">
                     {

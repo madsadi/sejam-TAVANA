@@ -37,7 +37,7 @@ export default function PageHeaderFooter(){
         <>
             <div className="page-header">
                 <div className="logo-card relative">
-                    <Image src={"/icons/logo.jpg"} fill alt="tavana"/>
+                    <Image src={"/logo.svg"} fill alt="tavana"/>
                 </div>
                 <div className="mt-5 flex font-weight-bold">
                     <div className={'text-sm ml-2'}> تاریخ :</div>
@@ -50,7 +50,7 @@ export default function PageHeaderFooter(){
                 <div className="text-right">
                     <div className={'titleValue'}> امضاء مشتري / نماینده :</div>
                     <div className="sign-card relative">
-                        <Image src={document?.[0]?.image ? document?.[0]?.image:''} fill alt="singPhoto"/>
+                        <Image src={`${document?.[0]?.image ? document?.[0]?.image:''}`} fill alt="signPhoto"/>
                     </div>
                 </div>
                 <div className="text-left">

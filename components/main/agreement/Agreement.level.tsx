@@ -71,8 +71,13 @@ export default function AgreementLevel() {
             await getAllPossibleAgreements()
                 .then((res) => {
                     let agreements = res?.result?.agreements
+                    let _approves:any = [...approvedAgreements];
                     setAgreements(agreements)
-                    agreements?.map((item:any)=>approveHandler(item.id,item.status))
+                    agreements?.map((a:any)=>{
+                        let index = _approves.findIndex((item:any)=>item.agreementId===a.id);
+                        _approves.splice(index,1,{agreementId:a.id,status:a.status})
+                    })
+                    setApprove(_approves)
                 })
             // await getAllAgreements()
             //     .then((res)=>(res?.result?.agreements)?.map((item:any)=>approveHandler(item.id,item.status)))

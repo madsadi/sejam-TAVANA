@@ -247,7 +247,7 @@ input[type=number] {
     background-color: hsl(var(--su) / var(--tw-bg-opacity)) !important;
   }
   .input {
-    @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white
+    @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white h-[40px]
   }
   .steps .step:before {
     @apply bg-gray-300 shadow-md

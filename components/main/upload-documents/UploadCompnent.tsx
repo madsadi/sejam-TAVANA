@@ -33,15 +33,6 @@ export default function UploadComponent({ item, documents,setDocs }: { item: any
     useEffect(()=>{
         if (_documents[target]?.image){
             setImages([{data_url: _documents[target].image}])
-            const download = async ()=>{
-                await downloadContent(_documents[target]?.id)
-                    .then((res)=> {
-                        // console.log(res)
-                    })
-            }
-            if (_documents[target]?.id){
-                download()
-            }
         }
     },[_documents[target]?.image])
 
@@ -65,7 +56,7 @@ export default function UploadComponent({ item, documents,setDocs }: { item: any
                     dragProps,
                 }) => (
                     // write your building UI
-                    <div className="upload__image-wrapper max-h-[150px] h-[150px]">
+                    <div className="upload__image-wrapper max-h-[150px] h-[150px] aspect-video">
                         {imageList.length > 0 ? imageList.map((image, index) => {
                             return (
                                     <div role={'button'} key={index} className="image-item w-full h-full relative"

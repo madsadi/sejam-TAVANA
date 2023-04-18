@@ -18,6 +18,14 @@ export const getBankAccounts = async () => {
     return log
 }
 
+export const updateAgentInfo = async (body:any) => {
+    const log = await axios.post(`${sejamApi}UpdateAgentInfo`,body)
+        .then(({data}) => {
+            return data
+        })
+    return log
+}
+
 export const registerBankAccount = async (body: { bankAccounts:bankAccount|any[] }) => {
     const log = await axios.post(`${sejamApi}RegisterBankAccount`,body)
         .then(({data}) => {

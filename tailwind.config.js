@@ -42,7 +42,7 @@ module.exports = withMT({
       tavanaGreen: '#00603a',
       tavanBrown: '#A27F2C',
       border: '#eee',
-    }),
+    })
   },
   plugins: [
     require("daisyui"),

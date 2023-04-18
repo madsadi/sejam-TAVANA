@@ -87,7 +87,7 @@ export default function AddAccountComponent({fetch,banks,setAddModal}:{fetch:Fun
                     <label className={'mb-1'}>
                         <span className="label-text">نوع سپرده:</span>
                     </label>
-                    <Listbox.Button className="relative input w-full bg-white py-1.5 pr-3 pl-10 h-12">
+                    <Listbox.Button className="relative input w-full bg-white py-1.5 pr-3 pl-10">
                                           <span className="flex items-center">
                                             <span className="ml-3 block truncate">{accountTypeEnums.find((item:any)=>item.id===query.type)?.faTitle}</span>
                                           </span>

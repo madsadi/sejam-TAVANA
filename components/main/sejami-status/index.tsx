@@ -61,6 +61,7 @@ export const SejamiStatus=()=>{
         }
         checkPoints()
     },[])
+
     return(
         <div className={'bg-white/50 backdrop-blur-md rounded-md p-5'}>
             <div className={'w-full'}>

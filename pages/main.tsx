@@ -85,7 +85,7 @@ export default function Main() {
     }[level]
 
     return (
-        <SejamContext.Provider value={{setLevel, setUserData, userData, level, setUserDefaultBank, userDefaultBank}}>
+        <SejamContext.Provider value={{setLevel, setUserData, userData, level, setUserDefaultBank, userDefaultBank,regInfo}}>
             <div className="container relative flex flex-col h-full md:py-10 py-5 text-sm md:text-md">
                 <ProgressBar/>
                 {level >= 0 ? <div className={'flex flex-col grow pt-5 md:pt-5 pb-5'}>
