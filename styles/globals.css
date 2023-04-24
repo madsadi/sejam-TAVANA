@@ -132,8 +132,8 @@ input[type=number] {
 
   body {margin: 0;}
   button {display: none;}
-  thead {display: table-header-group;}
-  tfoot {display: table-footer-group;}
+  /*thead {display: table-header-group;}*/
+  /*tfoot {display: table-footer-group;}*/
 
   .page-footer{
     direction: rtl;

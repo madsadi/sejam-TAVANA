@@ -29,6 +29,7 @@ export default function PageHeaderFooter(){
                 setDocuments(_D)
             })
     },[])
+
     useEffect(()=>{
         getDocument()
     },[])
@@ -37,7 +38,7 @@ export default function PageHeaderFooter(){
         <>
             <div className="page-header">
                 <div className="logo-card relative">
-                    <Image src={"/logo.svg"} fill alt="tavana"/>
+                    <img src={"/logo.svg"} alt="tavana"/>
                 </div>
                 <div className="mt-5 flex font-weight-bold">
                     <div className={'text-sm ml-2'}> تاریخ :</div>
@@ -50,7 +51,7 @@ export default function PageHeaderFooter(){
                 <div className="text-right">
                     <div className={'titleValue'}> امضاء مشتري / نماینده :</div>
                     <div className="sign-card relative">
-                        <Image src={`${document?.[0]?.image ? document?.[0]?.image:''}`} fill alt="signPhoto"/>
+                        <Image src={`${document?.[0]?.image ? document?.[0]?.image:''}`} fill alt="signPhoto" quality={0} unoptimized={false}/>
                     </div>
                 </div>
                 <div className="text-left">
