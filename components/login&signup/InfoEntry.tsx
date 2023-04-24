@@ -26,7 +26,7 @@ export default function InfoEntry() {
             name: 'userName',
         },
         {
-            title: 'کد ملی',
+            title: 'کدملی فرد/شناسه ملی شرکت/کد پاسپورت',
             name: 'nationalId',
         },
         {
@@ -75,7 +75,7 @@ export default function InfoEntry() {
                     اطلاعات اولیه
                 </h2>
             </div>
-            <Formik initialValues={initialValue} validationSchema={infoEntry} validateOnChange={false} onSubmit={registerHandler}>
+            <Formik initialValues={initialValue} validationSchema={infoEntry} validateOnBlur={false} onSubmit={registerHandler}>
                 {({isSubmitting}) => (
                     <Form className={'grow flex flex-col'}>
                         <div className={'relative grow overflow-y-auto custom-scrollbar'}>

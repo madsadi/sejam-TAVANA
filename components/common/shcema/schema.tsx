@@ -47,12 +47,13 @@ export const infoEntry = yup.object().shape({
         .required("الزامی می باشد."),
     userName:yup
         .string()
-        .required("الزامی می باشد."),
+        .required("لطفا از حروف فارسی و علامت ها استفاده نکنید."),
     lastName:yup
         .string()
         .required("الزامی می باشد."),
     email:yup
         .string()
+        .email('فرمت ایمیل وارد شده صحیح نمی باشد.')
         .required("الزامی می باشد."),
     password:yup
         .string()

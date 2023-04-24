@@ -47,7 +47,7 @@ export default function AddAccountComponent({fetch,banks,setAddModal}:{fetch:Fun
         let restOfAccounts = banks.map((b:accountNumber)=>{
             return ({
                 "accountNumber": b.accountNumber,
-                "iban": "IR"+b.sheba,
+                "iban": b.sheba,
                 "type": accountTypeEnums.find((item:any)=>item.enTitle===b.type)?.id,
                 "cityId": b.branchCity.id,
                 "isDefault": b.isDefault
