@@ -66,10 +66,10 @@ export default function SejamInfoLevel() {
                 "iban": b.sheba,
                 "type": accountTypeEnums.find((item: any) => item.enTitle === b.type)?.id,
                 "cityId": b.branchCity.id,
-                "isDefault": false
+                "isDefault": b.accountNumber===defaultBank.accountNumber
             })
         })
-        await registerBankAccount({bankAccounts: [...restOfAccounts, {...defaultBank, isDefault: true}]})
+        await registerBankAccount({bankAccounts: [...restOfAccounts]})
             .then(() => bankAccounts())
     }
 
