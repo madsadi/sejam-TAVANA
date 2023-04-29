@@ -48,7 +48,7 @@ export default function AddAccountComponent({fetch,banks,setAddModal}:{fetch:Fun
             return ({
                 "accountNumber": b.accountNumber,
                 "iban": b.sheba,
-                "type": accountTypeEnums.find((item:any)=>item.enTitle===b.type)?.id,
+                "type": accountTypeEnums.find((item:any)=>item.id===b.type)?.id,
                 "cityId": b.branchCity.id,
                 "isDefault": b.isDefault
             })
