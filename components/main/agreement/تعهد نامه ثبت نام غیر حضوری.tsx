@@ -355,7 +355,7 @@ export default function OnlineRegistrationAgreement() {
                     </tr>
                     </tfoot>
                 </table>
-                <PageHeaderFooter/>
+                <PageHeaderFooter />
             </div>
         </>
     )
