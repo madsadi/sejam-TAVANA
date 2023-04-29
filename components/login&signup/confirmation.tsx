@@ -26,7 +26,9 @@ export default function CodeVerify() {
             .then(() => {
                 setIsSubmitting(false)
                 setToken(info.Token)
-                localStorage.setItem('RefCode',`${router.query?.RefCode}`)
+                if(router.query?.RefCode){
+                    localStorage.setItem('RefCode',`${router.query?.RefCode}`)
+                }
                 setLevel('infoEntry')
             })
             .catch((err) => {
