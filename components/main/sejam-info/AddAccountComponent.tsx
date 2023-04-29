@@ -53,7 +53,7 @@ export default function AddAccountComponent({fetch,banks,setAddModal}:{fetch:Fun
                 "isDefault": b.isDefault
             })
         })
-        await registerBankAccount({bankAccounts:[...restOfAccounts,query]})
+        await registerBankAccount({bankAccounts:[...restOfAccounts, {...query,iban:'IR'+query.iban}]})
             .then((res)=> {
                 fetch();
                 setAddModal(false)
@@ -73,7 +73,7 @@ export default function AddAccountComponent({fetch,banks,setAddModal}:{fetch:Fun
                     <span className="label-text">شماره شبا:</span>
                 </label>
                 <div className={'relative w-full max-w-xs input-bordered'}>
-                    <input type={'tel'} dir={'ltr'} pattern={"[0-9]*"}  className="input pl-12" value={query.iban} onChange={(e)=>queryUpdateHandler('iban','IR'+e.target.value)}/>
+                    <input type={'tel'} dir={'ltr'} pattern={"[0-9]*"}  className="input pl-12" value={query.iban} onChange={(e)=>queryUpdateHandler('iban',e.target.value)}/>
                     <div className={'absolute bg-gray-200 rounded-l left-0 top-0 h-full flex border-r border-border px-3 text-center font-bold z-10'}>
                         <div className={'m-auto'}>
                         IR
