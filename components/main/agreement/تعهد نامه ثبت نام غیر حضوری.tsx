@@ -21,7 +21,9 @@ export default function OnlineRegistrationAgreement() {
     const reactToPrintContent = useCallback(() => {
         return componentRef.current;
     }, [componentRef.current]);
+
     const reactToPrintTrigger = () => {
+
         return (
             <button className={'flex item-center button bg-red-600 w-fit text-white float-left'}>
                 چاپ
@@ -43,7 +45,7 @@ export default function OnlineRegistrationAgreement() {
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
-            <div ref={componentRef}>
+            <div ref={componentRef} id={'here'}>
                 <table className={'w-full'} dir={'rtl'}>
                     <thead>
                     <tr>

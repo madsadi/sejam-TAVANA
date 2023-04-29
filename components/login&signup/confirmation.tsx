@@ -22,10 +22,11 @@ export default function CodeVerify() {
     const codeVerifyHandler = async (e: any) => {
         e.preventDefault()
         setIsSubmitting(true)
-        await verifyToken({...info, PhoneNumber: mobile,RefCode:router.query?.refCode?.[0]})
+        await verifyToken({...info, PhoneNumber: mobile,RefCode:router.query?.RefCode})
             .then(() => {
                 setIsSubmitting(false)
                 setToken(info.Token)
+                localStorage.setItem('RefCode',`${router.query?.RefCode}`)
                 setLevel('infoEntry')
             })
             .catch((err) => {

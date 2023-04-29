@@ -1,8 +1,14 @@
 import React from "react";
 import { useAuth } from 'react-oidc-context';
+import {useRouter} from "next/router";
 
 export default function Login(){
     const auth = useAuth();
+    const router = useRouter()
+
+    if (!localStorage.getItem('RefCode') && router.query?.RefCode){
+        localStorage.setItem('RefCode',`${router.query?.RefCode}`)
+    }
 
     return(
         <>

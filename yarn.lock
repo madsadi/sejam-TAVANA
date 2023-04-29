@@ -2619,6 +2619,13 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
+react-capture@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/react-capture/-/react-capture-0.3.5.tgz#4875358d61f3ed4d5b75540ce4ce7342bb3beea8"
+  integrity sha512-F43EqJVcM/3QjACKFU/xyOoSb+MMHal+INPg+W7iQb2wM7UpadmM0Q35THUVJv/UsXB4WCRapYnV8HnbUvOPMg==
+  dependencies:
+    html2canvas "^1.0.0-rc.5"
+
 react-dom@18.2.0, react-dom@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"

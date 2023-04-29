@@ -235,7 +235,7 @@ export default function SejamInfoLevel() {
                                     <LabelValue key={index} title={'شماره همراه'} value={item?.mobile}/>
                                     <LabelValue key={index} title={'شماره ثابت'} value={item?.tel}/>
                                     <LabelValue key={index} title={'شماره تماس اضطراری'}
-                                                value={item?.emergencyTel ? (item?.emergencyTelCityPrefix ? item?.emergencyTelCityPrefix : '') + '-' + item?.emergencyTel : ''}/>
+                                                value={((item?.emergencyTelCityPrefix ? item?.emergencyTelCityPrefix : '') + '-' + (item?.emergencyTel ? item?.emergencyTel:''))}/>
                                     <LabelValue key={index} title={'کد پستی'} value={item?.postalCode}/>
                                     <LabelValue key={index} title={'آدرس'}
                                                 value={item?.country.name + ' ' + item?.city?.name + ' ' + item?.section?.name + ' ' + item?.remnantAddress + ' ' + item?.alley + ' ' + item?.plaque}/>
