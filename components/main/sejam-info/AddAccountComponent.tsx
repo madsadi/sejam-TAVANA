@@ -47,13 +47,13 @@ export default function AddAccountComponent({fetch,banks,setAddModal}:{fetch:Fun
         let restOfAccounts = banks.map((b:accountNumber)=>{
             return ({
                 "accountNumber": b.accountNumber,
-                "iban": b.sheba,
+                "iban": (b.sheba).split('IR')[1],
                 "type": accountTypeEnums.find((item:any)=>item.id===b.type)?.id,
                 "cityId": b.branchCity.id,
                 "isDefault": b.isDefault
             })
         })
-        await registerBankAccount({bankAccounts:[...restOfAccounts, {...query,iban:'IR'+query.iban}]})
+        await registerBankAccount({bankAccounts:[...restOfAccounts, {...query,iban:query.iban}]})
             .then((res)=> {
                 fetch();
                 setAddModal(false)

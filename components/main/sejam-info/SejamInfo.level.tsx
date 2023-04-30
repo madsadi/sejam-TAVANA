@@ -63,7 +63,7 @@ export default function SejamInfoLevel() {
         let restOfAccounts = banks.map((b: accountNumber) => {
             return ({
                 "accountNumber": b.accountNumber,
-                "iban": b.sheba,
+                "iban": (b.sheba).split('IR')[1],
                 "type": accountTypeEnums.find((item: any) => item.enTitle === b.type)?.id,
                 "cityId": b.branchCity.id,
                 "isDefault": b.accountNumber===defaultBank.accountNumber

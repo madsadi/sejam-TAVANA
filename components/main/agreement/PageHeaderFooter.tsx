@@ -2,6 +2,7 @@ import moment from "jalali-moment";
 import Image from 'next/image'
 import {useCallback, useEffect, useState} from "react";
 import {getContent} from "../../../api/Upload-documents.api";
+import Resizer from "react-image-file-resizer";
 
 export default function PageHeaderFooter(){
 
@@ -15,14 +16,14 @@ export default function PageHeaderFooter(){
     const [document,setDocuments] = useState<any>([])
 
     const getDocument = useCallback(async ()=>{
-        await getContent(1)
+        await getContent(33)
             .then((res)=> {
                 let _D = initialDocuments;
                 if (res?.result.length){
                     res?.result?.map((item:any)=>{
                         let _documentIndex = _D.findIndex((i:any)=>i.fileType===item.fileType)
                         if (_documentIndex>=0 && item?.content){
-                            _D.splice(_documentIndex,1,{..._D[_documentIndex],id:item.id,image:`data:image/${(item.extension).split('.')[1]};base64,`+item.content})
+                                _D.splice(_documentIndex,1,{..._D[_documentIndex],id:item.id,image:`data:image/${(item.extension).split('.')[1]};base64,`+item.content})
                         }
                     })
                 }
@@ -51,7 +52,7 @@ export default function PageHeaderFooter(){
                 <div className="text-right">
                     <div className={'titleValue'}> امضاء مشتري / نماینده :</div>
                     <div className="sign-card relative">
-                        <Image src={`${document?.[0]?.image ? document?.[0]?.image:''}`} fill alt="signPhoto" quality={0} unoptimized={false}/>
+                        <Image src={`${document?.[0]?.image ? document?.[0]?.image:''}`} fill alt="signPhoto" quality={0} unoptimized={true}/>
                     </div>
                 </div>
                 <div className="text-left">
