@@ -39,7 +39,7 @@ export default function UploadComponent({ item, documents,setDocs }: { item: any
 
     return (
         <div>
-            <div className='text-xs mb-2'>{item.title}</div>
+            <div className='text-xs mb-2 md:h-[32px] lg:h-auto sm:h-auto h-[32px]'>{item.title}</div>
             <ImageUploading
                 multiple={false}
                 value={images}
@@ -56,12 +56,12 @@ export default function UploadComponent({ item, documents,setDocs }: { item: any
                     dragProps,
                 }) => (
                     // write your building UI
-                    <div className="upload__image-wrapper max-h-[150px] h-[150px] aspect-video">
+                    <div className="upload__image-wrapper max-h-[150px] w-full h-[150px] aspect-video">
                         {imageList.length > 0 ? imageList.map((image, index) => {
                             return (
-                                    <div role={'button'} key={index} className="image-item w-full h-full relative"
+                                    <div role={'button'} key={index} className="image-item h-[150px] bg-contain relative"
                                          onClick={() => item.fileType===1 ? toast.warning('تصویر امضا قابل بارگزاری نمی باشد.'):onImageUpdate(index)}>
-                                        <Image src={image['data_url']} alt="" fill/>
+                                        <Image src={image['data_url']} fill alt="" />
                                     </div>
                                 )
                             }) :

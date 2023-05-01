@@ -42,7 +42,7 @@ export default function OnlineTradingAgreement() {
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
-            <div ref={componentRef}>
+            <div ref={componentRef} className={'mobileAgreement'} >
                 <table className={'w-full'} dir={'rtl'}>
                     <thead>
                     <tr>
@@ -716,7 +716,7 @@ export default function OnlineTradingAgreement() {
                                     </ul>
                                 </div>
                                 <h5>
-                                    <h5>ماده 10- انحالل قرارداد </h5>
+                                    ماده 10- انحالل قرارداد
                                 </h5>
                                 <p>
                                     1 -در موارد زیر قرارداد منفسخ می گردد:

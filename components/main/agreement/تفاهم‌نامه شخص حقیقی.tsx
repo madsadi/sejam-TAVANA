@@ -35,7 +35,7 @@ export default function PrivatePersonAgreement(){
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
-            <div ref={componentRef}>
+            <div ref={componentRef} className={'mobileAgreement'} >
                 <table className={'w-full'} dir={'rtl'}>
                     <thead>
                     <tr>

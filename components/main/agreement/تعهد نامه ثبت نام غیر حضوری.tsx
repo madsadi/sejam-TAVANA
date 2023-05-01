@@ -11,6 +11,9 @@ import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import PageHeaderFooter from "./PageHeaderFooter";
 import LabelValue from "../../common/component/LabelValue";
+import html2canvas from "html2canvas";
+import pdfMake from "pdfmake/build/pdfmake";
+import {jsPDF} from "jspdf";
 
 export default function OnlineRegistrationAgreement() {
     const {userData, userDefaultBank} = useContext<any>(SejamContext)
@@ -45,7 +48,7 @@ export default function OnlineRegistrationAgreement() {
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
-            <div ref={componentRef} id={'here'}>
+            <div ref={componentRef} className={'mobileAgreement'} id="print_to_pdf">
                 <table className={'w-full'} dir={'rtl'}>
                     <thead>
                     <tr>
@@ -110,13 +113,16 @@ export default function OnlineRegistrationAgreement() {
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <LabelValue title={'نام و نام خانوادگی'} value={userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}/>
+                                                <LabelValue title={'نام و نام خانوادگی'}
+                                                            value={userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'نام پدر'} value={userData?.privatePerson?.fatherName}/>
+                                                <LabelValue title={'نام پدر'}
+                                                            value={userData?.privatePerson?.fatherName}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'شماره شناسنامه'} value={userData?.privatePerson?.serial + `/` + userData?.privatePerson?.seriShChar + userData?.privatePerson?.seriSh}/>
+                                                <LabelValue title={'شماره شناسنامه'}
+                                                            value={userData?.privatePerson?.serial + `/` + userData?.privatePerson?.seriShChar + userData?.privatePerson?.seriSh}/>
                                             </td>
                                             <td>
                                                 <LabelValue title={'کد ملی'} value={userData?.uniqueIdentifier}/>
@@ -127,24 +133,30 @@ export default function OnlineRegistrationAgreement() {
                                                 <LabelValue title={'تلفن ثابت'} value={userData?.addresses?.[0]?.tel}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'کد پستی منزل'} value={userData?.addresses?.[0]?.fax}/>
+                                                <LabelValue title={'کد پستی منزل'}
+                                                            value={userData?.addresses?.[0]?.fax}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'شماره تلفن همراه'} value={userData?.addresses?.[0]?.mobile}/>
+                                                <LabelValue title={'شماره تلفن همراه'}
+                                                            value={userData?.addresses?.[0]?.mobile}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'آدرس پست الکترونیکی'} value={userData?.addresses?.[0]?.email}/>
+                                                <LabelValue title={'آدرس پست الکترونیکی'}
+                                                            value={userData?.addresses?.[0]?.email}/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <LabelValue title={' نام بانک'} value={userDefaultBank?.bank?.name + ' ' + (userDefaultBank?.branchCode ? userDefaultBank?.branchCode : '')}/>
+                                                <LabelValue title={' نام بانک'}
+                                                            value={userDefaultBank?.bank?.name + ' ' + (userDefaultBank?.branchCode ? userDefaultBank?.branchCode : '')}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'شماره‌حساب بانکی'} value={userDefaultBank?.accountNumber}/>
+                                                <LabelValue title={'شماره‌حساب بانکی'}
+                                                            value={userDefaultBank?.accountNumber}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'آدرس منزل'} value={userData?.addresses?.[0]?.remnantAddress}/>
+                                                <LabelValue title={'آدرس منزل'}
+                                                            value={userData?.addresses?.[0]?.remnantAddress}/>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -162,29 +174,36 @@ export default function OnlineRegistrationAgreement() {
                                                 <LabelValue title={'نام'} value={userData?.legalPerson?.companyName}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'شماره ثبت'} value={userData?.legalPerson?.registerNumber}/>
+                                                <LabelValue title={'شماره ثبت'}
+                                                            value={userData?.legalPerson?.registerNumber}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'محل ثبت'} value={userData?.legalPerson?.registerPlace}/>
+                                                <LabelValue title={'محل ثبت'}
+                                                            value={userData?.legalPerson?.registerPlace}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'تاریخ ثبت'} value={userData?.legalPerson?.registerDate}/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <LabelValue title={'نوع شخصیت'} value={legalPersonTypeCategoryEnums.find((item: any) => item.id === userData?.legalPerson?.legalPersonTypeCategory)?.title}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'نشانی پست الکترونیک'} value={userData?.legalPerson ? userData?.addresses?.[0]?.email:''}/>
+                                                <LabelValue title={'تاریخ ثبت'}
+                                                            value={userData?.legalPerson?.registerDate}/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <LabelValue title={'شماره حساب بانکی'} value={userData?.legalPerson ? userDefaultBank?.accountNumber:''}/>
+                                                <LabelValue title={'نوع شخصیت'}
+                                                            value={legalPersonTypeCategoryEnums.find((item: any) => item.id === userData?.legalPerson?.legalPersonTypeCategory)?.title}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'شماره شبا'} value={userData?.legalPerson ? userDefaultBank?.sheba:''}/>
+                                                <LabelValue title={'نشانی پست الکترونیک'}
+                                                            value={userData?.legalPerson ? userData?.addresses?.[0]?.email : ''}/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <LabelValue title={'شماره حساب بانکی'}
+                                                            value={userData?.legalPerson ? userDefaultBank?.accountNumber : ''}/>
+                                            </td>
+                                            <td>
+                                                <LabelValue title={'شماره شبا'}
+                                                            value={userData?.legalPerson ? userDefaultBank?.sheba : ''}/>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -199,7 +218,8 @@ export default function OnlineRegistrationAgreement() {
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <LabelValue title={'نام و نام خانوادگی'} value={userData?.agent ? (userData?.agent?.firstName + ' '+ userData?.agent?.lastName):''}/>
+                                                <LabelValue title={'نام و نام خانوادگی'}
+                                                            value={userData?.agent ? (userData?.agent?.firstName + ' ' + userData?.agent?.lastName) : ''}/>
                                             </td>
                                             <td>
                                                 <LabelValue title={'کد ملی'} value={userData?.agent?.uniqueIdentifier}/>
@@ -219,16 +239,19 @@ export default function OnlineRegistrationAgreement() {
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <LabelValue title={'کشور'} value={userData?.addresses?.[0]?.country.name}/>
+                                                <LabelValue title={'کشور'}
+                                                            value={userData?.addresses?.[0]?.country.name}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'استان'} value={userData?.addresses?.[0]?.city.name}/>
+                                                <LabelValue title={'استان'}
+                                                            value={userData?.addresses?.[0]?.city.name}/>
                                             </td>
                                             <td>
                                                 <LabelValue title={'کوچه'} value={userData?.addresses?.[0]?.alley}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'خیابان'} value={userData?.addresses?.[0]?.remnantAddress}/>
+                                                <LabelValue title={'خیابان'}
+                                                            value={userData?.addresses?.[0]?.remnantAddress}/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -236,13 +259,16 @@ export default function OnlineRegistrationAgreement() {
                                                 <LabelValue title={'تلفن ثابت'} value={userData?.addresses?.[0]?.tel}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'پست الکترونیک'} value={userData?.addresses?.[0]?.email}/>
+                                                <LabelValue title={'پست الکترونیک'}
+                                                            value={userData?.addresses?.[0]?.email}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'تلفن همراه'} value={userData?.addresses?.[0]?.mobile}/>
+                                                <LabelValue title={'تلفن همراه'}
+                                                            value={userData?.addresses?.[0]?.mobile}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'کد پستی'} value={userData?.addresses?.[0]?.postalCode}/>
+                                                <LabelValue title={'کد پستی'}
+                                                            value={userData?.addresses?.[0]?.postalCode}/>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -260,13 +286,16 @@ export default function OnlineRegistrationAgreement() {
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <LabelValue title={'عنوان شغل'} value={userData?.jobInfo?.companyName ? userData?.jobInfo?.companyName : ''}/>
+                                                <LabelValue title={'عنوان شغل'}
+                                                            value={userData?.jobInfo?.companyName ? userData?.jobInfo?.companyName : ''}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'تلفن محل کار'} value={userData?.jobInfo?.companyCityPrefix + '-' + userData?.jobInfo?.companyPhone}/>
+                                                <LabelValue title={'تلفن محل کار'}
+                                                            value={userData?.jobInfo?.companyCityPrefix + '-' + userData?.jobInfo?.companyPhone}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'نشانی محل کار'} value={userData?.jobInfo?.companyAddress}/>
+                                                <LabelValue title={'نشانی محل کار'}
+                                                            value={userData?.jobInfo?.companyAddress}/>
                                             </td>
                                             <td>
                                                 <LabelValue title={'نمابر'} value={userData?.jobInfo?.companyFax}/>
@@ -289,10 +318,12 @@ export default function OnlineRegistrationAgreement() {
                                                 <LabelValue title={'نام بانک'} value={userDefaultBank?.bank?.name}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'نام صاحب حساب'} value={userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}/>
+                                                <LabelValue title={'نام صاحب حساب'}
+                                                            value={userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'نوع حساب'} value={accountTypeEnums.find((item: any) => item.id === userDefaultBank?.type)?.faTitle}/>
+                                                <LabelValue title={'نوع حساب'}
+                                                            value={accountTypeEnums.find((item: any) => item.id === userDefaultBank?.type)?.faTitle}/>
                                             </td>
                                             <td>
                                                 <LabelValue title={' نام شعبه'} value={userDefaultBank?.branchName}/>
@@ -303,7 +334,8 @@ export default function OnlineRegistrationAgreement() {
                                                 <LabelValue title={'کد شعبه'} value={userDefaultBank?.branchCode}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'شماره‌حساب'} value={userDefaultBank?.accountNumber}/>
+                                                <LabelValue title={'شماره‌حساب'}
+                                                            value={userDefaultBank?.accountNumber}/>
                                             </td>
                                             <td>
                                                 <LabelValue title={'شماره شبا'} value={userDefaultBank?.sheba}/>
@@ -340,7 +372,8 @@ export default function OnlineRegistrationAgreement() {
                                 </div>
                                 <div className="text-right mt-4">
                                     <p>
-                                        با قبول تعهدنامه فوق، مشتری صحت این اطلاعات را تائید نموده و این اطلاعات در سایر تعهدنامه ها و توافق نامه ها با شرکت کارگزاری توانا مورد استفاده قرار خواهد گرفت.
+                                        با قبول تعهدنامه فوق، مشتری صحت این اطلاعات را تائید نموده و این اطلاعات در سایر
+                                        تعهدنامه ها و توافق نامه ها با شرکت کارگزاری توانا مورد استفاده قرار خواهد گرفت.
                                     </p>
                                 </div>
                             </div>
@@ -355,7 +388,7 @@ export default function OnlineRegistrationAgreement() {
                     </tr>
                     </tfoot>
                 </table>
-                <PageHeaderFooter />
+                <PageHeaderFooter/>
             </div>
         </>
     )

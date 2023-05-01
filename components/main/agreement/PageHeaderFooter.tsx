@@ -78,7 +78,7 @@ const PageHeaderFooter=()=>{
                 <div className="text-right">
                     <div className={'titleValue'}> امضاء مشتري / نماینده :</div>
                     <div className="sign-card relative">
-                        <Image src={`${document?.[0]?.image ? document?.[0]?.image:''}`} fill alt="signPhoto" quality={0} unoptimized={true}/>
+                        <Image src={`${document?.[0]?.image ? document?.[0]?.image:''}` || 'null'} fill alt="signPhoto" quality={0} unoptimized={true}/>
                     </div>
                 </div>
                 <div className="text-left">

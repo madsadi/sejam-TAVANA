@@ -100,7 +100,17 @@ input[type=number] {
   size: A4;
   margin: 11mm 17mm 17mm 17mm;
 }
+
+@media (max-width:520px) {
+  .mobileAgreement{
+    overflow: hidden;
+    height: 32px;
+  }
+}
 @media print {
+  .mobileAgreement{
+    height: unset !important;
+  }
   .page-header-space,.page-footer-space{
     height: 150px;
   }

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useRef, useState} from "react";
+import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {SejamContext} from "../../../pages/main";
 import {jalali} from "../../common/functions";
 import {
@@ -19,13 +19,14 @@ export default function OptionalAgreement() {
     const reactToPrintContent = useCallback(() => {
         return componentRef.current;
     }, [componentRef.current]);
+
     const reactToPrintTrigger = () => {
         return (
             <button className={'flex item-center button bg-red-600 w-fit text-white float-left'}>
                 چاپ
                 {loading ? <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                            stroke-width="4"></circle>
+                            strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor"
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg> : <PrinterIcon className={'h-5 w-5 mr-2'}/>}
@@ -41,7 +42,7 @@ export default function OptionalAgreement() {
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
-            <div ref={componentRef}>
+            <div ref={componentRef} id={'here'} className={'mobileAgreement'} >
                 <table className={'w-full'} dir={'rtl'}>
                     <thead>
                     <tr>
