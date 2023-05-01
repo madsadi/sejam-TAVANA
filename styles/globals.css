@@ -12,6 +12,7 @@ body {
   overflow-x: hidden;
 }
 
+
 :root {
   color-scheme: light !important;
 }
@@ -38,7 +39,7 @@ we still enforce color-scheme: dark, despite the user preference */
 
 
 #__next {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
