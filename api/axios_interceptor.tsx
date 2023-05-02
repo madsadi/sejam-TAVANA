@@ -11,8 +11,7 @@ axios.interceptors.request.use((value) => {
         let tokenType = JSON.parse(oidcStorage)?.token_type
         if (token && tokenType){
             value.headers = {
-                'Accept': '*/*',
-                'Content-Type': 'application/json',
+                "Access-Control-Request-Method":"*",
                 "Authorization": tokenType+" "+token,
             }
         }else{
