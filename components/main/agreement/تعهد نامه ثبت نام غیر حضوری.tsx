@@ -11,9 +11,6 @@ import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import PageHeaderFooter from "./PageHeaderFooter";
 import LabelValue from "../../common/component/LabelValue";
-import html2canvas from "html2canvas";
-import pdfMake from "pdfmake/build/pdfmake";
-import {jsPDF} from "jspdf";
 
 export default function OnlineRegistrationAgreement() {
     const {userData, userDefaultBank} = useContext<any>(SejamContext)
@@ -48,7 +45,7 @@ export default function OnlineRegistrationAgreement() {
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
-            <div ref={componentRef} className={'mobileAgreement'} id="print_to_pdf">
+            <div ref={componentRef} className={'mobileAgreement p-5'}>
                 <table className={'w-full'} dir={'rtl'}>
                     <thead>
                     <tr>
