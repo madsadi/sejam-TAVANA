@@ -48,6 +48,10 @@ export const SejamiStatus=()=>{
                         toast.success('شما سجامی هستید')
                         status();
                     }else{
+                        setError({
+                            message: 'کاربر گرامی شما در سجام احراز هویت نشده اید، لطفا جهت احراز هویت به یکی از مراکز احراز هویت مراجعه نمایید',
+                            link: 'https://www.sejam.ir/fa/AU'
+                        })
                         toast.error('شما سجامی نیستید')
                     }
                 })
