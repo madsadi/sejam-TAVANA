@@ -50,7 +50,7 @@ export default function AddAccountComponent({fetch,banks,setAddModal}:{fetch:Fun
                 "iban": (b.sheba).split('IR')[1],
                 "type": accountTypeEnums.find((item:any)=>item.id===b.type)?.id,
                 "cityId": b.branchCity.id,
-                "isDefault": b.isDefault
+                "isDefault": query.isDefault ? false:b.isDefault
             })
         })
         await registerBankAccount({bankAccounts:[...restOfAccounts, {...query,iban:query.iban}]})
