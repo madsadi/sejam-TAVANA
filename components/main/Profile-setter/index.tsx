@@ -98,7 +98,7 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                 personType: Number(info.personType),
                 countryId: Number(info.countryId),
                 captchaCode: uuid + '_' + info.captcha,
-                refCode:localStorage.getItem('RefCode')
+                refCode:localStorage.getItem('RefCode')==='null' ? null:localStorage.getItem('RefCode')
             })
                 .then(() => {
                     setLevel(0.5)
