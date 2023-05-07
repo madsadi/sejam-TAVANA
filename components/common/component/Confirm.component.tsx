@@ -12,9 +12,8 @@ export default function ConfirmComponent({banks}:{banks:any}){
 
     const proceed = ()=>{
         if (isChecked){
-            regBanks()
             const updateReg = async ()=>{
-                await updateRegState(15)
+                await updateRegState(14)
                     .then((res)=>setLevel(level+1))
                     .catch((err)=> toast.error(`${err?.response?.data?.error?.message}`))
             }
@@ -24,18 +23,6 @@ export default function ConfirmComponent({banks}:{banks:any}){
         }
     }
 
-    const regBanks = async ()=>{
-        let restOfAccounts = banks.map((b:accountNumber)=>{
-            return ({
-                "accountNumber": b.accountNumber,
-                "iban": b.sheba,
-                "type": accountTypeEnums.find((item:any)=>item.enTitle===b.type)?.id,
-                "cityId": b.branchCity.id,
-                "isDefault": b.isDefault
-            })
-        })
-        await registerBankAccount({bankAccounts:restOfAccounts})
-    }
     return(
         <div className="flex justify-between mt-5">
             <div className="flex items-center">
