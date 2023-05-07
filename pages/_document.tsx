@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
-    <Html className="h-full" dir="rtl" lang='fa'>
+    <Html className="h-full" >
       <Head>
             <meta name="color-scheme" content="light only"/>
             <link rel='shortcut icon' href='/img.png' />

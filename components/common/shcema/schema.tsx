@@ -23,11 +23,10 @@ export const profileSetter = yup.object().shape({
 export const mobileEntry = yup.object().shape({
     mobile: yup
         .string()
-        .length(11,'شماره موبایل وارد شده اشتباه می باشد.')
-        .required("الزامی می باشد."),
+        .required(),
     captcha:yup
         .string()
-        .required("کد کپچا را وارد کنید.")
+        .required()
 })
 export const getSejamProfileSchema = yup.object().shape({
     SejamToken: yup

@@ -68,3 +68,13 @@ export const formatNumber = (params: any) => {
             .toString()
             .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 };
+
+export const requestMock = async ()=>{
+    let promise = Promise.resolve();
+    promise = promise.then(()=>{
+        return new Promise((resolve)=>{
+            setTimeout(resolve,1500)
+        })
+    })
+    return promise
+}

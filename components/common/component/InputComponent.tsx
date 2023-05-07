@@ -22,7 +22,7 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
             <div>
                 <label className={'flex items-center mb-1'}>
                     {label}
-                    {meta.error && <div className={'text-red-300 text-sm mr-1'}>{meta.error}</div>}
+                    {meta.error && <div className={'text-red-300 text-sm ml-1'}>{meta.error}</div>}
                 </label>
                 <div className={'relative'}>
                     <input className={`input text-left ${meta.touched && meta.error ? 'border-red-300' : ''}`}
@@ -45,7 +45,7 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
             <div className="dropdown">
                 <label className={'flex items-center mb-1'}>
                     {label}
-                    {meta.error && <div className={'text-red-300 text-sm mr-1'}>{meta.error}</div>}
+                    {meta.error && <div className={'text-red-300 text-sm ml-1'}>{meta.error}</div>}
                 </label>
                 <label className="label flex p-0">
                     <input type="text" className="input input-bordered w-full max-w-xs"
@@ -74,7 +74,7 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
             <div className="dropdown w-full">
                 <label className={'flex items-center mb-1'}>
                     {label}
-                    {meta.error && <div className={'text-red-300 text-sm mr-1'}>{meta.error}</div>}
+                    {meta.error && <div className={'text-red-300 text-sm ml-1'}>{meta.error}</div>}
                 </label>
                 <div tabIndex={1} className="input flex w-full items-center cursor-pointer">
                     {personType.find((item: any) => item.id === info.personType)?.title}
@@ -112,7 +112,7 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
             <div>
                 <label className={'flex items-center mb-1'}>
                     {label}
-                    {meta.error && <div className={'text-red-300 text-sm mr-1'}>{meta.error}</div>}
+                    {meta.error && <div className={'text-red-300 text-sm ml-1'}>{meta.error}</div>}
                 </label>
                 <input className={`input ${meta.touched && meta.error ? 'border-red-300' : ''}`}
                        dir={props.name === 'mobile' ? 'ltr' : ''}
