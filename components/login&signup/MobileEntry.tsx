@@ -1,8 +1,6 @@
 import React, {useContext, useState} from "react";
 import CaptchaComponent from "../common/component/CaptchaComponent";
 import {Form, Formik} from "formik";
-import {smsNotification} from "../../api/login-signup.api";
-import {toast} from "react-toastify";
 import InputComponent from "../common/component/InputComponent";
 import {IdpContext} from "../../pages";
 import {mobileEntry} from "../common/shcema/schema";
@@ -41,9 +39,6 @@ export default function MobileEntry() {
                 setMobile(v.mobile)
                 setLevel('confirmation')
             })
-            .catch((err) => {
-                setRetry(!retry)
-            })
     }
 
     return (
@@ -66,7 +61,7 @@ export default function MobileEntry() {
                             <button className={'button'} disabled={isSubmitting} type={'submit'}>
                                 <div className={'flex items-center mx-auto w-fit'}>
                                     Sign Up
-                                    {isSubmitting && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                                    {isSubmitting && <svg className="animate-spin h-5 w-5 ml-3 ..." viewBox="0 0 24 24">
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                                 strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor"

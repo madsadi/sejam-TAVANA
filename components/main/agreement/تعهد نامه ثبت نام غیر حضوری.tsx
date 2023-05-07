@@ -26,7 +26,7 @@ export default function OnlineRegistrationAgreement() {
 
         return (
             <button className={'flex item-center button bg-red-600 w-fit text-white float-left'}>
-                چاپ
+                Print
                 {loading ? <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                             strokeWidth="4"></circle>
@@ -41,12 +41,12 @@ export default function OnlineRegistrationAgreement() {
         <>
             <ReactToPrint
                 content={reactToPrintContent}
-                documentTitle="تعهد نامه ثبت نام غیر حضوری"
+                documentTitle="Agreement"
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
             <div ref={componentRef} className={'mobileAgreement p-5'}>
-                <table className={'w-full'} dir={'rtl'}>
+                <table className={'w-full'}>
                     <thead>
                     <tr>
                         <td>
@@ -59,100 +59,80 @@ export default function OnlineRegistrationAgreement() {
                         <td className={'w-full content'}>
                             <div className={'relative leading-8 text-justify page'}>
                                 <div className="text-center">
-                                    <p>تعهد نامه ثبت نام غیر حضوری</p>
+                                    <p>Lorem ipsum dolor sit amet</p>
                                 </div>
 
                                 <div className="text-center">
                                     <h4 className="font-weight-bolder">
-                                        فرم مشخصات اشخاص حقیقی ایرانی (مشتري / نماینده)
+                                        Lorem ipsum dolor sit amet
                                     </h4>
                                 </div>
-                                <div className="text-right mt-4">
+                                <div className="mt-4">
                                     <ul>
-                                        <li>اطلاعات این فرم محرمانه محسوب شده و در اختیار اشخاص غیر مجاز قرار داده
-                                            نمی‌شود. تکمیل
-                                            قسمت
-                                            هاي
-                                            ستاره‌دار
-                                            الزامی و سایر قسمت‌ها اختیاري است.
+                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                                         </li>
-                                        <li className="mt-4">بخش‌های مشترك این فرم باید توسط مشتري یا نماینده تکمیل شود
-                                            سایر بخش‌ها
-                                            که
-                                            با
-                                            عبارت‌های
-                                            {/* eslint-disable-next-line react/no-unescaped-entities */}
-                                            "اطلاعات مشتري" و"اطلاعات نماینده" مشخص شده است با توجه به نقش شخص تکمیل
-                                            کننده (مشتري یا
-                                            نماینده)
-                                            بخش مربوط
-                                            به شخص تکمیل گردد.
+                                        <li className="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                                         </li>
                                     </ul>
                                     <p>
-                                        نماینده شخص حقوقی و اشخاص مجاز به ارائه سفارش از طرف شخص حقوقی، طبق تبصره 1 بند
-                                        4-2-1 ماده 4
-                                        دستورالعمل
-                                        شناسایی مشتریان در بازار سرمایه، باید طبق ضوابط مقرر در مورد اشخاص حقیقی مورد
-                                        شناسایی قرار
-                                        گیرند.
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                                     </p>
                                 </div>
 
-                                <div className="text-right mt-4">
+                                <div className="mt-4">
 
                                     <table className={'table table-compact w-full'}>
                                         <thead>
                                         <tr>
-                                            <td><h5>الف) مشتري حقیقی: </h5></td>
+                                            <td><h5> Duis aute irure: </h5></td>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <LabelValue title={'نام و نام خانوادگی'}
+                                                <LabelValue title={'Name'}
                                                             value={userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'نام پدر'}
+                                                <LabelValue title={'Father Name'}
                                                             value={userData?.privatePerson?.fatherName}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'شماره شناسنامه'}
+                                                <LabelValue title={'ID No.'}
                                                             value={userData?.privatePerson?.serial + `/` + userData?.privatePerson?.seriShChar + userData?.privatePerson?.seriSh}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'کد ملی'} value={userData?.uniqueIdentifier}/>
+                                                <LabelValue title={'National ID'} value={userData?.uniqueIdentifier}/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <LabelValue title={'تلفن ثابت'} value={userData?.addresses?.[0]?.tel}/>
+                                                <LabelValue title={'Tel'} value={userData?.addresses?.[0]?.tel}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'کد پستی منزل'}
+                                                <LabelValue title={'Postal Code'}
                                                             value={userData?.addresses?.[0]?.fax}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'شماره تلفن همراه'}
+                                                <LabelValue title={'Phone Number'}
                                                             value={userData?.addresses?.[0]?.mobile}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'آدرس پست الکترونیکی'}
+                                                <LabelValue title={'Email'}
                                                             value={userData?.addresses?.[0]?.email}/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <LabelValue title={' نام بانک'}
+                                                <LabelValue title={'Bank'}
                                                             value={userDefaultBank?.bank?.name + ' ' + (userDefaultBank?.branchCode ? userDefaultBank?.branchCode : '')}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'شماره‌حساب بانکی'}
+                                                <LabelValue title={'Account'}
                                                             value={userDefaultBank?.accountNumber}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'آدرس منزل'}
+                                                <LabelValue title={'Address'}
                                                             value={userData?.addresses?.[0]?.remnantAddress}/>
                                             </td>
                                         </tr>
@@ -162,215 +142,46 @@ export default function OnlineRegistrationAgreement() {
                                     <table className={'table table-compact w-full'}>
                                         <thead>
                                         <tr>
-                                            <td><h5>ب) مشتري حقوقی:</h5></td>
+                                            <td><h5>Duis aute irure:</h5></td>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <LabelValue title={'نام'} value={userData?.legalPerson?.companyName}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'شماره ثبت'}
-                                                            value={userData?.legalPerson?.registerNumber}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'محل ثبت'}
-                                                            value={userData?.legalPerson?.registerPlace}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'تاریخ ثبت'}
-                                                            value={userData?.legalPerson?.registerDate}/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <LabelValue title={'نوع شخصیت'}
-                                                            value={legalPersonTypeCategoryEnums.find((item: any) => item.id === userData?.legalPerson?.legalPersonTypeCategory)?.title}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'نشانی پست الکترونیک'}
-                                                            value={userData?.legalPerson ? userData?.addresses?.[0]?.email : ''}/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <LabelValue title={'شماره حساب بانکی'}
-                                                            value={userData?.legalPerson ? userDefaultBank?.accountNumber : ''}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'شماره شبا'}
-                                                            value={userData?.legalPerson ? userDefaultBank?.sheba : ''}/>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <table className={'table table-compact w-full'}>
-                                        <thead>
-                                        <tr>
-                                            <td><h5>ج) نماینده حقوقی:</h5></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <LabelValue title={'نام و نام خانوادگی'}
+                                                <LabelValue title={'Name'}
                                                             value={userData?.agent ? (userData?.agent?.firstName + ' ' + userData?.agent?.lastName) : ''}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'کد ملی'} value={userData?.agent?.uniqueIdentifier}/>
+                                                <LabelValue title={'National ID'} value={userData?.agent?.uniqueIdentifier}/>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
-                                <div className="text-right mt-4">
-                                    <table className={'w-full'}>
-                                        <thead>
-                                        <tr>
-                                            <td><h5>اطلاعات محل سکونت</h5></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <LabelValue title={'کشور'}
-                                                            value={userData?.addresses?.[0]?.country.name}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'استان'}
-                                                            value={userData?.addresses?.[0]?.city.name}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'کوچه'} value={userData?.addresses?.[0]?.alley}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'خیابان'}
-                                                            value={userData?.addresses?.[0]?.remnantAddress}/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <LabelValue title={'تلفن ثابت'} value={userData?.addresses?.[0]?.tel}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'پست الکترونیک'}
-                                                            value={userData?.addresses?.[0]?.email}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'تلفن همراه'}
-                                                            value={userData?.addresses?.[0]?.mobile}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'کد پستی'}
-                                                            value={userData?.addresses?.[0]?.postalCode}/>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div className="text-right mt-4">
-
-                                    <table className={'w-full'}>
-                                        <thead>
-                                        <tr>
-                                            <td><h5>اطلاعات محل کار</h5></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <LabelValue title={'عنوان شغل'}
-                                                            value={userData?.jobInfo?.companyName ? userData?.jobInfo?.companyName : ''}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'تلفن محل کار'}
-                                                            value={userData?.jobInfo?.companyCityPrefix + '-' + userData?.jobInfo?.companyPhone}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'نشانی محل کار'}
-                                                            value={userData?.jobInfo?.companyAddress}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'نمابر'} value={userData?.jobInfo?.companyFax}/>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div className="text-right mt-4">
-                                    <table className={'w-full'}>
-                                        <thead>
-                                        <tr>
-                                            <td><h5>اطلاعات حساب بانکی</h5></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <LabelValue title={'نام بانک'} value={userDefaultBank?.bank?.name}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'نام صاحب حساب'}
-                                                            value={userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'نوع حساب'}
-                                                            value={accountTypeEnums.find((item: any) => item.id === userDefaultBank?.type)?.faTitle}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={' نام شعبه'} value={userDefaultBank?.branchName}/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <LabelValue title={'کد شعبه'} value={userDefaultBank?.branchCode}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'شماره‌حساب'}
-                                                            value={userDefaultBank?.accountNumber}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'شماره شبا'} value={userDefaultBank?.sheba}/>
-                                            </td>
-                                            <td>
-                                                <LabelValue title={'نام شعبه'} value={userDefaultBank?.branchName}/>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className="text-right mt-4">
+                                <div className="mt-4">
                                     <p>
                                     <span className="font-weight-bold">
-                                        * میزان آشنایی شما با مفاهیم مالی و سرمایه‌گذاری در اوراق بهادار:
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                     </span>
-                                        {tradingKnowledgeLevelEnums.find((item: { id: string, title: string }) => item.id === userData?.financialInfo?.tradingKnowledgeLevel)?.title}
                                     </p>
                                     <p>
                                     <span className="font-weight-bold">
-                                        * متوسط درآمد ماهیانه شما از مشاغل و منابع مختلف در حال حاضر چقدراست؟
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                     </span>
-                                        {formatNumber(userData?.financialInfo?.inComingAverage)}
                                     </p>
                                     <p>
                                     <span className="font-weight-bold">
-                                        * پیش‌ بینی می‌کنید سطح معاملات شما در بازار سرمایه طی یک سال چه مبلغی باشد؟
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                     </span>
-                                        {transactionLevelPrivatePersonEnums.find((item: { id: string, title: string }) => item.id === userData?.financialInfo?.transactionLevel)?.title}
                                     </p>
                                     <p><span
-                                        className="font-weight-bold"> * نام شرکت کارگزاري که شما قبلاً از طریق آن معامله نموده‌اید، ذکر نمایید:</span>
+                                        className="font-weight-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
                                     </p>
                                 </div>
-                                <div className="text-right mt-4">
+                                <div className="mt-4">
                                     <p>
-                                        با قبول تعهدنامه فوق، مشتری صحت این اطلاعات را تائید نموده و این اطلاعات در سایر
-                                        تعهدنامه ها و توافق نامه ها با شرکت کارگزاری توانا مورد استفاده قرار خواهد گرفت.
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                                     </p>
                                 </div>
                             </div>

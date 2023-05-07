@@ -68,7 +68,4 @@ module.exports = withMT({
       })
     }
   ],
-  daisyui: {
-    rtl: true,
-  },
 })

@@ -2,17 +2,15 @@ import React, {createContext, useEffect, useState} from 'react';
 import ProgressBar from "../components/common/component/ProgressBar";
 import AgreementLevel from "../components/main/agreement/Agreement.level";
 import ProfileSetter from "../components/main/Profile-setter";
-import GetSejamProfile from "../components/main/Get-sejam-profile";
 import SejamInfoLevel from "../components/main/sejam-info/SejamInfo.level";
 import UploadDocumentsLevel from "../components/main/upload-documents/UploadDocuments.level";
 import TestLevel from "../components/main/test/Test.level";
 import {SejamInfoType} from "../components/main/sejam-info/types";
 import UserStateLevel from "../components/main/final/UserStateLevel";
-import {getRegistrationState} from "../api/resgistration.api";
 import {toast} from "react-toastify";
-import {SejamiStatus} from "../components/main/sejami-status";
 import Lottie from "react-lottie";
 import Loader from "../public/multi-shape-loader.json";
+import {requestMock} from "../components/common/functions";
 
 export const SejamContext = createContext({})
 export default function Main() {
@@ -58,15 +56,15 @@ export default function Main() {
 
     useEffect(() => {
         const registrationState = async () => {
-            await getRegistrationState()
+            await requestMock()
                 .then((res) => {
                     setTimeout(()=>{
-                        findLevel(res?.result?.registrationState);
+                        let state = localStorage.getItem('state')
+                        findLevel(state ? JSON.parse(state):0);
                     },1000)
-                    setRegInfo(res?.result)
+                    // setRegInfo(res?.result)
                 })
                 .catch((err) => {
-                    setError('مشکلی پیش آمده.')
                     toast.error(`${err?.response?.data?.error?.message}`)
                 })
         }
@@ -75,8 +73,6 @@ export default function Main() {
 
     const Components = {
         0: <ProfileSetter regInfo={regInfo}/>,
-        0.5: <SejamiStatus/>,
-        1: <GetSejamProfile/>,
         2: <SejamInfoLevel/>,
         3: <UploadDocumentsLevel/>,
         4: <TestLevel/>,

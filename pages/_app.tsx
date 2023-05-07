@@ -7,20 +7,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import {AuthProvider} from "react-oidc-context";
 import {WebStorageStateStore} from "oidc-client-ts";
 import Router from "next/router";
-import '../api/axios_interceptor';
 
 export default function App({Component, pageProps}: AppProps) {
     const toast: any = useRef()
-    const authorityPath = 'https://cluster.tech1a.co';
+    const authorityPath = 'https://localhost:3000';
     // const authorityPath = 'http://localhost:3000';
-    const clientId = 'sejam-gateway';
+    const clientId = 'gateway';
     const clientURL = typeof window !== 'undefined' && window.location.origin;
 
     const oidcConfig = {
         userStore: typeof window !== 'undefined' ? new WebStorageStateStore({store: window.localStorage}) : undefined,
         authority: `${authorityPath}`,
         client_id: `${clientId}`,
-        scope: 'openid IdentityServerApi',
+        scope: 'some_scope',
         response_type: 'code',
         redirect_uri: `${clientURL}/authentication/callback`,
         post_logout_redirect_uri: `${clientURL}`, // Auth0 uses returnTo
@@ -43,7 +42,7 @@ export default function App({Component, pageProps}: AppProps) {
     return (
         <AuthProvider {...oidcConfig} onSigninCallback={onSignIn} prompt={'login'}>
             <Head>
-                <title> ثبت نام در کارگزاری توانا</title>
+                <title>Registration | Tavana Brokerage</title>
             </Head>
             <ToastContainer
                 ref={toast}
@@ -52,7 +51,6 @@ export default function App({Component, pageProps}: AppProps) {
                 hideProgressBar={false}
                 newestOnTop={true}
                 closeOnClick
-                rtl={true}
                 pauseOnFocusLoss
                 toastStyle={{fontFamily: "PelakFA", fontSize: '14px'}}
             />

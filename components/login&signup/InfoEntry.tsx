@@ -2,9 +2,9 @@ import React, {useContext} from "react";
 import InputComponent from "../common/component/InputComponent";
 import {toast} from "react-toastify";
 import {Form, Formik} from "formik";
-import {register} from "../../api/login-signup.api";
 import {IdpContext} from "../../pages";
 import {infoEntry} from "../common/shcema/schema";
+import {requestMock} from "../common/functions";
 
 const initialValue = {
     token: '',
@@ -22,32 +22,32 @@ export default function InfoEntry() {
 
     const forum = [
         {
-            title: 'نام کاربری',
+            title: 'User Name',
             name: 'userName',
         },
         {
-            title: 'کدملی فرد/شناسه ملی شرکت/کد پاسپورت',
+            title: 'ID Number',
             name: 'nationalId',
         },
         {
-            title: 'نام',
+            title: 'First Name',
             name: 'firstName',
         },
         {
-            title: 'نام خانوادگی',
+            title: 'Last Name',
             name: 'lastName',
         },
         {
-            title: 'ایمیل',
+            title: 'Email',
             name: 'email',
         },
         {
-            title: 'رمز عبور',
+            title: 'Password',
             name: 'password',
             type: 'password',
         },
         {
-            title: 'تایید رمز عبور',
+            title: 'Confirm Password',
             name: 'passwordConfirm',
             type: 'password',
         },
@@ -55,16 +55,16 @@ export default function InfoEntry() {
 
     const registerHandler = async (v: any) => {
         if (v?.["passwordConfirm"] === v.password) {
-            await register({...v, phoneNumber: mobile, token: token})
+            await requestMock()
                 .then(() => {
-                    toast.success('ثبت نام شما با موفقیت انجام شد.')
+                    toast.success('You Signed Up Successfully')
                     setLevel('login')
                 })
                 .catch((err) => {
                     toast.error(`${err?.response?.data?.error?.message}`)
                 })
         } else {
-            toast.warning(`رمز عبور یکسان نمی باشد`)
+            toast.warning(`Entered Passwords are not equal`)
         }
     }
 
@@ -72,7 +72,7 @@ export default function InfoEntry() {
         <>
             <div className={'w-full text-center'}>
                 <h2>
-                    اطلاعات اولیه
+                    Personal Information
                 </h2>
             </div>
             <Formik initialValues={initialValue} validationSchema={infoEntry} validateOnBlur={false} onSubmit={registerHandler}>
@@ -93,16 +93,16 @@ export default function InfoEntry() {
                                     })
                                 }
                                 <div className="space-y-6 text-sm">
-                                    <p>رمز عبور باید شرایط زیر را داشته باشد:</p>
+                                    <p>Password must obey this pattern:</p>
                                     <ul className={'list-disc pr-10 text-justify text-center'}>
                                         <li>
-                                            حداقل 8 کاراکتر باشد.
+                                            At least 8 characters
                                         </li>
                                         <li>
-                                            ترکیبی از حروف کوچک و بزرگ باشد.
+                                            Combination of big and small letters
                                         </li>
                                         <li>
-                                            شامل اعداد باشد.
+                                            Includes Number
                                         </li>
                                     </ul>
                                 </div>
@@ -114,17 +114,17 @@ export default function InfoEntry() {
                                     disabled={isSubmitting}
                             >
                                 <div className={'flex items-center mx-auto w-fit'}>
-                                    تایید
-                                    {isSubmitting && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                                    Confirm
+                                    {isSubmitting && <svg className="animate-spin h-5 w-5 ml-3 ..." viewBox="0 0 24 24">
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                                stroke-width="4"></circle>
+                                                strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor"
                                               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>}
                                 </div>
                             </button>
                             <button className={'hover-button mx-auto mt-4'} onClick={() => setLevel('mobileEntry')}>
-                                برگشت به صفحه اصلی
+                               Back to First Level
                             </button>
                         </div>
                     </Form>

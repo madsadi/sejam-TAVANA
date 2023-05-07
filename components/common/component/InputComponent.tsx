@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {EyeIcon, EyeSlashIcon} from "@heroicons/react/20/solid";
 import {Field, useField} from "formik";
-import {searchCountry} from "../../../api/sejam-info.api";
 import {countryType} from "../../main/sejam-info/types";
 import {personType} from "../enums";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
@@ -11,11 +10,6 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
     const [showPass, setShowPass] = useState<boolean>(false)
     const [country, setCountry] = useState<countryType>({countryName: 'کشور', countryId: 0})
     const [countries, setCountries] = useState<countryType[]>([])
-
-    const searchCountryHandler = async (e: any) => {
-        await searchCountry(e.target.value)
-            .then((res) => setCountries(res?.result?.response))
-    }
 
     if (type === 'password') {
         return (
@@ -49,7 +43,7 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
                 </label>
                 <label className="label flex p-0">
                     <input type="text" className="input input-bordered w-full max-w-xs"
-                           onChange={searchCountryHandler}/>
+                           onChange={()=>null}/>
                     <div tabIndex={1} className="btn">{country.countryName}</div>
                 </label>
                 {countries.length ? <ul tabIndex={0}

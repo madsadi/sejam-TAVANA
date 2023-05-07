@@ -1,15 +1,15 @@
 import React, {Fragment, useContext, useEffect, useState} from "react";
-import {addCustomerProfileInfo} from "../../../api/ProfileSetter.api";
 import {SejamContext} from "../../../pages/main";
 import {toast} from "react-toastify";
 import {personType} from "../../common/enums";
 import {countryType} from "../sejam-info/types";
-import {searchCountry} from "../../../api/sejam-info.api";
 import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/24/outline";
-import {getCurrentUserInfo} from "../../../api/login-signup.api";
 import CaptchaComponentNotFormik from "../../common/component/CaptchaComponentNotFormik";
 import {Listbox, Transition} from '@headlessui/react'
 import {CheckIcon} from '@heroicons/react/20/solid'
+import {countryMock} from "../../mock/Mock";
+import { useFuzzy } from "react-use-fuzzy";
+import {requestMock} from "../../common/functions";
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ')
@@ -34,74 +34,34 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
     const {setLevel} = useContext<any>(SejamContext)
     const [info, setInfo] = useState<initialType | any>(initialValue)
     const [country, setCountry] = useState<countryType>({countryName: '', countryId: null})
-    const [countries, setCountries] = useState<countryType[]>([])
     const [retry, setRetry] = useState<boolean>(false)
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const [uuid, setUuid] = useState<string>('')
     const [open, setOpen] = useState<boolean>(false)
+    const {result, keyword, search} = useFuzzy<any>(countryMock, {
+        keys: ['countryName'],
+    });
 
-    const searchCountryHandler = async (e: any) => {
-        setCountry({countryName: e.target.value, countryId: -1})
-        await searchCountry(e.target.value)
-            .then((res) => setCountries(res?.result?.response))
-    }
     const infoUpdate = (key: string, value: any) => {
         let _info: any = {};
         _info[key] = value;
         setInfo({...info, ..._info})
     }
     const returnCondition = (regInfo: any) => {
-        if (((regInfo.hasAgent && regInfo?.agentUniqueId) || (!regInfo.hasAgent && !regInfo?.agentUniqueId)) && regInfo.uniqueId && regInfo.personType && (regInfo.countryId===1 || (regInfo.countryId!==1 && regInfo.foriegnCSDCode))) {
+        if (((regInfo.hasAgent && regInfo?.agentUniqueId) || (!regInfo.hasAgent && !regInfo?.agentUniqueId)) && regInfo.uniqueId && regInfo.personType && regInfo.countryId) {
             return true
         } else {
             return false
         }
     }
-    const returnInitialCondition = (regInfo: any) => {
-        if (regInfo.uniqueId && regInfo.personType && regInfo.countryId && regInfo.registrationState <= 5) {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    useEffect(() => {
-        // const userInfo = async () => {
-        //     const countries = await searchCountry('')
-        //     await getCurrentUserInfo()
-        //         .then((res) => {
-        //             let _info = {uniqueId: ''}
-        //             Object.keys(res?.result).map((item: any) => {
-        //                 if (item === 'nationalId') {
-        //                     _info['uniqueId'] = res?.result.nationalId
-        //                 }
-        //             })
-        //             setInfo({...info, ..._info, countryId: regInfo?.countryId, personType: regInfo?.personType})
-        //             setCountry({
-        //                 countryName: countries.result?.response?.find((item: any) => item.countryId === regInfo?.countryId)?.countryName,
-        //                 countryId: regInfo?.countryId
-        //             })
-        //         })
-        // }
-        // if (returnCondition(regInfo) || regInfo.registrationState > 5) {
-        if (returnInitialCondition(regInfo)) {
-            setLevel(0.5)
-        }
-    }, [regInfo])
 
     const submitHandler = async (e: any) => {
         e.preventDefault()
         setIsSubmitting(true)
         if (returnCondition(info)) {
-            await addCustomerProfileInfo({
-                ...info,
-                personType: Number(info.personType),
-                countryId: Number(info.countryId),
-                captchaCode: uuid + '_' + info.captcha,
-                refCode:localStorage.getItem('RefCode')
-            })
+            await requestMock()
                 .then(() => {
-                    setLevel(0.5)
+                    setLevel(2)
                 })
                 .catch((err) => {
                     setIsSubmitting(false)
@@ -110,7 +70,7 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                 })
         } else {
             setIsSubmitting(false)
-            toast.warning('همه ی ورودی ها الزامی می باشند.')
+            toast.warning('All fields are required')
         }
     }
 
@@ -119,33 +79,28 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
             infoUpdate('agentUniqueId','')
         }
     },[info.hasAgent])
-    useEffect(()=>{
-        if (info.countryId===1){
-            infoUpdate('foriegnCSDCode','')
-        }
-    },[info.countryId])
 
     return (
         <div className={'bg-white/50 rounded-md p-5 backdrop-blur-md'}>
             <form className={'flex flex-col'} onSubmit={submitHandler}>
-                <p className={'mb-5'}>اطلاعات زیر را جهت ایجاد پروفایل تکمیل کنید</p>
+                <p className={'mb-5'}>Please complete these information</p>
                 <div className={'grid md:grid-cols-2 grid-cols-1 gap-4'}>
                     <div className={'grid grid-cols-1 gap-4'}>
                         <div className="flex items-center">
-                            <label htmlFor="confirm">آیا فرد دیگری را ثبت نام می کنید؟</label>
-                            <div className={'relative w-[100px] flex bg-white p-1 rounded-full h-full border-2 border-white shadow-[0_0_0_1px_#eee] mr-2 overflow-hidden'}>
-                                <div className={`bg-tavanaGreen rounded-full w-1/2 h-[90%] z-0 absolute right-0 top-1/2 -translate-y-1/2 transition-all ${!info.hasAgent ? '-translate-x-full':'translate-x-0'}`}/>
+                            <label htmlFor="confirm">Are you signing for another person?</label>
+                            <div className={'relative w-[100px] flex bg-white p-1 rounded-full h-full border-2 border-white shadow-[0_0_0_1px_#eee] ml-2 overflow-hidden'}>
+                                <div className={`bg-tavanaGreen rounded-full w-1/2 h-[90%] z-0 absolute right-0 top-1/2 -translate-y-1/2 transition-all ${info.hasAgent ? '-translate-x-full':'translate-x-0'}`}/>
                                 <button type={'button'} className={`grow text-center z-[1] ${info.hasAgent ? 'text-white':''}`} onClick={()=>infoUpdate('hasAgent',true)}>
-                                    بله
+                                    yes
                                 </button>
                                 <button type={'button'} className={`grow text-center z-[1] pr-1 ${!info.hasAgent ? 'text-white':''}`} onClick={()=>infoUpdate('hasAgent',false)}>
-                                    خیر
+                                    no
                                 </button>
                             </div>
                         </div>
                         {info.hasAgent ? <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
-                            <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
-                                کد ملی وکیل:
+                            <label className={'flex items-center mb-1 mr-0 md:mr-3 min-w-[110px]'}>
+                                Agent National ID:
                             </label>
                             <input className={`input`}
                                    dir={'ltr'}
@@ -156,17 +111,16 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                         <Listbox value={info.personType} onChange={(e) => infoUpdate('personType', e)}>
                             {({open}) => (
                                 <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full '}>
-                                    <label className="flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]">حقیقی یا
-                                        حقوقی:</label>
+                                    <label className="flex items-center mb-1 mr-0 md:mr-3 min-w-[110px]">Private or Legal:</label>
                                     <div className="relative mt-2 grow">
                                         <Listbox.Button
-                                            className="relative input w-full bg-white py-1.5 pr-3 pl-10">
+                                            className="relative input w-full bg-white py-1.5 pl-3 pr-10">
                                           <span className="flex items-center">
                                             <span
-                                                className="ml-3 block truncate">{personType.find((item: any) => item.id === info.personType)?.title}</span>
+                                                className="mr-3 block truncate">{personType.find((item: any) => item.id === info.personType)?.enTitle}</span>
                                           </span>
                                             <span
-                                                className="pointer-events-none absolute inset-y-0 left-0 mr-3 flex items-center pl-2">
+                                                className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                             <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true"/>
                                           </span>
                                         </Listbox.Button>
@@ -197,7 +151,7 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                                                                     <span
                                                                         className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block')}
                                                                     >
-                                                                        {person.title}
+                                                                        {person.enTitle}
                                                                       </span>
                                                                 </div>
 
@@ -229,16 +183,21 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                         }}>
                             <>
                                 <div className="flex h-12 items-center">
-                                    <label className="flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]">تابعیت:</label>
+                                    <label className="flex items-center mb-1 mr-0 md:mr-3 min-w-[110px]">Nationality:</label>
                                     <div className={'relative w-full bg-white grow '}>
                                         <input type="text" value={country.countryName}
                                                className="input text-black input-bordered w-full"
                                                onChange={(e) => {
-                                                   searchCountryHandler(e);
-                                                   setOpen(true)
+                                                   setCountry({countryId:null,countryName:e.target.value})
+                                                   search(e.target.value);
+                                                   if (e.target.value){
+                                                       setOpen(true)
+                                                   }else{
+                                                       setOpen(false)
+                                                   }
                                                }}/>
                                         <span
-                                            className="pointer-events-none absolute top-1/2 -translate-y-1/2 left-0 mr-3 flex items-center pl-2">
+                                            className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-0 ml-3 flex items-center pr-2">
                                                     <MagnifyingGlassIcon className="h-5 w-5 text-gray-400"
                                                                          aria-hidden="true"/>
                                         </span>
@@ -253,16 +212,16 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                                                 >
                                                     <Listbox.Options
                                                         className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                        {countries.map((country) => (
+                                                        {result.map((country) => (
                                                             <Listbox.Option
-                                                                key={country.countryId}
+                                                                key={country.item?.countryId}
                                                                 className={({active}) =>
                                                                     classNames(
                                                                         active ? 'bg-gray-200' : 'text-gray-900',
                                                                         'relative select-none py-2 pl-3 pr-9 cursor-pointer'
                                                                     )
                                                                 }
-                                                                value={country}
+                                                                value={country.item}
                                                             >
                                                                 {({selected, active}) => (
                                                                     <>
@@ -270,7 +229,7 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                                                                         <span
                                                                             className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block')}
                                                                         >
-                                                                            {country.countryName}
+                                                                            {country.item?.countryName}
                                                                           </span>
                                                                         </div>
 
@@ -298,8 +257,8 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                             </>
                         </Listbox>
                         <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
-                            <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
-                                {info.personType === 1 ? (info.countryId === 1 ? 'کد ملی:' : (info.countryId ? 'شماره پاسپورت:' : 'کد ملی:')) : 'شناسه ملی:'}
+                            <label className={'flex items-center mb-1 mr-0 md:mr-3 min-w-[110px]'}>
+                                {info.personType === 1 ? (info.countryId === 1 ? 'National ID:' : (info.countryId ? 'Passport NO.:' : 'National ID:')) : 'National ID:'}
                             </label>
                             <input className={`input`}
                                    dir={'ltr'}
@@ -307,21 +266,9 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                                    onChange={(e) => infoUpdate('uniqueId', e.target.value)}
                             />
                         </div>
-                        {(info.countryId !== 1 && info.countryId) ?
-                            <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
-                                <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
-                                    کد اتباع خارجی:
-                                </label>
-                                <input className={`input`}
-                                       dir={'ltr'}
-                                       type={'number'}
-                                       value={info.foriegnCSDCode}
-                                       onChange={(e) => infoUpdate('foriegnCSDCode', e.target.value)}
-                                />
-                            </div> : null}
                     </div>
                     <div className={'mt-auto w-full '}>
-                        <div className={'w-full md:w-[300px] mr-auto'}>
+                        <div className={'w-full md:w-[300px] ml-auto'}>
                             <CaptchaComponentNotFormik setUuid={setUuid}
                                                        uuid={uuid}
                                                        info={info}
@@ -331,11 +278,11 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
                     </div>
                 </div>
                 <div
-                    className={'flex md:flex-row flex-col md:space-y-0 space-y-2 items-center space-x-2 space-x-reverse mr-auto mt-5'}>
+                    className={'flex md:flex-row flex-col md:space-y-0 space-y-2 items-center space-x-2 space-x-reverse ml-auto mt-5'}>
                     <button className={'button w-fit min-w-fit'} disabled={isSubmitting} type={'submit'}>
                         <div className={'flex items-center mx-auto '}>
-                            ثبت اطلاعات
-                            {isSubmitting && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                            Confirm Information
+                            {isSubmitting && <svg className="animate-spin h-5 w-5 ml-3 ..." viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                         strokeWidth="4"></circle>
                                 <path className="opacity-75" fill="currentColor"

@@ -2,9 +2,9 @@ import React, {useContext, useState} from "react";
 import CountDown from "../common/component/CountDown";
 import OtpInput from 'react-otp-input';
 import {toast} from "react-toastify";
-import {verifyToken} from "../../api/login-signup.api";
 import {IdpContext} from "../../pages";
 import {useRouter} from "next/router";
+import {requestMock} from "../common/functions";
 
 type initialType = {
     Token: string,
@@ -22,7 +22,7 @@ export default function CodeVerify() {
     const codeVerifyHandler = async (e: any) => {
         e.preventDefault()
         setIsSubmitting(true)
-        await verifyToken({...info, PhoneNumber: mobile,RefCode:router.query?.RefCode})
+        await requestMock()
             .then(() => {
                 setIsSubmitting(false)
                 setToken(info.Token)
@@ -72,7 +72,7 @@ export default function CodeVerify() {
                     >
                         <div className={'flex items-center mx-auto w-fit'}>
                             Confirm
-                            {isSubmitting && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                            {isSubmitting && <svg className="animate-spin h-5 w-5 ml-3 ..." viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                         strokeWidth="4"></circle>
                                 <path className="opacity-75" fill="currentColor"
