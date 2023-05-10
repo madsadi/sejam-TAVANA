@@ -1,5 +1,4 @@
 
-
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -8,10 +7,10 @@ metadata:
     name: sejam-react
     instance: sejam-react
 data:
-  idpApi: "https://cluster.tech1a.co/api/"
-  sejamApi: "http://cluster.tech1a.co:9072/api/request/"
-  fileServerApi: "http://cluster.tech1a.co:9073/api/file-manager/"
-  captchaApi: "https://cluster.tech1a.co:8543/api/"
+  idpApi: "https://idp.tavanabroker.ir/api/"
+  sejamApi: "https://sejam-gateway.tavanabroker.ir/api/request/"
+  fileServerApi: "https://file-manager.tavanabroker.ir/api/file-manager/"
+  captchaApi: "https://captcha.tavanabroker.ir/api/"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -61,10 +60,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - prosejam-react.tech1a.co
-    secretName: tech1a-co
+    - sejam.tavanabroker.ir
+    secretName: tavana-ir
   rules:
-    - host: prosejam-react.tech1a.co
+    - host: sejam.tavanabroker.ir
       http:
         paths:
         - path: /
