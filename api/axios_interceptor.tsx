@@ -3,7 +3,7 @@ import Router from "next/router";
 
 axios.interceptors.request.use((value) => {
     const clientId = 'sejam-gateway';
-    const authorityPath = 'https://cluster.tech1a.co';
+    const authorityPath = 'https://idp.tavanabroker.ir';
 
     if (typeof window !== 'undefined') {
         const oidcStorage:any = localStorage.getItem(`oidc.user:${authorityPath}:${clientId}`)
