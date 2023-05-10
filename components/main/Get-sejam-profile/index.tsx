@@ -20,6 +20,8 @@ const initialValue = {
 export default function GetSejamProfile() {
     const {setLevel} = useContext<any>(SejamContext)
     const [info, setInfo] = useState<initialType>(initialValue)
+    const [retry, setRetry] = useState<boolean>(false)
+
     const infoUpdate = (key: string, value: any) => {
         let _info: any = {};
         _info[key] = value;
@@ -33,12 +35,13 @@ export default function GetSejamProfile() {
                 setLevel(2)
             })
             .catch((err) => {
+                setRetry(!retry)
                 toast.error(`${err?.response?.data?.error?.message}`)
             })
     }
 
     return (
-        <div className={'bg-white p-5 rounded-md'}>
+        <div className={'bg-white/50 backdrop-blur-md rounded-md p-5'}>
             <Formik initialValues={initialValue} validationSchema={getSejamProfileSchema} onSubmit={submitHandler}>
                 {({isSubmitting}) => (
                     <Form className={'flex flex-col'}>
@@ -50,7 +53,7 @@ export default function GetSejamProfile() {
                             <div className={'mt-4'}>
                                 <CaptchaComponent infoUpdate={infoUpdate}
                                                   info={info}
-                                                  name={'captcha'}/>
+                                                  name={'captcha'} retry={retry}/>
                             </div>
                         </div>
                         <button className={'button w-fit mt-4 mr-auto'} disabled={isSubmitting} type={'submit'}>
@@ -58,7 +61,7 @@ export default function GetSejamProfile() {
                                 ادامه
                                 {isSubmitting && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                            stroke-width="4"></circle>
+                                            strokeWidth="4"></circle>
                                     <path className="opacity-75" fill="currentColor"
                                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>}

@@ -61,8 +61,8 @@ export default function TestLevel() {
     }
 
     return (
-        <div className='pb-5'>
-            <div className="bg-white p-5 rounded-md">
+        <>
+            <div className="bg-white/50 p-5 rounded-md backdrop-blur-md">
                 <div className="flex items-center mb-5">
                     <ExclamationCircleIcon className='h-7 w-7 ml-2 text-tavanaGreen' />
                     <span> آزمون آنلاین بورس را تکمیل نمایید</span>
@@ -81,7 +81,7 @@ export default function TestLevel() {
                                         question.options.map((option: string,i:number) => {
                                             return (
                                                 <div className={'flex items-center'} key={option}>
-                                                    <input className={'checkbox'} checked={answers[index]!=='' ? Number(answers[index])===i:false} onChange={()=>answerHandler(i,index)} type="checkbox" />
+                                                    <input className={'checkbox checkbox-accent'} checked={answers[index]!=='' ? Number(answers[index])===i:false} onChange={()=>answerHandler(i,index)} type="checkbox" />
                                                     <label className='mr-2'>{option}</label>
                                                 </div>
                                             )
@@ -94,6 +94,6 @@ export default function TestLevel() {
                 }
             </div>
             <BeforeAfterComponent condition={Object.values(answers).every((item:any)=>item!=='')} warning={'لطفا تمام سوالات را پاسخ دهید.'}/>
-        </div>
+        </>
     )
 }

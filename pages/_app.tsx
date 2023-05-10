@@ -20,13 +20,13 @@ export default function App({Component, pageProps}: AppProps) {
         userStore: typeof window !== 'undefined' ? new WebStorageStateStore({store: window.localStorage}) : undefined,
         authority: `${authorityPath}`,
         client_id: `${clientId}`,
-        scope: 'openid',
+        scope: 'openid IdentityServerApi',
         response_type: 'code',
         redirect_uri: `${clientURL}/authentication/callback`,
         post_logout_redirect_uri: `${clientURL}`, // Auth0 uses returnTo
         silent_redirect_uri: `${clientURL}/authentication/silent_callback`,
         automaticSilentRenew: true,
-        loadUserInfo: true,
+        loadUserInfo: false,
         metadata: {
             issuer: `${authorityPath}/`,
             authorization_endpoint: `${authorityPath}/connect/authorize`,
@@ -41,7 +41,7 @@ export default function App({Component, pageProps}: AppProps) {
     }
 
     return (
-        <AuthProvider {...oidcConfig} onSigninCallback={onSignIn}>
+        <AuthProvider {...oidcConfig} onSigninCallback={onSignIn} prompt={'login'}>
             <Head>
                 <title> ثبت نام در کارگزاری توانا</title>
             </Head>

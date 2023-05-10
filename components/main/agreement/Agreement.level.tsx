@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import AccordionComponent from "../../common/component/Accordion.component";
-import {approveAgreements, getAllPossibleAgreements} from "../../../api/agreement.api";
+import {approveAgreements, getAllAgreements, getAllPossibleAgreements} from "../../../api/agreement.api";
 import {agreement} from "./types";
 import OnlineRegistrationAgreement from "./تعهد نامه ثبت نام غیر حضوری";
 import TotalBrokerageAgreement from "./قرارداد جامع مشتري و کارگزار (در خصوص اوراق بهادار)";
@@ -13,6 +13,7 @@ import {getBankAccounts, getSejamInfo} from "../../../api/sejam-info.api";
 import {ExclamationCircleIcon} from "@heroicons/react/24/outline";
 import {toast} from "react-toastify";
 import OptionalAgreement from "./قراردادمعاملات اختیاری";
+import {useMediaQuery} from "react-responsive";
 
 export default function AgreementLevel() {
     const {setLevel,level} = useContext<any>(SejamContext)
@@ -50,10 +51,36 @@ export default function AgreementLevel() {
     const [agreements, setAgreements] = useState<agreement[]>([])
     const [approvedAgreements, setApprove] = useState<any>(initialApprovedStates)
 
+    const approveHandler = (key:string,status:number=-1)=>{
+        let _approves:any = [...approvedAgreements];
+        let index = _approves.findIndex((item:any)=>item.agreementId===key);
+        if (status>0){
+            _approves.splice(index,1,{agreementId:key,status:status})
+        }else{
+            if (_approves[index].status===3){
+                _approves.splice(index,1,{agreementId:key,status:2})
+            }else{
+                _approves.splice(index,1,{agreementId:key,status:3})
+            }
+        }
+        setApprove(_approves)
+    }
+
     useEffect(() => {
         const getAgreements = async () => {
             await getAllPossibleAgreements()
-                .then((res) => setAgreements(res?.result?.agreements))
+                .then((res) => {
+                    let agreements = res?.result?.agreements
+                    let _approves:any = [...approvedAgreements];
+                    setAgreements(agreements)
+                    agreements?.map((a:any)=>{
+                        let index = _approves.findIndex((item:any)=>item.agreementId===a.id);
+                        _approves.splice(index,1,{agreementId:a.id,status:a.status})
+                    })
+                    setApprove(_approves)
+                })
+            // await getAllAgreements()
+            //     .then((res)=>(res?.result?.agreements)?.map((item:any)=>approveHandler(item.id,item.status)))
         }
         const sejamInfo = async () => {
             await getSejamInfo()
@@ -86,18 +113,6 @@ export default function AgreementLevel() {
         'bfd4daf5-5b1e-4e3c-b0fe-75713131913b':<OptionalAgreement/>,
     }
 
-    const approveHandler = (key:string)=>{
-        let _approves:any = [...approvedAgreements];
-        let index = _approves.findIndex((item:any)=>item.agreementId===key);
-        if (_approves[index].status===3){
-            _approves.splice(index,1,{agreementId:key,status:2})
-            setApprove(_approves)
-        }else{
-            _approves.splice(index,1,{agreementId:key,status:3})
-            setApprove(_approves)
-        }
-    }
-
     const proceed =async ()=>{
         await approveAgreements(approvedAgreements)
             .then(()=>setLevel(level+1))
@@ -106,13 +121,13 @@ export default function AgreementLevel() {
 
     return (
         <>
-            <div className="grow bg-white p-5 rounded-md">
+            <div className="grow bg-white p-5 rounded-md backdrop-blur-md">
                 {agreements.filter((item:any)=>!item.isDeleted).map((a:agreement) => {
                     return (
-                        <div className={'flex'} key={a.id}>
-                            <input className={'checkbox ml-7 mt-4'} checked={approvedAgreements.find((item:any)=>item.agreementId===a.id)?.status===2} onChange={()=>approveHandler(a.id)} type="checkbox" />
-                            <AccordionComponent title={a.name} extra={a.isRequired ? <ExclamationCircleIcon className={'h-5 w-5 text-red-500'}/>:null}>
-                                {agreementsContext?.[`${a.id}`]}
+                        <div className={'flex border-b-2 last:border-b-0 border-border'} key={a.id}>
+                            <input className={'checkbox checkbox-accent ml-2 md:ml-7 mt-4'} checked={approvedAgreements.find((item:any)=>item.agreementId===a.id)?.status===2} onChange={()=>approveHandler(a.id)} type="checkbox" />
+                            <AccordionComponent title={a.name} extra={a.isRequired ? <div className={'min-w-5 mr-auto md:mr-2'}><ExclamationCircleIcon className={'h-5 w-5 text-red-500'}/></div>:null}>
+                                {agreementsContext[a.id]}
                             </AccordionComponent>
                         </div>
                     )
@@ -123,7 +138,7 @@ export default function AgreementLevel() {
                     مرحله قبل
                 </button>
                 <button className="button w-fit" onClick={proceed}>
-                    تایید قراردادها
+                    ثبت قراردادها
                 </button>
             </div>
         </>

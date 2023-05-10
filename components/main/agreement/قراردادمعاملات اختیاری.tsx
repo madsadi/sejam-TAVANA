@@ -1,71 +1,32 @@
 import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
 import {SejamContext} from "../../../pages/main";
-import {formatNumber, jalali} from "../../common/functions";
+import {jalali} from "../../common/functions";
 import {
-    accountTypeEnums,
-    legalPersonTypeCategoryEnums,
-    tradingKnowledgeLevelEnums,
-    transactionLevelPrivatePersonEnums
+    legalPersonTypeCategoryEnums
 } from "../../common/enums";
 import ReactToPrint from "react-to-print";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
 import PageHeaderFooter from "./PageHeaderFooter";
+import LabelValue from "../../common/component/LabelValue";
 
 export default function OptionalAgreement() {
     const {userData, userDefaultBank} = useContext<any>(SejamContext)
     const [loading, setLoading] = useState(false);
-    const [text, setText] = useState("old boring text");
 
     const componentRef = useRef(null);
-
-    const onBeforeGetContentResolve = useRef(null);
-
-    const handleAfterPrint = useCallback(() => {
-        console.log("`onAfterPrint` called");
-    }, []);
-
-    const handleBeforePrint = useCallback(() => {
-        console.log("`onBeforePrint` called");
-    }, []);
-
-    const handleOnBeforeGetContent = useCallback(() => {
-        console.log("`onBeforeGetContent` called");
-        setLoading(true);
-        setText("Loading new text...");
-
-        return new Promise<void>((resolve) => {
-            // @ts-ignore
-            onBeforeGetContentResolve.current = resolve;
-
-            setTimeout(() => {
-                setLoading(false);
-                setText("New, Updated Text!");
-                resolve();
-            }, 2000);
-        });
-    }, [setLoading, setText]);
-
-    useEffect(() => {
-        if (
-            text === "New, Updated Text!" &&
-            typeof onBeforeGetContentResolve.current === "function"
-        ) {
-            // @ts-ignore
-            onBeforeGetContentResolve.current();
-        }
-    }, [onBeforeGetContentResolve.current, text]);
 
     const reactToPrintContent = useCallback(() => {
         return componentRef.current;
     }, [componentRef.current]);
+
     const reactToPrintTrigger = () => {
         return (
             <button className={'flex item-center button bg-red-600 w-fit text-white float-left'}>
                 چاپ
                 {loading ? <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                            stroke-width="4"></circle>
+                            strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor"
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg> : <PrinterIcon className={'h-5 w-5 mr-2'}/>}
@@ -78,13 +39,10 @@ export default function OptionalAgreement() {
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="قرارداد معاملات اختیاری"
-                onAfterPrint={handleAfterPrint}
-                onBeforeGetContent={handleOnBeforeGetContent}
-                onBeforePrint={handleBeforePrint}
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
-            <div ref={componentRef}>
+            <div ref={componentRef} id={'here'} className={'mobileAgreement'} >
                 <table className={'w-full'} dir={'rtl'}>
                     <thead>
                     <tr>
@@ -113,190 +71,146 @@ export default function OptionalAgreement() {
                                             </h5>
                                             <p>
                                                 {/* eslint-disable-next-line react/no-unescaped-entities */}
-                                                این قرارداد بین شرکت کارگزاری با مشخصات زیر:1.
+                                                این قرارداد بین شرکت کارگزاری با مشخصات زیر:
                                             </p>
                                         </td></tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <div className={'title'}>
-                                                    عضو:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    شرکت کارگزاری توانا نام
-                                                </div>
+                                                <LabelValue title={'عضو'} value={'شرکت کارگزاری توانا نام'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>
-                                                    شماره ثبت:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    159302
-                                                </div>
+                                                <LabelValue title={'شماره ثبت'} value={'159302'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>
-                                                    تاریخ ثبت:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    09/11/78
-                                                </div>
+                                                <LabelValue title={'تاریخ ثبت'} value={'09/11/78'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>
-                                                    محل ثبت:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    تهران
-                                                </div>
+                                                <LabelValue title={'محل ثبت'} value={'تهران'}/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div className={'title'}>
-                                                    شماره ثبت نزد سازمان بورس:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    10637
-                                                </div>
-
+                                                <LabelValue title={'شماره ثبت نزد سازمان بورس'} value={'10637'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>
-                                                    شماره تلفن دفتر مرکزی:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    42906-021
-
-                                                </div>
+                                                <LabelValue title={'شماره تلفن دفتر مرکزی'} value={'021-42906'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>
-                                                    شماره فاکس دفتر مرکزی:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    42906-021 داخلی 6
-                                                </div>
-
+                                                <LabelValue title={'شماره فاکس دفتر مرکزی'} value={' 021-42906 داخلی 6'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>
-                                                    کدپستی:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    1587946313
-                                                </div>
+                                                <LabelValue title={'کدپستی'} value={'1587946313'}/>
                                             </td>
                                         </tr>
                                         <tr className={'col-span-12'}>
                                             <td>
-                                                <div className={'title'}>
-                                                    نام، نام خانوادگی آخرین صاحب امضاء مجاز:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    حمیدرضا طریقی
-                                                </div>
+                                                <LabelValue title={'نام، نام خانوادگی آخرین صاحب امضاء مجاز'} value={'حمیدرضا طریقی'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>
-                                                    سمت:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                     مدیرعامل و عضو هیئت مدیره
-                                                </div>
+                                                <LabelValue title={'سمت'} value={' مدیرعامل و عضو هیئت مدیره'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>
-                                                    آدرس دفتر مرکزی:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    &lrm; تهران،&lrm; خیابان مطهری،&lrm; خیابان میرعماد،&lrm; نبش کوچه سوم پلاک 10،&lrm; طبقه دوم&lrm;
-                                                </div>
+                                                <LabelValue title={'آدرس دفتر مرکزی'} value={'تهران، خیابان مطهری، خیابان میرعماد'}/>
+                                                <LabelValue title={''} value={'،نبش کوچه سوم پلاک 10، طبقه دوم'}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>
-                                                    آدرس پست الکترونیکی:
-                                                </div>
-                                                <div className={'titleValue'}>
-                                                    info@tavana.net
-                                                </div>
+                                                <LabelValue title={'آدرس پست الکترونیکی'} value={'info@tavana.net'}/>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <p>
-                                        و مشتری با مشخصات جدول زیر:
+                                        و مشتری با مشخصات زیر:
                                     </p>
                                 </div>
                                 <div className=" mt-4">
-
                                     <table className={'table table-compact w-full'}>
                                         <thead>
-                                        <tr><td>
-                                            <h5>
-                                                الف) اشخاص حقیقی / نماینده ایرانی:
-                                            </h5>
-                                        </td></tr>
+                                        <tr>
+                                            <td><h5>الف) مشتري حقیقی: </h5></td>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <div className={'title'}>جنسیت:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.gender === 'Male' ? 'مرد' : 'زن'}</div>
+                                                <LabelValue title={'نام و نام خانوادگی'} value={userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}> نام و نام خانوادگی: </div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.firstName + ' ' + userData?.privatePerson?.lastName}</div>
+                                                <LabelValue title={'نام پدر'} value={userData?.privatePerson?.fatherName}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>نام پدر:</div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.fatherName}</div>
+                                                <LabelValue title={'شماره شناسنامه'} value={userData?.privatePerson?.serial + `/` + userData?.privatePerson?.seriShChar + userData?.privatePerson?.seriSh}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>شماره تلفن همراه:</div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.mobile}</div>
+                                                <LabelValue title={'کد ملی'} value={userData?.uniqueIdentifier}/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div className={'title'}> تاریخ تولد:</div>
-                                                <div className={'titleValue'}>{jalali(userData?.privatePerson?.birthDate).date}</div>
+                                                <LabelValue title={'تلفن ثابت'} value={userData?.addresses?.[0]?.tel}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}> محل تولد: </div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.placeOfBirth}</div>
+                                                <LabelValue title={'کد پستی منزل'} value={userData?.addresses?.[0]?.fax}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>کد ملی:</div>
-                                                <div className={'titleValue'}>{userData?.uniqueIdentifier}</div>
+                                                <LabelValue title={'شماره تلفن همراه'} value={userData?.addresses?.[0]?.mobile}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>آدرس پست الکترونیکی:</div>
-                                                <div className={'titleValue'}>{userData?.addresses?.[0]?.email}</div>
+                                                <LabelValue title={'آدرس پست الکترونیکی'} value={userData?.addresses?.[0]?.email}/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div className={'title'}> شماره شناسنامه: </div>
-                                                <div className={'titleValue'}>{`${userData?.privatePerson?.serial + `/` + userData?.privatePerson?.seriShChar + userData?.privatePerson?.seriSh}`}</div>
+                                                <LabelValue title={' نام بانک'} value={userDefaultBank?.bank?.name + ' ' + (userDefaultBank?.branchCode ? userDefaultBank?.branchCode : '')}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}> صادره از: </div>
-                                                <div className={'titleValue'}>{userData?.privatePerson?.placeOfIssue}</div>
+                                                <LabelValue title={'شماره‌حساب بانکی'} value={userDefaultBank?.accountNumber}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}> شماره تلفن منزل با کد شهر: </div>
-                                                <div className={'titleValue'}>{userData.addresses?.[0].cityPrefix + '-' + userData.addresses?.[0].tel}</div>
+                                                <LabelValue title={'آدرس منزل'} value={userData?.addresses?.[0]?.remnantAddress}/>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table className={'table table-compact w-full'}>
+                                        <thead>
+                                        <tr>
+                                            <td><h5>ب) مشتري حقوقی:</h5></td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <LabelValue title={'نام'} value={userData?.legalPerson?.companyName}/>
                                             </td>
                                             <td>
-                                                <div className={'title'}>تلفن محل کار:  </div>
-                                                <div className={'titleValue'}>{userData?.jobInfo?.companyCityPrefix + '-' + userData?.jobInfo?.companyPhone}</div>
+                                                <LabelValue title={'شماره ثبت'} value={userData?.legalPerson?.registerNumber}/>
+                                            </td>
+                                            <td>
+                                                <LabelValue title={'محل ثبت'} value={userData?.legalPerson?.registerPlace}/>
+                                            </td>
+                                            <td>
+                                                <LabelValue title={'تاریخ ثبت'} value={userData?.legalPerson?.registerDate}/>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <div className={'title'}> نشانی محل کار:  </div>
-                                            <div className={'titleValue'}>{userData?.jobInfo?.companyAddress}</div>
+                                            <td>
+                                                <LabelValue title={'نوع شخصیت'} value={legalPersonTypeCategoryEnums.find((item: any) => item.id === userData?.legalPerson?.legalPersonTypeCategory)?.title}/>
+                                            </td>
+                                            <td>
+                                                <LabelValue title={'نشانی پست الکترونیک'} value={userData?.legalPerson ? userData?.addresses?.[0]?.email:''}/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <LabelValue title={'شماره حساب بانکی'} value={userData?.legalPerson ? userDefaultBank?.accountNumber:''}/>
+                                            </td>
+                                            <td>
+                                                <LabelValue title={'شماره شبا'} value={userData?.legalPerson ? userDefaultBank?.sheba:''}/>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -304,51 +218,6 @@ export default function OptionalAgreement() {
 
                                 <div className=" mt-4">
 
-                                    <table className={'table table-compact w-full'}>
-                                        <thead>
-                                        <tr>
-                                            <td><h5>ب) اشخاص حقوقی ایرانی: </h5></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <div className={'title'}>نام: </div>
-                                                <div className={'titleValue'}>{userData?.legalPerson?.companyName}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>شماره ثبت:</div>
-                                                <div className={'titleValue'}>{userData?.legalPerson?.registerNumber}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>محل ثبت:</div>
-                                                <div className={'titleValue'}>{userData?.legalPerson?.registerPlace}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>تاریخ ثبت:</div>
-                                                <div className={'titleValue'}>{jalali(userData?.legalPerson?.registerDate)?.date}</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div className={'title'}>شناسه ملی:</div>
-                                                <div className={'titleValue'}>{userData?.legalPerson?.economicCode}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>نوع شخصیت:</div>
-                                                <div className={'titleValue'}>{legalPersonTypeCategoryEnums.find((item: any) => item.id === userData.legalPerson?.legalPersonTypeCategory)?.title}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}> شماره حساب بانکی: </div>
-                                                <div className={'titleValue'}>{userDefaultBank?.accountNumber}</div>
-                                            </td>
-                                            <td>
-                                                <div className={'title'}>شماره شبا:</div>
-                                                <div className={'titleValue'}>{userDefaultBank?.sheba}</div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
                                     <p>
                                         به شرح مواد آتی منعقد شد .
                                     </p>
@@ -364,7 +233,7 @@ export default function OptionalAgreement() {
                                 </div>
                                 <div>
                                     <h5>
-                                        ماده 2-موضوع قرارداد
+                                        ماده 2:موضوع قرارداد
                                     </h5>
                                     <p>
                                         موضوع قرارداد، ارائه خدمات زير توسط كارگزار به مشتری است:
@@ -549,7 +418,7 @@ export default function OptionalAgreement() {
                                         ١) حضوري و اخذ امضای مشتری؛
                                     </p>
                                     <p>
-                                        ٢) ارسال به شماره فاكس .................  و پست الكترونيكي به آدرس ...............................
+                                        ٢) ارسال به شماره فاكس {userData?.addresses[0].fax ? userData?.addresses[0].fax:'..................'}  و پست الكترونيكي به آدرس {userData?.addresses?.[0]?.email ? userData?.addresses?.[0]?.email:'.......................'}
                                     </p>
                                     <p>
                                         3) آنلاین

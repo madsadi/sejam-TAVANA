@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import ProgressBar from "../components/common/component/ProgressBar";
 import AgreementLevel from "../components/main/agreement/Agreement.level";
 import ProfileSetter from "../components/main/Profile-setter";
@@ -8,57 +8,74 @@ import UploadDocumentsLevel from "../components/main/upload-documents/UploadDocu
 import TestLevel from "../components/main/test/Test.level";
 import {SejamInfoType} from "../components/main/sejam-info/types";
 import UserStateLevel from "../components/main/final/UserStateLevel";
+import {getRegistrationState} from "../api/resgistration.api";
+import {toast} from "react-toastify";
+import {SejamiStatus} from "../components/main/sejami-status";
 import Lottie from "react-lottie";
-import avatar from "../public/icons/avatar.json";
-import pencil from "../public/icons/pencil.json";
-import scan from "../public/icons/scan-document.json";
-import sms from "../public/icons/sms.json";
+import Loader from "../public/multi-shape-loader.json";
 
 export const SejamContext = createContext({})
 export default function Main() {
+    const [level, setLevel] = useState<number>(-1)
+    const [regInfo, setRegInfo] = useState<any>({})
+    const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
+    const [error, setError] = useState<string>('')
+    const [userDefaultBank, setUserDefaultBank] = useState<any>(null)
     const defaultOptions = {
         loop: true,
         autoplay: true,
-        animationData: avatar,
+        animationData: Loader,
     };
-    const [level, setLevel] = useState<number>(5)
-    const [option, setOption] = useState<any>(defaultOptions)
-    const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
-    const [userDefaultBank, setUserDefaultBank] = useState<any>(null)
-
+    const findLevel = (no: number) => {
+        //Enums(OnlineRegistrationStatus) are available in ../components/common/enums
+        switch (true) {
+            case no <= 5:
+                setLevel(0);
+                break;
+            // case no === 6:
+            //     setLevel(1);
+            //     break
+            case no <= 14:
+                setLevel(2);
+                break
+            case no === 15:
+                setLevel(3);
+                break
+            case no === 16:
+                setLevel(4);
+                break
+            case no === 17:
+                setLevel(5);
+                break
+            case no >= 18:
+                setLevel(6);
+                break
+            default:
+                setLevel(0);
+                return
+        }
+    }
 
     useEffect(() => {
-        const optionHandler = (level: number) => {
-            switch (level) {
-                case 1:
-                    setOption({
-                        loop: true,
-                        autoplay: true,
-                        animationData: sms,
-                    })
-                    break;
-                case 2:
-                case 4:
-                    setOption({
-                        loop: true,
-                        autoplay: true,
-                        animationData: pencil,
-                    })
-                    break;
-                case 3:
-                    setOption({
-                        loop: true,
-                        autoplay: true,
-                        animationData: scan,
-                    })
-                    break;
-            }
+        const registrationState = async () => {
+            await getRegistrationState()
+                .then((res) => {
+                    setTimeout(()=>{
+                        findLevel(res?.result?.registrationState);
+                    },1000)
+                    setRegInfo(res?.result)
+                })
+                .catch((err) => {
+                    setError('مشکلی پیش آمده.')
+                    toast.error(`${err?.response?.data?.error?.message}`)
+                })
         }
-        optionHandler(level)
-    }, [level])
+        registrationState()
+    }, [])
 
     const Components = {
-        0: <ProfileSetter/>,
+        0: <ProfileSetter regInfo={regInfo}/>,
+        0.5: <SejamiStatus/>,
         1: <GetSejamProfile/>,
         2: <SejamInfoLevel/>,
         3: <UploadDocumentsLevel/>,
@@ -68,16 +85,23 @@ export default function Main() {
     }[level]
 
     return (
-        <SejamContext.Provider value={{setLevel, setUserData, userData, level,setUserDefaultBank,userDefaultBank}}>
-            <div className="container flex flex-col h-full py-10 text-sm md:text-md">
+        <SejamContext.Provider value={{setLevel, setUserData, userData, level, setUserDefaultBank, userDefaultBank,regInfo}}>
+            <div className="container relative flex flex-col h-full md:py-10 py-5 text-sm md:text-md">
                 <ProgressBar/>
-                {Components}
-                {/*{level < 5 ? <div className={'md:block hidden fixed top-10 right-10 w-[150px] h-[200px] opacity-30'} suppressHydrationWarning={true}>*/}
-                {/*    <Lottie*/}
-                {/*        options={option}*/}
-                {/*    />*/}
-                {/*</div> : null}*/}
+                {level >= 0 ? <div className={'flex flex-col grow pt-5 md:pt-5 pb-5'}>
+                    {Components}
+                </div> : <div className={'flex flex-col grow pt-5 md:pt-5 pb-5 bg-white/30 backdrop-blur-md rounded w-full'}>
+                    <div className={'m-auto md:h-[400px] h-[250px] md:w-[400px] w-[250px]'}>
+                    <Lottie
+                        options={defaultOptions}
+                    />
+                        <p className={'text-center'}>
+                        {error}
+                        </p>
+                    </div>
+                </div>}
             </div>
         </SejamContext.Provider>
     )
 }
+

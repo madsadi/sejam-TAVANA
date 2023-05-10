@@ -9,6 +9,7 @@ import {infoEntry} from "../common/shcema/schema";
 const initialValue = {
     token: '',
     phoneNumber: '',
+    userName: '',
     password: '',
     firstName: '',
     lastName: '',
@@ -21,7 +22,11 @@ export default function InfoEntry() {
 
     const forum = [
         {
-            title: 'کد ملی',
+            title: 'نام کاربری',
+            name: 'userName',
+        },
+        {
+            title: 'کدملی فرد/شناسه ملی شرکت/کد پاسپورت',
             name: 'nationalId',
         },
         {
@@ -52,7 +57,8 @@ export default function InfoEntry() {
         if (v?.["passwordConfirm"] === v.password) {
             await register({...v, phoneNumber: mobile, token: token})
                 .then(() => {
-                    setLevel('success')
+                    toast.success('ثبت نام شما با موفقیت انجام شد.')
+                    setLevel('login')
                 })
                 .catch((err) => {
                     toast.error(`${err?.response?.data?.error?.message}`)
@@ -69,7 +75,7 @@ export default function InfoEntry() {
                     اطلاعات اولیه
                 </h2>
             </div>
-            <Formik initialValues={initialValue} validationSchema={infoEntry} onSubmit={registerHandler}>
+            <Formik initialValues={initialValue} validationSchema={infoEntry} validateOnBlur={false} onSubmit={registerHandler}>
                 {({isSubmitting}) => (
                     <Form className={'grow flex flex-col'}>
                         <div className={'relative grow overflow-y-auto custom-scrollbar'}>

@@ -11,10 +11,10 @@ export const profileSetter = yup.object().shape({
         .string()
         .required("الزامی می باشد."),
     personType: yup
-        .string()
+        .number()
         .required("الزامی می باشد."),
     countryId: yup
-        .string()
+        .number()
         .required("الزامی می باشد."),
     captcha:yup
         .string()
@@ -23,6 +23,7 @@ export const profileSetter = yup.object().shape({
 export const mobileEntry = yup.object().shape({
     mobile: yup
         .string()
+        .length(11,'شماره موبایل وارد شده اشتباه می باشد.')
         .required("الزامی می باشد."),
     captcha:yup
         .string()
@@ -44,11 +45,19 @@ export const infoEntry = yup.object().shape({
     firstName:yup
         .string()
         .required("الزامی می باشد."),
+    userName:yup
+        .string()
+        .matches(
+            /^[A-Za-z\d]+$/,
+            "لطفا از حروف فارسی و علامت ها استفاده نکنید."
+        )
+        .required("لطفا از حروف فارسی و علامت ها استفاده نکنید."),
     lastName:yup
         .string()
         .required("الزامی می باشد."),
     email:yup
         .string()
+        .email('فرمت ایمیل وارد شده صحیح نمی باشد.')
         .required("الزامی می باشد."),
     password:yup
         .string()

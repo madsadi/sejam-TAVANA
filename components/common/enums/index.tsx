@@ -141,17 +141,18 @@ export const onlineRegistrationStatus =  [
         "title": "تکمیل شماره حساب بانکی"
     },
     {
-        "id": 15,
-        "code": 15,
-        "enTitle": "IdentitficationScanUploaded",
-        "title": "بارگذاری مدارک"
-    },
-    {
         "id": 14,
         "code": 14,
         "enTitle": "FinancialInfoCompleted",
         "title": "تکمیل اطلاعات مالی"
     },
+    {
+        "id": 15,
+        "code": 15,
+        "enTitle": "IdentitficationScanUploaded",
+        "title": "بارگذاری مدارک"
+    },
+
     {
         "id": 16,
         "code": 16,

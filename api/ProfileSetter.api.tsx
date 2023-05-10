@@ -4,7 +4,7 @@ import {sejamApi} from "./constants";
 export const addCustomerProfileInfo = async (body:any) => {
     let bodyToPost:any= {};
     Object.keys(body).map((item:any)=>{
-        if (body[item] !== undefined && body[item] !== null && body[item] !== '' && item !== 'captcha'){
+        if (body[item] !== undefined && body[item] !== null && body[item] !== '' && item !== 'captcha' && item !== 'uuid'){
             bodyToPost[item] = body[`${item}`]
         }
     })

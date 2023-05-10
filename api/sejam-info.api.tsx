@@ -18,6 +18,14 @@ export const getBankAccounts = async () => {
     return log
 }
 
+export const updateAgentInfo = async (body:any) => {
+    const log = await axios.post(`${sejamApi}UpdateAgentInfo`,body)
+        .then(({data}) => {
+            return data
+        })
+    return log
+}
+
 export const registerBankAccount = async (body: { bankAccounts:bankAccount|any[] }) => {
     const log = await axios.post(`${sejamApi}RegisterBankAccount`,body)
         .then(({data}) => {
@@ -27,7 +35,7 @@ export const registerBankAccount = async (body: { bankAccounts:bankAccount|any[]
 }
 
 export const searchCountry = async (CountryName:string) => {
-    const log = await axios.get(`${sejamApi}SearchCountry?CountryName=${CountryName}`)
+    const log = await axios.get(`${sejamApi}SearchCountry${CountryName ? `?CountryName=${CountryName}`:''}`)
         .then(({data}) => {
             return data
         })

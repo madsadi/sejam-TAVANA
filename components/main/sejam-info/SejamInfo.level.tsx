@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import AccordionComponent from "../../common/component/Accordion.component";
-import {getBankAccounts, getSejamInfo} from "../../../api/sejam-info.api";
+import {getBankAccounts, getSejamInfo, registerBankAccount, updateAgentInfo} from "../../../api/sejam-info.api";
 import {
     accountNumber,
     LegalPersonShareholderType,
@@ -12,6 +12,7 @@ import {formatNumber, jalali} from "../../common/functions";
 import LabelValue from "../../common/component/LabelValue";
 import BankAccountCard from "./BankAccountCard";
 import {
+    accountTypeEnums,
     agentTypeEnums, LegalPersonShareholderViewModelEnums, LegalPersonStakeholderTypeEnums,
     legalPersonTypeCategoryEnums, legalPersonTypeSubCategory, tradingCodeTypeEnums,
     tradingKnowledgeLevelEnums, transactionLevelLegalPersonEnums,
@@ -22,13 +23,22 @@ import {PlusCircleIcon} from "@heroicons/react/24/outline";
 import Modal from "../../common/component/Modal";
 import AddAccountComponent from "./AddAccountComponent";
 import {SejamContext} from "../../../pages/main";
+import {Log} from "oidc-client-ts";
+import setLevel = Log.setLevel;
+import {toast} from "react-toastify";
 
 export default function SejamInfoLevel() {
-    const {setUserData} = useContext<any>(SejamContext)
+    const {setUserData,regInfo} = useContext<any>(SejamContext)
     const [data, setData] = useState<SejamInfoType | any>({})
     const [banks, setBanks] = useState<accountNumber | any>([])
     const [addModal, setAddModal] = useState<boolean>(false)
+    const [info, setInfo] = useState<any>({uniqueId: '', agentUniqueId: ''})
 
+    const infoUpdate = (key: string, value: any) => {
+        let _info: any = {};
+        _info[key] = value;
+        setInfo({...info, ..._info})
+    }
     const sejamInfo = async () => {
         await getSejamInfo()
             .then((res) => {
@@ -43,6 +53,26 @@ export default function SejamInfoLevel() {
             })
     }
 
+    const updateAgent = async () => {
+        await updateAgentInfo(info)
+            .then(() => setLevel(0.5))
+            .catch((err) => toast.error(`${err?.response?.data?.error?.message}`))
+    }
+
+    const setDefaultBank = async (defaultBank: accountNumber) => {
+        let restOfAccounts = banks.map((b: accountNumber) => {
+            return ({
+                "accountNumber": b.accountNumber,
+                "iban": (b.sheba).split('IR')[1],
+                "type": accountTypeEnums.find((item: any) => item.enTitle === b.type)?.id,
+                "cityId": b.branchCity.id,
+                "isDefault": b.accountNumber===defaultBank.accountNumber
+            })
+        })
+        await registerBankAccount({bankAccounts: [...restOfAccounts]})
+            .then(() => bankAccounts())
+    }
+
     useEffect(() => {
         bankAccounts()
         sejamInfo()
@@ -50,7 +80,7 @@ export default function SejamInfoLevel() {
 
     return (
         <>
-            <div className="grow bg-white p-5 rounded-md">
+            <div className="grow bg-white/50 p-5 rounded-md backdrop-blur-md">
                 {data?.legalPerson ?
                     <AccordionComponent title={'اطلاعات هویتی حقوقی'}>
                         <div className="grid md:grid-cols-4 grid-cols-2 gap-3">
@@ -74,7 +104,8 @@ export default function SejamInfoLevel() {
                         <div className="grid md:grid-cols-4 grid-cols-2 gap-3">
                             <LabelValue title={'نام'} value={data?.privatePerson?.firstName}/>
                             <LabelValue title={'نام خانوادگی'} value={data?.privatePerson?.lastName}/>
-                            <LabelValue title={'تاریخ تولد'} value={jalali(data?.privatePerson?.birthDate).date}/>
+                            <LabelValue title={'تاریخ تولد'}
+                                        value={data?.privatePerson?.birthDate ? jalali(data?.privatePerson?.birthDate).date : ''}/>
                             <LabelValue title={'نام پدر'} value={data?.privatePerson?.fatherName}/>
                             <LabelValue title={'محل تولد'} value={data?.privatePerson?.placeOfBirth}/>
                             <LabelValue title={'صادره از'} value={data?.privatePerson?.placeOfIssue}/>
@@ -91,7 +122,8 @@ export default function SejamInfoLevel() {
                                     value={data?.jobInfo?.companyCityPrefix + data?.jobInfo?.companyPhone}/>
                         <LabelValue title={'کد پستی شرکت'} value={data?.jobInfo?.companyPostalCode}/>
                         <LabelValue title={'سایت شرکت'} value={data?.jobInfo?.companyWebSite}/>
-                        <LabelValue title={'تاریخ استخدام'} value={jalali(data?.jobInfo?.employmentDate)?.date}/>
+                        <LabelValue title={'تاریخ استخدام'}
+                                    value={data?.jobInfo?.employmentDate ? jalali(data?.jobInfo?.employmentDate)?.date : ''}/>
                         <LabelValue title={'عنوان شغل'} value={data?.jobInfo?.job?.title}/>
                         <LabelValue title={'سمت کاری'} value={data?.jobInfo?.position}/>
                         <LabelValue title={'آدرس شرکت'} value={data?.jobInfo?.companyAddress}/>
@@ -115,7 +147,7 @@ export default function SejamInfoLevel() {
                             )
                         })
                     }
-                </AccordionComponent>:null}
+                </AccordionComponent> : null}
                 {data?.legalPersonStakeholders?.length ? <AccordionComponent title={'اطلاعات ذی نفعان'}>
                     {
                         data?.legalPersonStakeholders?.map((item: legalPersonStakeholdertype) => {
@@ -136,27 +168,26 @@ export default function SejamInfoLevel() {
                             )
                         })
                     }
-                </AccordionComponent>:null}
+                </AccordionComponent> : null}
                 {data?.tradingCodes?.length && <AccordionComponent title={'کد های بورسی'}>
-                    <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
-                        {
-                            data?.tradingCodes?.map((item: tradingCode) => {
-                                return (
-                                    <>
-                                        <LabelValue title={'کد'} value={item?.code}/>
-                                        <LabelValue title={'نوع کد بورسی'}
-                                                    value={tradingCodeTypeEnums.find((i: any) => i.id === item?.type)?.title}/>
-                                    </>
-                                )
-                            })
-                        }
-                    </div>
+                    {
+                        data?.tradingCodes?.map((item: tradingCode) => {
+                            return (
+                                <div className={'grid md:grid-cols-4 grid-cols-2 gap-3'} key={item.code}>
+                                    <LabelValue title={'کد'} value={item?.code}/>
+                                    <LabelValue title={'نوع کد بورسی'}
+                                                value={tradingCodeTypeEnums.find((i: any) => i.id === item?.type)?.title}/>
+                                </div>
+                            )
+                        })
+                    }
                 </AccordionComponent>}
                 {data?.agent ? <AccordionComponent title={'وکیل / نماینده'}>
                     <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
                         <LabelValue title={'مشخص کننده نوع نماینده'}
                                     value={agentTypeEnums.find((item: any) => item.id === data?.agent?.type)?.title}/>
-                        <LabelValue title={'تاریخ انقضای نمایندگی'} value={jalali(data?.agent?.expirationDate).date}/>
+                        <LabelValue title={'تاریخ انقضای نمایندگی'}
+                                    value={data?.agent?.expirationDate ? jalali(data?.agent?.expirationDate).date : ''}/>
                         <LabelValue title={'توضیحات'} value={data?.agent?.description}/>
                         <LabelValue title={'کد ملی'} value={data?.agent?.uniqueIdentifier}/>
                         <LabelValue title={'نام'} value={data?.agent?.firstName}/>
@@ -164,36 +195,65 @@ export default function SejamInfoLevel() {
                         <LabelValue title={'مشخص کننده تایید نماینده'}
                                     value={data?.agent?.isConfirmed ? 'تایید شده' : 'تایید نشده'}/>
                     </div>
-                </AccordionComponent>:null}
+                    {regInfo?.registrationState===8 ? <div className={'border border-dashed p-2 mt-5 rounded-lg'}>
+                        <p className={'text-red-400'}>کد ملی وکیل با اطلاعات دریافت شده از سجام تطابق ندارد.</p>
+                        <p className={'my-1 '}>در صورت تمایل اطلاعات زیر را اصلاح نموده و فرایند ثبت نام را تکرار
+                            نمایید.</p>
+                        <div className={'grid md:grid-cols-3 grid-cols-2 gap-3'}>
+                            <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
+                                <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
+                                    کد ملی وکیل:
+                                </label>
+                                <input className={`input`}
+                                       dir={'ltr'}
+                                       value={info.agentUniqueId}
+                                       onChange={(e) => infoUpdate('agentUniqueId', e.target.value)}
+                                />
+                            </div>
+                            <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
+                                <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
+                                    کد ملی :
+                                </label>
+                                <input className={`input`}
+                                       dir={'ltr'}
+                                       value={info.uniqueId}
+                                       onChange={(e) => infoUpdate('uniqueId', e.target.value)}
+                                />
+                            </div>
+                            <button className={'button w-fit px-5'} type={'button'} onClick={updateAgent}>ویرایش
+                            </button>
+                        </div>
+                    </div>:null}
+                </AccordionComponent> : null}
                 <AccordionComponent title={'اطلاعات ارتباطی'}>
-                    <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
-                        {
-                            data?.addresses?.map((item: any, index: number) => {
-                                return (
-                                    <>
-                                        <LabelValue key={index} title={'ایمیل'} value={item?.email}/>
-                                        <LabelValue key={index} title={'شماره همراه'} value={item?.mobile}/>
-                                        <LabelValue key={index} title={'شماره ثابت'} value={item?.tel}/>
-                                        <LabelValue key={index} title={'شماره تماس اضطراری'}
-                                                    value={item?.emergencyTelCityPrefix + '-' + item?.emergencyTel}/>
-                                        <LabelValue key={index} title={'کد پستی'} value={item?.postalCode}/>
-                                        <LabelValue key={index} title={'آدرس'}
-                                                    value={item?.country.name + ' ' + item?.city?.name + ' ' + item?.section?.name + ' ' + item?.remnantAddress + ' ' + item?.alley + ' ' + item?.plaque}/>
-                                    </>
-                                )
-                            })
-                        }
-                    </div>
+                    {
+                        data?.addresses?.map((item: any, index: number) => {
+                            return (
+                                <div className={'grid md:grid-cols-4 grid-cols-2  gap-3 w-full'}
+                                     key={item?.alley + item?.plaque}>
+                                    <LabelValue key={index} title={'ایمیل'} value={item?.email}/>
+                                    <LabelValue key={index} title={'شماره همراه'} value={item?.mobile}/>
+                                    <LabelValue key={index} title={'شماره ثابت'} value={item?.tel}/>
+                                    <LabelValue key={index} title={'شماره تماس اضطراری'}
+                                                value={((item?.emergencyTelCityPrefix ? item?.emergencyTelCityPrefix : '') + '-' + (item?.emergencyTel ? item?.emergencyTel:''))}/>
+                                    <LabelValue key={index} title={'کد پستی'} value={item?.postalCode}/>
+                                    <LabelValue key={index} title={'آدرس'}
+                                                value={item?.country.name + ' ' + item?.city?.name + ' ' + item?.section?.name + ' ' + item?.remnantAddress + ' ' + item?.alley + ' ' + item?.plaque}/>
+                                </div>
+                            )
+                        })
+                    }
                 </AccordionComponent>
                 <AccordionComponent title={'حساب های بانکی'}>
                     <Modal title={'حساب جدید'} setOpen={setAddModal} open={addModal}>
                         <AddAccountComponent fetch={bankAccounts} banks={banks} setAddModal={setAddModal}/>
                     </Modal>
-                    <div className="flex overflow-x-auto space-x-reverse space-x-4">
+                    <div className="flex overflow-x-auto space-x-reverse space-x-4 p-4">
                         {
                             banks?.map((item: any) => {
                                 return (
-                                    <BankAccountCard accountInfo={item} key={item?.accountNumber}/>
+                                    <BankAccountCard accountInfo={item} setDefaultBank={setDefaultBank}
+                                                     key={item?.accountNumber}/>
                                 )
                             })
                         }
@@ -214,7 +274,7 @@ export default function SejamInfoLevel() {
                         <LabelValue title={'مبلغ معاملات بورسهای خارج از کشور (یورو)'}
                                     value={formatNumber(data?.financialInfo?.outExchangeTransaction)}/>
                         <LabelValue title={'پیش بینی سطح ارزش ریالی معاملات'}
-                                    value={data?.legalPerson ? transactionLevelLegalPersonEnums.find((item: { id: string, title: string }) => item.id === data?.financialInfo?.transactionLevel)?.title:transactionLevelPrivatePersonEnums.find((item: { id: string, title: string }) => item.id === data?.financialInfo?.transactionLevel)?.title}/>
+                                    value={data?.legalPerson ? transactionLevelLegalPersonEnums.find((item: { id: string, title: string }) => item.id === data?.financialInfo?.transactionLevel)?.title : transactionLevelPrivatePersonEnums.find((item: { id: string, title: string }) => item.id === data?.financialInfo?.transactionLevel)?.title}/>
                         <LabelValue title={' میزان آشنایی با مفاهیم مالی'}
                                     value={tradingKnowledgeLevelEnums.find((item: { id: string, title: string }) => item.id === data?.financialInfo?.tradingKnowledgeLevel)?.title}/>
                         <LabelValue title={'هدف از سرمایه گذاری در بورس کالای ایران'}
@@ -234,7 +294,7 @@ export default function SejamInfoLevel() {
                     </div>
                 </AccordionComponent>
             </div>
-            <ConfirmComponent/>
+            <ConfirmComponent banks={banks}/>
         </>
     )
 }

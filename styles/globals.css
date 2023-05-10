@@ -12,8 +12,34 @@ body {
   overflow-x: hidden;
 }
 
+
+:root {
+  color-scheme: light !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: light;
+  }
+  :root{
+    color-scheme:light !important;
+    --b3:180 1.9608% 90% !important;
+    --b1:0 0% 100% !important;
+    --b2:0 0% 94.902% !important;
+  }
+}
+
+/* If the user prefers light mode,
+we still enforce color-scheme: dark, despite the user preference */
+@media (prefers-color-scheme: light) {
+  html {
+    color-scheme: light;
+  }
+}
+
+
 #__next {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -64,11 +90,27 @@ input[type=number] {
   display: none
 }
 
+@media (max-width: 720px){
+  html,
+  body {
+    font-size: 0.9rem;
+  }
+}
 @page {
   size: A4;
   margin: 11mm 17mm 17mm 17mm;
 }
+
+@media (max-width:520px) {
+  .mobileAgreement{
+    overflow: hidden;
+    height: 32px;
+  }
+}
 @media print {
+  .mobileAgreement{
+    height: unset !important;
+  }
   .page-header-space,.page-footer-space{
     height: 150px;
   }
@@ -92,6 +134,7 @@ input[type=number] {
   .sign-card,.sing-img {
     width: 200px;
     height: 100px;
+    background-size: contain;
   }
   .logo-card,.logo-img {
     width: 140px;
@@ -100,8 +143,8 @@ input[type=number] {
 
   body {margin: 0;}
   button {display: none;}
-  thead {display: table-header-group;}
-  tfoot {display: table-footer-group;}
+  /*thead {display: table-header-group;}*/
+  /*tfoot {display: table-footer-group;}*/
 
   .page-footer{
     direction: rtl;
@@ -141,8 +184,8 @@ input[type=number] {
 
   td{
     overflow-wrap: anywhere;
-    word-wrap: break-word
-
+    word-wrap: break-word;
+    vertical-align:baseline !important;
   }
 
   h2 {
@@ -189,6 +232,7 @@ input[type=number] {
     line-height: 1.5rem;
     overflow-wrap: break-word;
   }
+
 }
 
 @layer utilities {
@@ -198,8 +242,29 @@ input[type=number] {
 }
 
 @layer components {
+  .steps .step{
+    min-width: 2rem;
+  }
+
+  .steps .step-active::after{
+    background-color: rgb(175, 137, 60) !important;
+    border: 1px solid rgb(175, 137, 60);
+  }
+  .steps .step-active:before{
+    background-color: rgb(175, 137, 60) !important;
+    border: 1px solid rgb(175, 137, 60);
+  }
+  .steps .step-success:after{
+    background-color: hsl(var(--su) / var(--tw-bg-opacity)) !important;
+  }
   .input {
-    @apply border border-border px-2 p-1 w-full rounded focus:outline-0
+    @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white h-[40px]
+  }
+  .steps .step:before {
+    @apply bg-gray-300 shadow-md
+  }
+  .steps .step:after {
+    @apply bg-gray-300 shadow-md
   }
   .hover-button {
     @apply border-b hover:border-tavanaGreen border-transparent transition-all w-fit p-1

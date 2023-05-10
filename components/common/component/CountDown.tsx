@@ -3,7 +3,7 @@ import {IdpContext} from "../../../pages";
 
 export default function CountDown({step}:{step:string}){
     const {setLevel} = useContext<any>(IdpContext)
-    const [minutes, setMinutes] = useState(2);
+    const [minutes, setMinutes] = useState(10);
     const [seconds, setSeconds] = useState(0);
     const [disable, setDisabled] = useState(true);
 
@@ -30,8 +30,8 @@ export default function CountDown({step}:{step:string}){
     return(
         <div className={'flex mt-4 text-sm'}>
             <div className={'w-[35px]'}> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</div>
-            <div className={'mr-2'}> معتبر یودن کد یکبار مصرف</div>
-            <button className={'py-0 px-2 mr-auto bg-active text-white p-1 rounded disabled:text-gray-400 disabled:bg-gray-300'} type={"button"} disabled={disable}
+            <div className={'mr-2'}> معتبر بودن کد یکبار مصرف</div>
+            <button className={'py-0 px-2 mr-auto bg-tavanBrown text-white p-1 rounded disabled:text-gray-400 disabled:bg-gray-300'} type={"button"} disabled={disable}
                     onClick={()=>setLevel(step)}>ارسال مجدد کد</button>
         </div>
     )

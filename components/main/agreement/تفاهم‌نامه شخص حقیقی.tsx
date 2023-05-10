@@ -1,54 +1,14 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
+import React, {useCallback, useContext, useRef, useState} from "react";
 import {SejamContext} from "../../../pages/main";
 import {PrinterIcon} from "@heroicons/react/24/outline";
 import ReactToPrint from "react-to-print";
 import PageHeaderFooter from "./PageHeaderFooter";
-import {formatNumber, jalali} from "../../common/functions";
-import {accountTypeEnums, tradingKnowledgeLevelEnums, transactionLevelPrivatePersonEnums} from "../../common/enums";
 
 export default function PrivatePersonAgreement(){
     const {userData} = useContext<any>(SejamContext)
     const [loading, setLoading] = useState(false);
-    const [text, setText] = useState("old boring text");
 
     const componentRef = useRef(null);
-
-    const onBeforeGetContentResolve = useRef(null);
-
-    const handleAfterPrint = useCallback(() => {
-        console.log("`onAfterPrint` called");
-    }, []);
-
-    const handleBeforePrint = useCallback(() => {
-        console.log("`onBeforePrint` called");
-    }, []);
-
-    const handleOnBeforeGetContent = useCallback(() => {
-        console.log("`onBeforeGetContent` called");
-        setLoading(true);
-        setText("Loading new text...");
-
-        return new Promise<void>((resolve) => {
-            // @ts-ignore
-            onBeforeGetContentResolve.current = resolve;
-
-            setTimeout(() => {
-                setLoading(false);
-                setText("New, Updated Text!");
-                resolve();
-            }, 2000);
-        });
-    }, [setLoading, setText]);
-
-    useEffect(() => {
-        if (
-            text === "New, Updated Text!" &&
-            typeof onBeforeGetContentResolve.current === "function"
-        ) {
-            // @ts-ignore
-            onBeforeGetContentResolve.current();
-        }
-    }, [onBeforeGetContentResolve.current, text]);
 
     const reactToPrintContent = useCallback(() => {
         return componentRef.current;
@@ -72,13 +32,10 @@ export default function PrivatePersonAgreement(){
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="تفاهم‌نامه شخص حقیقی"
-                onAfterPrint={handleAfterPrint}
-                onBeforeGetContent={handleOnBeforeGetContent}
-                onBeforePrint={handleBeforePrint}
                 removeAfterPrint
                 trigger={reactToPrintTrigger}
             />
-            <div ref={componentRef}>
+            <div ref={componentRef} className={'mobileAgreement'} >
                 <table className={'w-full'} dir={'rtl'}>
                     <thead>
                     <tr>
@@ -111,7 +68,9 @@ export default function PrivatePersonAgreement(){
                                         نشانی سایت اینترنتی <a href="https://www.tavana.net">www.tavana.net</a> که
                                         داراي پایگاه
                                         اطلاعاتی سامان بورس از یکسو و آقا/خانم
+                                        &lrm;
                                         <span>{userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}</span>
+                                        &lrm;
                                         به کد
                                         ملی با مشخصات
                                         <span>{userData?.uniqueIdentifier}</span>
