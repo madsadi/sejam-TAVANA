@@ -14,10 +14,13 @@ variables:
 stages:
   - Code Quality
   - Build
+  - Build SMS Notifications
   - Deploy Dev
+  - Deploy Dev Notifications
   - Deploy Staging
+  - Deploy Stg Notifications
   - Deploy Production
-  - Notifications
+  - Deploy Pro Notifications
 
 sonarqube-analysis:
   stage: Code Quality
@@ -72,7 +75,7 @@ build:
     after_script:
         -  echo "Build succeeded"
 build-SMS:
-  stage: Notifications
+  stage: Build SMS Notifications
   image: $REGISTRY_HOST/repository/tech1a-docker-registry/curlimages/curl
   script:
     - curl -X POST "https://my.candoosms.com/services/URLService/URN/?username=$SMS_PROVIDER_USER&password=$SMS_PROVIDER_PASSWORD&command=send&src=$SMS_SEND_SRC&destinations=$SMSGroup&body=$SMS_MESSAGE_BUILD&flash=0"
@@ -97,7 +100,7 @@ deploy-dev:
     - ssh-add ~/.ssh/id_rsa
     - ssh-keyscan -H $DOCKER_SWARM_IP >> ~/.ssh/known_hosts
   script:
-    #- docker service rm $IMAGE_NAME"_"$IMAGE_NAME
+    - docker service rm $IMAGE_NAME"_"$IMAGE_NAME
     - docker stack deploy -c docker-compose.yml $IMAGE_NAME
   needs:
     - job: build
@@ -106,7 +109,7 @@ deploy-dev:
     - dev
 
 deploy-dev-SMS:
-  stage: Notifications
+  stage: Deploy Dev Notifications
   image: $REGISTRY_HOST/repository/tech1a-docker-registry/curlimages/curl
   script:
     - curl -X POST "https://my.candoosms.com/services/URLService/URN/?username=$SMS_PROVIDER_USER&password=$SMS_PROVIDER_PASSWORD&command=send&src=$SMS_SEND_SRC&destinations=$SMSGroup&body=$SMS_MESSAGE_Deploy_Dev&flash=0"
@@ -139,7 +142,7 @@ deploy-staging:
 
 
 deploy-stg-SMS:
-  stage: Notifications
+  stage: Deploy Stg Notifications
   image: $REGISTRY_HOST/repository/tech1a-docker-registry/curlimages/curl
   script:
     - curl -X POST "https://my.candoosms.com/services/URLService/URN/?username=$SMS_PROVIDER_USER&password=$SMS_PROVIDER_PASSWORD&command=send&src=$SMS_SEND_SRC&destinations=$SMSGroup&body=$SMS_MESSAGE_Deploy_Stg&flash=0"
@@ -173,7 +176,7 @@ deploy-pro:
   when: manual
 
 deploy-pro-SMS:
-  stage: Notifications
+  stage: Deploy Pro Notifications
   image: $REGISTRY_HOST/repository/tech1a-docker-registry/curlimages/curl
   script:
     - curl -X POST "https://my.candoosms.com/services/URLService/URN/?username=$SMS_PROVIDER_USER&password=$SMS_PROVIDER_PASSWORD&command=send&src=$SMS_SEND_SRC&destinations=$SMSGroup&body=$SMS_MESSAGE_Deploy_Pro&flash=0"
@@ -182,5 +185,3 @@ deploy-pro-SMS:
   only:
     - main
     - tags
-
-
