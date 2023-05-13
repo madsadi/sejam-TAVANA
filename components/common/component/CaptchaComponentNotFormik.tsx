@@ -1,14 +1,16 @@
 import {v4 as uuidv4} from "uuid";
 import {ArrowPathIcon} from "@heroicons/react/20/solid";
 import React, {useEffect, useState} from "react";
-import {createCaptchaApi} from "../../../api/captcha";
+import useQuery from "../../../hooks/useQuery";
+import {CAPTCHA_URL} from "../../../api/constants";
 
 const CaptchaComponentNotFormik: React.FC<any> = ({retry,uuid,setUuid,info,infoUpdate}) =>  {
+    const {fetchAsyncData} = useQuery({url:`${CAPTCHA_URL}/api/create`})
     const [generatedCaptcha, setGeneratedCaptcha] = useState<any>(null);
 
     const captcha = async (uuid: string) => {
-        await createCaptchaApi(uuid)
-            .then((response) => setGeneratedCaptcha(URL.createObjectURL(response)))
+        await fetchAsyncData({id:uuid},'','blob')
+            .then((response) => setGeneratedCaptcha(URL.createObjectURL(response.data)))
     }
 
     useEffect(() => {

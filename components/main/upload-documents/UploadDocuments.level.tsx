@@ -1,11 +1,13 @@
 import UploadComponent from './UploadCompnent';
 import {useContext, useEffect, useState} from "react";
-import {getContent} from "../../../api/Upload-documents.api";
 import BeforeAfterComponent from "../../common/component/Before&After.component";
 import {SejamContext} from "../../../pages/main";
 import AccordionComponent from "../../common/component/Accordion.component";
+import useQuery from "../../../hooks/useQuery";
+import {FILE_SERVER_URL} from "../../../api/constants";
 
 export default function UploadDocumentsLevel() {
+    const {fetchAsyncData:getContent} = useQuery({url:`${FILE_SERVER_URL}/api/file-manager/get-content`})
     const {regInfo} = useContext<any>(SejamContext)
 
     let initialDocuments: any = [
@@ -239,9 +241,10 @@ export default function UploadDocumentsLevel() {
             image: null
         }
     ]
+
     useEffect(() => {
         const getDocument = async () => {
-            await getContent()
+            await getContent({fileOwnerSoftware:1})
                 .then((res) => {
                     let _D: any
                     if (regInfo.hasAgent) {
@@ -251,7 +254,7 @@ export default function UploadDocumentsLevel() {
                     } else {
                         _D = initialDocuments;
                     }
-                    res?.result?.map((item: any) => {
+                    res?.data.result?.map((item: any) => {
                         let _documentIndex = _D.findIndex((i: any) => i.fileType === item.fileType)
                         if (_documentIndex >= 0 && item?.content) {
                             _D.splice(_documentIndex, 1, {

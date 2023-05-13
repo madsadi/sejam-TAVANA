@@ -1,20 +1,22 @@
 import React, {useState} from "react";
 import {EyeIcon, EyeSlashIcon} from "@heroicons/react/20/solid";
 import {Field, useField} from "formik";
-import {searchCountry} from "../../../api/sejam-info.api";
 import {countryType} from "../../main/sejam-info/types";
 import {personType} from "../enums";
 import {ChevronDownIcon} from "@heroicons/react/24/outline";
+import useQuery from "../../../hooks/useQuery";
+import {SEJAM_URL} from "../../../api/constants";
 
 const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) => {
+    const {fetchAsyncData:searchCountry} = useQuery({url:`${SEJAM_URL}/api/request/SearchCountry`})
     const [field, meta] = useField(props)
     const [showPass, setShowPass] = useState<boolean>(false)
     const [country, setCountry] = useState<countryType>({countryName: 'کشور', countryId: 0})
     const [countries, setCountries] = useState<countryType[]>([])
 
     const searchCountryHandler = async (e: any) => {
-        await searchCountry(e.target.value)
-            .then((res) => setCountries(res?.result?.response))
+        await searchCountry({CountryName:e.target.value})
+            .then((res) => setCountries(res?.data.result?.response))
     }
 
     if (type === 'password') {

@@ -2,9 +2,10 @@ import React, {useContext} from "react";
 import InputComponent from "../common/component/InputComponent";
 import {toast} from "react-toastify";
 import {Form, Formik} from "formik";
-import {register} from "../../api/login-signup.api";
 import {IdpContext} from "../../pages";
 import {infoEntry} from "../common/shcema/schema";
+import useMutation from "../../hooks/useMutation";
+import {IDP_URL} from "../../api/constants";
 
 const initialValue = {
     token: '',
@@ -18,6 +19,7 @@ const initialValue = {
     isActive: true
 }
 export default function InfoEntry() {
+    const {mutate} = useMutation({url:`${IDP_URL}/api/account/register`})
     const {setLevel, mobile, token} = useContext<any>(IdpContext)
 
     const forum = [
@@ -55,7 +57,7 @@ export default function InfoEntry() {
 
     const registerHandler = async (v: any) => {
         if (v?.["passwordConfirm"] === v.password) {
-            await register({...v, phoneNumber: mobile, token: token})
+            await mutate({...v, phoneNumber: mobile, token: token})
                 .then(() => {
                     toast.success('ثبت نام شما با موفقیت انجام شد.')
                     setLevel('login')

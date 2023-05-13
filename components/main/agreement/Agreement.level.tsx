@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
 import AccordionComponent from "../../common/component/Accordion.component";
-import {approveAgreements, getAllAgreements, getAllPossibleAgreements} from "../../../api/agreement.api";
 import {agreement} from "./types";
 import OnlineRegistrationAgreement from "./تعهد نامه ثبت نام غیر حضوری";
 import TotalBrokerageAgreement from "./قرارداد جامع مشتري و کارگزار (در خصوص اوراق بهادار)";
@@ -9,13 +8,19 @@ import PhoneTradingAgreement from "./قرارداد معاملات تلفنی";
 import OfflineTradingAgreement from "./قرارداد معاملات اینترنتی";
 import OnlineTradingAgreement from "./قرارداد استفاده از خدمات معاملات برخط اوراق بهادار";
 import {SejamContext} from "../../../pages/main";
-import {getBankAccounts, getSejamInfo} from "../../../api/sejam-info.api";
 import {ExclamationCircleIcon} from "@heroicons/react/24/outline";
 import {toast} from "react-toastify";
 import OptionalAgreement from "./قراردادمعاملات اختیاری";
-import {useMediaQuery} from "react-responsive";
+import useQuery from "../../../hooks/useQuery";
+import {SEJAM_URL} from "../../../api/constants";
+import useMutation from "../../../hooks/useMutation";
 
 export default function AgreementLevel() {
+    const {fetchAsyncData:getAllPossibleAgreements} = useQuery({url:`${SEJAM_URL}/api/request/GetAllPossibleAgreements`})
+    const {fetchAsyncData:getSejamInfo} = useQuery({url:`${SEJAM_URL}/api/request/GetSejamInfo`})
+    const {fetchAsyncData:getBankAccounts} = useQuery({url:`${SEJAM_URL}/api/request/GetAllBankAccounts`})
+    const {mutate:approveAgreements} = useMutation({url:`${SEJAM_URL}/api/request/ApproveUserAgreements`})
+
     const {setLevel,level} = useContext<any>(SejamContext)
     const initialApprovedStates = [
         {
@@ -70,7 +75,7 @@ export default function AgreementLevel() {
         const getAgreements = async () => {
             await getAllPossibleAgreements()
                 .then((res) => {
-                    let agreements = res?.result?.agreements
+                    let agreements = res?.data.result?.agreements
                     let _approves:any = [...approvedAgreements];
                     setAgreements(agreements)
                     agreements?.map((a:any)=>{
@@ -79,19 +84,17 @@ export default function AgreementLevel() {
                     })
                     setApprove(_approves)
                 })
-            // await getAllAgreements()
-            //     .then((res)=>(res?.result?.agreements)?.map((item:any)=>approveHandler(item.id,item.status)))
         }
         const sejamInfo = async () => {
             await getSejamInfo()
                 .then((res) => {
-                    setUserData(JSON.parse(res?.result?.sejamProfile))
+                    setUserData(JSON.parse(res?.data.result?.sejamProfile))
                 })
         }
         const bankAccounts = async () => {
             await getBankAccounts()
                 .then((res) => {
-                    setUserDefaultBank(res?.result?.bankAccounts.find((item:any)=>item.isDefault))
+                    setUserDefaultBank(res?.data.result?.bankAccounts.find((item:any)=>item.isDefault))
                 })
         }
         getAgreements()
@@ -114,7 +117,7 @@ export default function AgreementLevel() {
     }
 
     const proceed =async ()=>{
-        await approveAgreements(approvedAgreements)
+        await approveAgreements({agreements:approvedAgreements})
             .then(()=>setLevel(level+1))
             .catch((err)=>toast.error(`${err?.response?.data?.error?.message}`))
     }

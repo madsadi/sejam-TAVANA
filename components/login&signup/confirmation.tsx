@@ -2,9 +2,10 @@ import React, {useContext, useState} from "react";
 import CountDown from "../common/component/CountDown";
 import OtpInput from 'react-otp-input';
 import {toast} from "react-toastify";
-import {verifyToken} from "../../api/login-signup.api";
 import {IdpContext} from "../../pages";
 import {useRouter} from "next/router";
+import useQuery from "../../hooks/useQuery";
+import {SEJAM_URL} from "../../api/constants";
 
 type initialType = {
     Token: string,
@@ -14,6 +15,7 @@ const initialValue = {
 }
 
 export default function CodeVerify() {
+    const {fetchAsyncData} = useQuery({url:`${SEJAM_URL}/api/request/ValidateTokenAndMarketer`})
     const [info, setInfo] = useState<initialType>(initialValue)
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
     const router = useRouter()
@@ -22,7 +24,7 @@ export default function CodeVerify() {
     const codeVerifyHandler = async (e: any) => {
         e.preventDefault()
         setIsSubmitting(true)
-        await verifyToken({...info, PhoneNumber: mobile,RefCode:router.query?.RefCode})
+        await fetchAsyncData({...info, PhoneNumber: mobile,RefCode:router.query?.RefCode})
             .then(() => {
                 setIsSubmitting(false)
                 setToken(info.Token)
@@ -75,7 +77,7 @@ export default function CodeVerify() {
                             تایید
                             {isSubmitting && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                        stroke-width="4"></circle>
+                                        strokeWidth="4"></circle>
                                 <path className="opacity-75" fill="currentColor"
                                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>}

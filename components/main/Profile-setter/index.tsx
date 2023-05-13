@@ -1,15 +1,15 @@
 import React, {Fragment, useContext, useEffect, useState} from "react";
-import {addCustomerProfileInfo} from "../../../api/ProfileSetter.api";
 import {SejamContext} from "../../../pages/main";
 import {toast} from "react-toastify";
 import {personType} from "../../common/enums";
 import {countryType} from "../sejam-info/types";
-import {searchCountry} from "../../../api/sejam-info.api";
 import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/24/outline";
-import {getCurrentUserInfo} from "../../../api/login-signup.api";
 import CaptchaComponentNotFormik from "../../common/component/CaptchaComponentNotFormik";
 import {Listbox, Transition} from '@headlessui/react'
 import {CheckIcon} from '@heroicons/react/20/solid'
+import useQuery from "../../../hooks/useQuery";
+import {SEJAM_URL} from "../../../api/constants";
+import useMutation from "../../../hooks/useMutation";
 
 function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ')
@@ -31,6 +31,8 @@ const initialValue = {
 }
 
 export default function ProfileSetter({regInfo}: { regInfo: any }) {
+    const {fetchAsyncData:searchCountry} = useQuery({url:`${SEJAM_URL}/api/request/SearchCountry`})
+    const {mutate:addCustomer} = useMutation({url:`${SEJAM_URL}/api/request/AddCustomerProfileInfo`})
     const {setLevel} = useContext<any>(SejamContext)
     const [info, setInfo] = useState<initialType | any>(initialValue)
     const [country, setCountry] = useState<countryType>({countryName: '', countryId: null})
@@ -42,9 +44,10 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
 
     const searchCountryHandler = async (e: any) => {
         setCountry({countryName: e.target.value, countryId: -1})
-        await searchCountry(e.target.value)
-            .then((res) => setCountries(res?.result?.response))
+        await searchCountry({CountryName:e.target.value})
+            .then((res) => setCountries(res?.data.result?.response))
     }
+
     const infoUpdate = (key: string, value: any) => {
         let _info: any = {};
         _info[key] = value;
@@ -66,24 +69,6 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
     }
 
     useEffect(() => {
-        // const userInfo = async () => {
-        //     const countries = await searchCountry('')
-        //     await getCurrentUserInfo()
-        //         .then((res) => {
-        //             let _info = {uniqueId: ''}
-        //             Object.keys(res?.result).map((item: any) => {
-        //                 if (item === 'nationalId') {
-        //                     _info['uniqueId'] = res?.result.nationalId
-        //                 }
-        //             })
-        //             setInfo({...info, ..._info, countryId: regInfo?.countryId, personType: regInfo?.personType})
-        //             setCountry({
-        //                 countryName: countries.result?.response?.find((item: any) => item.countryId === regInfo?.countryId)?.countryName,
-        //                 countryId: regInfo?.countryId
-        //             })
-        //         })
-        // }
-        // if (returnCondition(regInfo) || regInfo.registrationState > 5) {
         if (returnInitialCondition(regInfo)) {
             setLevel(0.5)
         }
@@ -93,12 +78,13 @@ export default function ProfileSetter({regInfo}: { regInfo: any }) {
         e.preventDefault()
         setIsSubmitting(true)
         if (returnCondition(info)) {
-            await addCustomerProfileInfo({
+            await addCustomer({
                 ...info,
                 personType: Number(info.personType),
                 countryId: Number(info.countryId),
                 captchaCode: uuid + '_' + info.captcha,
-                refCode:localStorage.getItem('RefCode')==='null' ? null:localStorage.getItem('RefCode')
+                refCode:localStorage.getItem('RefCode')==='null' ? null:localStorage.getItem('RefCode'),
+                captcha:''
             })
                 .then(() => {
                     setLevel(0.5)

@@ -1,15 +1,17 @@
 import {toast} from "react-toastify";
 import {useContext} from "react";
 import {SejamContext} from "../../../pages/main";
-import {updateRegState} from "../../../api/resgistration.api";
+import useMutation from "../../../hooks/useMutation";
+import {SEJAM_URL} from "../../../api/constants";
 
 export default function BeforeAfterComponent({condition,warning}:{condition:boolean,warning:string}){
+    const {mutate:updateRegistrationState} = useMutation({url:`${SEJAM_URL}/api/request/UpdateRegistrationState`})
     const {setLevel,level} = useContext<any>(SejamContext)
 
     const proceed = ()=>{
         if (condition){
             const updateReg = async ()=>{
-                await updateRegState(level===3 ? 16:17)
+                await updateRegistrationState({registrationState:level === 3 ? 16 : 17})
                     .then(()=>setLevel(level+1))
                     .catch((err)=> toast.error(`${err?.response?.data?.error?.message}`))
             }

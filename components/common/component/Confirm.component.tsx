@@ -1,20 +1,19 @@
 import React, {useContext, useState} from "react";
 import {SejamContext} from "../../../pages/main";
 import {toast} from "react-toastify";
-import {updateRegState} from "../../../api/resgistration.api";
-import {accountNumber} from "../../main/sejam-info/types";
-import {accountTypeEnums} from "../enums";
-import {registerBankAccount} from "../../../api/sejam-info.api";
+import useMutation from "../../../hooks/useMutation";
+import {SEJAM_URL} from "../../../api/constants";
 
 export default function ConfirmComponent({banks}:{banks:any}){
+    const {mutate:updateRegistrationState} = useMutation({url:`${SEJAM_URL}/api/request/UpdateRegistrationState`})
     const {setLevel,level} = useContext<any>(SejamContext)
     const [isChecked,setIsChecked]=useState(false)
 
     const proceed = ()=>{
         if (isChecked){
             const updateReg = async ()=>{
-                await updateRegState(14)
-                    .then((res)=>setLevel(level+1))
+                await updateRegistrationState({registrationState:14})
+                    .then(()=>setLevel(level+1))
                     .catch((err)=> toast.error(`${err?.response?.data?.error?.message}`))
             }
             updateReg()
