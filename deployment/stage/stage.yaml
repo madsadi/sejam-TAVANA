@@ -1,5 +1,4 @@
 
-
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -8,10 +7,10 @@ metadata:
     name: sejam-react
     instance: sejam-react
 data:
-  idpApi: "https://cluster.tech1a.co/api/"
-  sejamApi: "http://cluster.tech1a.co:9072/api/request/"
-  fileServerApi: "http://cluster.tech1a.co:9073/api/file-manager/"
-  captchaApi: "https://cluster.tech1a.co:8543/api/"
+  IDP_URL: "https://idp.tavanabroker.ir"
+  SEJAM_URL: "https://sejam-gateway.tavanabroker.ir"
+  FILE_SERVER_URL: "https://file-manager.tavanabroker.ir"
+  CAPTCHA_URL: "https://captcha.tavanabroker.ir"
 ---
 apiVersion: apps/v1
 kind: Deployment
