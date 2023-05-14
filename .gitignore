@@ -37,3 +37,8 @@ next-env.d.ts
 
 yarn.lock
 .idea
+
+#deployment
+/deployment/
+.gitlab-ci.yml
+docker-compose.yml

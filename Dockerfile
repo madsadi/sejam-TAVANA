@@ -1,8 +1,21 @@
 # Dockerfile
 
 # base image
-FROM registry.tech1a.co:81/repository/tech1a-docker-registry/node:alpine
+FROM registry.tech1a.co:81/repository/tech1a-docker-registry/node:14.18
 #FROM node:alpine
+
+ENV TZ=Asia/Tehran
+
+
+#RUN apt-get update
+#RUN apt-get install tzdata -y
+
+
+#Set BaseUrl
+ENV SEJAM_URL=""
+ENV IDP_URL=""
+ENV FILE_SERVER_URL=""
+ENV CAPTCHA_URL=""
 
 # create & set working directory
 RUN mkdir -p /usr/src
@@ -10,6 +23,10 @@ WORKDIR /usr/src
 
 # copy source files
 COPY . /usr/src
+
+# set permission
+RUN chmod +x /usr/src/entrypoint.sh
+CMD /usr/src/entrypoint.sh
 
 # install dependencies
 RUN yarn install
@@ -22,5 +39,5 @@ EXPOSE 3000
 RUN yarn cache clean
 
 
-
-CMD yarn run start
+#Start App
+ENTRYPOINT /bin/bash -x ./entrypoint.sh SEJAM_URL=${SEJAM_URL} IDP_URL=${IDP_URL} FILE_SERVER_URL=${FILE_SERVER_URL} CAPTCHA_URL=${CAPTCHA_URL} && mv ./env-config.js ./public/static/assets/js && yarn start
