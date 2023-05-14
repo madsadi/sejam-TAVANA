@@ -6,8 +6,8 @@ metadata:
     name: sejam-react
     instance: sejam-react
 data:
-  IDP_URL: "https://idp.tavanabroker.ir"
   SEJAM_URL: "https://sejam-gateway.tavanabroker.ir"
+  IDP_URL: "https://idp.tavanabroker.ir"
   FILE_SERVER_URL: "https://file-manager.tavanabroker.ir"
   CAPTCHA_URL: "https://captcha.tavanabroker.ir"
 ---
