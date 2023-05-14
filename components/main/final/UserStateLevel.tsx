@@ -2,10 +2,11 @@ import React,{useEffect, useState} from "react";
 import Lottie from 'react-lottie';
 import animationData from '../../../public/icons/customer-service.json';
 import {onlineRegistrationStatus} from "../../common/enums";
-import {getRegistrationState} from "../../../api/resgistration.api";
-import Image from 'next/image'
+import useQuery from "../../../hooks/useQuery";
+import {SEJAM_URL} from "../../../api/constants";
 
 export default function UserStateLevel() {
+    const {fetchAsyncData} = useQuery({url:`${SEJAM_URL}/api/request/GetRegistrationState`})
     const [state, setState] = useState<string | undefined>('')
     const defaultOptions = {
         loop: true,
@@ -16,9 +17,9 @@ export default function UserStateLevel() {
 
     useEffect(() => {
         const registrationState = async () => {
-            await getRegistrationState()
+            await fetchAsyncData()
                 .then((res) => {
-                    setState(onlineRegistrationStatus.find((item: any) => item.id === res?.result?.registrationState)?.title)
+                    setState(onlineRegistrationStatus.find((item: any) => item.id === res?.data.result?.registrationState)?.title)
                 })
         }
 

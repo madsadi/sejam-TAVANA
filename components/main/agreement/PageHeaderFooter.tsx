@@ -1,10 +1,12 @@
 import moment from "jalali-moment";
 import Image from 'next/image'
 import {memo, useCallback, useEffect, useState} from "react";
-import {getContent} from "../../../api/Upload-documents.api";
 import Resizer from "react-image-file-resizer";
+import useQuery from "../../../hooks/useQuery";
+import {FILE_SERVER_URL} from "../../../api/constants";
 
 const PageHeaderFooter=()=>{
+    const {fetchAsyncData:getContent} = useQuery({url:`${FILE_SERVER_URL}/api/file-manager/get-content`})
 
     let initialDocuments: any = [
         {
@@ -37,11 +39,11 @@ const PageHeaderFooter=()=>{
         setDocuments([{...__D,image:image}])
     }
     const getDocument = useCallback(async ()=>{
-        await getContent(1)
+        await getContent({fileOwnerSoftware:1,type:1})
             .then((res)=> {
                 let _D = initialDocuments;
-                if (res?.result.length){
-                    res?.result?.map((item:any)=>{
+                if (res?.data.result.length){
+                    res?.data.result?.map((item:any)=>{
                         let _documentIndex = _D.findIndex((i:any)=>i.fileType===item.fileType)
                         if (_documentIndex>=0 && item?.content){
                             fetch(`data:image/${(item.extension).split('.')[1]};base64,`+item.content)

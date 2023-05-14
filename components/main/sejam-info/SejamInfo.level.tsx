@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
 import AccordionComponent from "../../common/component/Accordion.component";
-import {getBankAccounts, getSejamInfo, registerBankAccount, updateAgentInfo} from "../../../api/sejam-info.api";
 import {
     accountNumber,
     LegalPersonShareholderType,
@@ -26,8 +25,15 @@ import {SejamContext} from "../../../pages/main";
 import {Log} from "oidc-client-ts";
 import setLevel = Log.setLevel;
 import {toast} from "react-toastify";
+import {SEJAM_URL} from "../../../api/constants";
+import useQuery from "../../../hooks/useQuery";
+import useMutation from "../../../hooks/useMutation";
 
 export default function SejamInfoLevel() {
+    const {fetchAsyncData:getSejamInfo} = useQuery({url:`${SEJAM_URL}/api/request/GetSejamInfo`})
+    const {mutate:registerBankAccount} = useMutation({url:`${SEJAM_URL}/api/request/RegisterBankAccount`})
+    const {mutate:updateAgentInfo} = useMutation({url:`${SEJAM_URL}/api/request/UpdateAgentInfo`})
+    const {fetchAsyncData:getBankAccounts} = useQuery({url:`${SEJAM_URL}/api/request/GetAllBankAccounts`})
     const {setUserData,regInfo} = useContext<any>(SejamContext)
     const [data, setData] = useState<SejamInfoType | any>({})
     const [banks, setBanks] = useState<accountNumber | any>([])
@@ -42,14 +48,14 @@ export default function SejamInfoLevel() {
     const sejamInfo = async () => {
         await getSejamInfo()
             .then((res) => {
-                setData(JSON.parse(res?.result?.sejamProfile))
-                setUserData(JSON.parse(res?.result?.sejamProfile))
+                setData(JSON.parse(res?.data.result?.sejamProfile))
+                setUserData(JSON.parse(res?.data.result?.sejamProfile))
             })
     }
     const bankAccounts = async () => {
         await getBankAccounts()
             .then((res) => {
-                setBanks(res?.result?.bankAccounts)
+                setBanks(res?.data.result?.bankAccounts)
             })
     }
 

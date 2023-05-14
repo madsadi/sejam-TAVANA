@@ -4,10 +4,13 @@ import {
     CloudArrowUpIcon
 } from '@heroicons/react/24/solid'
 import Image from 'next/image';
-import {downloadContent, uploadPhoto} from "../../../api/Upload-documents.api";
 import {toast} from "react-toastify";
+import useMutation from "../../../hooks/useMutation";
+import {FILE_SERVER_URL} from "../../../api/constants";
 
 export default function UploadComponent({ item, documents,setDocs }: { item: any, documents: any ,setDocs:Dispatch<any>}) {
+    const {mutate:uploadPhoto} = useMutation({url:`${FILE_SERVER_URL}/api/file-manager/upload`})
+
     const [images, setImages] = useState<ImageType[]>([]);
     let _documents = [...documents];
     const target = _documents.findIndex((i:any)=>i.fileType===item.fileType)
@@ -19,7 +22,9 @@ export default function UploadComponent({ item, documents,setDocs }: { item: any
             formData.append('file',imageList[0].file)
             formData.append('fileOwnerSoftware',1)
             formData.append('fileType',item.fileType)
-            await uploadPhoto(formData)
+            await uploadPhoto({formData},{},{
+                'Content-Type': 'multipart/form-data'
+            })
                 .then(()=>{
                     setImages(imageList);
                     let index = _documents.findIndex((i:any)=>i.fileType===item.fileType)

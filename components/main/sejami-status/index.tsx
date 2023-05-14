@@ -1,11 +1,17 @@
 import React, {useContext, useEffect, useState} from "react";
-import {getSejamKYCToken, isSejami, sejamStatus} from "../../../api/ProfileSetter.api";
 import {toast} from "react-toastify";
 import {sejamStatusEnums} from "../../common/enums";
 import {SejamContext} from "../../../pages/main";
 import Image from "next/image";
+import useQuery from "../../../hooks/useQuery";
+import {SEJAM_URL} from "../../../api/constants";
+import useMutation from "../../../hooks/useMutation";
 
 export const SejamiStatus=()=>{
+    const {fetchAsyncData:isSejami} = useQuery({url:`${SEJAM_URL}/api/request/IsSejami`})
+    const {fetchAsyncData:sejamStatus} = useQuery({url:`${SEJAM_URL}/api/request/SejamStatus`})
+    const {mutate:getSejamKYCToken} = useMutation({url:`${SEJAM_URL}/api/request/getSejamKYCToken`})
+
     const {setLevel} = useContext<any>(SejamContext)
     const [error, setError] = useState<{ message: string, link: string }>({message: '', link: ''})
 
@@ -24,11 +30,11 @@ export const SejamiStatus=()=>{
             const status = async () => {
                 await sejamStatus()
                     .then((res) => {
-                        toast.success(`${sejamStatusEnums.find((item: any) => item.id === res?.result?.sejamStatus)?.title}`)
-                        if (res?.result?.sejamStatus === 7) {
+                        toast.success(`${sejamStatusEnums.find((item: any) => item.id === res?.data.result?.sejamStatus)?.title}`)
+                        if (res?.data.result?.sejamStatus === 7) {
                             KYC();
                         } else {
-                            if (res?.result?.sejamStatus === 9) {
+                            if (res?.data.result?.sejamStatus === 9) {
                                 toast.success('قابلیت ثبت نام برای این اطلاعات امکان ندارد')
                             } else {
                                 setError({
@@ -44,7 +50,7 @@ export const SejamiStatus=()=>{
             }
             await isSejami()
                 .then((res) => {
-                    if (res?.result?.isSejami){
+                    if (res?.data.result?.isSejami){
                         toast.success('شما سجامی هستید')
                         status();
                     }else{

@@ -8,10 +8,11 @@ import {AuthProvider} from "react-oidc-context";
 import {WebStorageStateStore} from "oidc-client-ts";
 import Router from "next/router";
 import '../api/axios_interceptor';
+import { IDP_URL } from '../api/constants';
 
 export default function App({Component, pageProps}: AppProps) {
     const toast: any = useRef()
-    const authorityPath = 'https://cluster.tech1a.co';
+    const authorityPath = IDP_URL;
     // const authorityPath = 'http://localhost:3000';
     const clientId = 'sejam-gateway';
     const clientURL = typeof window !== 'undefined' && window.location.origin;

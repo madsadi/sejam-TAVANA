@@ -3,9 +3,10 @@ import {Form, Formik} from "formik";
 import InputComponent from "../../common/component/InputComponent";
 import CaptchaComponent from "../../common/component/CaptchaComponent";
 import React, {useContext, useState} from "react";
-import {getSejamProfile} from "../../../api/GetSejamProfile.api";
 import {toast} from "react-toastify";
 import {SejamContext} from "../../../pages/main";
+import useQuery from "../../../hooks/useQuery";
+import {SEJAM_URL} from "../../../api/constants";
 
 type initialType = {
     SejamToken: string,
@@ -18,6 +19,7 @@ const initialValue = {
     uuid: '',
 }
 export default function GetSejamProfile() {
+    const {fetchAsyncData:getSejamProfile} = useQuery({url:`${SEJAM_URL}/api/request/GetSejamProfile`})
     const {setLevel} = useContext<any>(SejamContext)
     const [info, setInfo] = useState<initialType>(initialValue)
     const [retry, setRetry] = useState<boolean>(false)
@@ -31,7 +33,7 @@ export default function GetSejamProfile() {
 
     const submitHandler = async (v: initialType) => {
         await getSejamProfile({SejamToken: v.SejamToken, CaptchaCode: info.uuid + '_' + v.captcha})
-            .then((res) => {
+            .then(() => {
                 setLevel(2)
             })
             .catch((err) => {

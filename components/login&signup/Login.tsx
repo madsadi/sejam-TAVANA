@@ -1,8 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import {useAuth} from 'react-oidc-context';
 import {useRouter} from "next/router";
+import {IdpContext} from "../../pages";
 
 export default function Login() {
+    const {setLevel} = useContext<any>(IdpContext)
     const auth = useAuth();
     const router = useRouter()
 
@@ -20,6 +22,7 @@ export default function Login() {
                         ورود
                     </div>
                 </button>
+                <p className={'mt-4 hover-button mx-auto cursor-pointer'} onClick={()=>setLevel('mobileEntry')}>آیا مایل به ایجاد حساب هستید؟</p>
             </div>
         </>
 

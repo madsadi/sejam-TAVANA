@@ -1,15 +1,22 @@
 import React, {Dispatch, Fragment, useState} from "react";
 import {accountNumber, bankAccount, cityType, countryType, provinceType} from "./types";
-import {registerBankAccount, searchCity, searchCountry, searchProvince} from "../../../api/sejam-info.api";
 import {accountTypeEnums, personType} from "../../common/enums";
 import {Listbox, Transition} from "@headlessui/react";
 import {ChevronDownIcon, MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {CheckIcon} from "@heroicons/react/20/solid";
 import {toast} from "react-toastify";
+import useQuery from "../../../hooks/useQuery";
+import {SEJAM_URL} from "../../../api/constants";
+import useMutation from "../../../hooks/useMutation";
 function classNames(...classes:any) {
     return classes.filter(Boolean).join(' ')
 }
 export default function AddAccountComponent({fetch,banks,setAddModal}:{fetch:Function,banks:accountNumber[],setAddModal:Dispatch<boolean>}){
+    const {fetchAsyncData:searchCountry} = useQuery({url:`${SEJAM_URL}/api/request/SearchCountry`})
+    const {fetchAsyncData:searchProvince} = useQuery({url:`${SEJAM_URL}/api/request/searchProvince`})
+    const {fetchAsyncData:searchCity} = useQuery({url:`${SEJAM_URL}/api/request/searchCity`})
+    const {mutate:registerBankAccount} = useMutation({url:`${SEJAM_URL}/api/request/RegisterBankAccount`})
+
     const [query,setQuery]=useState<bankAccount>({accountNumber:'',iban:'',type:-1,cityId:-1,isDefault:false})
     const [country,setCountry]=useState<countryType>({countryName:'',countryId:-1})
     const [countries,setCountries]=useState<countryType[]>([])
@@ -22,18 +29,18 @@ export default function AddAccountComponent({fetch,banks,setAddModal}:{fetch:Fun
     const [openCity, setOpenCity] = useState<boolean>(false)
 
     const searchCountryHandler = async (e:any)=>{
-        await searchCountry(e.target.value)
-            .then((res)=>setCountries(res?.result?.response))
+        await searchCountry({CountryName:e.target.value})
+            .then((res)=>setCountries(res?.data.result?.response))
     }
 
     const searchProvinceHandler = async (e:any)=>{
-        await searchProvince(country.countryId,e.target.value)
-            .then((res)=>setProvinces(res?.result?.response))
+        await searchProvince({CountryId:country.countryId, ProvinceName:e.target.value})
+            .then((res)=>setProvinces(res?.data.result?.response))
     }
 
     const searchCityHandler = async (e:any)=>{
         await searchCity({CountryId:country.countryId, ProvinceId:province.provinceId,CityName:e.target.value})
-            .then((res)=>setCities(res?.result?.response))
+            .then((res)=>setCities(res?.data.result?.response))
     }
 
     const queryUpdateHandler = (key:string,value:any)=>{
@@ -54,7 +61,7 @@ export default function AddAccountComponent({fetch,banks,setAddModal}:{fetch:Fun
             })
         })
         await registerBankAccount({bankAccounts:[...restOfAccounts, {...query,iban:query.iban}]})
-            .then((res)=> {
+            .then(()=> {
                 fetch();
                 setAddModal(false)
             })
