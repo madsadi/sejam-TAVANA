@@ -4,6 +4,7 @@ import { IDP_URL } from './constants';
 
 axios.interceptors.request.use((value) => {
     const clientId = 'sejam-gateway';
+
     const authorityPath = IDP_URL;
 
     if (typeof window !== 'undefined') {
