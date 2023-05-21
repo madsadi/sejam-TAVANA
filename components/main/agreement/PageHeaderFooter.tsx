@@ -67,7 +67,7 @@ const PageHeaderFooter=()=>{
         <>
             <div className="page-header">
                 <div className="logo-card relative">
-                    <img src={"/logo.svg"} alt="tavana"/>
+                    <img src={"/logo-black.svg"} alt="tavana"/>
                 </div>
                 <div className="mt-5 flex font-weight-bold">
                     <div className={'text-sm ml-2'}> تاریخ :</div>

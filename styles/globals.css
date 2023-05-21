@@ -17,6 +17,11 @@ body {
   color-scheme: light !important;
 }
 
+
+:root{
+  --a:-95 50% 50.98% !important;
+  --ac:0 0% 100% !important;
+}
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: light;
@@ -29,6 +34,9 @@ body {
   }
 }
 
+.lottie path{
+  fill:#8C50A0;
+}
 /* If the user prefers light mode,
 we still enforce color-scheme: dark, despite the user preference */
 @media (prefers-color-scheme: light) {
@@ -242,20 +250,26 @@ input[type=number] {
 }
 
 @layer components {
+  .checkbox-accent{
+    @apply border-tavanaGray;
+  }
+
   .steps .step{
     min-width: 2rem;
   }
 
   .steps .step-active::after{
-    background-color: rgb(175, 137, 60) !important;
-    border: 1px solid rgb(175, 137, 60);
+    color:white;
+    background-color: rgb(245, 190, 50) !important;
+    border: 1px solid rgb(245, 190, 50);
   }
   .steps .step-active:before{
-    background-color: rgb(175, 137, 60) !important;
-    border: 1px solid rgb(175, 137, 60);
+    background-color: rgb(245, 190, 50) !important;
+    border: 1px solid rgb(245, 190, 50);
   }
-  .steps .step-success:after{
-    background-color: hsl(var(--su) / var(--tw-bg-opacity)) !important;
+  .steps .step-success:after,.step-success:before{
+    color:white;
+    background-color: rgb(140, 80, 160) !important;
   }
   .input {
     @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white h-[40px]

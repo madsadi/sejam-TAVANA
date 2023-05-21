@@ -28,6 +28,7 @@ export default function Main() {
         autoplay: true,
         animationData: Loader,
     };
+
     const findLevel = (no: number) => {
         //Enums(OnlineRegistrationStatus) are available in ../components/common/enums
         switch (true) {
@@ -93,7 +94,7 @@ export default function Main() {
                 {level >= 0 ? <div className={'flex flex-col grow pt-5 md:pt-5 pb-5'}>
                     {Components}
                 </div> : <div className={'flex flex-col grow pt-5 md:pt-5 pb-5 bg-white/30 backdrop-blur-md rounded w-full'}>
-                    <div className={'m-auto md:h-[400px] h-[250px] md:w-[400px] w-[250px]'}>
+                    <div className={'m-auto md:h-[400px] h-[250px] md:w-[400px] w-[250px] lottie'}>
                     <Lottie
                         options={defaultOptions}
                     />

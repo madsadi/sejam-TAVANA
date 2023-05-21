@@ -39,9 +39,10 @@ module.exports = withMT({
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
-      tavanaGreen: '#00603a',
-      tavanBrown: '#A27F2C',
+      tavanaGreen: '#8C50A0',
+      tavanBrown: '#F5BE32',
       border: '#eee',
+      tavanaGray:'#666666'
     })
   },
   plugins: [

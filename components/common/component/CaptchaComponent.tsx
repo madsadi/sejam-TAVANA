@@ -32,7 +32,7 @@ const CaptchaComponent: React.FC<any> = ({retry,info,infoUpdate,...props}) =>  {
                 کد امنیتی
                 {meta.error && <div className={'text-red-300 text-sm mr-1'}>{meta.error}</div>}
             </label>
-            <div className={'relative w-full border border-border rounded-xl overflow-hidden mb-3'}>
+            <div className={'relative w-full border border-border bg-white rounded-xl overflow-hidden mb-3'}>
                 <img className={'h-[60px] w-3/5 bg-contain'} src={generatedCaptcha}/>
                 <div role={'button'}
                      className={'absolute left-0 top-1/2 -translate-y-1/2 border-r border-border h-full px-4 hover:bg-border transition-all'}
