@@ -16,9 +16,9 @@ export default function BankAccountCard({accountInfo,setDefaultBank}: { accountI
 
     return (
         <div>
-            <div className="p-3 px-8 bg-gray-200 rounded-md relative cursor-pointer" onClick={()=>setDefaultBank(accountInfo)}>
+            <div className="p-3 px-8 bg-bankCard rounded-md relative cursor-pointer" onClick={()=>setDefaultBank(accountInfo)}>
                 {accountInfo?.isDefault ? <div className={'absolute -top-2 -right-2'}>
-                    <CheckBadgeIcon className={'h-5 w-5 text-green-600'}/>
+                    <CheckBadgeIcon className={'h-5 w-5 text-tavanaPurple'}/>
                 </div> : null}
                 <div className="flex items-center justify-between">
                     <div className="highlight">{bank_info?.name}</div>
@@ -40,7 +40,7 @@ export default function BankAccountCard({accountInfo,setDefaultBank}: { accountI
                 </div>
             </div>
             {accountInfo?.isDefault ?
-                <p className={'mt-2 text-green-600 text-xs text-center w-full'}> حساب پیش فرض </p> : null}
+                <p className={'mt-2 text-tavanaPurple text-xs text-center w-full'}> حساب پیش فرض </p> : null}
         </div>
     )
 }

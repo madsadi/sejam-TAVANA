@@ -28,7 +28,7 @@ const CaptchaComponentNotFormik: React.FC<any> = ({retry,uuid,setUuid,info,infoU
             <label className={'flex items-center mb-1'}>
                 کد امنیتی
             </label>
-            <div className={'relative w-full border border-border rounded-xl bg-white overflow-hidden mb-3'}>
+            <div className={'relative w-full border border-border rounded bg-white overflow-hidden mb-3'}>
                 <img className={'h-[60px] w-3/5 bg-contain'} src={generatedCaptcha}/>
                 <div role={'button'}
                      className={'absolute left-0 top-1/2 -translate-y-1/2 border-r border-border h-full px-4 hover:bg-border transition-all'}

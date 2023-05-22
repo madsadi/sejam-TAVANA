@@ -12,10 +12,10 @@ ENV TZ=Asia/Tehran
 
 
 #Set BaseUrl
-ENV SEJAM_URL=""
-ENV IDP_URL=""
-ENV FILE_SERVER_URL=""
-ENV CAPTCHA_URL=""
+ENV IDP_URL=https://cluster.tech1a.co
+ENV SEJAM_URL=http://172.24.65.20:9072
+ENV FILE_SERVER_URL=http://172.24.65.20:9073
+ENV CAPTCHA_URL=https://cluster.tech1a.co:8543
 
 # create & set working directory
 RUN mkdir -p /usr/src

@@ -1,6 +1,4 @@
 import React,{useEffect, useState} from "react";
-import Lottie from 'react-lottie';
-import animationData from '../../../public/icons/customer-service.json';
 import {onlineRegistrationStatus} from "../../common/enums";
 import useQuery from "../../../hooks/useQuery";
 import {SEJAM_URL} from "../../../api/constants";
@@ -8,12 +6,6 @@ import {SEJAM_URL} from "../../../api/constants";
 export default function UserStateLevel() {
     const {fetchAsyncData} = useQuery({url:`${SEJAM_URL}/api/request/GetRegistrationState`})
     const [state, setState] = useState<string | undefined>('')
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: animationData,
-
-    };
 
     useEffect(() => {
         const registrationState = async () => {
@@ -27,16 +19,11 @@ export default function UserStateLevel() {
     }, [])
 
     return (
-        <div className="grow flex flex-col bg-white/50 backdrop-blur-md p-5 rounded-md bg-[url(/logo-black.svg)] bg-[length:200px_200px] bg-left-bottom bg-no-repeat">
-            <Lottie
-                options={defaultOptions}
-                height={'50%'}
-                width={'50%'}
-            />
-            <div>
+        <div className="grow flex flex-col bg-[url(/leafs-back.svg)] bg-left-bottom bg-no-repeat">
+            <div className={'m-auto font-bold'}>
                 <div className={'flex w-fit mx-auto items-center  mb-5'}>
                     شما در وضعیت
-                    <h2 className={'mx-1 text-sm m-0 sm:text-lg'} suppressHydrationWarning={true}>
+                    <h2 className={'mx-1 text-sm m-0 sm:text-lg text-tavanaPurple'} suppressHydrationWarning={true}>
                         {state}
                     </h2>
                     هستید

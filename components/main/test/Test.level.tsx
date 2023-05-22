@@ -62,7 +62,7 @@ export default function TestLevel() {
 
     return (
         <>
-            <div className="bg-white/50 p-5 rounded-md backdrop-blur-md">
+            <div>
                 <div className="flex items-center mb-5">
                     <ExclamationCircleIcon className='h-7 w-7 ml-2 text-tavanaGreen' />
                     <span> آزمون آنلاین بورس را تکمیل نمایید</span>
@@ -70,7 +70,7 @@ export default function TestLevel() {
                 {
                     questions.map((question: any, index: number) => {
                         return (
-                            <div key={question.title} className='mb-3 border border-gray-300 p-3'>
+                            <div key={question.title} className='mb-3 border border-black bg-bankCard p-3'>
                                 <span className='text-tavanaGreen text-lg'>
                                     {index + 1}
                                     -

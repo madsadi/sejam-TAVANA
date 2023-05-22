@@ -48,33 +48,34 @@ export default function CodeVerify() {
         <>
             <div className={'w-full text-center'}>
                 <h2>
-                    ورود دو مرحله ای
+                    کد تایید جهت ورود به حساب کاربری
                 </h2>
                 <div>
-                    لطفا کد ارسالی شده به شماره موبایل <br/>
+                    لطفا کد ارسال شده به شماره موبایل <br/>
                     <span className={'mx-2'}>{mobile}</span>را وارد کنید.
                 </div>
             </div>
+            <button className={'hover-button text-sm mx-auto mt-10'} onClick={() => setLevel('mobileEntry')}>
+                ویرایش شماره
+                موبایل
+            </button>
             <div className={'grow flex flex-col'}>
                 <OtpInput
                     value={info.Token}
                     onChange={(v: string) => infoUpdate('Token', v)}
                     numInputs={6}
-                    inputStyle={'border-b border-border p-1 min-w-[35px] min-h-[30px] focus:outline-tavanaGreen text-black'}
-                    containerStyle={'w-full justify-center ltr mt-5 space-x-4'}
+                    inputStyle={'bg-inputbg p-4 md:min-w-[50px] grow min-h-[30px] focus:outline-tavanaGreen text-black'}
+                    containerStyle={'w-full justify-center ltr mt-5 space-x-4 otp'}
                     shouldAutoFocus={true}
                 />
-                <button className={'hover-button mx-auto mt-10'} onClick={() => setLevel('mobileEntry')}>
-                    تغییر شماره
-                    موبایل
-                </button>
+                <CountDown step={'mobileEntry'}/>
                 <div className={'mt-auto text-center'}>
                     <button className={'button'}
                             onClick={codeVerifyHandler}
                             disabled={isSubmitting}
                     >
                         <div className={'flex items-center mx-auto w-fit'}>
-                            تایید
+                            ثبت کد تایید
                             {isSubmitting && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                         strokeWidth="4"></circle>
@@ -83,7 +84,7 @@ export default function CodeVerify() {
                             </svg>}
                         </div>
                     </button>
-                    <CountDown step={'mobileEntry'}/>
+
                 </div>
             </div>
         </>

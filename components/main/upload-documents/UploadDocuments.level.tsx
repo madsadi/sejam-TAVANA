@@ -7,9 +7,9 @@ import useQuery from "../../../hooks/useQuery";
 import {FILE_SERVER_URL} from "../../../api/constants";
 
 export default function UploadDocumentsLevel() {
-    const {fetchAsyncData:getContent} = useQuery({url:`${FILE_SERVER_URL}/api/file-manager/get-content`})
+    const {fetchAsyncData: getContent} = useQuery({url: `${FILE_SERVER_URL}/api/file-manager/get-content`})
     const {regInfo} = useContext<any>(SejamContext)
-
+    const [loading,setLoading]=useState(false)
     let initialDocuments: any = [
         {
             title: 'تصویر امضاء دریافت شده از سجام',
@@ -151,7 +151,7 @@ export default function UploadDocumentsLevel() {
             image: null
         },
     ]
-    const [document, setDocuments] = useState<any>([])
+    const [document, setDocuments] = useState<any>(initialDocuments)
 
     let firstDeck = [
         {
@@ -244,7 +244,8 @@ export default function UploadDocumentsLevel() {
 
     useEffect(() => {
         const getDocument = async () => {
-            await getContent({fileOwnerSoftware:1})
+            setLoading(true)
+            await getContent({fileOwnerSoftware: 1})
                 .then((res) => {
                     let _D: any
                     if (regInfo.hasAgent) {
@@ -265,65 +266,67 @@ export default function UploadDocumentsLevel() {
                         }
                     })
                     setDocuments(_D)
+                    setLoading(false)
                 })
+                .catch(() => setLoading(true))
         }
         getDocument()
     }, [])
 
     return (
         <>
-            {regInfo?.personType===2 ? <div className={'bg-white/50 backdrop-blur-md p-3 rounded-md'}>
-                <AccordionComponent title={'مدارک وکیل'}>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {firstDeck.map((item: any) => {
-                        return (
-                            <UploadComponent item={item} documents={document} setDocs={setDocuments}
-                                             key={item.fileType}/>
-                        )
-                    })}
-                    </div>
-                </AccordionComponent>
-                <AccordionComponent title={'مدارک مدیر عامل'}>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {secondDeck.map((item: any) => {
-                        return (
-                            <UploadComponent item={item} documents={document} setDocs={setDocuments}
-                                             key={item.fileType}/>
-                        )
-                    })}
-                    </div>
-                </AccordionComponent>
-                <AccordionComponent title={'مدارک مدیر عامل'}>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {thirdDeck.map((item: any) => {
-                        return (
-                            <UploadComponent item={item} documents={document} setDocs={setDocuments}
-                                             key={item.fileType}/>
-                        )
-                    })}
-                    </div>
-                </AccordionComponent>
-                <AccordionComponent title={'مدارک عضو هیئت مدیره'}>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {forthDeck.map((item: any) => {
-                        return (
-                            <UploadComponent item={item} documents={document} setDocs={setDocuments}
-                                             key={item.fileType}/>
-                        )
-                    })}
-                    </div>
-                </AccordionComponent>
-            </div>
-            :
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white/50 backdrop-blur-md p-3 rounded-md">
-                {
-                    document.map((item: any) => {
-                        return (
-                            <UploadComponent item={item} documents={document} setDocs={setDocuments}
-                                             key={item.fileType}/>
-                        )
-                    })}
-            </div>}
+            {regInfo?.personType === 2 ? <div>
+                    <AccordionComponent title={'مدارک وکیل'}>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {firstDeck.map((item: any) => {
+                                return (
+                                    <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
+                                                     key={item.fileType}/>
+                                )
+                            })}
+                        </div>
+                    </AccordionComponent>
+                    <AccordionComponent title={'مدارک مدیر عامل'}>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {secondDeck.map((item: any) => {
+                                return (
+                                    <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
+                                                     key={item.fileType}/>
+                                )
+                            })}
+                        </div>
+                    </AccordionComponent>
+                    <AccordionComponent title={'مدارک مدیر عامل'}>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {thirdDeck.map((item: any) => {
+                                return (
+                                    <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
+                                                     key={item.fileType}/>
+                                )
+                            })}
+                        </div>
+                    </AccordionComponent>
+                    <AccordionComponent title={'مدارک عضو هیئت مدیره'}>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {forthDeck.map((item: any) => {
+                                return (
+                                    <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
+                                                     key={item.fileType}/>
+                                )
+                            })}
+                        </div>
+                    </AccordionComponent>
+                </div>
+                :
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-3">
+                    {
+                        document.map((item: any) => {
+                            return (
+                                <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
+                                                 key={item.fileType}/>
+                            )
+                        })}
+                </div>}
             <div className='grow mt-5'>
                 <span className={'font-semibold text-lg'}>فایل های ارسالی می بایست شرایط زیر را داشته باشند:</span>
                 <ul className='list-disc pr-7 space-y-2 mt-5'>

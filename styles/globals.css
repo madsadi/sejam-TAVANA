@@ -21,6 +21,7 @@ body {
 :root{
   --a:-95 50% 50.98% !important;
   --ac:0 0% 100% !important;
+  --b1:0 0% 0% 0% !important;
 }
 @media (prefers-color-scheme: dark) {
   html {
@@ -28,9 +29,9 @@ body {
   }
   :root{
     color-scheme:light !important;
-    --b3:180 1.9608% 90% !important;
-    --b1:0 0% 100% !important;
-    --b2:0 0% 94.902% !important;
+    --b3:180 1.9608% 0% 0% !important;
+    --b1:0 0% 0% 0% !important;
+    --b2:0 0% 0% 0% !important;
   }
 }
 
@@ -113,6 +114,9 @@ input[type=number] {
   .mobileAgreement{
     overflow: hidden;
     height: 32px;
+  }
+  .otp > div{
+    flex-grow: 1;
   }
 }
 @media print {
@@ -197,7 +201,7 @@ input[type=number] {
   }
 
   h2 {
-    @apply text-4xl sm:mt-5 sm:mb-10 mb-5 text-tavanaGreen text-center;
+    @apply text-4xl sm:mt-5 sm:mb-10 mb-5 font-bold;
   }
 
   h4 {
@@ -209,7 +213,7 @@ input[type=number] {
   }
 
   label {
-    @apply text-gray-400
+    @apply font-semibold
   }
 
   html {
@@ -250,29 +254,22 @@ input[type=number] {
 }
 
 @layer components {
+
+  .mobileAgreement{
+    @apply bg-white p-10 rounded
+  }
   .checkbox-accent{
     @apply border-tavanaGray;
   }
 
-  .steps .step{
-    min-width: 2rem;
+  .step-active{
+    @apply  bg-content border-2 border-tavanaPurple border-b-content translate-y-0.5 flex md:flex-col flex-row
   }
-
-  .steps .step-active::after{
-    color:white;
-    background-color: rgb(245, 190, 50) !important;
-    border: 1px solid rgb(245, 190, 50);
-  }
-  .steps .step-active:before{
-    background-color: rgb(245, 190, 50) !important;
-    border: 1px solid rgb(245, 190, 50);
-  }
-  .steps .step-success:after,.step-success:before{
-    color:white;
-    background-color: rgb(140, 80, 160) !important;
+  .step-done{
+    @apply text-white hidden md:flex flex-col
   }
   .input {
-    @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white h-[40px]
+    @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white h-[54px]
   }
   .steps .step:before {
     @apply bg-gray-300 shadow-md
@@ -284,9 +281,9 @@ input[type=number] {
     @apply border-b hover:border-tavanaGreen border-transparent transition-all w-fit p-1
   }
   .button {
-    @apply text-white bg-tavanaGreen text-center rounded py-2 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50
+    @apply text-white bg-tavanaGreen text-center py-3 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50
   }
   .prevButton {
-    @apply text-white bg-tavanBrown text-center rounded py-2 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50
+    @apply text-white bg-tavanaPurple text-center py-2 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50
   }
 }

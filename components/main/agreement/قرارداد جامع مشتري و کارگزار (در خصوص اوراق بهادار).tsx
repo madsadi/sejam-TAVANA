@@ -21,7 +21,7 @@ export default function TotalBrokerageAgreement() {
 
     const reactToPrintTrigger = () => {
         return (
-            <button className={'flex item-center button bg-red-600 w-fit text-white float-left'}>
+            <button className={'flex item-center button bg-red-600 w-fit text-white float-left m-5'}>
                 چاپ
                 {loading ? <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"

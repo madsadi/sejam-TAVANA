@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import CaptchaComponent from "../common/component/CaptchaComponent";
 import {Form, Formik} from "formik";
 import {toast} from "react-toastify";
@@ -7,6 +7,8 @@ import {IdpContext} from "../../pages";
 import {mobileEntry} from "../common/shcema/schema";
 import useQuery from "../../hooks/useQuery";
 import {IDP_URL} from "../../api/constants";
+import {useAuth} from "react-oidc-context";
+import {useRouter} from "next/router";
 
 
 export default function MobileEntry() {
@@ -26,6 +28,7 @@ export default function MobileEntry() {
     }
     const [info, setInfo] = useState<initialType>(initialValue)
     const [retry, setRetry] = useState<boolean>(false)
+    const auth = useAuth();
 
     const infoUpdate = (key: string, value: any) => {
         let _info: any = {};
@@ -47,13 +50,20 @@ export default function MobileEntry() {
             })
     }
 
+    const router = useRouter()
+
+    useEffect(() => {
+        localStorage.setItem('RefCode', `${router.query?.RefCode ? router.query?.RefCode:null}`)
+    }, [])
+
     return (
         <>
-            <h2>ثبت نام</h2>
+            <h2>به توانا خوش آمدید</h2>
+            <p>جهت ورود شماره موبایل خود را وارد کنید.</p>
             <Formik initialValues={initialValue} validationSchema={mobileEntry} validateOnChange={false} onSubmit={submitHandler}>
                 {({isSubmitting}) => (
-                    <Form className={'grow flex flex-col'}>
-                        <InputComponent label={'شماره همراه'}
+                    <Form className={'justify-end space-y-10 grow flex flex-col'}>
+                        <InputComponent label={'شماره موبایل'}
                                         name={'mobile'}
                                         type={'text'}/>
                         <span className={'mt-4'}>
@@ -63,7 +73,7 @@ export default function MobileEntry() {
                                               retry={retry}
                             />
                         </span>
-                        <div className={'mt-auto text-center'}>
+                        <div className={'text-center'}>
                             <button className={'button'} disabled={isSubmitting} type={'submit'}>
                                 <div className={'flex items-center mx-auto w-fit'}>
                                     ثبت نام
@@ -76,10 +86,11 @@ export default function MobileEntry() {
                                 </div>
                             </button>
                             <button
-                                className={'mt-4 hover-button mx-auto'}
-                                onClick={() => setLevel('login')}>
+                                className={'button bg-transparent text-black mt-4 hover-button mx-auto border border-tavanaGreen w-full'}
+                                    type={'button'}
+                                onClick={() => void auth.signinRedirect()}>
                                 <span>آیا در توانا حساب دارید؟</span>
-                                <span className={'text-active'}> وارد شوید</span>
+                                <span className={'text-active font-bold'}> وارد شوید</span>
                             </button>
                         </div>
                     </Form>
