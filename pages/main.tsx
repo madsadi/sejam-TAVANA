@@ -18,7 +18,7 @@ import useQuery from "../hooks/useQuery";
 export const SejamContext = createContext({})
 export default function Main() {
     const {fetchAsyncData} = useQuery({url:`${SEJAM_URL}/api/request/GetRegistrationState`})
-    const [level, setLevel] = useState<number>(2)
+    const [level, setLevel] = useState<number>(-1)
     const [regInfo, setRegInfo] = useState<any>({})
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
     const [error, setError] = useState<string>('')
@@ -64,7 +64,7 @@ export default function Main() {
             await fetchAsyncData()
                 .then((res) => {
                     setTimeout(()=>{
-                        // findLevel(res?.data.result?.registrationState);
+                        findLevel(res?.data.result?.registrationState);
                     },1000)
                     setRegInfo(res?.data.result)
                 })

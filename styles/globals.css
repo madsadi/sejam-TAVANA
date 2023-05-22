@@ -115,6 +115,9 @@ input[type=number] {
     overflow: hidden;
     height: 32px;
   }
+  .otp > div{
+    flex-grow: 1;
+  }
 }
 @media print {
   .mobileAgreement{
