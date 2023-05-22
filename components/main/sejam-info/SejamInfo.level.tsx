@@ -30,11 +30,11 @@ import useQuery from "../../../hooks/useQuery";
 import useMutation from "../../../hooks/useMutation";
 
 export default function SejamInfoLevel() {
-    const {fetchAsyncData:getSejamInfo} = useQuery({url:`${SEJAM_URL}/api/request/GetSejamInfo`})
-    const {mutate:registerBankAccount} = useMutation({url:`${SEJAM_URL}/api/request/RegisterBankAccount`})
-    const {mutate:updateAgentInfo} = useMutation({url:`${SEJAM_URL}/api/request/UpdateAgentInfo`})
-    const {fetchAsyncData:getBankAccounts} = useQuery({url:`${SEJAM_URL}/api/request/GetAllBankAccounts`})
-    const {setUserData,regInfo} = useContext<any>(SejamContext)
+    const {fetchAsyncData: getSejamInfo} = useQuery({url: `${SEJAM_URL}/api/request/GetSejamInfo`})
+    const {mutate: registerBankAccount} = useMutation({url: `${SEJAM_URL}/api/request/RegisterBankAccount`})
+    const {mutate: updateAgentInfo} = useMutation({url: `${SEJAM_URL}/api/request/UpdateAgentInfo`})
+    const {fetchAsyncData: getBankAccounts} = useQuery({url: `${SEJAM_URL}/api/request/GetAllBankAccounts`})
+    const {setUserData, regInfo} = useContext<any>(SejamContext)
     const [data, setData] = useState<SejamInfoType | any>({})
     const [banks, setBanks] = useState<accountNumber | any>([])
     const [addModal, setAddModal] = useState<boolean>(false)
@@ -72,7 +72,7 @@ export default function SejamInfoLevel() {
                 "iban": (b.sheba).split('IR')[1],
                 "type": accountTypeEnums.find((item: any) => item.enTitle === b.type)?.id,
                 "cityId": b.branchCity.id,
-                "isDefault": b.accountNumber===defaultBank.accountNumber
+                "isDefault": b.accountNumber === defaultBank.accountNumber
             })
         })
         await registerBankAccount({bankAccounts: [...restOfAccounts]})
@@ -86,7 +86,7 @@ export default function SejamInfoLevel() {
 
     return (
         <>
-            <div className="grow bg-white/50 p-5 rounded-md backdrop-blur-md">
+            <div className="grow ">
                 {data?.legalPerson ?
                     <AccordionComponent title={'اطلاعات هویتی حقوقی'}>
                         <div className="grid md:grid-cols-4 grid-cols-2 gap-3">
@@ -201,7 +201,7 @@ export default function SejamInfoLevel() {
                         <LabelValue title={'مشخص کننده تایید نماینده'}
                                     value={data?.agent?.isConfirmed ? 'تایید شده' : 'تایید نشده'}/>
                     </div>
-                    {regInfo?.registrationState===8 ? <div className={'border border-dashed p-2 mt-5 rounded-lg'}>
+                    {regInfo?.registrationState === 8 ? <div className={'border border-dashed p-2 mt-5 rounded-lg'}>
                         <p className={'text-red-400'}>کد ملی وکیل با اطلاعات دریافت شده از سجام تطابق ندارد.</p>
                         <p className={'my-1 '}>در صورت تمایل اطلاعات زیر را اصلاح نموده و فرایند ثبت نام را تکرار
                             نمایید.</p>
@@ -229,7 +229,7 @@ export default function SejamInfoLevel() {
                             <button className={'button w-fit px-5'} type={'button'} onClick={updateAgent}>ویرایش
                             </button>
                         </div>
-                    </div>:null}
+                    </div> : null}
                 </AccordionComponent> : null}
                 <AccordionComponent title={'اطلاعات ارتباطی'}>
                     {
@@ -241,7 +241,7 @@ export default function SejamInfoLevel() {
                                     <LabelValue key={index} title={'شماره همراه'} value={item?.mobile}/>
                                     <LabelValue key={index} title={'شماره ثابت'} value={item?.tel}/>
                                     <LabelValue key={index} title={'شماره تماس اضطراری'}
-                                                value={((item?.emergencyTelCityPrefix ? item?.emergencyTelCityPrefix : '') + '-' + (item?.emergencyTel ? item?.emergencyTel:''))}/>
+                                                value={((item?.emergencyTelCityPrefix ? item?.emergencyTelCityPrefix : '') + '-' + (item?.emergencyTel ? item?.emergencyTel : ''))}/>
                                     <LabelValue key={index} title={'کد پستی'} value={item?.postalCode}/>
                                     <LabelValue key={index} title={'آدرس'}
                                                 value={item?.country.name + ' ' + item?.city?.name + ' ' + item?.section?.name + ' ' + item?.remnantAddress + ' ' + item?.alley + ' ' + item?.plaque}/>
@@ -299,6 +299,12 @@ export default function SejamInfoLevel() {
                         </div>
                     </div>
                 </AccordionComponent>
+                <p className={'mt-10'}>
+                    اطلاعات درحال نمایش توسط شما به سامانه سجام ارائه و تایید شده است،
+                </p>
+                <p>
+                    چنانچه نسبت به تغییر آن حساسیتی دارید باید از طریق آن سامانه اقدام نمایید.
+                </p>
             </div>
             <ConfirmComponent banks={banks}/>
         </>

@@ -32,21 +32,24 @@ const CaptchaComponent: React.FC<any> = ({retry,info,infoUpdate,...props}) =>  {
                 کد امنیتی
                 {meta.error && <div className={'text-red-300 text-sm mr-1'}>{meta.error}</div>}
             </label>
-            <div className={'relative w-full border border-border bg-white rounded-xl overflow-hidden mb-3'}>
-                <img className={'h-[60px] w-3/5 bg-contain'} src={generatedCaptcha}/>
+            <div className={'h-[54px] relative bg-inputbg flex'}>
+                <input className={`input pl-[182px] grow ${meta.touched && meta.error ? 'border-red-300':''}`}
+                       type={'number'}
+                       dir={'ltr'}
+                       {...props}
+                       {...field}
+                />
                 <div role={'button'}
-                     className={'absolute left-0 top-1/2 -translate-y-1/2 border-r border-border h-full px-4 hover:bg-border transition-all'}
+                     className={'flex w-fit absolute left-0 before:block before:absolute before:w-0.5 before:right-0 before:bg-black/70 before:h-4/5 before:top-1/2 before:-translate-y-1/2 h-full px-4 hover:bg-border transition-all'}
                      onClick={() => infoUpdate('uuid', uuidv4())
                      }>
+                    <div className={'overflow-hidden w-fit p-1 pl-5'}>
+                        <img className={'h-full w-[100px] bg-contain'} src={generatedCaptcha}/>
+                    </div>
                     <ArrowPathIcon className={'h-full w-6 text-black'}/>
                 </div>
+
             </div>
-            <input className={`input ${meta.touched && meta.error ? 'border-red-300':''}`}
-                   type={'number'}
-                   dir={'ltr'}
-                   {...props}
-                   {...field}
-            />
         </div>
     )
 }

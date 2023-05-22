@@ -8,7 +8,7 @@ import {toast} from "react-toastify";
 import useMutation from "../../../hooks/useMutation";
 import {FILE_SERVER_URL} from "../../../api/constants";
 
-export default function UploadComponent({ item, documents,setDocs }: { item: any, documents: any ,setDocs:Dispatch<any>}) {
+export default function UploadComponent({ item, documents,setDocs,loading }: { item: any, documents: any ,setDocs:Dispatch<any>,loading:boolean}) {
     const {mutate:uploadPhoto} = useMutation({url:`${FILE_SERVER_URL}/api/file-manager/upload`})
 
     const [images, setImages] = useState<ImageType[]>([]);
@@ -44,7 +44,6 @@ export default function UploadComponent({ item, documents,setDocs }: { item: any
 
     return (
         <div>
-            <div className='text-xs mb-2 md:h-[32px] lg:h-auto sm:h-auto h-[32px]'>{item.title}</div>
             <ImageUploading
                 multiple={false}
                 value={images}
@@ -61,26 +60,32 @@ export default function UploadComponent({ item, documents,setDocs }: { item: any
                     dragProps,
                 }) => (
                     // write your building UI
-                    <div className="upload__image-wrapper max-h-[150px] w-full h-[150px] aspect-video">
+                    <div className="upload__image-wrapper md:max-h-[250px] max-h-[150px] w-full md:h-[250px] h-[150px] aspect-video">
                         {imageList.length > 0 ? imageList.map((image, index) => {
                             return (
-                                    <div role={'button'} key={index} className="image-item h-[150px] bg-contain relative"
+                                    <div role={'button'} key={index} className="image-item md:h-[250px] h-[150px] bg-contain relative"
                                          onClick={() => item.fileType===1 ? toast.warning('تصویر امضا قابل بارگزاری نمی باشد.'):onImageUpdate(index)}>
                                         <Image src={image['data_url']} fill alt="" />
                                     </div>
                                 )
                             }) :
                             <button
-                                className='border border-gray-200 w-full h-full flex'
+                                className='border-2 border-dashed border-black bg-bankCard w-full h-full flex'
                                 style={isDragging ? { color: 'red' } : undefined}
                                 onClick={onImageUpload}
                                 {...dragProps}
                             >
-                                <CloudArrowUpIcon className='h-8 w-8 text-gray-300 m-auto' />
+                                <div className='m-auto flex flex-col'>
+                                    <div className={`h-8 w-8 relative m-auto ${loading ? 'animate-spin':''}`}>
+                                        <Image src={loading ? '/icons/spinner-light.svg':'/upload.svg'} fill alt="" />
+                                    </div>
+                                    {loading ? null:<p className={'mt-1'}>آپلود فایل</p>}
+                                </div>
                             </button>}
                     </div>
                 )}
             </ImageUploading>
+            <div className='text-xs text-center mt-2 font-semibold md:h-[32px] lg:h-auto sm:h-auto h-[32px]'>{item.title}</div>
         </div>
     )
 }

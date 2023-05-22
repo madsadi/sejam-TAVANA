@@ -8,7 +8,7 @@ export default function Document() {
             <script src="/static/assets/js/env-config.js"></script>
             <link rel='shortcut icon' href='/logo-black.svg' />
       </Head>
-      <body className={"h-screen bg-[#E6E6E6] text-black flex flex-col bg-[url(/leaf-tavana.svg)] bg-no-repeat bg-center bg-cover"}>
+      <body className={"h-screen bg-black text-black flex flex-col"}>
         <Main />
         <NextScript />
       </body>

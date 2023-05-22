@@ -21,16 +21,11 @@ export default function Home() {
     return (
         <IdpContext.Provider value={{setLevel, level, setMobile, mobile, setToken, token}}>
             <div
-                className="flex lg:flex-row flex-col xl:w-[1000px] lg:w-[960px] sm:h-[90vh] h-[100dvh] sm:m-auto shadow-md sm:rounded-md overflow-hidden">
-                <div className="h-full bg-tavanaGreen lg:grow lg:basis-1/2 basis-[80px] py-5 lg:py-0 flex flex-col">
-                    <span className="lg:h-1/2 lg:w-1/2 h-full w-full lg:m-auto relative flex">
-                      <div className={'relative w-1/5'}>
-                          <Image src={'/logo-white.svg'} alt={'tavana'} fill/>
+                className="flex lg:flex-row flex-col xl:w-4/5 lg:w-[960px] sm:h-[90vh] p-20 h-[100dvh] sm:m-auto shadow-md sm:rounded-md overflow-hidden ">
+                <div className="relative h-full lg:grow lg:basis-1/2 basis-[80px] py-5 lg:py-0 flex flex-col bg-[url(/leafs.svg)] bg-no-repeat bg-center bg-contain">
+                      <div className={'absolute top-0 right-0'}>
+                          <Image src={'/logo-text.svg'} alt={'tavana'} height={118} width={100}/>
                       </div>
-                        <div className={'relative grow'}>
-                            <Image src={'/logo-full.svg'} alt={'tavana'} fill/>
-                        </div>
-                    </span>
                 </div>
                 <div className="h-full bg-white grow lg:basis-1/2 sm:w-[540px] w-full p-10 flex flex-col">
                     {Components}

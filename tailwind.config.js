@@ -39,10 +39,16 @@ module.exports = withMT({
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
-      tavanaGreen: '#8C50A0',
+      tavanaGreen: '#000000',
       tavanBrown: '#F5BE32',
       border: '#eee',
-      tavanaGray:'#666666'
+      tavanaGray:'#666666',
+
+      inputbg:'rgba(217, 217, 217, 0.36)',
+      content:'#D9D9D9',
+      tavanaPurple:'#82529A',
+      bankCard:'rgba(30, 30, 30, 0.1)',
+      tavanaRed:'#B84E4E'
     })
   },
   plugins: [
@@ -63,7 +69,7 @@ module.exports = withMT({
             maxWidth: '990px',
           },
           '@screen xl': {
-            maxWidth: '1300px',
+            maxWidth: '80%',
           },
         }
       })

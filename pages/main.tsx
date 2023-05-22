@@ -18,7 +18,7 @@ import useQuery from "../hooks/useQuery";
 export const SejamContext = createContext({})
 export default function Main() {
     const {fetchAsyncData} = useQuery({url:`${SEJAM_URL}/api/request/GetRegistrationState`})
-    const [level, setLevel] = useState<number>(-1)
+    const [level, setLevel] = useState<number>(2)
     const [regInfo, setRegInfo] = useState<any>({})
     const [userData, setUserData] = useState<SejamInfoType[] | any>(null)
     const [error, setError] = useState<string>('')
@@ -64,7 +64,7 @@ export default function Main() {
             await fetchAsyncData()
                 .then((res) => {
                     setTimeout(()=>{
-                        findLevel(res?.data.result?.registrationState);
+                        // findLevel(res?.data.result?.registrationState);
                     },1000)
                     setRegInfo(res?.data.result)
                 })
@@ -89,10 +89,12 @@ export default function Main() {
 
     return (
         <SejamContext.Provider value={{setLevel, setUserData, userData, level, setUserDefaultBank, userDefaultBank,regInfo}}>
-            <div className="container relative flex flex-col h-full md:py-10 py-5 text-sm md:text-md">
+            <div className="relative flex flex-col h-full md:py-0 pt-5 text-sm md:text-md">
                 <ProgressBar/>
-                {level >= 0 ? <div className={'flex flex-col grow pt-5 md:pt-5 pb-5'}>
-                    {Components}
+                {level >= 0 ? <div className={'flex overflow-y-auto flex-col grow bg-content border-t-2 border-tavanaPurple'}>
+                    <div className={'container py-10 flex flex-col grow '}>
+                        {Components}
+                    </div>
                 </div> : <div className={'flex flex-col grow pt-5 md:pt-5 pb-5 bg-white/30 backdrop-blur-md rounded w-full'}>
                     <div className={'m-auto md:h-[400px] h-[250px] md:w-[400px] w-[250px] lottie'}>
                     <Lottie
