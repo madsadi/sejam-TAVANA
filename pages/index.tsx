@@ -21,7 +21,7 @@ export default function Home() {
     return (
         <IdpContext.Provider value={{setLevel, level, setMobile, mobile, setToken, token}}>
             <div
-                className="flex lg:flex-row flex-col xl:w-4/5 lg:w-[960px] sm:h-[90vh] lg:p-20 h-[100dvh] sm:m-auto shadow-md sm:rounded-md overflow-hidden ">
+                className="flex lg:flex-row flex-col xl:w-4/5 lg:w-[960px] sm:h-[90vh] responsive-padding h-[100dvh] sm:m-auto shadow-md sm:rounded-md overflow-hidden ">
                 <div className="relative h-full lg:grow lg:basis-1/2 basis-[80px] py-5 lg:py-0 flex flex-col bg-[url(/leafs.svg)] bg-no-repeat bg-center bg-contain">
                       <div className={'absolute hidden md:block top-0 right-0'}>
                           <Image src={'/logo-text.svg'} alt={'tavana'} height={118} width={100}/>

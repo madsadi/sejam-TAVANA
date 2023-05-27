@@ -110,6 +110,12 @@ input[type=number] {
   margin: 11mm 17mm 17mm 17mm;
 }
 
+@media (min-height: 900px) and (min-width: 1280px) {
+  .responsive-padding{
+    padding:5rem;
+  }
+}
+
 @media (max-width:520px) {
   .mobileAgreement{
     overflow: hidden;
