@@ -64,6 +64,7 @@ export default function CodeVerify() {
                     value={info.Token}
                     onChange={(v: string) => infoUpdate('Token', v)}
                     numInputs={6}
+                    isInputNum={true}
                     inputStyle={'bg-inputbg p-4 md:min-w-[50px] grow min-h-[30px] focus:outline-tavanaGreen text-black'}
                     containerStyle={'w-full justify-center ltr mt-5 space-x-4 otp'}
                     shouldAutoFocus={true}

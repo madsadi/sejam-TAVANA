@@ -59,7 +59,7 @@ export default function MobileEntry() {
     return (
         <>
             <h2>به توانا خوش آمدید</h2>
-            <p>جهت ورود شماره موبایل خود را وارد کنید.</p>
+            <p>جهت ثبت نام شماره موبایل خود را وارد کنید.</p>
             <Formik initialValues={initialValue} validationSchema={mobileEntry} validateOnChange={false} onSubmit={submitHandler}>
                 {({isSubmitting}) => (
                     <Form className={'justify-end space-y-10 grow flex flex-col'}>
