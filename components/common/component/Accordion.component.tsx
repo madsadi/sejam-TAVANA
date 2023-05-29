@@ -16,7 +16,7 @@ export default function AccordionComponent({children,title,extra}:{children:any,
     },[])
 
     return(
-        <div className="relative collapse border-b-2 first:border-t-2 border-black font-[PelakFA]">
+        <div className="relative collapse grow border-b-2 first:border-t-2 border-black font-[PelakFA]">
             <input type="checkbox" className="peer w-full" onChange={(e)=>isChecked(e.target.checked)}/>
             <div className={`collapse-title flex bg-transparent px-2 py-4 transition-all ${isMobile ? 'text-xs':''}`}>
                 <div className={'min-w-7 ml-5'}>{checked ? <ChevronUpIcon className={'h-7 w-7 '}/>:<ChevronDownIcon className={'h-7 w-7 '} />}</div>

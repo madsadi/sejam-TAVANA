@@ -38,7 +38,7 @@ export default function PhoneTradingAgreement(){
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="قرارداد معاملات تلفنی"
-                removeAfterPrint
+                removeAfterPrint={false}
                 trigger={reactToPrintTrigger}
             />
             <div ref={componentRef} className={'mobileAgreement'} >

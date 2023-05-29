@@ -39,7 +39,7 @@ export default function OnlineTradingAgreement() {
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="قرارداد استفاده از خدمات معاملات برخط اوراق بهادار"
-                removeAfterPrint
+                removeAfterPrint={false}
                 trigger={reactToPrintTrigger}
             />
             <div ref={componentRef} className={'mobileAgreement'} >

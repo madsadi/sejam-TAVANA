@@ -32,7 +32,7 @@ export default function PrivatePersonAgreement(){
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="تفاهم‌نامه شخص حقیقی"
-                removeAfterPrint
+                removeAfterPrint={false}
                 trigger={reactToPrintTrigger}
             />
             <div ref={componentRef} className={'mobileAgreement'} >

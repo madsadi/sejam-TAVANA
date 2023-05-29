@@ -117,16 +117,13 @@ input[type=number] {
 }
 
 @media (max-width:520px) {
-  .mobileAgreement{
-    overflow: hidden;
-    height: 32px;
-  }
   .otp > div{
     flex-grow: 1;
   }
 }
 @media print {
   .mobileAgreement{
+    padding: unset !important;
     height: unset !important;
   }
   .page-header-space,.page-footer-space{
@@ -262,7 +259,7 @@ input[type=number] {
 @layer components {
 
   .mobileAgreement{
-    @apply bg-white p-10 rounded
+    @apply bg-white p-10 rounded hidden md:block
   }
   .checkbox-accent{
     @apply border-tavanaGray;

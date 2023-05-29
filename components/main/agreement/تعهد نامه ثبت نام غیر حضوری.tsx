@@ -42,10 +42,10 @@ export default function OnlineRegistrationAgreement() {
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="تعهد نامه ثبت نام غیر حضوری"
-                removeAfterPrint
+                removeAfterPrint={false}
                 trigger={reactToPrintTrigger}
             />
-            <div ref={componentRef} className={'mobileAgreement p-5'}>
+            <div ref={componentRef} className={'mobileAgreement'}>
                 <table className={'w-full'} dir={'rtl'}>
                     <thead>
                     <tr>
