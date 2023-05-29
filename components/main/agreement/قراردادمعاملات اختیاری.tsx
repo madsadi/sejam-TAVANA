@@ -39,7 +39,7 @@ export default function OptionalAgreement() {
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="قرارداد معاملات اختیاری"
-                removeAfterPrint
+                removeAfterPrint={false}
                 trigger={reactToPrintTrigger}
             />
             <div ref={componentRef} id={'here'} className={'mobileAgreement'} >

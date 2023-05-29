@@ -35,7 +35,7 @@ export default function OfflineTradingAgreement(){
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="قرارداد معاملات اینترنتی "
-                removeAfterPrint
+                removeAfterPrint={false}
                 trigger={reactToPrintTrigger}
             />
             <div ref={componentRef} className={'mobileAgreement'} >

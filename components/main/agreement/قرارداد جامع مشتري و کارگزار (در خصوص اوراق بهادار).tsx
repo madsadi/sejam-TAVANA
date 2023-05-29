@@ -38,7 +38,7 @@ export default function TotalBrokerageAgreement() {
             <ReactToPrint
                 content={reactToPrintContent}
                 documentTitle="تعهد نامه ثبت نام غیر حضوریقرارداد جامع مشتري و کارگزار (در خصوص اوراق بهادار) "
-                removeAfterPrint
+                removeAfterPrint={false}
                 trigger={reactToPrintTrigger}
             />
             <div ref={componentRef} className={'mobileAgreement'} >
