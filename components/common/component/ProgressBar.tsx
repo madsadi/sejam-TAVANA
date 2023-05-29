@@ -67,9 +67,9 @@ export default function ProgressBar() {
                         progress.map((step: any,index:number) => {
                             return (
                                 <li suppressHydrationWarning={true}
-                                    className={`relative justify-end items-center font-bold grow text-center bg-no-repeat bg-center p-2 h-full md:h-[150px] h-[81px] ${level > step.level ? 'step-done' : (level === step.level ? (regInfo.registrationState===18 && step.level===6 ? 'step-done':'step-active') : 'step-done')}`}
+                                    className={`relative md:justify-end justify-center items-center font-bold grow text-center bg-no-repeat bg-center p-2 h-full md:h-[150px] h-[81px] ${level > step.level ? 'step-done' : (level === step.level ? (regInfo.registrationState===18 && step.level===6 ? 'step-done':'step-active') : 'step-done')}`}
                                     key={step.level} style={{backgroundImage:`url(/digits/${index+1}-${level === step.level ? (regInfo.registrationState===18 && step.level===6 ? 'inactive':'active'):'inactive'}.svg)`}}>
-                                    <p className={'pb-5 md:-translate-y-1/2 text-2xl md:text-sm pr-20 md:p-0'}>{step.title}</p>
+                                    <p className={'pb-5 md:-translate-y-1/2 translate-y-1/2 text-2xl md:text-sm md:p-0'}>{step.title}</p>
                                 </li>
                             )
                         })
