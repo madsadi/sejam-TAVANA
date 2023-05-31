@@ -122,7 +122,7 @@ export default function AgreementLevel() {
         await approveAgreements({agreements:approvedAgreements})
             .then(()=>setLevel(level+1))
             .catch((err)=>toast.error(`${err?.response?.data?.error?.message}`))
-            .finally(()=>setLoading(true))
+            .finally(()=>setLoading(false))
     }
 
     return (
