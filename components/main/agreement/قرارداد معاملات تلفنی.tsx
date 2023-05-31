@@ -83,7 +83,7 @@ export default function PhoneTradingAgreement(){
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <LabelValue title={'نام و نام خانوادگی'} value={userData?.privatePerson?.firstName + '-' + userData?.privatePerson?.lastName}/>
+                                                    <LabelValue title={'نام و نام خانوادگی'} value={userData?.privatePerson?.firstName + ' ' + userData?.privatePerson?.lastName}/>
                                                 </td>
                                                 <td>
                                                     <LabelValue title={'نام پدر'} value={userData?.privatePerson?.fatherName}/>

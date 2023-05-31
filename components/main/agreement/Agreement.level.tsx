@@ -55,6 +55,7 @@ export default function AgreementLevel() {
     const {userData,setUserData,setUserDefaultBank,userDefaultBank} = useContext<any>(SejamContext)
     const [agreements, setAgreements] = useState<agreement[]>([])
     const [approvedAgreements, setApprove] = useState<any>(initialApprovedStates)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const approveHandler = (key:string,status:number=-1)=>{
         let _approves:any = [...approvedAgreements];
@@ -117,9 +118,11 @@ export default function AgreementLevel() {
     }
 
     const proceed =async ()=>{
+        setLoading(true)
         await approveAgreements({agreements:approvedAgreements})
             .then(()=>setLevel(level+1))
             .catch((err)=>toast.error(`${err?.response?.data?.error?.message}`))
+            .finally(()=>setLoading(true))
     }
 
     return (
@@ -140,8 +143,14 @@ export default function AgreementLevel() {
                 <button className="prevButton w-fit" onClick={() => setLevel(level-1)}>
                     مرحله قبل
                 </button>
-                <button className="button w-fit" onClick={proceed}>
-                    ثبت قراردادها
+                <button className="button w-fit flex items-center" onClick={proceed}>
+                    تایید قراردادها
+                    {loading && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>}
                 </button>
             </div>
         </>
