@@ -3,7 +3,7 @@ import CaptchaComponent from "../common/component/CaptchaComponent";
 import {Form, Formik} from "formik";
 import {toast} from "react-toastify";
 import InputComponent from "../common/component/InputComponent";
-import {IdpContext} from "../../pages";
+import {IdpContext} from "../../pages/[[...code]]";
 import {mobileEntry} from "../common/shcema/schema";
 import useQuery from "../../hooks/useQuery";
 import {IDP_URL} from "../../api/constants";
@@ -53,8 +53,10 @@ export default function MobileEntry() {
     const router = useRouter()
 
     useEffect(() => {
-        localStorage.setItem('RefCode', `${router.query?.RefCode ? router.query?.RefCode:null}`)
-    }, [])
+        if (router.asPath ){
+            localStorage.setItem('RefCode', `${router.asPath ? (router.asPath).split('/')[1]:null}`)
+        }
+    }, [router.asPath])
 
     return (
         <>

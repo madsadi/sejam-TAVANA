@@ -2,7 +2,7 @@ import React, {useContext, useState} from "react";
 import CountDown from "../common/component/CountDown";
 import OtpInput from 'react-otp-input';
 import {toast} from "react-toastify";
-import {IdpContext} from "../../pages";
+import {IdpContext} from "../../pages/[[...code]]";
 import {useRouter} from "next/router";
 import useQuery from "../../hooks/useQuery";
 import {SEJAM_URL} from "../../api/constants";
@@ -24,12 +24,12 @@ export default function CodeVerify() {
     const codeVerifyHandler = async (e: any) => {
         e.preventDefault()
         setIsSubmitting(true)
-        await fetchAsyncData({...info, PhoneNumber: mobile,RefCode:router.query?.RefCode})
+        await fetchAsyncData({...info, PhoneNumber: mobile,RefCode:(router.asPath).split('/')[1]})
             .then(() => {
                 setIsSubmitting(false)
                 setToken(info.Token)
-                if(router.query?.RefCode){
-                    localStorage.setItem('RefCode',`${router.query?.RefCode}`)
+                if(router.asPath){
+                    localStorage.setItem('RefCode',`${(router.asPath).split('/')[1]}`)
                 }
                 setLevel('infoEntry')
             })

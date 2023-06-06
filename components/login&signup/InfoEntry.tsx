@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import InputComponent from "../common/component/InputComponent";
 import {toast} from "react-toastify";
 import {Form, Formik} from "formik";
-import {IdpContext} from "../../pages";
+import {IdpContext} from "../../pages/[[...code]]";
 import {infoEntry} from "../common/shcema/schema";
 import useMutation from "../../hooks/useMutation";
 import {IDP_URL} from "../../api/constants";
