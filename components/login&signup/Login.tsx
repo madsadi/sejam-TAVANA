@@ -9,8 +9,10 @@ export default function Login() {
     const router = useRouter()
 
     useEffect(() => {
-        localStorage.setItem('RefCode', `${router.query?.RefCode ? router.query?.RefCode:null}`)
-    }, [])
+        if (router.asPath!=='/'){
+            localStorage.setItem('RefCode', `${router.asPath ? router.asPath:null}`)
+        }
+    }, [router.asPath])
 
 
     return (
