@@ -10,7 +10,7 @@ export default function Login() {
 
     useEffect(() => {
         if (router.asPath!=='/'){
-            localStorage.setItem('RefCode', `${router.asPath ? router.asPath:null}`)
+            localStorage.setItem('RefCode', `${router.asPath ? (router.asPath).split('/')[1]:null}`)
         }
     }, [router.asPath])
 
