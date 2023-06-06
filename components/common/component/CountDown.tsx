@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
-import {IdpContext} from "../../../pages";
+import {IdpContext} from "../../../pages/[[...code]]";
 
 export default function CountDown({step}:{step:string}){
     const {setLevel} = useContext<any>(IdpContext)

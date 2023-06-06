@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from "react";
 import {useAuth} from 'react-oidc-context';
 import {useRouter} from "next/router";
-import {IdpContext} from "../../pages";
+import {IdpContext} from "../../pages/[[...code]]";
 
 export default function Login() {
     const {setLevel} = useContext<any>(IdpContext)
