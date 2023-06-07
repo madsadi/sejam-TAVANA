@@ -1,14 +1,13 @@
 import UploadComponent from './UploadCompnent';
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import BeforeAfterComponent from "../../common/component/Before&After.component";
-import {SejamContext} from "../../../pages/main";
 import AccordionComponent from "../../common/component/Accordion.component";
 import useQuery from "../../../hooks/useQuery";
-import {FILE_SERVER_URL} from "../../../api/constants";
+import {FILE_SERVER_URL, SEJAM_URL} from "../../../api/constants";
+import {toast} from "react-toastify";
 
 export default function UploadDocumentsLevel() {
     const {fetchAsyncData: getContent} = useQuery({url: `${FILE_SERVER_URL}/api/file-manager/get-content`})
-    const {regInfo} = useContext<any>(SejamContext)
     const [loading,setLoading]=useState(false)
     let initialDocuments: any = [
         {
@@ -152,6 +151,9 @@ export default function UploadDocumentsLevel() {
         },
     ]
     const [document, setDocuments] = useState<any>(initialDocuments)
+    const {fetchAsyncData} = useQuery({url:`${SEJAM_URL}/api/request/GetRegistrationState`})
+
+    const [regInfo, setRegInfo] = useState<any>({})
 
     let firstDeck = [
         {
@@ -243,8 +245,21 @@ export default function UploadDocumentsLevel() {
     ]
 
     useEffect(() => {
-        const getDocument = async () => {
+        const registrationState = async () => {
             setLoading(true)
+            await fetchAsyncData()
+                .then((res) => {
+                    setRegInfo(res?.data.result)
+                })
+                .catch((err) => {
+                    toast.error(`${err?.response?.data?.error?.message}`)
+                })
+        }
+        registrationState()
+    }, [])
+
+    useEffect(() => {
+        const getDocument = async () => {
             await getContent({fileOwnerSoftware: 1})
                 .then((res) => {
                     let _D: any
@@ -270,8 +285,10 @@ export default function UploadDocumentsLevel() {
                 })
                 .catch(() => setLoading(true))
         }
-        getDocument()
-    }, [])
+        if (regInfo){
+            getDocument()
+        }
+    }, [regInfo])
 
     return (
         <>
