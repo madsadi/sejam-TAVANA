@@ -8,7 +8,7 @@ import {useAuth} from "react-oidc-context";
 
 export default function ProgressBar() {
     const {level,regInfo} = useContext<any>(SejamContext)
-    const registerLogin = localStorage.getItem('register-login')
+    const registerLogin = typeof window !== 'undefined' && localStorage.getItem('register-login')
     const progress = [
         {
             title: 'ایجاد پروفایل',
