@@ -129,7 +129,7 @@ input[type=number] {
     padding: unset !important;
     height: unset !important;
     -webkit-print-color-adjust: exact; /* chrome */
-    color-adjust: exact; /* firefox and IE */
+    print-color-adjust: exact; /* firefox and IE */
   }
   .page-header-space,.page-footer-space{
     height: 150px;

@@ -17,7 +17,7 @@ export default function Login() {
 
     return (
         <>
-            <h2>ورود</h2>
+            <h2 className={'text-center'}>ورود</h2>
             <div className={'mt-auto text-center'}>
                 <button className={'button mt-16'} onClick={() => void auth.signinRedirect()}>
                     <div className={'flex items-center mx-auto w-fit py-2 sm:py-1'}>

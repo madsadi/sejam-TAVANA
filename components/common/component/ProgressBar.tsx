@@ -1,5 +1,4 @@
 import React from "react";
-import {useMediaQuery} from 'react-responsive'
 import {useContext} from "react";
 import {SejamContext} from "../../../pages/main";
 import Image from "next/image";
@@ -9,7 +8,7 @@ import {useAuth} from "react-oidc-context";
 
 export default function ProgressBar() {
     const {level,regInfo} = useContext<any>(SejamContext)
-    const isMobile = useMediaQuery({query: `(max-width: 760px)`});
+    const registerLogin = typeof window !== 'undefined' && localStorage.getItem('register-login')
     const progress = [
         {
             title: 'ایجاد پروفایل',
@@ -53,7 +52,11 @@ export default function ProgressBar() {
             <button
                 className={'md:flex hidden absolute left-0 top-[50px] -translate-y-1/2 bg-content text-tavanaRed border-2 border-tavanaRed py-2 px-5 w-fit hover:opacity-70 transition-colors'}
                 onClick={() => {
-                    void auth.signoutRedirect({id_token_hint: auth.user?.id_token})
+                    if (registerLogin){
+                        localStorage.clear()
+                    }else{
+                        void auth.signoutRedirect({id_token_hint: auth.user?.id_token})
+                    }
                     Router.push('/')
                 }}>
                 <ArrowLeftOnRectangleIcon className={'h-5 w-5'}/>
