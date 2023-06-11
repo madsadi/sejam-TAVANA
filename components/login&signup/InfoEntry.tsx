@@ -6,6 +6,7 @@ import {IdpContext} from "../../pages/[[...code]]";
 import {infoEntry} from "../common/shcema/schema";
 import useMutation from "../../hooks/useMutation";
 import {IDP_URL} from "../../api/constants";
+import {useRouter} from "next/router";
 
 const initialValue = {
     token: '',
@@ -19,7 +20,7 @@ const initialValue = {
     isActive: true
 }
 export default function InfoEntry() {
-    const {mutate} = useMutation({url:`${IDP_URL}/api/account/register`})
+    const {mutate} = useMutation({url:`${IDP_URL}/api/account/register-by-token`})
     const {setLevel, mobile, token} = useContext<any>(IdpContext)
     const forum = [
         {
@@ -53,13 +54,15 @@ export default function InfoEntry() {
             type: 'password',
         },
     ]
-
+    const router = useRouter()
     const registerHandler = async (v: any) => {
         if (v?.["passwordConfirm"] === v.password) {
-            await mutate({...v, phoneNumber: mobile, token: token})
-                .then(() => {
+            await mutate({...v, phoneNumber: mobile, token: token,clientId:'sejam-gateway'})
+                .then((res) => {
+                    localStorage.setItem(`oidc.user:${IDP_URL}:sejam-gateway`,JSON.stringify({access_token:res?.data?.result,token_type:'Bearer'}))
+                    localStorage.setItem(`register-login`,'true')
                     toast.success('ثبت نام شما با موفقیت انجام شد.')
-                    setLevel('login')
+                    router.push('main')
                 })
                 .catch((err) => {
                     toast.error(`${err?.response?.data?.error?.message}`)

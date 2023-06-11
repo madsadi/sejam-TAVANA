@@ -59,7 +59,7 @@ export default function CodeVerify() {
                 ویرایش شماره
                 موبایل
             </button>
-            <div className={'grow flex flex-col'}>
+            <form className={'grow flex flex-col'} onSubmit={codeVerifyHandler}>
                 <OtpInput
                     value={info.Token}
                     onChange={(v: string) => infoUpdate('Token', v)}
@@ -72,7 +72,7 @@ export default function CodeVerify() {
                 <CountDown step={'mobileEntry'}/>
                 <div className={'mt-auto text-center'}>
                     <button className={'button'}
-                            onClick={codeVerifyHandler}
+                            type={'submit'}
                             disabled={isSubmitting}
                     >
                         <div className={'flex items-center mx-auto w-fit'}>
@@ -87,7 +87,7 @@ export default function CodeVerify() {
                     </button>
 
                 </div>
-            </div>
+            </form>
         </>
     )
 }
