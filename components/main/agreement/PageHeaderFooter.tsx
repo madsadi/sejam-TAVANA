@@ -1,68 +1,10 @@
 import moment from "jalali-moment";
 import Image from 'next/image'
-import {memo, useCallback, useEffect, useState} from "react";
-import Resizer from "react-image-file-resizer";
-import useQuery from "../../../hooks/useQuery";
-import {FILE_SERVER_URL} from "../../../api/constants";
+import {memo, useContext} from "react";
+import {agreementContext} from "./Agreement.level";
 
 const PageHeaderFooter=()=>{
-    const {fetchAsyncData:getContent} = useQuery({url:`${FILE_SERVER_URL}/api/file-manager/get-content`})
-
-    let initialDocuments: any = [
-        {
-            title: 'تصویر امضاء دریافت شده از سجام',
-            fileType:1,
-            image: null
-        }
-    ]
-    const [document,setDocuments] = useState<any>([])
-
-    const resizeFile = (file:any) =>
-        new Promise((resolve) => {
-            Resizer.imageFileResizer(
-                file,
-                200,
-                100,
-                "PNG",
-                20,
-                0,
-                (uri) => {
-                    resolve(uri);
-                },
-                "base64"
-            );
-        });
-
-    const resizeHandlder = async (file:any)=>{
-        const image = await resizeFile(file);
-        let __D = document;
-        setDocuments([{...__D,image:image}])
-    }
-    const getDocument = useCallback(async ()=>{
-        await getContent({fileOwnerSoftware:1,type:1})
-            .then((res)=> {
-                let _D = initialDocuments;
-                if (res?.data.result.length){
-                    res?.data.result?.map((item:any)=>{
-                        let _documentIndex = _D.findIndex((i:any)=>i.fileType===item.fileType)
-                        if (_documentIndex>=0 && item?.content){
-                            fetch(`data:image/${(item.extension).split('.')[1]};base64,`+item.content)
-                                .then(res => res.blob())
-                                .then(blob => {
-                                    const file = new File([blob], "File name",{ type: "image/png" })
-                                    resizeHandlder(file)
-                                })
-                        }
-                    })
-                }
-                setDocuments(_D)
-            })
-    },[])
-
-    useEffect(()=>{
-        getDocument()
-    },[])
-
+    const {document} = useContext<any>(agreementContext)
     return(
         <>
             <div className="page-header">

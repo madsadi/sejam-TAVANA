@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {createContext, useCallback, useContext, useEffect, useState} from "react";
 import AccordionComponent from "../../common/component/Accordion.component";
 import {agreement} from "./types";
 import OnlineRegistrationAgreement from "./تعهد نامه ثبت نام غیر حضوری";
@@ -12,14 +12,17 @@ import {ExclamationCircleIcon} from "@heroicons/react/24/outline";
 import {toast} from "react-toastify";
 import OptionalAgreement from "./قراردادمعاملات اختیاری";
 import useQuery from "../../../hooks/useQuery";
-import {SEJAM_URL} from "../../../api/constants";
+import {FILE_SERVER_URL, SEJAM_URL} from "../../../api/constants";
 import useMutation from "../../../hooks/useMutation";
+import Resizer from "react-image-file-resizer";
 
+export const agreementContext = createContext({})
 export default function AgreementLevel() {
     const {fetchAsyncData:getAllPossibleAgreements} = useQuery({url:`${SEJAM_URL}/api/request/GetAllPossibleAgreements`})
     const {fetchAsyncData:getSejamInfo} = useQuery({url:`${SEJAM_URL}/api/request/GetSejamInfo`})
     const {fetchAsyncData:getBankAccounts} = useQuery({url:`${SEJAM_URL}/api/request/GetAllBankAccounts`})
     const {mutate:approveAgreements} = useMutation({url:`${SEJAM_URL}/api/request/ApproveUserAgreements`})
+    const {fetchAsyncData:getContent} = useQuery({url:`${FILE_SERVER_URL}/api/file-manager/get-content`})
 
     const {setLevel,level} = useContext<any>(SejamContext)
     const initialApprovedStates = [
@@ -56,6 +59,57 @@ export default function AgreementLevel() {
     const [agreements, setAgreements] = useState<agreement[]>([])
     const [approvedAgreements, setApprove] = useState<any>(initialApprovedStates)
     const [loading, setLoading] = useState<boolean>(false)
+    const [document,setDocuments] = useState<any>([])
+
+    let initialDocuments: any = [
+        {
+            title: 'تصویر امضاء دریافت شده از سجام',
+            fileType:1,
+            image: null
+        }
+    ]
+
+    const resizeFile = (file:any) =>
+        new Promise((resolve) => {
+            Resizer.imageFileResizer(
+                file,
+                200,
+                100,
+                "PNG",
+                20,
+                0,
+                (uri) => {
+                    resolve(uri);
+                },
+                "base64"
+            );
+        });
+
+    const resizeHandlder = async (file:any)=>{
+        const image = await resizeFile(file);
+        let __D = document;
+        setDocuments([{...__D,image:image}])
+    }
+    const getDocument = useCallback(async ()=>{
+        await getContent({fileOwnerSoftware:1,type:1})
+            .then((res)=> {
+                let _D = initialDocuments;
+                if (res?.data.result.length){
+                    res?.data.result?.map((item:any)=>{
+                        let _documentIndex = _D.findIndex((i:any)=>i.fileType===item.fileType)
+                        if (_documentIndex>=0 && item?.content){
+                            fetch(`data:image/${(item.extension).split('.')[1]};base64,`+item.content)
+                                .then(res => res.blob())
+                                .then(blob => {
+                                    const file = new File([blob], "File name",{ type: "image/png" })
+                                    resizeHandlder(file)
+                                })
+                        }
+                    })
+                }
+                setDocuments(_D)
+            })
+    },[])
 
     const approveHandler = (key:string,status:number=-1)=>{
         let _approves:any = [...approvedAgreements];
@@ -99,6 +153,7 @@ export default function AgreementLevel() {
                 })
         }
         getAgreements()
+        getDocument()
         if (!userData){
             sejamInfo()
         }
@@ -126,7 +181,7 @@ export default function AgreementLevel() {
     }
 
     return (
-        <>
+        <agreementContext.Provider value={{document}}>
             <div className="grow">
                 {agreements.filter((item:any)=>!item.isDeleted).map((a:agreement) => {
                     return (
@@ -153,7 +208,7 @@ export default function AgreementLevel() {
                     </svg>}
                 </button>
             </div>
-        </>
+        </agreementContext.Provider>
     )
 }
 
