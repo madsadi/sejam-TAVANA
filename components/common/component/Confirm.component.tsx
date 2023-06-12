@@ -14,7 +14,7 @@ export default function ConfirmComponent({banks}:{banks:any}){
         if (isChecked){
             const updateReg = async ()=>{
                 setLoading(true)
-                await updateRegistrationState({registrationState:14})
+                await updateRegistrationState({registrationState:15})
                     .then(()=>setLevel(level+1))
                     .catch((err)=> toast.error(`${err?.response?.data?.error?.message}`))
                     .finally(()=>setLoading(false))
@@ -31,7 +31,7 @@ export default function ConfirmComponent({banks}:{banks:any}){
                 <input className="ml-2 checkbox checkbox-accent" checked={isChecked} onChange={(e)=>setIsChecked(e.target.checked)} type="checkbox" dir={'ltr'} name="confirm"/>
                 <label htmlFor="confirm">اطلاعات مورد تایید است</label>
             </div>
-            <button className="button w-fit" onClick={proceed}>
+            <button className="button flex items-center w-fit" onClick={proceed}>
                 تایید
                 {loading && <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
