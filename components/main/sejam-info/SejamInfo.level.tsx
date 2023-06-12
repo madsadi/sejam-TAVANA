@@ -116,7 +116,7 @@ export default function SejamInfoLevel() {
                             <LabelValue title={'محل تولد'} value={data?.privatePerson?.placeOfBirth}/>
                             <LabelValue title={'صادره از'} value={data?.privatePerson?.placeOfIssue}/>
                             <LabelValue title={'سریال شناسنامه'}
-                                        value={`${data?.privatePerson?.serial + `/` + data?.privatePerson?.seriShChar + data?.privatePerson?.seriSh}`}/>
+                                        value={data?.privatePerson?.serial ? `${data?.privatePerson?.serial + `/` + data?.privatePerson?.seriShChar + data?.privatePerson?.seriSh}`:''}/>
                             <LabelValue title={'شماره شناسنامه'} value={data?.privatePerson?.shNumber}/>
                         </div>
                     </AccordionComponent>}
@@ -125,7 +125,7 @@ export default function SejamInfoLevel() {
                         <LabelValue title={'نام شرکت'} value={data?.jobInfo?.companyName}/>
                         <LabelValue title={'ایمیل کاری'} value={data?.jobInfo?.companyEmail}/>
                         <LabelValue title={'شماره شرکت'}
-                                    value={data?.jobInfo?.companyCityPrefix + data?.jobInfo?.companyPhone}/>
+                                    value={data?.jobInfo?.companyPhone ? `${data?.jobInfo?.companyCityPrefix ? (data?.jobInfo?.companyCityPrefix+'-'):'' + data?.jobInfo?.companyPhone}`:''}/>
                         <LabelValue title={'کد پستی شرکت'} value={data?.jobInfo?.companyPostalCode}/>
                         <LabelValue title={'سایت شرکت'} value={data?.jobInfo?.companyWebSite}/>
                         <LabelValue title={'تاریخ استخدام'}
@@ -241,10 +241,10 @@ export default function SejamInfoLevel() {
                                     <LabelValue key={index} title={'شماره همراه'} value={item?.mobile}/>
                                     <LabelValue key={index} title={'شماره ثابت'} value={item?.tel}/>
                                     <LabelValue key={index} title={'شماره تماس اضطراری'}
-                                                value={((item?.emergencyTelCityPrefix ? item?.emergencyTelCityPrefix : '') + '-' + (item?.emergencyTel ? item?.emergencyTel : ''))}/>
+                                                value={((item?.emergencyTelCityPrefix ? (item?.emergencyTelCityPrefix+ '-') : '')  + (item?.emergencyTel ? item?.emergencyTel : ''))}/>
                                     <LabelValue key={index} title={'کد پستی'} value={item?.postalCode}/>
                                     <LabelValue key={index} title={'آدرس'}
-                                                value={item?.country.name + ' ' + item?.city?.name + ' ' + item?.section?.name + ' ' + item?.remnantAddress + ' ' + item?.alley + ' ' + item?.plaque}/>
+                                                value={(item?.country.name ? item?.country.name:'') + ' ' + (item?.city?.name ? item?.city?.name:'') + ' ' + (item?.section?.name ? item?.section?.name:'') + ' ' + (item?.remnantAddress ? item?.remnantAddress:'') + ' ' + (item?.alley ? item?.alley:'') + ' ' + (item?.plaque ? item?.plaque:'')}/>
                                 </div>
                             )
                         })
