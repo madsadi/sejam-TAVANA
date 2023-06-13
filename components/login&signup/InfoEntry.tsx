@@ -24,12 +24,12 @@ export default function InfoEntry() {
     const {setLevel, mobile, token} = useContext<any>(IdpContext)
     const forum = [
         {
-            title: 'نام کاربری',
-            name: 'userName',
-        },
-        {
             title: 'کدملی فرد/شناسه ملی شرکت/کد پاسپورت',
             name: 'nationalId',
+        },
+        {
+            title: 'نام کاربری',
+            name: 'userName',
         },
         {
             title: 'نام',
