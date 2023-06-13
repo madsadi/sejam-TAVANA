@@ -14,7 +14,7 @@ export default function ConfirmComponent({banks}:{banks:any}){
         if (isChecked){
             const updateReg = async ()=>{
                 setLoading(true)
-                await updateRegistrationState({registrationState:15})
+                await updateRegistrationState({registrationState:14})
                     .then(()=>setLevel(level+1))
                     .catch((err)=> toast.error(`${err?.response?.data?.error?.message}`))
                     .finally(()=>setLoading(false))

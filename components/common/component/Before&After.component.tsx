@@ -12,7 +12,7 @@ export default function BeforeAfterComponent({condition,warning}:{condition:bool
         if (condition){
             const updateReg = async ()=>{
                 setLoading(true)
-                await updateRegistrationState({registrationState:level === 3 ? 16 : 17})
+                await updateRegistrationState({registrationState:level === 3 ? 15 : 16})
                     .then(()=>setLevel(level+1))
                     .catch((err)=> toast.error(`${err?.response?.data?.error?.message}`))
                     .finally(()=>setLoading(false))

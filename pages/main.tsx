@@ -38,19 +38,25 @@ export default function Main() {
             // case no === 6:
             //     setLevel(1);
             //     break
-            case no <= 14:
+            case no < 14:
+                //sejAM-INFO
                 setLevel(2);
                 break
-            case no === 15:
+            case no === 14:
+                //upload
                 setLevel(3);
                 break
-            case no === 16:
+            case no === 15:
+                //test
                 setLevel(4);
                 break
+            case no === 16:
             case no === 17:
+                //agreement
                 setLevel(5);
                 break
             case no >= 18:
+                //status
                 setLevel(6);
                 break
             default:
