@@ -64,7 +64,7 @@ export default function TestLevel() {
         <>
             <div>
                 <div className="flex items-center mb-5">
-                    <ExclamationCircleIcon className='h-7 w-7 ml-2 text-tavanaGreen' />
+                    <ExclamationCircleIcon className='h-7 w-7 ml-2 text-tavanaPurple' />
                     <span> آزمون آنلاین بورس را تکمیل نمایید</span>
                 </div>
                 {
