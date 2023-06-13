@@ -13,7 +13,7 @@ import {useRouter} from "next/router";
 
 export default function MobileEntry() {
     const {setLevel, setMobile, mobile} = useContext<any>(IdpContext)
-    const {fetchAsyncData} = useQuery({url:`${IDP_URL}/api/account/notifications/register/sms`})
+    const {fetchAsyncData} = useQuery({url: `${IDP_URL}/api/account/notifications/register/sms`})
     type initialType = {
         mobile: string,
         password: string,
@@ -53,16 +53,15 @@ export default function MobileEntry() {
     const router = useRouter()
 
     useEffect(() => {
-        if (router.asPath!=='/'){
-            localStorage.setItem('RefCode', `${router.asPath ? (router.asPath).split('/')[1]:null}`)
-        }
+        localStorage.setItem('RefCode', `${router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/')[1] : ''}`)
     }, [router.asPath])
 
     return (
         <>
             <h2>به توانا خوش آمدید</h2>
             <p>جهت ثبت نام شماره موبایل خود را وارد کنید.</p>
-            <Formik initialValues={initialValue} validationSchema={mobileEntry} validateOnChange={false} onSubmit={submitHandler}>
+            <Formik initialValues={initialValue} validationSchema={mobileEntry} validateOnChange={false}
+                    onSubmit={submitHandler}>
                 {({isSubmitting}) => (
                     <Form className={'justify-end space-y-10 grow flex flex-col'}>
                         <InputComponent label={'شماره موبایل'}
@@ -89,7 +88,7 @@ export default function MobileEntry() {
                             </button>
                             <button
                                 className={'button bg-transparent text-black mt-4 hover-button mx-auto border border-tavanaGreen w-full'}
-                                    type={'button'}
+                                type={'button'}
                                 onClick={() => void auth.signinRedirect()}>
                                 <span>آیا در توانا حساب دارید؟</span>
                                 <span className={'text-active font-bold'}> وارد شوید</span>
