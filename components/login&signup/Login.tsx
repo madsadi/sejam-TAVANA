@@ -9,9 +9,7 @@ export default function Login() {
     const router = useRouter()
 
     useEffect(() => {
-        if (router.asPath!=='/'){
-            localStorage.setItem('RefCode', `${router.asPath ? (router.asPath).split('/')[1]:null}`)
-        }
+            localStorage.setItem('RefCode', `${router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/')[1] : ''}`)
     }, [router.asPath])
 
 
