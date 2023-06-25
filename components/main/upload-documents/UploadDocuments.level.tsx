@@ -53,8 +53,8 @@ export default function UploadDocumentsLevel() {
             image: null
         },
         {
-            fileType: 9,
-            title: "تصویر صفحه توضیحات شناسنامه وکیل",
+            fileType: 8,
+            title: "تصویر صفحه اول شناسنامه وکیل",
             image: null
         },
         {
