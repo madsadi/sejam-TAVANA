@@ -53,8 +53,8 @@ export default function UploadDocumentsLevel() {
             image: null
         },
         {
-            fileType: 9,
-            title: "تصویر صفحه توضیحات شناسنامه وکیل",
+            fileType: 8,
+            title: "تصویر صفحه اول شناسنامه وکیل",
             image: null
         },
         {
@@ -70,6 +70,11 @@ export default function UploadDocumentsLevel() {
     ]
     let legalDocuments: any = [
         {
+            fileType: 8,
+            title: "تصویر صفحه اول شناسنامه وکیل",
+            image: null
+        },
+        {
             fileType: 9,
             title: "تصویر صفحه توضیحات شناسنامه وکیل",
             image: null
@@ -77,11 +82,6 @@ export default function UploadDocumentsLevel() {
         {
             fileType: 10,
             title: "تصویر روی کارت ملی وکیل",
-            image: null
-        },
-        {
-            fileType: 11,
-            title: "تصویر وکالت نامه",
             image: null
         },
         {
@@ -157,7 +157,7 @@ export default function UploadDocumentsLevel() {
 
     let firstDeck = [
         {
-            fileType: 9,
+            fileType: 8,
             title: "تصویر صفحه توضیحات شناسنامه وکیل",
             image: null
         },
