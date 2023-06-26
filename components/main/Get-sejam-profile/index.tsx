@@ -20,7 +20,7 @@ const initialValue = {
 }
 export default function GetSejamProfile() {
     const {fetchAsyncData:getSejamProfile} = useQuery({url:`${SEJAM_URL}/api/request/GetSejamProfile`})
-    const {setLevel} = useContext<any>(SejamContext)
+    const {setLevel,registrationState} = useContext<any>(SejamContext)
     const [info, setInfo] = useState<initialType>(initialValue)
     const [retry, setRetry] = useState<boolean>(false)
 
@@ -37,6 +37,7 @@ export default function GetSejamProfile() {
                 setLevel(2)
             })
             .catch((err) => {
+                registrationState()
                 setRetry(!retry)
                 toast.error(`${err?.response?.data?.error?.message}`)
             })
