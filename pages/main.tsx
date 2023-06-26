@@ -64,21 +64,20 @@ export default function Main() {
                 return
         }
     }
-
+    const registrationState = async () => {
+        await fetchAsyncData()
+            .then((res) => {
+                setTimeout(()=>{
+                    findLevel(res?.data.result?.registrationState);
+                },1000)
+                setRegInfo(res?.data.result)
+            })
+            .catch((err) => {
+                setError('مشکلی پیش آمده.')
+                toast.error(`${err?.response?.data?.error?.message}`)
+            })
+    }
     useEffect(() => {
-        const registrationState = async () => {
-            await fetchAsyncData()
-                .then((res) => {
-                    setTimeout(()=>{
-                        findLevel(res?.data.result?.registrationState);
-                    },1000)
-                    setRegInfo(res?.data.result)
-                })
-                .catch((err) => {
-                    setError('مشکلی پیش آمده.')
-                    toast.error(`${err?.response?.data?.error?.message}`)
-                })
-        }
         registrationState()
     }, [])
 
@@ -94,7 +93,7 @@ export default function Main() {
     }[level]
 
     return (
-        <SejamContext.Provider value={{setLevel, setUserData, userData, level, setUserDefaultBank, userDefaultBank,regInfo}}>
+        <SejamContext.Provider value={{setLevel, setUserData, userData, level, setUserDefaultBank, userDefaultBank,regInfo,registrationState}}>
             <div className="relative flex flex-col h-full md:py-0 pt-5 text-sm md:text-md">
                 <ProgressBar/>
                 {level >= 0 ? <div className={'flex overflow-y-auto flex-col grow bg-content border-t-2 border-tavanaPurple'}>
