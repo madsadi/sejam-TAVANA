@@ -4,7 +4,7 @@ import {toast} from "react-toastify";
 import useMutation from "../../../hooks/useMutation";
 import {SEJAM_URL} from "../../../api/constants";
 
-export default function ConfirmComponent({banks}:{banks:any}){
+export default function ConfirmComponent(){
     const {mutate:updateRegistrationState} = useMutation({url:`${SEJAM_URL}/api/request/UpdateRegistrationState`})
     const {setLevel,level} = useContext<any>(SejamContext)
     const [isChecked,setIsChecked]=useState(false)
