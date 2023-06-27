@@ -5,15 +5,8 @@ import {SejamContext} from "../../../pages/main";
 import {ChevronUpIcon} from "@heroicons/react/20/solid";
 
 export default function AccordionComponent({children,title,extra}:{children:any,title:string,extra:any}){
-    const {regState} = useContext<any>(SejamContext)
     const isMobile = useMediaQuery({query: `(max-width: 760px)`});
     const [checked,isChecked] = useState(false);
-
-    useEffect(()=>{
-        if (regState===8 && title==='وکیل / نماینده')  {
-            isChecked(true)
-        }
-    },[])
 
     return(
         <div className="relative collapse grow border-b-2 first:border-t-2 border-black font-[PelakFA]">

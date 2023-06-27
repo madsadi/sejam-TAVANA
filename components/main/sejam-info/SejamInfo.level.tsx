@@ -22,29 +22,20 @@ import {PlusCircleIcon} from "@heroicons/react/24/outline";
 import Modal from "../../common/component/Modal";
 import AddAccountComponent from "./AddAccountComponent";
 import {SejamContext} from "../../../pages/main";
-import {Log} from "oidc-client-ts";
-import setLevel = Log.setLevel;
-import {toast} from "react-toastify";
 import {SEJAM_URL} from "../../../api/constants";
 import useQuery from "../../../hooks/useQuery";
 import useMutation from "../../../hooks/useMutation";
+import {BlockerModal} from "./BlockerModal";
 
 export default function SejamInfoLevel() {
     const {fetchAsyncData: getSejamInfo} = useQuery({url: `${SEJAM_URL}/api/request/GetSejamInfo`})
     const {mutate: registerBankAccount} = useMutation({url: `${SEJAM_URL}/api/request/RegisterBankAccount`})
-    const {mutate: updateAgentInfo} = useMutation({url: `${SEJAM_URL}/api/request/UpdateAgentInfo`})
     const {fetchAsyncData: getBankAccounts} = useQuery({url: `${SEJAM_URL}/api/request/GetAllBankAccounts`})
     const {setUserData, regInfo} = useContext<any>(SejamContext)
     const [data, setData] = useState<SejamInfoType | any>({})
     const [banks, setBanks] = useState<accountNumber | any>([])
     const [addModal, setAddModal] = useState<boolean>(false)
-    const [info, setInfo] = useState<any>({uniqueId: '', agentUniqueId: ''})
 
-    const infoUpdate = (key: string, value: any) => {
-        let _info: any = {};
-        _info[key] = value;
-        setInfo({...info, ..._info})
-    }
     const sejamInfo = async () => {
         await getSejamInfo()
             .then((res) => {
@@ -59,11 +50,6 @@ export default function SejamInfoLevel() {
             })
     }
 
-    const updateAgent = async () => {
-        await updateAgentInfo(info)
-            .then(() => setLevel(0.5))
-            .catch((err) => toast.error(`${err?.response?.data?.error?.message}`))
-    }
 
     const setDefaultBank = async (defaultBank: accountNumber) => {
         let restOfAccounts = banks.map((b: accountNumber) => {
@@ -201,35 +187,6 @@ export default function SejamInfoLevel() {
                         <LabelValue title={'مشخص کننده تایید نماینده'}
                                     value={data?.agent?.isConfirmed ? 'تایید شده' : 'تایید نشده'}/>
                     </div>
-                    {regInfo?.registrationState === 8 ? <div className={'border border-dashed p-2 mt-5 rounded-lg'}>
-                        <p className={'text-red-400'}>کد ملی وکیل با اطلاعات دریافت شده از سجام تطابق ندارد.</p>
-                        <p className={'my-1 '}>در صورت تمایل اطلاعات زیر را اصلاح نموده و فرایند ثبت نام را تکرار
-                            نمایید.</p>
-                        <div className={'grid md:grid-cols-3 grid-cols-2 gap-3'}>
-                            <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
-                                <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
-                                    کد ملی وکیل:
-                                </label>
-                                <input className={`input`}
-                                       dir={'ltr'}
-                                       value={info.agentUniqueId}
-                                       onChange={(e) => infoUpdate('agentUniqueId', e.target.value)}
-                                />
-                            </div>
-                            <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
-                                <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
-                                    کد ملی :
-                                </label>
-                                <input className={`input`}
-                                       dir={'ltr'}
-                                       value={info.uniqueId}
-                                       onChange={(e) => infoUpdate('uniqueId', e.target.value)}
-                                />
-                            </div>
-                            <button className={'button w-fit px-5'} type={'button'} onClick={updateAgent}>ویرایش
-                            </button>
-                        </div>
-                    </div> : null}
                 </AccordionComponent> : null}
                 <AccordionComponent title={'اطلاعات ارتباطی'}>
                     {
@@ -306,7 +263,8 @@ export default function SejamInfoLevel() {
                     چنانچه نسبت به تغییر آن حساسیتی دارید باید از طریق آن سامانه اقدام نمایید.
                 </p>
             </div>
-            <ConfirmComponent banks={banks}/>
+            {regInfo?.registrationState === 8 ? <BlockerModal />:null}
+            <ConfirmComponent />
         </>
     )
 }
