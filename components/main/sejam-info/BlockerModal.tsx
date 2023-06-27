@@ -14,9 +14,13 @@ export const BlockerModal = () => {
         setInfo({...info, ..._info})
     }
     const updateAgent = async () => {
-        await updateAgentInfo(info)
-            .then(() => setBlockerModal(false))
-            .catch((err) => toast.error(`${err?.response?.data?.error?.message}`))
+        if (info.uniqueId && info.agentUniqueId){
+            await updateAgentInfo(info)
+                .then(() => setBlockerModal(false))
+                .catch((err) => toast.error(`${err?.response?.data?.error?.message}`))
+        }else{
+            toast.warning('وارد کردن کدملی شخص و کدملی وکیل اجباری می باشد')
+        }
     }
 
     return (
@@ -34,7 +38,7 @@ export const BlockerModal = () => {
                     <div className={'p-3'}>
                         <div className={'mt-5'}>
                             <p className={'text-red-400'}>کد ملی وکیل با اطلاعات دریافت شده از سجام تطابق ندارد.</p>
-                            <p className={'my-1 '}>برای ادامه روند ثبت نام اطلاعات زیر را اصلاح نموده.</p>
+                            <p className={'my-1 '}>برای ادامه روند ثبت نام اطلاعات زیر را اصلاح نمایید.</p>
                             <div className={'grid md:grid-cols-3 grid-cols-2 gap-3 mt-5'}>
                                 <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
                                     <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[90px]'}>
