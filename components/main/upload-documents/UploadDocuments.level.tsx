@@ -250,6 +250,15 @@ export default function UploadDocumentsLevel() {
             await fetchAsyncData()
                 .then((res) => {
                     setRegInfo(res?.data.result)
+                    let _D: any
+                    if (res?.data.result.hasAgent) {
+                        _D = agentDocuments;
+                    } else if (res?.data.result.personType === 2) {
+                        _D = legalDocuments;
+                    } else {
+                        _D = initialDocuments;
+                    }
+                    setDocuments(_D)
                 })
                 .catch((err) => {
                     toast.error(`${err?.response?.data?.error?.message}`)
@@ -262,28 +271,19 @@ export default function UploadDocumentsLevel() {
         const getDocument = async () => {
             await getContent({fileOwnerSoftware: 1})
                 .then((res) => {
-                    let _D: any
-                    if (regInfo.hasAgent) {
-                        _D = agentDocuments;
-                    } else if (regInfo.personType === 2) {
-                        _D = legalDocuments;
-                    } else {
-                        _D = initialDocuments;
-                    }
                     res?.data.result?.map((item: any) => {
-                        let _documentIndex = _D.findIndex((i: any) => i.fileType === item.fileType)
+                        let _documentIndex = document.findIndex((i: any) => i.fileType === item.fileType)
                         if (_documentIndex >= 0 && item?.content) {
-                            _D.splice(_documentIndex, 1, {
-                                ..._D[_documentIndex],
+                            document.splice(_documentIndex, 1, {
+                                ...document[_documentIndex],
                                 id: item.id,
                                 image: `data:image/${(item.extension).split('.')[1]};base64,` + item.content
                             })
                         }
                     })
-                    setDocuments(_D)
                     setLoading(false)
                 })
-                .catch(() => setLoading(true))
+                .catch(() => setLoading(false))
         }
         if (regInfo){
             getDocument()
