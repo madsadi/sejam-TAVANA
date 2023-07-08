@@ -15,6 +15,7 @@ import useQuery from "../../../hooks/useQuery";
 import {FILE_SERVER_URL, SEJAM_URL} from "../../../api/constants";
 import useMutation from "../../../hooks/useMutation";
 import Resizer from "react-image-file-resizer";
+import PrivatePersonValue from "./قرارداد اعتبار حقیقی";
 
 export const agreementContext = createContext({})
 export default function AgreementLevel() {
@@ -170,6 +171,7 @@ export default function AgreementLevel() {
         '89a75475-b23d-4592-a985-704915dbfc88':<OfflineTradingAgreement/>,
         'b8966013-1d76-47d6-a962-f87d2ffef944':<OnlineTradingAgreement/>,
         'bfd4daf5-5b1e-4e3c-b0fe-75713131913b':<OptionalAgreement/>,
+        '4c0ab69f-f4f5-4aed-bf0b-163681c3b7b0':<PrivatePersonValue/>,
     }
 
     const proceed =async ()=>{

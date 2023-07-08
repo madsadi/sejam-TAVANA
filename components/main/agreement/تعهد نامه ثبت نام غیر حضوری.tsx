@@ -63,7 +63,7 @@ export default function OnlineRegistrationAgreement() {
                                 </div>
 
                                 <div className="text-center">
-                                    <h4 className="font-weight-bolder">
+                                    <h4 className="font-weight-bold">
                                         فرم مشخصات اشخاص حقیقی ایرانی (مشتري / نماینده)
                                     </h4>
                                 </div>
@@ -346,25 +346,25 @@ export default function OnlineRegistrationAgreement() {
                                 </div>
                                 <div className="text-right mt-4">
                                     <p>
-                                    <span className="font-weight-bold">
+                                    <span className="font-bold">
                                         * میزان آشنایی شما با مفاهیم مالی و سرمایه‌گذاری در اوراق بهادار:
                                     </span>
                                         {tradingKnowledgeLevelEnums.find((item: { id: string, title: string }) => item.id === userData?.financialInfo?.tradingKnowledgeLevel)?.title}
                                     </p>
                                     <p>
-                                    <span className="font-weight-bold">
+                                    <span className="font-bold">
                                         * متوسط درآمد ماهیانه شما از مشاغل و منابع مختلف در حال حاضر چقدراست؟
                                     </span>
                                         {formatNumber(userData?.financialInfo?.inComingAverage)}
                                     </p>
                                     <p>
-                                    <span className="font-weight-bold">
+                                    <span className="font-bold">
                                         * پیش‌ بینی می‌کنید سطح معاملات شما در بازار سرمایه طی یک سال چه مبلغی باشد؟
                                     </span>
                                         {transactionLevelPrivatePersonEnums.find((item: { id: string, title: string }) => item.id === userData?.financialInfo?.transactionLevel)?.title}
                                     </p>
                                     <p><span
-                                        className="font-weight-bold"> * نام شرکت کارگزاري که شما قبلاً از طریق آن معامله نموده‌اید، ذکر نمایید:</span>
+                                        className="font-bold"> * نام شرکت کارگزاري که شما قبلاً از طریق آن معامله نموده‌اید، ذکر نمایید:</span>
                                     </p>
                                 </div>
                                 <div className="text-right mt-4">
