@@ -55,6 +55,10 @@ export default function AgreementLevel() {
             agreementId:'bfd4daf5-5b1e-4e3c-b0fe-75713131913b',
             status:3,
         },
+        {
+            agreementId:'4c0ab69f-f4f5-4aed-bf0b-163681c3b7b0b',
+            status:3,
+        }
     ]
     const {userData,setUserData,setUserDefaultBank,userDefaultBank} = useContext<any>(SejamContext)
     const [agreements, setAgreements] = useState<agreement[]>([])

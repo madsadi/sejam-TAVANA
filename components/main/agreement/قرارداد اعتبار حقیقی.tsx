@@ -33,6 +33,7 @@ export default function PrivatePersonValue() {
         ); // eslint-disable-line max-len
     }
 
+    console.log(userData)
     return (
         <>
             <ReactToPrint
