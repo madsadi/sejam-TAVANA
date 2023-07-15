@@ -56,7 +56,7 @@ export default function AgreementLevel() {
             status:3,
         },
         {
-            agreementId:'4c0ab69f-f4f5-4aed-bf0b-163681c3b7b0b',
+            agreementId:'4c0ab69f-f4f5-4aed-bf0b-163681c3b7b0',
             status:3,
         }
     ]
