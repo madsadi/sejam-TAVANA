@@ -106,14 +106,17 @@ export default function OptionalAgreement() {
                                         </tr>
                                         <tr className={'col-span-12'}>
                                             <td>
-                                                <LabelValue title={'نام، نام خانوادگی آخرین صاحب امضاء مجاز'} value={'حمیدرضا طریقی'}/>
+                                                <LabelValue title={'آخرین صاحب امضاء مجاز'} value={'حمیدرضا طریقی'}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'سمت'} value={' مدیرعامل و عضو هیئت مدیره'}/>
+                                                <LabelValue title={'سمت'} value={' مدیرعامل و'}/>
+                                                <LabelValue title={''} value={'عضو هیئت مدیره'}/>
                                             </td>
                                             <td>
-                                                <LabelValue title={'آدرس دفتر مرکزی'} value={'تهران، خیابان مطهری، خیابان میرعماد'}/>
-                                                <LabelValue title={''} value={'،نبش کوچه سوم پلاک 10، طبقه دوم'}/>
+                                                <LabelValue title={'آدرس دفتر مرکزی'} value={'تهران، خیابان مطهری'}/>
+                                                <LabelValue title={''} value={'، خیابان میرعماد'}/>
+                                                <LabelValue title={''} value={'، نبش کوچه سوم'}/>
+                                                <LabelValue title={''} value={' پلاک 10، طبقه دوم'}/>
                                             </td>
                                             <td>
                                                 <LabelValue title={'آدرس پست الکترونیکی'} value={'info@tavana.net'}/>

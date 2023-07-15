@@ -58,21 +58,21 @@ export default function TotalBrokerageAgreement() {
                                     <h4 className={'mb-5'}>قرارداد جامع مشتري و کارگزار (در خصوص اوراق بهادار) </h4>
                                 </div>
                                 <p>
-                                    <span className="font-weight-bold">این قرارداد بین شرکت کارگزاري توانا (مشاوران سهام سابق)</span>
+                                    <span className="font-bold">این قرارداد بین شرکت کارگزاري توانا (مشاوران سهام سابق)</span>
                                     به
                                     شماره
                                     ثبت
                                     159302 کد اقتصادي
                                     ۴۱۱۱۴۴۸۴۴۴۸۷ به نمایندگی آقاي/خانم
                                     &lrm;<span
-                                    className="font-weight-bold"> علی یزدانی با سمت رئیس هیأت مدیره</span>&lrm;
+                                    className="font-bold"> علی یزدانی با سمت رئیس هیأت مدیره</span>&lrm;
                                     &lrm;و آقاي/خانم&lrm;
-                                    &lrm;<span className="font-weight-bold">حمیدرضا طریقی با سمت مدیرعامل </span> بر
+                                    &lrm;<span className="font-bold">حمیدرضا طریقی با سمت مدیرعامل </span> بر
                                     اساس آخرین روزنامه رسمی&lrm;
                                     به
                                     نشانی
                                     تهران،خیابان میرعماد، نبش کوچه ی سوم , روبروی فرمانداری پلاک 10 طبقه ی دوم شرقی
-                                    کد پستی 1587946317 شماره تلفن <span className="font-weight-bold">42906-021</span> و
+                                    کد پستی 1587946317 شماره تلفن <span className="font-bold">42906-021</span> و
                                     نشانی سایت اینترنتی <a href="https://www.tavana.net">www.tavana.net</a> که
                                     {/* eslint-disable-next-line react/no-unescaped-entities */}
                                     از این پس در این قرارداد "کارگزار" نامیده می‌شود از یک طرف و "مشتري" با مشخصات مندرج
@@ -191,7 +191,7 @@ export default function TotalBrokerageAgreement() {
 
                                 <div className="text-right">
                                     <p>
-                                        <span className="font-weight-bolder">تبصره: </span> چنانچه این قرارداد یا هر یک
+                                        <span className="font-bold">تبصره: </span> چنانچه این قرارداد یا هر یک
                                         از قراردادهاي متعاقب
                                         آن به
                                         نمایندگی (اعم از وکالت، ولایت، وصایت یا قیومیت )
@@ -376,7 +376,7 @@ export default function TotalBrokerageAgreement() {
                                         التزام به کارگزار بپردازد. </p>
                                 </div>
                                 <p>
-                                    <span className="font-weight-bolder">تبصره 1: </span> در صورت عدم پرداخت بدهی موضوع
+                                    <span className="font-bolder">تبصره 1: </span> در صورت عدم پرداخت بدهی موضوع
                                     این ماده توسط مشتري
                                     ظرف مهلت
                                     2 روز کاري، به‌موجب این قرارداد مشتري
@@ -411,7 +411,7 @@ export default function TotalBrokerageAgreement() {
                                 </ul>
 
                                 <p>
-                                    <span className="font-weight-bolder">تبصره 2: </span> در صورت اصلاح مقررات مربوط به
+                                    <span className="font-bold">تبصره 2: </span> در صورت اصلاح مقررات مربوط به
                                     تسویه معاملات، مواعد
                                     مقرر در
                                     این ماده و تبصره 1 آن نیز متناسب با
@@ -432,7 +432,7 @@ export default function TotalBrokerageAgreement() {
                                         منوط به
                                         اعلام حساب بانکی جدید از طریق تکمیل فرم هاي مربوطه در کارگزاري خواهد بود.
                                     </p>
-                                    <p><span className="font-weight-bolder">تبصره: </span> در صورتی که سفارش راجع به
+                                    <p><span className="font-bolder">تبصره: </span> در صورتی که سفارش راجع به
                                         فروش اوراق بهاداري باشد
                                         که
                                         توسط
@@ -524,7 +524,7 @@ export default function TotalBrokerageAgreement() {
                                         جبران خسارات ناشی از عدم اجرا یا تأخیر در اجراي مفاد قرارداد نیست.
                                     </p>
                                     <p>
-                                        <span className="font-weight-bolder">تبصره:</span> مشتري نمی‌تواند به استناد
+                                        <span className="font-bold">تبصره:</span> مشتري نمی‌تواند به استناد
                                         بروز عامل خارجیِ
                                         غیرقابل رفع
                                         و

@@ -488,7 +488,7 @@ export default function OnlineTradingAgreement() {
                                     8. کارگزار متعهد است داده ها و اطلاعات مربوط به مشتري را محرمانه نگه دارد.
                                 </p>
                                 <p>
-                                    <span className="font-weight-bold">تبصره: </span> کارگزاري مجاز است با رعایت قوانین و مقررات موجود،
+                                    <span className="font-bold">تبصره: </span> کارگزاري مجاز است با رعایت قوانین و مقررات موجود،
                                     اطلاعات
                                     مشتریان را در اختیار سازمان یا سایر مراجع
                                     ذیصلاح قرار دهد.
@@ -735,7 +735,7 @@ export default function OnlineTradingAgreement() {
                                     معامالت برخط اقدام نماید.
                                 </p>
                                 <p>
-                                    <span className="font-weight-bold">تبصره 1: </span> در صورتی که مشتري بیش از یکی از روش‌های فوق را
+                                    <span className="font-bold">تبصره 1: </span> در صورتی که مشتري بیش از یکی از روش‌های فوق را
                                     انتخاب
                                     نماید،
                                     اطلاع‌رسانی از طریق هر یک از روش‌های
@@ -773,7 +773,7 @@ export default function OnlineTradingAgreement() {
                                     </p>
 
                                     <p>
-                                        <span className="font-weight-bold">تبصره: </span> اعلام نشانی و اطلاعات تماس جدید کارگزار بر روي
+                                        <span className="font-bold">تبصره: </span> اعلام نشانی و اطلاعات تماس جدید کارگزار بر روي
                                         سایت
                                         اینترنتی
                                         کارگزار به منزله اعلام آن به مشتري خواهد بود.
