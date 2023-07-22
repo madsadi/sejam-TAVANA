@@ -7,15 +7,15 @@ import useQuery from "../../../hooks/useQuery";
 import {SEJAM_URL} from "../../../api/constants";
 import useMutation from "../../../hooks/useMutation";
 
-export const SejamiStatus=()=>{
-    const {fetchAsyncData:isSejami} = useQuery({url:`${SEJAM_URL}/api/request/IsSejami`})
-    const {fetchAsyncData:sejamStatus} = useQuery({url:`${SEJAM_URL}/api/request/SejamStatus`})
-    const {mutate:getSejamKYCToken} = useMutation({url:`${SEJAM_URL}/api/request/getSejamKYCToken`})
+export const SejamiStatus = () => {
+    const {fetchAsyncData: isSejami} = useQuery({url: `${SEJAM_URL}/api/request/IsSejami`})
+    const {fetchAsyncData: sejamStatus} = useQuery({url: `${SEJAM_URL}/api/request/SejamStatus`})
+    const {mutate: getSejamKYCToken} = useMutation({url: `${SEJAM_URL}/api/request/getSejamKYCToken`})
 
     const {setLevel} = useContext<any>(SejamContext)
     const [error, setError] = useState<{ message: string, link: string }>({message: '', link: ''})
 
-    useEffect(()=>{
+    useEffect(() => {
         const checkPoints = async () => {
             const KYC = async () => {
                 await getSejamKYCToken()
@@ -38,7 +38,7 @@ export const SejamiStatus=()=>{
                                 toast.success('قابلیت ثبت نام برای این اطلاعات امکان ندارد')
                             } else {
                                 setError({
-                                    message:'عملیات ثبت نام شما در سامانه سجام انجام و یا کامل نشده است. لطفا در سامانه سجام ثبت نام نموده، سپس مجددا اقدام نمایید.'
+                                    message: 'عملیات ثبت نام شما در سامانه سجام انجام و یا کامل نشده است. لطفا در سامانه سجام ثبت نام نموده، سپس مجددا اقدام نمایید.'
                                     , link: 'http://profilesejam.csdiran.ir/'
                                 })
                             }
@@ -50,12 +50,12 @@ export const SejamiStatus=()=>{
             }
             await isSejami()
                 .then((res) => {
-                    if (res?.data.result?.isSejami){
+                    if (res?.data.result?.isSejami) {
                         toast.success('شما سجامی هستید')
                         status();
-                    }else{
+                    } else {
                         setError({
-                            message: 'کاربر گرامی شما در سجام احراز هویت نشده اید، لطفا جهت احراز هویت به یکی از مراکز احراز هویت مراجعه نمایید',
+                            message: 'کاربر گرامی شما در سجام احراز هویت نشده اید، لطفا جهت احراز هویت وارد سامانه شاکیلید شوید',
                             link: 'https://ehraz.tavana.net/'
                         })
                         toast.error('شما سجامی نیستید')
@@ -63,30 +63,39 @@ export const SejamiStatus=()=>{
                 })
                 .catch((err) => {
                     setError({
-                        message: 'کاربر گرامی شما در سجام احراز هویت نشده اید، لطفا جهت احراز هویت به یکی از مراکز احراز هویت مراجعه نمایید',
+                        message: 'کاربر گرامی شما در سجام احراز هویت نشده اید، لطفا جهت احراز هویت وارد سامانه شاکیلید شوید',
                         link: 'https://ehraz.tavana.net/'
                     })
                     toast.error(`${err?.response?.data?.error?.message}`)
                 })
         }
         checkPoints()
-    },[])
+    }, [])
 
-    return(
-            <div className={'w-full'}>
+    return (
+        <div className={'w-full'}>
             {error?.message ?
                 <a className={`bg-red-300 transition-all`}
                    href={error.link}>
-                    <div className={'flex items-center mx-auto '}>
-                                    <span className={'ml-3 min-w-[24px]'}>
-                                        <Image src={'/icons/sejam.svg'} alt={'sejam'} height={24} width={24}/>
+                    <div className={'flex sm:flex-row flex-col space-y-4 items-center mx-auto '}>
+                                <span className={'ml-3 min-w-[24px]'}>
+                                        <Image
+                                            src={'/logo-full.svg'}
+                                            alt={'sejam'} height={60} width={120}/>
                                     </span>
-                        {error.message}
+                        <span className={'ml-3 min-w-[24px]'}>
+                                        <Image
+                                            src={error?.link === 'http://profilesejam.csdiran.ir/' ? '/icons/sejam.svg' : '/shakilid.png'}
+                                            alt={'sejam'} height={60} width={60}/>
+                                    </span>
+                        <p>
+                            {error.message}
+                        </p>
                         <span className={'border-b border-blue-500 mr-2'}>
                                         کلیک کنید
                                     </span>
                     </div>
                 </a> : null}
-            </div>
-        )
+        </div>
+    )
 }
