@@ -56,7 +56,7 @@ export const SejamiStatus=()=>{
                     }else{
                         setError({
                             message: 'کاربر گرامی شما در سجام احراز هویت نشده اید، لطفا جهت احراز هویت به یکی از مراکز احراز هویت مراجعه نمایید',
-                            link: 'https://www.sejam.ir/fa/AU'
+                            link: 'https://ehraz.tavana.net/'
                         })
                         toast.error('شما سجامی نیستید')
                     }
@@ -64,7 +64,7 @@ export const SejamiStatus=()=>{
                 .catch((err) => {
                     setError({
                         message: 'کاربر گرامی شما در سجام احراز هویت نشده اید، لطفا جهت احراز هویت به یکی از مراکز احراز هویت مراجعه نمایید',
-                        link: 'https://www.sejam.ir/fa/AU'
+                        link: 'https://ehraz.tavana.net/'
                     })
                     toast.error(`${err?.response?.data?.error?.message}`)
                 })
