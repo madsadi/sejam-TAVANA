@@ -64,12 +64,14 @@ export default function Main() {
                 return
         }
     }
-    const registrationState = async () => {
+    const registrationState = async (changeLevel: boolean = true) => {
         await fetchAsyncData()
             .then((res) => {
-                setTimeout(() => {
-                    findLevel(res?.data.result?.registrationState);
-                }, 1000)
+                if (changeLevel) {
+                    setTimeout(() => {
+                        findLevel(res?.data.result?.registrationState);
+                    }, 1000)
+                }
                 setRegInfo(res?.data.result)
             })
             .catch((err) => {

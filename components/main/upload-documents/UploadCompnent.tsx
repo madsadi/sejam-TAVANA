@@ -35,7 +35,6 @@ export default function UploadComponent({ item, documents, setDocs, loading }: {
         }
     };
 
-    console.log(documents, item);
 
     useEffect(() => {
         if (item?.image) {
