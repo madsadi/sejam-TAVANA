@@ -3,8 +3,12 @@ import { onlineRegistrationStatus } from "../../common/enums";
 import { SejamContext } from "../../../pages/main";
 
 export default function UserStateLevel() {
-    const { regInfo } = useContext<any>(SejamContext)
+    const { regInfo, registrationState } = useContext<any>(SejamContext)
     const [state, setState] = useState<string | undefined>('')
+
+    useEffect(() => {
+        registrationState(false)
+    }, [])
 
     useEffect(() => {
         if (regInfo) setState(onlineRegistrationStatus.find((item: any) => item.id === regInfo?.registrationState)?.title)

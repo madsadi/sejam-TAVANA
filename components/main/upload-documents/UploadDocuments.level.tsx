@@ -4,7 +4,6 @@ import BeforeAfterComponent from "../../common/component/Before&After.component"
 import AccordionComponent from "../../common/component/Accordion.component";
 import useQuery from "../../../hooks/useQuery";
 import { FILE_SERVER_URL, SEJAM_URL } from "../../../api/constants";
-import { toast } from "react-toastify";
 import { SejamContext } from '../../../pages/main';
 
 export default function UploadDocumentsLevel() {
@@ -242,8 +241,6 @@ export default function UploadDocumentsLevel() {
             image: null
         }
     ]
-
-    console.log(regInfo, document);
 
     useEffect(() => {
         const getDocument = async (D: any) => {
