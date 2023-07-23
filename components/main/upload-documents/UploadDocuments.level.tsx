@@ -1,14 +1,16 @@
 import UploadComponent from './UploadCompnent';
-import {useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import BeforeAfterComponent from "../../common/component/Before&After.component";
 import AccordionComponent from "../../common/component/Accordion.component";
 import useQuery from "../../../hooks/useQuery";
-import {FILE_SERVER_URL, SEJAM_URL} from "../../../api/constants";
-import {toast} from "react-toastify";
+import { FILE_SERVER_URL, SEJAM_URL } from "../../../api/constants";
+import { toast } from "react-toastify";
+import { SejamContext } from '../../../pages/main';
 
 export default function UploadDocumentsLevel() {
-    const {fetchAsyncData: getContent} = useQuery({url: `${FILE_SERVER_URL}/api/file-manager/get-content`})
-    const [loading,setLoading]=useState(false)
+    const { regInfo } = useContext<any>(SejamContext)
+    const { fetchAsyncData: getContent } = useQuery({ url: `${FILE_SERVER_URL}/api/file-manager/get-content` })
+    const [loading, setLoading] = useState(false)
     let initialDocuments: any = [
         {
             title: 'تصویر امضاء دریافت شده از سجام',
@@ -151,9 +153,6 @@ export default function UploadDocumentsLevel() {
         },
     ]
     const [document, setDocuments] = useState<any>(initialDocuments)
-    const {fetchAsyncData} = useQuery({url:`${SEJAM_URL}/api/request/GetRegistrationState`})
-
-    const [regInfo, setRegInfo] = useState<any>({})
 
     let firstDeck = [
         {
@@ -244,103 +243,92 @@ export default function UploadDocumentsLevel() {
         }
     ]
 
-    useEffect(() => {
-        const registrationState = async () => {
-            setLoading(true)
-            await fetchAsyncData()
-                .then((res) => {
-                    setRegInfo(res?.data.result)
-                    let _D: any
-                    if (res?.data.result.hasAgent) {
-                        _D = agentDocuments;
-                    } else if (res?.data.result.personType === 2) {
-                        _D = legalDocuments;
-                    } else {
-                        _D = initialDocuments;
-                    }
-                    setDocuments(_D)
-                })
-                .catch((err) => {
-                    toast.error(`${err?.response?.data?.error?.message}`)
-                })
-        }
-        registrationState()
-    }, [])
+    console.log(regInfo, document);
 
     useEffect(() => {
-        const getDocument = async () => {
-            await getContent({fileOwnerSoftware: 1})
+        const getDocument = async (D: any) => {
+            setLoading(true)
+            await getContent({ fileOwnerSoftware: 1 })
                 .then((res) => {
+                    let _document = D
                     res?.data.result?.map((item: any) => {
-                        let _documentIndex = document.findIndex((i: any) => i.fileType === item.fileType)
+                        let _documentIndex = _document.findIndex((i: any) => i.fileType === item.fileType)
                         if (_documentIndex >= 0 && item?.content) {
-                            document.splice(_documentIndex, 1, {
-                                ...document[_documentIndex],
+                            _document.splice(_documentIndex, 1, {
+                                ..._document[_documentIndex],
                                 id: item.id,
                                 image: `data:image/${(item.extension).split('.')[1]};base64,` + item.content
                             })
                         }
                     })
-                    setLoading(false)
+                    setDocuments(_document)
                 })
-                .catch(() => setLoading(false))
+                .finally(() => setLoading(false))
         }
-        if (regInfo){
-            getDocument()
+        if (regInfo) {
+            let _D: any
+            if (regInfo.hasAgent) {
+                _D = agentDocuments;
+            } else if (regInfo.personType === 2) {
+                _D = legalDocuments;
+            } else {
+                _D = initialDocuments;
+            }
+            getDocument(_D)
         }
     }, [regInfo])
 
     return (
         <>
             {regInfo?.personType === 2 ? <div>
-                    <AccordionComponent title={'مدارک وکیل'}>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {firstDeck.map((item: any) => {
-                                return (
-                                    <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
-                                                     key={item.fileType}/>
-                                )
-                            })}
-                        </div>
-                    </AccordionComponent>
-                    <AccordionComponent title={'مدارک مدیر عامل'}>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {secondDeck.map((item: any) => {
-                                return (
-                                    <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
-                                                     key={item.fileType}/>
-                                )
-                            })}
-                        </div>
-                    </AccordionComponent>
-                    <AccordionComponent title={'مدارک مدیر عامل'}>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {thirdDeck.map((item: any) => {
-                                return (
-                                    <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
-                                                     key={item.fileType}/>
-                                )
-                            })}
-                        </div>
-                    </AccordionComponent>
-                    <AccordionComponent title={'مدارک عضو هیئت مدیره'}>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {forthDeck.map((item: any) => {
-                                return (
-                                    <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
-                                                     key={item.fileType}/>
-                                )
-                            })}
-                        </div>
-                    </AccordionComponent>
-                </div>
+                <AccordionComponent title={'مدارک وکیل'}>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {firstDeck.map((item: any) => {
+                            return (
+                                <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
+                                    key={item.fileType} />
+                            )
+                        })}
+                    </div>
+                </AccordionComponent>
+                <AccordionComponent title={'مدارک مدیر عامل'}>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {secondDeck.map((item: any) => {
+                            return (
+                                <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
+                                    key={item.fileType} />
+                            )
+                        })}
+                    </div>
+                </AccordionComponent>
+                <AccordionComponent title={'مدارک مدیر عامل'}>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {thirdDeck.map((item: any) => {
+                            return (
+                                <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
+                                    key={item.fileType} />
+                            )
+                        })}
+                    </div>
+                </AccordionComponent>
+                <AccordionComponent title={'مدارک عضو هیئت مدیره'}>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {forthDeck.map((item: any) => {
+                            return (
+                                <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
+                                    key={item.fileType} />
+                            )
+                        })}
+                    </div>
+                </AccordionComponent>
+            </div>
                 :
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-3">
                     {
                         document.map((item: any) => {
                             return (
                                 <UploadComponent item={item} loading={loading} documents={document} setDocs={setDocuments}
-                                                 key={item.fileType}/>
+                                    key={item.fileType} />
                             )
                         })}
                 </div>}
@@ -362,7 +350,7 @@ export default function UploadDocumentsLevel() {
                 </ul>
             </div>
             <BeforeAfterComponent condition={document.every((item: any) => item.image)}
-                                  warning={'لطفا مدارک لازم را بارگذاری کنید'}/>
+                warning={'لطفا مدارک لازم را بارگذاری کنید'} />
         </>
     )
 }
