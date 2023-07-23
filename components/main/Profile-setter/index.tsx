@@ -30,10 +30,10 @@ const initialValue = {
     uniqueId: ''
 }
 
-export default function ProfileSetter({ regInfo }: { regInfo: any }) {
+export default function ProfileSetter() {
     const { fetchAsyncData: searchCountry } = useQuery({ url: `${SEJAM_URL}/api/request/SearchCountry` })
     const { mutate: addCustomer } = useMutation({ url: `${SEJAM_URL}/api/request/AddCustomerProfileInfo` })
-    const { setLevel, registrationState } = useContext<any>(SejamContext)
+    const { setLevel, registrationState, regInfo } = useContext<any>(SejamContext)
     const [info, setInfo] = useState<initialType | any>(initialValue)
     const [country, setCountry] = useState<countryType>({ countryName: '', countryId: null })
     const [countries, setCountries] = useState<countryType[]>([])

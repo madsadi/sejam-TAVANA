@@ -85,7 +85,7 @@ export default function Main() {
     }, [])
 
     const Components = {
-        0: <ProfileSetter regInfo={regInfo} />,
+        0: <ProfileSetter />,
         0.5: <SejamiStatus />,
         1: <GetSejamProfile />,
         2: <SejamInfoLevel />,
