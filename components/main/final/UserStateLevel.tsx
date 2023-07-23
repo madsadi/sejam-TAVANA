@@ -1,22 +1,14 @@
-import React,{useEffect, useState} from "react";
-import {onlineRegistrationStatus} from "../../common/enums";
-import useQuery from "../../../hooks/useQuery";
-import {SEJAM_URL} from "../../../api/constants";
+import React, { useEffect, useState, useContext } from "react";
+import { onlineRegistrationStatus } from "../../common/enums";
+import { SejamContext } from "../../../pages/main";
 
 export default function UserStateLevel() {
-    const {fetchAsyncData} = useQuery({url:`${SEJAM_URL}/api/request/GetRegistrationState`})
+    const { regInfo } = useContext<any>(SejamContext)
     const [state, setState] = useState<string | undefined>('')
 
     useEffect(() => {
-        const registrationState = async () => {
-            await fetchAsyncData()
-                .then((res) => {
-                    setState(onlineRegistrationStatus.find((item: any) => item.id === res?.data.result?.registrationState)?.title)
-                })
-        }
-
-        registrationState()
-    }, [])
+        if (regInfo) setState(onlineRegistrationStatus.find((item: any) => item.id === regInfo?.registrationState)?.title)
+    }, [regInfo])
 
     return (
         <div className="grow flex flex-col bg-[url(/leafs-back.svg)] bg-left-bottom bg-no-repeat">
