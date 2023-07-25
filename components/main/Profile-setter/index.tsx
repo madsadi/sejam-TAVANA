@@ -20,14 +20,12 @@ type initialType = {
     personType: any,
     countryId: any,
     captcha: string,
-    uniqueId: string
 }
 const initialValue = {
     hasAgent: false,
     personType: null,
     countryId: null,
     captcha: '',
-    uniqueId: ''
 }
 
 export default function ProfileSetter() {
@@ -54,14 +52,14 @@ export default function ProfileSetter() {
         setInfo({ ...info, ..._info })
     }
     const returnCondition = (regInfo: any) => {
-        if (((regInfo.hasAgent && regInfo?.agentUniqueId) || (!regInfo.hasAgent && !regInfo?.agentUniqueId)) && regInfo.uniqueId && regInfo.personType && (regInfo.countryId === 1 || (regInfo.countryId !== 1 && regInfo.foriegnCSDCode))) {
+        if (((regInfo.hasAgent && regInfo?.agentUniqueId) || (!regInfo.hasAgent && !regInfo?.agentUniqueId)) && regInfo.personType && (regInfo.countryId === 1 || (regInfo.countryId !== 1 && regInfo.foriegnCSDCode))) {
             return true
         } else {
             return false
         }
     }
     const returnInitialCondition = (regInfo: any) => {
-        if (regInfo.uniqueId && regInfo.personType && regInfo.countryId && regInfo.registrationState <= 5) {
+        if (regInfo.personType && regInfo.countryId && regInfo.registrationState <= 5) {
             return true
         } else {
             return false
@@ -283,16 +281,6 @@ export default function ProfileSetter() {
                             </div>
                         </>
                     </Listbox>
-                    <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
-                        <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
-                            {info.personType === 1 ? (info.countryId === 1 ? 'کد ملی:' : (info.countryId ? 'شماره پاسپورت:' : 'کد ملی:')) : 'شناسه ملی:'}
-                        </label>
-                        <input className={`input`}
-                            dir={'ltr'}
-                            value={info.uniqueId}
-                            onChange={(e) => infoUpdate('uniqueId', e.target.value)}
-                        />
-                    </div>
                     {(info.countryId !== 1 && info.countryId) ?
                         <div className={'flex flex-col md:flex-row space-y-3 md:space-y-0 w-full'}>
                             <label className={'flex items-center mb-1 ml-0 md:ml-3 min-w-[110px]'}>
