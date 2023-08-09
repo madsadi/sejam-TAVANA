@@ -26,10 +26,6 @@ export default function InfoEntry() {
             name: 'nationalId',
         },
         {
-            title: 'نام کاربری',
-            name: 'userName',
-        },
-        {
             title: 'نام',
             name: 'firstName',
         },
@@ -41,38 +37,24 @@ export default function InfoEntry() {
             title: 'ایمیل',
             name: 'email',
         },
-        {
-            title: 'رمز عبور',
-            name: 'password',
-            type: 'password',
-        },
-        {
-            title: 'تایید رمز عبور',
-            name: 'passwordConfirm',
-            type: 'password',
-        },
     ]
     const router = useRouter()
     const registerHandler = async (v: any) => {
-        if (v?.["passwordConfirm"] === v.password) {
-            await mutate({ ...v, phoneNumber: mobile, token: token, clientId: 'sejam-gateway' })
-                .then((res) => {
-                    if (typeof window !== 'undefined') {
-                        localStorage.setItem(`oidc.user:${IDP_URL}:sejam-gateway`, JSON.stringify({
-                            access_token: res?.data?.result,
-                            token_type: 'Bearer'
-                        }))
-                        localStorage.setItem(`register-login`, 'true')
-                    }
-                    toast.success('ثبت نام شما با موفقیت انجام شد.')
-                    router.push('/main')
-                })
-                .catch((err) => {
-                    toast.error(`${err?.response?.data?.error?.message}`)
-                })
-        } else {
-            toast.warning(`رمز عبور یکسان نمی باشد`)
-        }
+        await mutate({ ...v, phoneNumber: mobile, token: token, clientId: 'sejam-gateway' })
+            .then((res) => {
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem(`oidc.user:${IDP_URL}:sejam-gateway`, JSON.stringify({
+                        access_token: res?.data?.result,
+                        token_type: 'Bearer'
+                    }))
+                    localStorage.setItem(`register-login`, 'true')
+                }
+                toast.success('ثبت نام شما با موفقیت انجام شد.')
+                router.push('/main')
+            })
+            .catch((err) => {
+                toast.error(`${err?.response?.data?.error?.message}`)
+            })
     }
 
     return (
