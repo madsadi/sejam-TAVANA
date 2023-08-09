@@ -116,7 +116,7 @@ export default function ProfileSetter() {
             <div className={'grid md:grid-cols-2 grid-cols-1 gap-4'}>
                 <div className={'grid grid-cols-1 gap-4'}>
                     <div className="flex items-center">
-                        <label htmlFor="confirm">آیا فرد دیگری را ثبت نام می کنید؟</label>
+                        <label htmlFor="confirm">آیا شما وکیل/نماینده شخص ثبت نامی در سامانه سجام هستید؟</label>
                         <div className={'relative w-[100px] flex bg-white p-1 rounded-full h-full border-2 border-white shadow-[0_0_0_1px_#eee] mr-2 overflow-hidden'}>
                             <div className={`bg-tavanaPurple rounded-full w-1/2 h-[90%] z-0 absolute right-0 top-1/2 -translate-y-1/2 transition-all ${!info.hasAgent ? '-translate-x-full' : 'translate-x-0'}`} />
                             <button type={'button'} className={`grow text-center z-[1] ${info.hasAgent ? 'text-white' : ''}`} onClick={() => infoUpdate('hasAgent', true)}>

@@ -1,16 +1,18 @@
-import React,{useRef} from 'react'
+import React, { useRef } from 'react'
 import '../styles/globals.css'
-import type {AppProps} from 'next/app'
+import type { AppProps } from 'next/app'
 import Head from 'next/head';
-import {ToastContainer} from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import {AuthProvider} from "react-oidc-context";
-import {WebStorageStateStore} from "oidc-client-ts";
+import { AuthProvider } from "react-oidc-context";
+import { WebStorageStateStore } from "oidc-client-ts";
 import Router from "next/router";
 import '../api/axios_interceptor';
 import { IDP_URL } from '../api/constants';
+import { SWRConfig } from 'swr';
+import { fetcher } from '../api/fetcher';
 
-export default function App({Component, pageProps}: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
     const toast: any = useRef()
     const authorityPath = IDP_URL;
     // const authorityPath = 'http://localhost:3000';
@@ -18,7 +20,7 @@ export default function App({Component, pageProps}: AppProps) {
     const clientURL = typeof window !== 'undefined' && window.location.origin;
 
     const oidcConfig = {
-        userStore: typeof window !== 'undefined' ? new WebStorageStateStore({store: window.localStorage}) : undefined,
+        userStore: typeof window !== 'undefined' ? new WebStorageStateStore({ store: window.localStorage }) : undefined,
         authority: `${authorityPath}`,
         client_id: `${clientId}`,
         scope: 'openid IdentityServerApi',
@@ -55,9 +57,16 @@ export default function App({Component, pageProps}: AppProps) {
                 closeOnClick
                 rtl={true}
                 pauseOnFocusLoss
-                toastStyle={{fontFamily: "PelakFA", fontSize: '14px'}}
+                toastStyle={{ fontFamily: "PelakFA", fontSize: '14px' }}
             />
-            <Component {...pageProps} />
+            <SWRConfig
+                value={{
+                    revalidateOnFocus: false,
+                    fetcher: fetcher
+                }}
+            >
+                <Component {...pageProps} />
+            </SWRConfig>
         </AuthProvider>
     )
 }

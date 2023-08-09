@@ -1,21 +1,21 @@
-import React, {useState} from "react";
-import {EyeIcon, EyeSlashIcon} from "@heroicons/react/20/solid";
-import {Field, useField} from "formik";
-import {countryType} from "../../main/sejam-info/types";
-import {personType} from "../enums";
-import {ChevronDownIcon} from "@heroicons/react/24/outline";
+import React, { useState } from "react";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
+import { Field, useField } from "formik";
+import { countryType } from "../../main/sejam-info/types";
+import { personType } from "../enums";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import useQuery from "../../../hooks/useQuery";
-import {SEJAM_URL} from "../../../api/constants";
+import { SEJAM_URL } from "../../../api/constants";
 
-const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) => {
-    const {fetchAsyncData:searchCountry} = useQuery({url:`${SEJAM_URL}/api/request/SearchCountry`})
+const InputComponent: React.FC<any> = ({ label, type, info, infoUpdate, ...props }) => {
+    const { fetchAsyncData: searchCountry } = useQuery({ url: `${SEJAM_URL}/api/request/SearchCountry` })
     const [field, meta] = useField(props)
     const [showPass, setShowPass] = useState<boolean>(false)
-    const [country, setCountry] = useState<countryType>({countryName: 'کشور', countryId: 0})
+    const [country, setCountry] = useState<countryType>({ countryName: 'کشور', countryId: 0 })
     const [countries, setCountries] = useState<countryType[]>([])
 
     const searchCountryHandler = async (e: any) => {
-        await searchCountry({CountryName:e.target.value})
+        await searchCountry({ CountryName: e.target.value })
             .then((res) => setCountries(res?.data.result?.response))
     }
 
@@ -28,16 +28,16 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
                 </label>
                 <div className={'relative'}>
                     <input className={`input text-left ${meta.touched && meta.error ? 'border-red-300' : ''}`}
-                           dir={label==='lastName' || label==='firstName' ? 'rtl':'ltr'}
-                           {...props}
-                           {...field}
-                           type={showPass ? 'text' : 'password'}
+                        dir={label === 'lastName' || label === 'firstName' ? 'rtl' : 'ltr'}
+                        {...props}
+                        {...field}
+                        type={showPass ? 'text' : 'password'}
                     />
                     {showPass ?
                         <EyeSlashIcon className={'absolute h-5 w-5 right-3 top-1/2 -translate-y-1/2 text-black'}
-                                      role={'button'} onClick={() => setShowPass(false)}/> :
+                            role={'button'} onClick={() => setShowPass(false)} /> :
                         <EyeIcon className={'absolute h-5 w-5 right-3 top-1/2 -translate-y-1/2 text-black'}
-                                 role={'button'} onClick={() => setShowPass(true)}/>}
+                            role={'button'} onClick={() => setShowPass(true)} />}
                 </div>
             </div>
         )
@@ -51,12 +51,12 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
                 </label>
                 <label className="label flex p-0">
                     <input type="text" className="input input-bordered w-full max-w-xs"
-                           onChange={searchCountryHandler}/>
+                        onChange={searchCountryHandler} />
                     <div tabIndex={1} className="btn">{country.countryName}</div>
                 </label>
                 {countries.length ? <ul tabIndex={0}
-                                        className="dropdown-content max-h-[200px] overflow-y-auto menu p-2 shadow-md bg-base-100 w-full"
-                                        style={{flexWrap: 'unset'}}>
+                    className="dropdown-content max-h-[200px] overflow-y-auto menu p-2 shadow-md bg-base-100 w-full"
+                    style={{ flexWrap: 'unset' }}>
                     {countries.map((item: countryType) => {
                         return (
                             <li key={item.countryId} onClick={() => {
@@ -71,7 +71,7 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
                 </ul> : null}
             </div>
         )
-    }else if (type === 'dropdown'){
+    } else if (type === 'dropdown') {
         return (
             <div className="dropdown w-full">
                 <label className={'flex items-center mb-1'}>
@@ -80,7 +80,7 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
                 </label>
                 <div tabIndex={1} className="input flex w-full items-center cursor-pointer">
                     {personType.find((item: any) => item.id === info.personType)?.title}
-                    <ChevronDownIcon className={'h-5 w-5 mr-auto'}/>
+                    <ChevronDownIcon className={'h-5 w-5 mr-auto'} />
                 </div>
                 <Field as="select" name="personType">
                     {personType.map((item: any) => {
@@ -97,7 +97,7 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
                 </Field>
                 <ul tabIndex={0}
                     className="dropdown-content max-h-[200px] overflow-y-auto menu p-2 shadow-md bg-base-100 w-full"
-                    style={{flexWrap: 'unset'}}>
+                    style={{ flexWrap: 'unset' }}>
                     {personType.map((item: any) => {
                         return (
                             <li key={item.id} onClick={() => infoUpdate('personType', item.id)}
@@ -117,10 +117,10 @@ const InputComponent: React.FC<any> = ({label, type,info,infoUpdate, ...props}) 
                     {meta.error && <div className={'text-red-300 text-sm mr-1'}>{meta.error}</div>}
                 </label>
                 <input className={`input ${meta.touched && meta.error ? 'border-red-300' : ''}`}
-                       dir={props.name === 'mobile' ? 'ltr' : ''}
-                       type={type}
-                       {...props}
-                       {...field}
+                    dir={props.name === 'mobile' ? 'ltr' : ''}
+                    type={type}
+                    {...props}
+                    {...field}
                 />
             </div>
         )
