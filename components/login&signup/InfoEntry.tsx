@@ -11,8 +11,6 @@ import {useRouter} from "next/router";
 const initialValue = {
     token: '',
     phoneNumber: '',
-    userName: '',
-    password: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -28,10 +26,6 @@ export default function InfoEntry() {
             name: 'nationalId',
         },
         {
-            title: 'نام کاربری',
-            name: 'userName',
-        },
-        {
             title: 'نام',
             name: 'firstName',
         },
@@ -42,21 +36,10 @@ export default function InfoEntry() {
         {
             title: 'ایمیل',
             name: 'email',
-        },
-        {
-            title: 'رمز عبور',
-            name: 'password',
-            type: 'password',
-        },
-        {
-            title: 'تایید رمز عبور',
-            name: 'passwordConfirm',
-            type: 'password',
-        },
+        }
     ]
     const router = useRouter()
     const registerHandler = async (v: any) => {
-        if (v?.["passwordConfirm"] === v.password) {
             await mutate({...v, phoneNumber: mobile, token: token,clientId:'sejam-gateway'})
                 .then((res) => {
                     if (typeof window !== 'undefined') {
@@ -72,9 +55,6 @@ export default function InfoEntry() {
                 .catch((err) => {
                     toast.error(`${err?.response?.data?.error?.message}`)
                 })
-        } else {
-            toast.warning(`رمز عبور یکسان نمی باشد`)
-        }
     }
 
     return (
@@ -101,20 +81,6 @@ export default function InfoEntry() {
                                         )
                                     })
                                 }
-                                <div className="space-y-6 text-sm">
-                                    <p>رمز عبور باید شرایط زیر را داشته باشد:</p>
-                                    <ul className={'list-disc pr-10 text-justify text-center'}>
-                                        <li>
-                                            حداقل 8 کاراکتر باشد.
-                                        </li>
-                                        <li>
-                                            ترکیبی از حروف کوچک و بزرگ باشد.
-                                        </li>
-                                        <li>
-                                            شامل اعداد باشد.
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <div className={'mt-auto text-center'}>

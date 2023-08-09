@@ -45,32 +45,11 @@ export const infoEntry = yup.object().shape({
     firstName:yup
         .string()
         .required("الزامی می باشد."),
-    userName:yup
-        .string()
-        .matches(
-            /^[A-Za-z\d]+$/,
-            "لطفا از حروف فارسی و علامت ها استفاده نکنید."
-        )
-        .required("لطفا از حروف فارسی و علامت ها استفاده نکنید."),
     lastName:yup
         .string()
         .required("الزامی می باشد."),
     email:yup
         .string()
         .email('فرمت ایمیل وارد شده صحیح نمی باشد.')
-        .required("الزامی می باشد."),
-    password:yup
-        .string()
-        .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
-            "رمز عبور وارد شده از الگو پیروی نمی کند."
-        )
-        .required("الزامی می باشد."),
-    passwordConfirm:yup
-        .string()
-        .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
-            "رمز عبور وارد شده از الگو پیروی نمی کند."
-        )
         .required("الزامی می باشد."),
 })
