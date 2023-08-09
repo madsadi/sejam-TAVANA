@@ -42,11 +42,6 @@ export default function InfoEntry() {
             name: 'email',
         },
         {
-            title: 'شماره موبایل',
-            name: 'PhoneNumber',
-            type: 'number',
-        },
-        {
             title: 'رمز عبور',
             name: 'password',
             type: 'password',
