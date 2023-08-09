@@ -25,10 +25,10 @@ export default function InfoEntry() {
             title: 'کدملی فرد/شناسه ملی شرکت/کد پاسپورت',
             name: 'nationalId',
         },
-        // {
-        //     title: 'نام کاربری',
-        //     name: 'userName',
-        // },
+        {
+            title: 'نام کاربری',
+            name: 'userName',
+        },
         {
             title: 'نام',
             name: 'firstName',

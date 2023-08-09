@@ -44,6 +44,10 @@ export const infoEntry = yup.object().shape({
         .required("الزامی می باشد."),
     userName: yup
         .string()
+        .matches(
+            /^[A-Za-z\d]+$/,
+            "لطفا از حروف فارسی و علامت ها استفاده نکنید."
+        )
         .required("لطفا از حروف فارسی و علامت ها استفاده نکنید."),
     firstName: yup
         .string()
