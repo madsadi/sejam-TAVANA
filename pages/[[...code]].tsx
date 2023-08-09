@@ -22,7 +22,7 @@ export default function Home() {
         <IdpContext.Provider value={{ setLevel, level, setMobile, mobile, setToken, token }}>
             <div
                 className="flex lg:flex-row flex-col-reverse xl:w-4/5 lg:w-[960px] sm:h-[90vh] responsive-padding h-[100dvh] sm:m-auto shadow-md sm:rounded-md overflow-hidden ">
-                <div className="h-full bg-white grow lg:basis-1/2 sm:w-[540px] w-full p-10 flex flex-col">
+                <div className="h-full bg-white grow lg:basis-1/2 sm:w-[540px] w-full p-10 py-5 flex flex-col">
                     {Components}
                 </div>
                 <div className="relative h-full lg:grow lg:basis-1/2 basis-[80px] py-5 lg:py-0 flex flex-col bg-[url(/leafs.svg)] bg-no-repeat bg-center bg-contain">

@@ -81,20 +81,6 @@ export default function InfoEntry() {
                                         )
                                     })
                                 }
-                                <div className="space-y-6 text-sm">
-                                    <p>رمز عبور باید شرایط زیر را داشته باشد:</p>
-                                    <ul className={'list-disc pr-10 text-justify text-center'}>
-                                        <li>
-                                            حداقل 8 کاراکتر باشد.
-                                        </li>
-                                        <li>
-                                            ترکیبی از حروف کوچک و بزرگ باشد.
-                                        </li>
-                                        <li>
-                                            شامل اعداد باشد.
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <div className={'mt-auto text-center'}>
