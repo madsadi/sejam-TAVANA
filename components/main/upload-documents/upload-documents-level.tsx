@@ -1,4 +1,4 @@
-import UploadComponent from './UploadCompnent';
+import UploadComponent from './upload';
 import { useContext, useEffect, useState } from "react";
 import BeforeAfterComponent from "../../common/component/before-and-after";
 import AccordionComponent from "../../common/component/accordion";

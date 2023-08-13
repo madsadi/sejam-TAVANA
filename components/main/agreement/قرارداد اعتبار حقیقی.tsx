@@ -3,7 +3,7 @@ import { SejamContext } from "../../../pages/main";
 import ReactToPrint from "react-to-print";
 import { PrinterIcon } from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
-import PageHeaderFooter from "./PageHeaderFooter";
+import PageHeaderFooter from "./page-header-footer";
 import {
     legalPersonTypeCategoryEnums
 } from "../../common/enums";

@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useContext} from "react";
-import {IdpContext} from "../../../pages/[[...code]]";
+import React, { useState, useEffect, useContext } from "react";
+import { IdpContext } from "../../../pages/[[...code]]";
 
-export default function CountDown({step}:{step:string}){
-    const {setLevel} = useContext<any>(IdpContext)
-    const [minutes, setMinutes] = useState(10);
+export default function CountDown({ step }: { step: string }) {
+    const { setLevel } = useContext<any>(IdpContext)
+    const [minutes, setMinutes] = useState(2);
     const [seconds, setSeconds] = useState(0);
     const [disable, setDisabled] = useState(true);
 
@@ -27,7 +27,7 @@ export default function CountDown({step}:{step:string}){
             clearInterval(myInterval);
         };
     });
-    return(
+    return (
         <div className={'flex my-auto justify-center text-sm'}>
             <div className={'w-[35px]'}> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</div>
             <div className={'mr-2'}> تا امکان ارسال مجدد کد</div>

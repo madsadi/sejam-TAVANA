@@ -9,7 +9,7 @@ import {
 } from "./types";
 import { formatNumber, jalali } from "../../common/functions";
 import LabelValue from "../../common/component/label-value";
-import BankAccountCard from "./BankAccountCard";
+import BankAccountCard from "./bank-account-card";
 import {
     accountTypeEnums,
     agentTypeEnums, LegalPersonShareholderViewModelEnums, LegalPersonStakeholderTypeEnums,
@@ -19,13 +19,13 @@ import {
 } from "../../common/enums";
 import ConfirmComponent from "../../common/component/confirm";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import Modal from "../../common/component/modal-";
-import AddAccountComponent from "./AddAccountComponent";
+import Modal from "../../common/component/modal";
+import AddAccountComponent from "./add-account";
 import { SejamContext } from "../../../pages/main";
 import { SEJAM_URL } from "../../../api/constants";
 import useQuery from "../../../hooks/useQuery";
 import useMutation from "../../../hooks/useMutation";
-import { BlockerModal } from "./BlockerModal";
+import { BlockerModal } from "./blocker-modal";
 
 export default function SejamInfoLevel() {
     const { fetchAsyncData: getSejamInfo } = useQuery({ url: `${SEJAM_URL}/api/request/GetSejamInfo` })

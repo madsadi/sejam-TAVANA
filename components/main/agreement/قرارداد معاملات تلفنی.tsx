@@ -7,7 +7,7 @@ import {
 import ReactToPrint from "react-to-print";
 import { PrinterIcon } from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
-import PageHeaderFooter from "./PageHeaderFooter";
+import PageHeaderFooter from "./page-header-footer";
 import LabelValue from "../../common/component/label-value";
 
 export default function PhoneTradingAgreement() {

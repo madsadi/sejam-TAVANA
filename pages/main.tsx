@@ -1,13 +1,13 @@
 import React, { createContext, useEffect, useState } from 'react';
 import ProgressBar from "../components/common/component/progress-bar";
-import AgreementLevel from "../components/main/agreement/Agreement.level";
+import AgreementLevel from "../components/main/agreement/agreement-level";
 import ProfileSetter from "../components/main/Profile-setter";
 import GetSejamProfile from "../components/main/Get-sejam-profile";
-import SejamInfoLevel from "../components/main/sejam-info/SejamInfo.level";
-import UploadDocumentsLevel from "../components/main/upload-documents/UploadDocuments.level";
-import TestLevel from "../components/main/test/Test.level";
+import SejamInfoLevel from "../components/main/sejam-info/sejam-info-level";
+import UploadDocumentsLevel from "../components/main/upload-documents/upload-documents-level";
+import TestLevel from "../components/main/test/test-level";
 import { SejamInfoType } from "../components/main/sejam-info/types";
-import UserStateLevel from "../components/main/final/UserStateLevel";
+import UserStateLevel from "../components/main/final/user-state-level";
 import { toast } from "react-toastify";
 import { SejamiStatus } from "../components/main/sejami-status";
 import Lottie from "react-lottie";

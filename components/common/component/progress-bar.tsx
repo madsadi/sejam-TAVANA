@@ -71,28 +71,59 @@ export default function ProgressBar(props: ProgressBarProps) {
     ]
     return (
         <div className={'container relative flex flex-row md:flex-col items-center z-10'}>
-            <Link href={'/main'} className={'mx-auto py-5 ml-10 md:m-0'}>
-                <Image src={'/logo-white.svg'} height={60} width={60} alt={'tavana'} />
-            </Link>
-            <div className="md:flex hidden absolute left-4 top-[50px] -translate-y-1/2 items-center space-x-2 space-x-reverse">
-                <Link href={'/profile'}>
-                    <button
-                        className={'flex bg-content border-2 border-content py-2 px-5 w-fit hover:opacity-70 transition-colors'}
-                    >
-                        <UserCircleIcon className={'h-5 w-5 ml-2'} />
-                        <p className={'hidden md:block'}>
-                            {data?.result?.firstName + " " + data?.result?.lastName}
-                        </p>
-                    </button>
+            <div className="flex items-center ml-10 md:m-0">
+                <Link href={'/main'} className={'!mx-auto md:mt-5 mb-2 min-w-[60px]'}>
+                    <Image src={'/logo-white.svg'} height={60} width={60} alt={'tavana'} />
                 </Link>
-                <button
-                    className={'flex bg-content text-tavanaRed border-2 border-tavanaRed py-2 px-5 w-fit hover:opacity-70 transition-colors'}
-                    onClick={logoutHandler}>
-                    <ArrowLeftOnRectangleIcon className={'h-5 w-5 ml-2'} />
-                    <p className={'hidden md:block'}>
-                        خروج
-                    </p>
-                </button>
+                <div className="absolute hidden md:block left-14">
+                    <div className="flex ">
+                        <Popover className={'mr-auto relative h-full'}>
+                            {data ? <Popover.Button className="flex md:m-0 mr-5 bg-content focus:outline-none  border-2 py-2 px-5 md:h-fit h-full w-fit hover:opacity-70 transition-colors">
+                                <UserCircleIcon className={'h-5 w-5 ml-2'} />
+                                <p className={'hidden md:block'}>
+                                    {data?.result?.firstName + " " + data?.result?.lastName}
+                                </p>
+                            </Popover.Button> : null}
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-200"
+                                enterFrom="opacity-0 translate-y-1"
+                                enterTo="opacity-100 translate-y-0"
+                                leave="transition ease-in duration-150"
+                                leaveFrom="opacity-100 translate-y-0"
+                                leaveTo="opacity-0 translate-y-1"
+                            >
+                                <Popover.Panel className="absolute left-0 z-10 mt-5 flex w-full">
+                                    <div
+                                        className="overflow-hidden w-full rounded-xl bg-content text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+                                        {solutions.map((item) => (
+                                            <div key={item.name}
+                                                className="relative flex gap-x-4 p-2 hover:bg-tavanaPurple hover:text-white text-gray-500 transition-all">
+                                                <item.icon className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+                                                    aria-hidden="true" />
+                                                <div>
+                                                    <a href={item.href} className="font-semibold ">
+                                                        {item.name}
+                                                        <span className="absolute inset-0" />
+                                                    </a>
+                                                    <p className="mt-1 text-black">{item.description}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        <div className="flex bg-gray-50 w-full text-center">
+                                            <button
+                                                className="flex w-full items-center justify-center text-tavanaRed p-3 font-semibold  hover:bg-gray-100 transition-colors"
+                                                onClick={logoutHandler}>
+                                                خروج
+                                                <ArrowLeftOnRectangleIcon className={'h-5 w-5 light:text-black mr-2'} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </Popover.Panel>
+                            </Transition>
+                        </Popover>
+                    </div>
+                </div>
             </div>
             {showSteps ? <div className={'relative w-full'}>
                 <ul className="flex">
@@ -110,10 +141,9 @@ export default function ProgressBar(props: ProgressBarProps) {
                 </ul>
             </div> : null}
             <Popover className={'md:hidden mr-auto h-full'}>
-                <Popover.Button className="flex flex-col mr-5 bg-content h-full focus:outline-none text-tavanaRed border-b-0 translate-y-0.5 border-2 shadow-[0_2px_0px_0px_#D9D9D9] border-tavanaRed py-2 px-5 w-fit hover:opacity-70 transition-colors">
-                    <UserCircleIcon className={'h-8 w-8 m-auto'} />
+                <Popover.Button className="flex flex-col mr-5 bg-content h-full focus:outline-none text-tavanaRed border-b-0 translate-y-0.5 border-2 shadow-[0_2px_0px_0px_#D9D9D9] border-tavanaRed p-2 w-fit hover:opacity-70 transition-colors">
+                    <UserCircleIcon className={'h-12 w-12 m-auto'} />
                 </Popover.Button>
-
                 <Transition
                     as={Fragment}
                     enter="transition ease-out duration-200"

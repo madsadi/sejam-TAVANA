@@ -15,8 +15,8 @@ const initialValue = {
     lastName: '',
     email: '',
     nationalId: '',
-    isActive: true
 }
+
 export default function InfoEntry() {
     const { mutate } = useMutation({ url: `${IDP_URL}/api/account/register-by-token` })
     const { setLevel, mobile, token } = useContext<any>(IdpContext)

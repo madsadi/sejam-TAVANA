@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react'
 import Confirmation from "../components/login&signup/confirmation";
 import MobileEntry from "../components/login&signup/mobile-entry";
 import InfoEntry from "../components/login&signup/Info-entry";
-import Login from "../components/login&signup/login-";
+import Login from "../components/login&signup/login";
 
 export const IdpContext = createContext<any>({})
 export default function Home() {
