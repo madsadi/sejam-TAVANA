@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import InputComponent from "../common/component/InputComponent";
+import InputComponent from "../common/component/input-generator";
 import { toast } from "react-toastify";
 import { Form, Formik } from "formik";
 import { IdpContext } from "../../pages/[[...code]]";

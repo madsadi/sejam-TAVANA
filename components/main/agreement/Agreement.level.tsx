@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
-import AccordionComponent from "../../common/component/Accordion.component";
+import AccordionComponent from "../../common/component/accordion";
 import { agreement } from "./types";
 import OnlineRegistrationAgreement from "./تعهد نامه ثبت نام غیر حضوری";
 import TotalBrokerageAgreement from "./قرارداد جامع مشتري و کارگزار (در خصوص اوراق بهادار)";

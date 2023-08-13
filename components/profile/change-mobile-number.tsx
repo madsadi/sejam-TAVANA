@@ -5,8 +5,8 @@ import useQuery from "../../hooks/useQuery";
 import { useSWRConfig } from "swr";
 import { IDP_URL } from "../../api/constants";
 import { toast } from "react-toastify";
-import Modal from "../common/component/Modal";
-import InputComponent from "../common/component/InputComponent";
+import Modal from "../common/component/modal-";
+import InputComponent from "../common/component/input-generator";
 import { Form, Formik } from "formik";
 import { changeMobileSchema } from "../common/shcema/schema";
 

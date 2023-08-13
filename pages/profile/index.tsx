@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import ProgressBar from "../../components/common/component/ProgressBar"
+import ProgressBar from "../../components/common/component/progress-bar"
 import {
     DevicePhoneMobileIcon,
     EnvelopeIcon,

@@ -1,11 +1,11 @@
 import {
     ExclamationCircleIcon,
 } from '@heroicons/react/24/solid'
-import {useState} from "react";
-import BeforeAfterComponent from "../../common/component/Before&After.component";
+import { useState } from "react";
+import BeforeAfterComponent from "../../common/component/before-and-after";
 
 export default function TestLevel() {
-    const [answers,setAnswers] = useState<any>({0:'',1:'',2:'',3:'',4:'',5:'',6:'',7:'',8:'',9:''})
+    const [answers, setAnswers] = useState<any>({ 0: '', 1: '', 2: '', 3: '', 4: '', 5: '', 6: '', 7: '', 8: '', 9: '' })
     const questions = [
         {
             title: 'در نماد وبانک، حرف اول *و* چه چیز را نشان می دهد؟',
@@ -49,12 +49,12 @@ export default function TestLevel() {
         }
     ]
 
-    const answerHandler = (respond:any,question:any)=>{
-        let _answers = {...answers};
-        if (answers[question] === respond){
+    const answerHandler = (respond: any, question: any) => {
+        let _answers = { ...answers };
+        if (answers[question] === respond) {
             _answers[question] = ''
             setAnswers(_answers)
-        }else{
+        } else {
             _answers[question] = respond
             setAnswers(_answers)
         }
@@ -78,10 +78,10 @@ export default function TestLevel() {
                                 </span>
                                 <div className='space-y-2 mt-3'>
                                     {
-                                        question.options.map((option: string,i:number) => {
+                                        question.options.map((option: string, i: number) => {
                                             return (
                                                 <div className={'flex items-center'} key={option}>
-                                                    <input className={'checkbox checkbox-accent'} checked={answers[index]!=='' ? Number(answers[index])===i:false} onChange={()=>answerHandler(i,index)} type="checkbox" />
+                                                    <input className={'checkbox checkbox-accent'} checked={answers[index] !== '' ? Number(answers[index]) === i : false} onChange={() => answerHandler(i, index)} type="checkbox" />
                                                     <label className='mr-2'>{option}</label>
                                                 </div>
                                             )
@@ -93,7 +93,7 @@ export default function TestLevel() {
                     })
                 }
             </div>
-            <BeforeAfterComponent condition={Object.values(answers).every((item:any)=>item!=='')} warning={'لطفا تمام سوالات را پاسخ دهید.'}/>
+            <BeforeAfterComponent condition={Object.values(answers).every((item: any) => item !== '')} warning={'لطفا تمام سوالات را پاسخ دهید.'} />
         </>
     )
 }

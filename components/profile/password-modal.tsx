@@ -3,8 +3,8 @@ import React from "react";
 import { toast } from "react-toastify";
 import { IDP_URL } from "../../api/constants";
 import useMutation from "../../hooks/useMutation";
-import InputComponent from "../common/component/InputComponent";
-import Modal from "../common/component/Modal";
+import InputComponent from "../common/component/input-generator";
+import Modal from "../common/component/modal-";
 import { changePasswordSchema } from "../common/shcema/schema";
 
 const userInputs = [

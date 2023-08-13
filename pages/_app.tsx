@@ -15,7 +15,6 @@ import { fetcher } from '../api/fetcher';
 export default function App({ Component, pageProps }: AppProps) {
     const toast: any = useRef()
     const authorityPath = IDP_URL;
-    // const authorityPath = 'http://localhost:3000';
     const clientId = 'sejam-gateway';
     const clientURL = typeof window !== 'undefined' && window.location.origin;
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import AccordionComponent from "../../common/component/Accordion.component";
+import AccordionComponent from "../../common/component/accordion";
 import {
     accountNumber,
     LegalPersonShareholderType,
@@ -8,7 +8,7 @@ import {
     tradingCode
 } from "./types";
 import { formatNumber, jalali } from "../../common/functions";
-import LabelValue from "../../common/component/LabelValue";
+import LabelValue from "../../common/component/label-value";
 import BankAccountCard from "./BankAccountCard";
 import {
     accountTypeEnums,
@@ -17,9 +17,9 @@ import {
     tradingKnowledgeLevelEnums, transactionLevelLegalPersonEnums,
     transactionLevelPrivatePersonEnums
 } from "../../common/enums";
-import ConfirmComponent from "../../common/component/Confirm.component";
+import ConfirmComponent from "../../common/component/confirm";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import Modal from "../../common/component/Modal";
+import Modal from "../../common/component/modal-";
 import AddAccountComponent from "./AddAccountComponent";
 import { SejamContext } from "../../../pages/main";
 import { SEJAM_URL } from "../../../api/constants";

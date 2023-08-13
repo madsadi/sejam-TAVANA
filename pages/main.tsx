@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import ProgressBar from "../components/common/component/ProgressBar";
+import ProgressBar from "../components/common/component/progress-bar";
 import AgreementLevel from "../components/main/agreement/Agreement.level";
 import ProfileSetter from "../components/main/Profile-setter";
 import GetSejamProfile from "../components/main/Get-sejam-profile";

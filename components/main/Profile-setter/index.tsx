@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { personType } from "../../common/enums";
 import { countryType } from "../sejam-info/types";
 import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import CaptchaComponentNotFormik from "../../common/component/CaptchaComponentNotFormik";
+import CaptchaComponentNotFormik from "../../common/component/captcha-not-formik";
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import useQuery from "../../../hooks/useQuery";

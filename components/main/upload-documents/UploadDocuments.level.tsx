@@ -1,7 +1,7 @@
 import UploadComponent from './UploadCompnent';
 import { useContext, useEffect, useState } from "react";
-import BeforeAfterComponent from "../../common/component/Before&After.component";
-import AccordionComponent from "../../common/component/Accordion.component";
+import BeforeAfterComponent from "../../common/component/before-and-after";
+import AccordionComponent from "../../common/component/accordion";
 import useQuery from "../../../hooks/useQuery";
 import { FILE_SERVER_URL, SEJAM_URL } from "../../../api/constants";
 import { SejamContext } from '../../../pages/main';
