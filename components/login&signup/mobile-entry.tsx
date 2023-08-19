@@ -53,7 +53,7 @@ export default function MobileEntry() {
     const router = useRouter()
 
     useEffect(() => {
-        localStorage.setItem('RefCode', `${router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/')[1] : ''}`)
+        localStorage.setItem('RefCode', `${router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/').at(-1) : ''}`)
     }, [router.asPath])
 
     return (
