@@ -1,15 +1,15 @@
-import React, {useContext, useEffect} from "react";
-import {useAuth} from 'react-oidc-context';
-import {useRouter} from "next/router";
-import {IdpContext} from "../../pages/[[...code]]";
+import React, { useContext, useEffect } from "react";
+import { useAuth } from 'react-oidc-context';
+import { useRouter } from "next/router";
+import { IdpContext } from "../../pages/[[...code]]";
 
 export default function Login() {
-    const {setLevel} = useContext<any>(IdpContext)
+    const { setLevel } = useContext<any>(IdpContext)
     const auth = useAuth();
     const router = useRouter()
 
     useEffect(() => {
-            localStorage.setItem('RefCode', `${router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/')[1] : ''}`)
+        localStorage.setItem('RefCode', `${router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/').at(-1) : ''}`)
     }, [router.asPath])
 
 
@@ -22,7 +22,7 @@ export default function Login() {
                         ورود
                     </div>
                 </button>
-                <p className={'mt-4 hover-button mx-auto cursor-pointer'} onClick={()=>setLevel('mobileEntry')}>آیا مایل به ایجاد حساب هستید؟</p>
+                <p className={'mt-4 hover-button mx-auto cursor-pointer'} onClick={() => setLevel('mobileEntry')}>آیا مایل به ایجاد حساب هستید؟</p>
             </div>
         </>
 
