@@ -34,12 +34,6 @@ export default function Profile() {
             info: data?.result?.firstName + " " + data?.result?.lastName
         },
         {
-            id: 1,
-            title: 'نام کاربری:',
-            icon: <FingerPrintIcon className={'h-4 min-w-4'} />,
-            info: data?.result?.userName
-        },
-        {
             id: 2,
             title: 'ایمیل:',
             icon: <EnvelopeIcon className={'h-4 min-w-4'} />,
