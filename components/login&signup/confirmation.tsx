@@ -24,12 +24,12 @@ export default function CodeVerify() {
     const codeVerifyHandler = async (e: any) => {
         e.preventDefault()
         setIsSubmitting(true)
-        await fetchAsyncData({ ...info, PhoneNumber: mobile, RefCode: router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/')[1] : '' })
+        await fetchAsyncData({ ...info, PhoneNumber: mobile, RefCode: router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/').at(-1) : '' })
             .then(() => {
                 setIsSubmitting(false)
                 setToken(info.Token)
                 if (router.asPath) {
-                    localStorage.setItem('RefCode', `${router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/')[1] : ''}`)
+                    localStorage.setItem('RefCode', `${router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/').at(-1) : ''}`)
                 }
                 setLevel('infoEntry')
             })

@@ -8,11 +8,10 @@ import InputComponent from "../common/component/input-generator";
 import { Form, Formik } from "formik";
 
 const userInputs = [
-    { title: 'userName', name: 'نام کاربری', type: 'input' },
     { title: 'firstName', name: 'نام', type: 'input' },
     { title: 'lastName', name: 'نام خانوادگی', type: 'input' },
-    { title: 'email', name: 'ایمیل', type: 'input' },
     { title: 'nationalId', name: 'کدملی', type: 'input', valueType: 'number' },
+    { title: 'email', name: 'ایمیل', type: 'input' },
 ]
 
 export const EditInfoModal = ({ open, setOpen }: { open: boolean, setOpen: any }) => {

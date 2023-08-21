@@ -6,10 +6,10 @@ metadata:
     name: sejam-react
     instance: sejam-react
 data:
-  SEJAM_URL: "https://sejam-gateway.tavanabroker.ir"
-  IDP_URL: "https://idp.tavanabroker.ir"
-  FILE_SERVER_URL: "https://file-manager.tavanabroker.ir"
-  CAPTCHA_URL: "https://captcha.tavanabroker.ir"
+  SEJAM_URL: "https://sejam-gateway.tavanaco.ir"
+  IDP_URL: "https://idp.tavanaco.ir"
+  FILE_SERVER_URL: "https://file-manager.tavanaco.ir"
+  CAPTCHA_URL: "https://captcha.tavanaco.ir"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -59,10 +59,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - sejam.tavanabroker.ir
-    secretName: tavana-ir
+    - sejam.tavanaco.ir
+    secretName: tavanaco-ir
   rules:
-    - host: sejam.tavanabroker.ir
+    - host: sejam.tavanaco.ir
       http:
         paths:
         - path: /
