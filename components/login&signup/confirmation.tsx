@@ -26,7 +26,6 @@ export default function CodeVerify() {
         setIsSubmitting(true)
         await fetchAsyncData({ ...info, PhoneNumber: mobile, RefCode: router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/').at(-1) : '' })
             .then(() => {
-                setIsSubmitting(false)
                 setToken(info.Token)
                 if (router.asPath) {
                     localStorage.setItem('RefCode', `${router.asPath !== '/' && router.asPath !== '/[[...code]]' ? (router.asPath).split('/').at(-1) : ''}`)
@@ -34,8 +33,14 @@ export default function CodeVerify() {
                 setLevel('infoEntry')
             })
             .catch((err) => {
-                setIsSubmitting(false)
+                if (err?.response?.data?.error?.code === 100037) {
+                    setToken(info.Token)
+                    setLevel('infoEntry')
+                }
                 toast.error(`${err?.response?.data?.error?.message}`)
+            })
+            .finally(() => {
+                setIsSubmitting(false)
             })
     }
     const infoUpdate = (key: string, value: any) => {
