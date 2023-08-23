@@ -36,8 +36,9 @@ export default function CodeVerify() {
                 if (err?.response?.data?.error?.code === 100037) {
                     setToken(info.Token)
                     setLevel('infoEntry')
+                } else {
+                    toast.error(`${err?.response?.data?.error?.message}`)
                 }
-                toast.error(`${err?.response?.data?.error?.message}`)
             })
             .finally(() => {
                 setIsSubmitting(false)
