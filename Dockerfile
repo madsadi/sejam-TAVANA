@@ -40,4 +40,4 @@ RUN yarn cache clean
 
 
 #Start App
-ENTRYPOINT /bin/bash -x ./entrypoint.sh SEJAM_URL=${SEJAM_URL} IDP_URL=${IDP_URL} FILE_SERVER_URL=${FILE_SERVER_URL} CAPTCHA_URL=${CAPTCHA_URL} && mv ./env-config.js ./public/static/assets/js && yarn start
+ENTRYPOINT /bin/bash -x ./entrypoint.sh && yarn start

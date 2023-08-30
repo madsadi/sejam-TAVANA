@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "entrypoint.sh IDP_URL=https://cluster.tech1a.co SEJAM_URL=http://172.24.65.20:9072 FILE_SERVER_URL=http://172.24.65.20:9073 CAPTCHA_URL=https://cluster.tech1a.co:8543 && move ./env-config.js ./public/static/assets/js && next dev",
+    "dev": "entrypoint.sh && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
