@@ -16,7 +16,6 @@ variables:
     TECH1A_ASIATECH_HOST: $IMAGE_NAME.$ASIATECH_HOST
     TECH1A_PRO_HOST: $IMAGE_NAME.$PRO_HOST
     TECH1A_CONTAINERPORT: 3000
-
 stages:
   - Code Quality
   - Build
@@ -143,9 +142,9 @@ deploy-staging:
     - curl  --header Private-Token:"$GITLAB_GET_DEPLOYMENT_TOKEN" "http://gitlab.tech1a.co/api/v4/projects/127/repository/files/stg-deployment%2Fstg-oms-template.yaml/raw?ref=main" -o stg-oms-template.yaml
     - sed -E -i s#TECH1A_IMAGE_NAME#$IMAGE_NAME#g stg-oms-template.yaml
     - sed -E -i s#TECH1A_HOST#$TECH1A_STG_HOST#g stg-oms-template.yaml
-    - sed -E -i s#TECH1A_CONTAINERPORT#$TECH1A_CONTAINERPORT#g stg-oms-template.yaml
+    - sed -E -i s#TECH1A_CONTAINERPORT#$TECH1A_CONTAINERPORT#g  stg-oms-template.yaml
+    - sed -E -i s#TECH1A_IMAGE_TAG#$IMAGE_TAG_PID#g stg-oms-template.yaml
     - kubectl -n "$NAMESPACE_Stg" apply -f stg-oms-template.yaml
-    - kubectl set image -n "$NAMESPACE_Stg" deployment/$IMAGE_NAME $IMAGE_NAME=$REGISTRY_HOST/repository/tech1a-docker-registry/$IMAGE_NAME:$IMAGE_TAG_PID
   needs:
     - job: build
   retry: 2
@@ -176,10 +175,10 @@ deploy-asiatech:
     - echo "$K8S_TEST_ASIATECH" | base64 -d > ~/.kube/config
     - curl  --header Private-Token:"$GITLAB_GET_DEPLOYMENT_TOKEN" "http://gitlab.tech1a.co/api/v4/projects/127/repository/files/asiatech-deployment%2Fasiatech-oms-template.yaml/raw?ref=main" -o asiatech-oms-template.yaml
     - sed -E -i s#TECH1A_IMAGE_NAME#$IMAGE_NAME#g asiatech-oms-template.yaml
-    - sed -E -i s#TECH1A_ASIATECH_HOST#$TECH1A_ASIATECH_HOST#g asiatech-oms-template.yaml
-    - sed -E -i s#TECH1A_CONTAINERPORT#$TECH1A_CONTAINERPORT#g asiatech-oms-template.yaml
+    - sed -E -i s#TECH1A_HOST#$TECH1A_STG_HOST#g asiatech-oms-template.yaml
+    - sed -E -i s#TECH1A_CONTAINERPORT#$TECH1A_CONTAINERPORT#g  asiatech-oms-template.yaml
+    - sed -E -i s#TECH1A_IMAGE_TAG#$IMAGE_TAG_PID#g asiatech-oms-template.yaml
     - kubectl -n "$NAMESPACE_Pro" apply -f asiatech-oms-template.yaml  
-    - kubectl set image -n "$NAMESPACE_Pro" deployment/$IMAGE_NAME $IMAGE_NAME=$REGISTRY_HOST/repository/tech1a-docker-registry/$IMAGE_NAME:$IMAGE_TAG_TAG
   needs:
     - job: build
   retry: 2
@@ -227,3 +226,4 @@ deploy-pro-SMS:
     - job: deploy-pro
   only:
     - tags
+
