@@ -1,5 +1,5 @@
 variables:
-    IMAGE_NAME: admin-panel-client
+    IMAGE_NAME: sejam-react
     IMAGE_TAG_PID: $CI_PIPELINE_ID 
     IMAGE_TAG_TAG: $CI_COMMIT_TAG          
     SMS_MESSAGE_BUILD: $IMAGE_NAME-->Build-OK
