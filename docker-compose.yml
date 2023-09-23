@@ -6,7 +6,7 @@ services:
     networks:
       - omsnet
     ports:
-      - 9075:3000
+      - 9075:80
 
     deploy:
       mode: replicated
