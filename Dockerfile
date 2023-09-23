@@ -10,13 +10,6 @@ ENV TZ=Asia/Tehran
 #RUN apt-get update
 #RUN apt-get install tzdata -y
 
-
-#Set BaseUrl
-ENV IDP_URL=https://cluster.tech1a.co
-ENV SEJAM_URL=http://172.24.65.20:9072
-ENV FILE_SERVER_URL=http://172.24.65.20:9073
-ENV CAPTCHA_URL=https://cluster.tech1a.co:8543
-
 # create & set working directory
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
@@ -33,7 +26,7 @@ RUN yarn install
 
 # start app
 RUN yarn run build
-EXPOSE 3000
+EXPOSE 80
 
 #RUN rm -rf /usr/src/node_modules
 RUN yarn cache clean
