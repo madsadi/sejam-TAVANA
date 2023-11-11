@@ -38,6 +38,8 @@ next-env.d.ts
 yarn.lock
 .idea
 
+env-curl.txt
+
 #deployment
 /deployment/
 .gitlab-ci.yml
