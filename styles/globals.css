@@ -1,4 +1,4 @@
-@import '../public/pelakFontFamily.css';
+@import "../public/pelakFontFamily.css";
 
 * {
   box-sizing: border-box;
@@ -12,31 +12,29 @@ body {
   overflow-x: hidden;
 }
 
-
 :root {
   color-scheme: light !important;
 }
 
-
-:root{
-  --a:-95 50% 50.98% !important;
-  --ac:0 0% 100% !important;
-  --b1:0 0% 0% 0% !important;
+:root {
+  --a: -95 50% 50.98% !important;
+  --ac: 0 0% 100% !important;
+  --b1: 0 0% 0% 0% !important;
 }
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: light;
   }
-  :root{
-    color-scheme:light !important;
-    --b3:180 1.9608% 0% 0% !important;
-    --b1:0 0% 0% 0% !important;
-    --b2:0 0% 0% 0% !important;
+  :root {
+    color-scheme: light !important;
+    --b3: 180 1.9608% 0% 0% !important;
+    --b1: 0 0% 0% 0% !important;
+    --b2: 0 0% 0% 0% !important;
   }
 }
 
-.lottie path{
-  fill:#8C50A0;
+.lottie path {
+  fill: #8c50a0;
 }
 /* If the user prefers light mode,
 we still enforce color-scheme: dark, despite the user preference */
@@ -46,19 +44,12 @@ we still enforce color-scheme: dark, despite the user preference */
   }
 }
 
-
-#__next {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-}
-
 a {
   color: inherit;
   text-decoration: none;
 }
 
-.ltr{
+.ltr {
   direction: ltr;
 }
 /* @media (prefers-color-scheme: dark) {
@@ -73,7 +64,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -90,16 +81,17 @@ input[type=number] {
   border-radius: 4px;
 }
 
-.page{
+.page {
   overflow: hidden;
   margin: 20px 0;
 }
 
-.page-footer,.page-header {
-  display: none
+.page-footer,
+.page-header {
+  display: none;
 }
 
-@media (max-width: 720px){
+@media (max-width: 720px) {
   html,
   body {
     font-size: 0.9rem;
@@ -111,31 +103,32 @@ input[type=number] {
 }
 
 @media (min-height: 900px) and (min-width: 1280px) {
-  .responsive-padding{
-    padding:5rem;
+  .responsive-padding {
+    padding: 5rem;
   }
 }
 
-@media (max-width:520px) {
-  .mobileAgreement{
+@media (max-width: 520px) {
+  .mobileAgreement {
     height: 0 !important;
   }
-  .otp > div{
+  .otp > div {
     flex-grow: 1;
   }
 }
 @media print {
-  .mobileAgreement{
+  .mobileAgreement {
     padding: unset !important;
     height: unset !important;
     -webkit-print-color-adjust: exact; /* chrome */
     print-color-adjust: exact; /* firefox and IE */
   }
-  .page-header-space,.page-footer-space{
+  .page-header-space,
+  .page-footer-space {
     height: 150px;
   }
 
-  .page{
+  .page {
     display: block;
     page-break-inside: avoid;
     margin: 0;
@@ -151,22 +144,28 @@ input[type=number] {
     display: none;
   }
 
-  .sign-card,.sing-img {
+  .sign-card,
+  .sing-img {
     width: 200px;
     height: 100px;
     background-size: contain;
   }
-  .logo-card,.logo-img {
+  .logo-card,
+  .logo-img {
     width: 140px;
     height: 100px;
   }
 
-  body {margin: 0;}
-  button {display: none;}
+  body {
+    margin: 0;
+  }
+  button {
+    display: none;
+  }
   /*thead {display: table-header-group;}*/
   /*tfoot {display: table-footer-group;}*/
 
-  .page-footer{
+  .page-footer {
     direction: rtl;
     width: 100%;
     position: fixed;
@@ -177,7 +176,7 @@ input[type=number] {
     overflow: hidden;
   }
 
-  .page-header{
+  .page-header {
     direction: rtl;
     position: fixed;
     width: 100%;
@@ -186,26 +185,29 @@ input[type=number] {
     justify-content: space-between;
     height: 150px;
   }
-
 }
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  #__next {
+    @apply min-h-screen flex flex-col;
+  }
+
   table {
     table-layout: fixed;
     page-break-inside: avoid;
   }
 
-  .content tr{
+  .content tr {
     border-bottom: 1px solid rgba(157, 157, 157, 0.14);
   }
 
-  td{
+  td {
     overflow-wrap: anywhere;
     word-wrap: break-word;
-    vertical-align:baseline !important;
+    vertical-align: baseline !important;
   }
 
   h2 {
@@ -221,19 +223,19 @@ input[type=number] {
   }
 
   label {
-    @apply font-semibold
+    @apply font-semibold;
   }
 
   html {
     font-family: "PelakFA", system-ui, sans-serif;
   }
 
-  .peer>div {
+  .peer > div {
     left: 5px;
     right: unset !important;
   }
 
-  .peer>span {
+  .peer > span {
     left: unset !important;
     right: 2px;
   }
@@ -242,17 +244,16 @@ input[type=number] {
     @apply text-tavanaGreen text-xl font-bold;
   }
 
-  .title{
+  .title {
     font-weight: 300;
     font-size: 0.8rem;
   }
-  .titleValue{
+  .titleValue {
     font-weight: 600;
     font-size: 0.9rem;
     line-height: 1.5rem;
     overflow-wrap: break-word;
   }
-
 }
 
 @layer utilities {
@@ -262,36 +263,35 @@ input[type=number] {
 }
 
 @layer components {
-
-  .mobileAgreement{
-    @apply bg-white p-10 rounded
+  .mobileAgreement {
+    @apply bg-white p-10 rounded;
   }
-  .checkbox-accent{
+  .checkbox-accent {
     @apply border-tavanaGray;
   }
 
-  .step-active{
-    @apply  bg-content border-2 border-tavanaPurple border-b-content translate-y-0.5 flex md:flex-col flex-row
+  .step-active {
+    @apply bg-content border-2 border-tavanaPurple border-b-content translate-y-0.5 flex md:flex-col flex-row;
   }
-  .step-done{
-    @apply text-white hidden md:flex flex-col
+  .step-done {
+    @apply text-white hidden md:flex flex-col;
   }
   .input {
-    @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white h-[54px]
+    @apply border border-border px-2 p-1 w-full rounded focus:outline-0 bg-white h-[54px];
   }
   .steps .step:before {
-    @apply bg-gray-300 shadow-md
+    @apply bg-gray-300 shadow-md;
   }
   .steps .step:after {
-    @apply bg-gray-300 shadow-md
+    @apply bg-gray-300 shadow-md;
   }
   .hover-button {
-    @apply border-b hover:border-tavanaGreen border-transparent transition-all w-fit p-1
+    @apply border-b hover:border-tavanaGreen border-transparent transition-all w-fit p-1;
   }
   .button {
-    @apply text-white bg-tavanaGreen text-center py-3 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50
+    @apply text-white bg-tavanaGreen text-center py-3 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50;
   }
   .prevButton {
-    @apply text-white bg-tavanaPurple text-center py-2 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50
+    @apply text-white bg-tavanaPurple text-center py-2 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50;
   }
 }
