@@ -91,6 +91,12 @@ input[type="number"] {
   display: none;
 }
 
+.table:where(:not(.table-zebra))
+  :where(thead, tbody, tfoot)
+  :where(tr:not(:last-child) :where(th, td)) {
+  border: 0;
+}
+
 @media (max-width: 720px) {
   html,
   body {

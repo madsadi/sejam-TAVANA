@@ -20,7 +20,7 @@ export default function Main() {
   const { fetchAsyncData } = useQuery({
     url: `${SEJAM_URL}/api/request/GetRegistrationState`,
   });
-  const [level, setLevel] = useState<number>(-1);
+  const [level, setLevel] = useState<number>(5);
   const [regInfo, setRegInfo] = useState<any>({});
   const [userData, setUserData] = useState<SejamInfoType[] | any>(null);
   const [error, setError] = useState<string>("");
@@ -37,9 +37,6 @@ export default function Main() {
       case no <= 5:
         setLevel(0);
         break;
-      // case no === 6:
-      //     setLevel(1);
-      //     break
       case no < 14:
         //sejAM-INFO
         setLevel(2);
@@ -83,7 +80,7 @@ export default function Main() {
   };
 
   useEffect(() => {
-    registrationState();
+    // registrationState();
   }, []);
 
   const Components = {

@@ -99,25 +99,26 @@ export default function ProfileSetter() {
     e.preventDefault();
     setIsSubmitting(true);
     if (returnCondition(info)) {
-      console.log(info);
-
-      // await addCustomer({
-      //     ...info,
-      //     personType: Number(info.personType),
-      //     countryId: Number(info.countryId),
-      //     captchaCode: uuid + '_' + info.captcha,
-      //     refCode: localStorage.getItem('RefCode') === 'null' ? null : localStorage.getItem('RefCode'),
-      //     captcha: ''
-      // })
-      //     .then(() => {
-      //         setLevel(0.5)
-      //         registrationState(false)
-      //     })
-      //     .catch((err) => {
-      //         setIsSubmitting(false)
-      //         setRetry(!retry)
-      //         toast.error(`${err?.response?.data?.error?.message}`)
-      //     })
+      await addCustomer({
+        ...info,
+        personType: Number(info.personType),
+        countryId: Number(info.countryId),
+        captchaCode: uuid + "_" + info.captcha,
+        refCode:
+          localStorage.getItem("RefCode") === "null"
+            ? null
+            : localStorage.getItem("RefCode"),
+        captcha: "",
+      })
+        .then(() => {
+          setLevel(0.5);
+          registrationState(false);
+        })
+        .catch((err) => {
+          setIsSubmitting(false);
+          setRetry(!retry);
+          toast.error(`${err?.response?.data?.error?.message}`);
+        });
     } else {
       setIsSubmitting(false);
       toast.warning("همه ی ورودی ها الزامی می باشند.");
