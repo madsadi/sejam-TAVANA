@@ -68,7 +68,7 @@ export default function MobileEntry() {
 
   return (
     <>
-      <h2>به توانا خوش آمدید</h2>
+      <h2>به توانا خوش آمدید adsadsad</h2>
       <p>جهت ثبت نام شماره موبایل خود را وارد کنید.</p>
       <Formik
         initialValues={initialValue}
