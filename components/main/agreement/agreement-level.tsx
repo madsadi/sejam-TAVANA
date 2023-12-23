@@ -210,7 +210,15 @@ export default function AgreementLevel() {
 
   const proceed = async () => {
     setLoading(true);
-    await approveAgreements({ agreements: approvedAgreements })
+    const _approvedAgreements = approvedAgreements.map((item: any) => {
+      return {
+        ...item,
+        agreementId: agreements.find((a: any) => a.code === item.agreementId)
+          ?.id,
+      };
+    });
+
+    await approveAgreements({ agreements: _approvedAgreements })
       .then(() => setLevel(level + 1))
       .catch((err) => toast.error(`${err?.response?.data?.error?.message}`))
       .finally(() => setLoading(false));
