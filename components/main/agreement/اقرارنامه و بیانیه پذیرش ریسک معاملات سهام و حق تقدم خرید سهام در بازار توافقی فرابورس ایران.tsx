@@ -3,9 +3,12 @@ import React, { useCallback, useContext, useRef, useState } from "react";
 import ReactToPrint from "react-to-print";
 import { PrinterIcon } from "@heroicons/react/24/outline";
 import PageHeaderFooter from "./page-header-footer";
+import { SejamContext } from "../../../pages/main";
+import moment from "jalali-moment";
 
 export default function OTCFaraBourseTradingRiskAgreement() {
   const [loading, setLoading] = useState(false);
+  const { userData } = useContext<any>(SejamContext);
 
   const componentRef = useRef(null);
 
@@ -161,14 +164,21 @@ export default function OTCFaraBourseTradingRiskAgreement() {
                       برخورد نماید.
                     </p>
                     <p>
-                      14- به موجب این سند اینجانب / شرکت
-                      ...................................... اقرارنامه و بیانیه
-                      پذیرش ریسک معاملات سهام و حق تقدم خرید سهام در بازار
-                      توافقی و همچنین مفاد دستورالعمل درج و نحوه انجام معاملات
-                      اوراق بهادار در بازار توافقی فرابورس ایران را دریافت و
-                      مطالعه نموده و ضمن اعلام اطلاع از کلیه مقررات و شرایط
-                      معاملاتی و ریسک هایی که در آن متصور بوده و احتمال وقوع
-                      دارد و نیز با شناخت و درک کامل از ماهیت امر و شرایط و
+                      14- به موجب این سند اینجانب{" "}
+                      <span className="font-bold">
+                        {userData?.privatePerson?.firstName +
+                          " " +
+                          userData?.privatePerson?.lastName}
+                      </span>{" "}
+                      اقرارنامه و بیانیه پذیرش ریسک معاملات سهام و حق تقدم خرید
+                      سهام در بازار توافقی و همچنین مفاد دستورالعمل درج و نحوه
+                      انجام معاملات اوراق بهادار در بازار توافقی فرابورس ایران{" "}
+                      <span className="mx-1">
+                        در تاریخ {moment().locale("fa").format("YYYY/MM/DD")}
+                      </span>
+                      را دریافت و مطالعه نموده و ضمن اعلام اطلاع از کلیه مقررات
+                      و شرایط معاملاتی و ریسک هایی که در آن متصور بوده و احتمال
+                      وقوع دارد و نیز با شناخت و درک کامل از ماهیت امر و شرایط و
                       مقررات مربوطه، مراتب را تأیید نموده و هیچ گونه اعتراض و
                       ادعایی اعم از حقوقی و جزایی در حال حاضر یا بعداً در این
                       خصوص علیه سایر اشخاص نداشته، حق دعوی خود را در این زمینه

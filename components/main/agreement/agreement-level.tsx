@@ -45,39 +45,39 @@ export default function AgreementLevel() {
   const { setLevel, level } = useContext<any>(SejamContext);
   const initialApprovedStates = [
     {
-      agreementId: "0864ddc1-d7c3-4046-887f-1e94ad0ec1ca",
+      agreementId: 1,
       status: 3,
     },
     {
-      agreementId: "9a09f999-7d05-4cdf-8c53-293563666397",
+      agreementId: 2,
       status: 3,
     },
     {
-      agreementId: "ae3fde88-04c4-4ba2-a589-d88b7b05bdf2",
+      agreementId: 6,
       status: 3,
     },
     {
-      agreementId: "f8aefb04-b0eb-4e39-b074-d7293f648aac",
+      agreementId: 5,
       status: 3,
     },
     {
-      agreementId: "89a75475-b23d-4592-a985-704915dbfc88",
+      agreementId: 3,
       status: 3,
     },
     {
-      agreementId: "b8966013-1d76-47d6-a962-f87d2ffef944",
+      agreementId: 7,
       status: 3,
     },
     {
-      agreementId: "bfd4daf5-5b1e-4e3c-b0fe-75713131913b",
+      agreementId: 4,
       status: 3,
     },
     {
-      agreementId: "4c0ab69f-f4f5-4aed-bf0b-163681c3b7b0",
+      agreementId: 8,
       status: 3,
     },
     {
-      agreementId: "0",
+      agreementId: 9,
       status: 3,
     },
   ];
@@ -144,7 +144,7 @@ export default function AgreementLevel() {
     });
   }, []);
 
-  const approveHandler = (key: string, status: number = -1) => {
+  const approveHandler = (key: number, status: number = -1) => {
     let _approves: any = [...approvedAgreements];
     let index = _approves.findIndex((item: any) => item.agreementId === key);
     if (status > 0) {
@@ -164,32 +164,12 @@ export default function AgreementLevel() {
       await getAllPossibleAgreements().then((res) => {
         let agreements = res?.data.result?.agreements;
         let _approves: any = [...approvedAgreements];
-        setAgreements([
-          ...agreements,
-          {
-            id: "0",
-            subsidiaryId: "0",
-            bourseCode: "اسد73155",
-            bourseCodeType: 3,
-            name: "ت نام حضوری",
-            description: null,
-            context: null,
-            defaultFile: null,
-            isBourseCodeRequired: false,
-            isRequired: true,
-            isActive: false,
-            isDeleted: false,
-            status: 2,
-            approvalDateTime: "2023-08-30T18:29:36.7648929+03:30",
-            createDateTime: "2023-03-12T15:10:25.187+03:30",
-            updateDateTime: "2023-04-25T11:40:56.293+03:30",
-          },
-        ]);
+        setAgreements(agreements);
         agreements?.map((a: any) => {
           let index = _approves.findIndex(
-            (item: any) => item.agreementId === a.id
+            (item: any) => item.agreementId === a.code
           );
-          _approves.splice(index, 1, { agreementId: a.id, status: a.status });
+          _approves.splice(index, 1, { agreementId: a.code, status: a.status });
         });
         setApprove(_approves);
       });
@@ -217,15 +197,15 @@ export default function AgreementLevel() {
   }, []);
 
   const agreementsContext: any = {
-    "0864ddc1-d7c3-4046-887f-1e94ad0ec1ca": <OnlineRegistrationAgreement />,
-    "9a09f999-7d05-4cdf-8c53-293563666397": <TotalBrokerageAgreement />,
-    "ae3fde88-04c4-4ba2-a589-d88b7b05bdf2": <PrivatePersonAgreement />,
-    "f8aefb04-b0eb-4e39-b074-d7293f648aac": <PhoneTradingAgreement />,
-    "89a75475-b23d-4592-a985-704915dbfc88": <OfflineTradingAgreement />,
-    "b8966013-1d76-47d6-a962-f87d2ffef944": <OnlineTradingAgreement />,
-    "bfd4daf5-5b1e-4e3c-b0fe-75713131913b": <OptionalAgreement />,
-    "4c0ab69f-f4f5-4aed-bf0b-163681c3b7b0": <PrivatePersonValue />,
-    "0": <OTCFaraBourseTradingRiskAgreement />,
+    1: <OnlineRegistrationAgreement />,
+    2: <TotalBrokerageAgreement />,
+    6: <PrivatePersonAgreement />,
+    5: <PhoneTradingAgreement />,
+    3: <OfflineTradingAgreement />,
+    7: <OnlineTradingAgreement />,
+    4: <OptionalAgreement />,
+    8: <PrivatePersonValue />,
+    9: <OTCFaraBourseTradingRiskAgreement />,
   };
 
   const proceed = async () => {
@@ -248,10 +228,10 @@ export default function AgreementLevel() {
                   className={"checkbox checkbox-accent ml-2 md:ml-7 mt-4"}
                   checked={
                     approvedAgreements.find(
-                      (item: any) => item.agreementId === a.id
+                      (item: any) => item.agreementId === a.code
                     )?.status === 2
                   }
-                  onChange={() => approveHandler(a.id)}
+                  onChange={() => approveHandler(a.code)}
                   type="checkbox"
                 />
                 <AccordionComponent
@@ -266,7 +246,7 @@ export default function AgreementLevel() {
                     ) : null
                   }
                 >
-                  {agreementsContext[a.id]}
+                  {agreementsContext[a.code]}
                 </AccordionComponent>
               </div>
             );
