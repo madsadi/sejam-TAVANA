@@ -100,7 +100,7 @@ input[type="number"] {
 @media (max-width: 720px) {
   html,
   body {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
   }
 }
 @page {
@@ -217,11 +217,11 @@ input[type="number"] {
   }
 
   h2 {
-    @apply text-4xl sm:mt-5 sm:mb-10 mb-5 font-bold;
+    @apply text-xl sm:mt-5 sm:mb-10 mb-5 font-bold;
   }
 
   h4 {
-    @apply text-xl font-semibold text-center;
+    @apply text-[22px] font-bold text-center;
   }
 
   h5 {
@@ -233,7 +233,8 @@ input[type="number"] {
   }
 
   html {
-    font-family: "PelakFA", system-ui, sans-serif;
+    font-family: "Tavana", system-ui, sans-serif;
+    font-size: 18px;
   }
 
   .peer > div {
@@ -252,11 +253,11 @@ input[type="number"] {
 
   .title {
     font-weight: 300;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
   .titleValue {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     line-height: 1.5rem;
     overflow-wrap: break-word;
   }
@@ -264,7 +265,7 @@ input[type="number"] {
 
 @layer utilities {
   .font-sans {
-    font-family: "PelakFA", system-ui, sans-serif;
+    font-family: "Tavana", system-ui, sans-serif;
   }
 }
 

@@ -47,7 +47,7 @@ const InputComponent: React.FC<any> = ({
         <label className={"flex items-center mb-1"}>
           {label}
           {meta.error && (
-            <div className={"text-red-300 text-sm mr-1"}>{meta.error}</div>
+            <div className={"text-red-500 text-sm mr-1"}>{meta.error}</div>
           )}
         </label>
         <div className={"relative"}>
@@ -86,7 +86,7 @@ const InputComponent: React.FC<any> = ({
         <label className={"flex items-center mb-1"}>
           {label}
           {meta.error && (
-            <div className={"text-red-300 text-sm mr-1"}>{meta.error}</div>
+            <div className={"text-red-500 text-sm mr-1"}>{meta.error}</div>
           )}
         </label>
         <label className="label flex p-0">
@@ -187,7 +187,7 @@ const InputComponent: React.FC<any> = ({
         <label className={"flex items-center mb-1"}>
           {label}
           {meta.error && (
-            <div className={"text-red-300 text-sm mr-1"}>{meta.error}</div>
+            <div className={"text-red-500 text-sm mr-1"}>{meta.error}</div>
           )}
         </label>
         <input

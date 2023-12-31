@@ -16,7 +16,7 @@ export default function AccordionComponent({
   const [checked, isChecked] = useState(false);
 
   return (
-    <div className="relative collapse grow border-b-2 first:border-t-2 border-black font-[PelakFA]">
+    <div className="relative collapse grow border-b-2 first:border-t-2 border-black">
       <input
         type="checkbox"
         className="peer w-full"

@@ -43,7 +43,7 @@ const CaptchaComponent: React.FC<any> = ({
       <label className={"flex items-center mb-1"}>
         کد امنیتی
         {meta.error && (
-          <div className={"text-red-300 text-sm mr-1"}>{meta.error}</div>
+          <div className={"text-red-500 text-sm mr-1"}>{meta.error}</div>
         )}
       </label>
       <div className={"h-[54px] relative bg-inputbg flex"}>

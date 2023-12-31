@@ -8,8 +8,8 @@ module.exports = withMT({
   ],
   theme: {
     container: {
-      center: 'true',
-      padding: '1rem'
+      center: "true",
+      padding: "1rem",
     },
     colors: ({ colors }) => ({
       inherit: colors.inherit,
@@ -39,43 +39,43 @@ module.exports = withMT({
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
-      tavanaGreen: '#000000',
-      tavanBrown: '#F5BE32',
-      border: '#eee',
-      tavanaGray:'#666666',
+      tavanaGreen: "#000000",
+      tavanBrown: "#F5BE32",
+      border: "#eee",
+      tavanaGray: "#666666",
 
-      inputbg:'rgba(217, 217, 217, 0.36)',
-      content:'#D9D9D9',
-      tavanaPurple:'#82529A',
-      bankCard:'rgba(30, 30, 30, 0.1)',
-      tavanaRed:'#B84E4E'
-    })
+      inputbg: "rgba(217, 217, 217, 0.36)",
+      content: "#D9D9D9",
+      tavanaPurple: "#82529A",
+      bankCard: "rgba(30, 30, 30, 0.1)",
+      tavanaRed: "#B84E4E",
+    }),
   },
   plugins: [
     require("daisyui"),
-    require('tailwindcss'),
-    require('autoprefixer'),
+    require("tailwindcss"),
+    require("autoprefixer"),
     function ({ addComponents }) {
       addComponents({
-        '.container': {
-          maxWidth: '100%',
-          '@screen sm': {
-            maxWidth: '640px',
+        ".container": {
+          maxWidth: "100%",
+          "@screen sm": {
+            maxWidth: "640px",
           },
-          '@screen md': {
-            maxWidth: '768px',
+          "@screen md": {
+            maxWidth: "768px",
           },
-          '@screen lg': {
-            maxWidth: '990px',
+          "@screen lg": {
+            maxWidth: "990px",
           },
-          '@screen xl': {
-            maxWidth: '80%',
+          "@screen xl": {
+            maxWidth: "80%",
           },
-        }
-      })
-    }
+        },
+      });
+    },
   ],
   daisyui: {
     rtl: true,
   },
-})
+});

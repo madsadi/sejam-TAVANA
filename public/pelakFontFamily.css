@@ -1,50 +1,113 @@
 @font-face {
-    font-family: "PelakFA";
-    font-style: normal;
-    font-weight: 300;
-    src: url('./fonts/Pelak-FontFamily/webfonts/eot/Pelak-light.eot');
-    src: url('./fonts/Pelak-FontFamily/ttf/Pelak-light.ttf') format('ttf'),
-        /* IE6-8 */
-        url('./fonts/Pelak-FontFamily/webfonts/woff/Pelak-light.woff') format('woff');
-    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-family: "PelakFA";
+  font-style: normal;
+  font-weight: 300;
+  src: url("./fonts/Pelak-FontFamily/webfonts/eot/Pelak-light.eot");
+  src: url("./fonts/Pelak-FontFamily/ttf/Pelak-light.ttf") format("ttf"),
+    /* IE6-8 */ url("./fonts/Pelak-FontFamily/webfonts/woff/Pelak-light.woff")
+      format("woff");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 }
 @font-face {
-    font-family: "PelakFA";
-    font-style: normal;
-    font-weight: normal;
-    src: url('./fonts/Pelak-FontFamily/webfonts/eot/Pelak-Medium.eot');
-    src: url('./fonts/Pelak-FontFamily/ttf/Pelak-Medium.ttf') format('ttf'),
-        /* IE6-8 */
-        url('./fonts/Pelak-FontFamily/webfonts/woff/Pelak-Medium.woff') format('woff');
-    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-family: "PelakFA";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./fonts/Pelak-FontFamily/webfonts/eot/Pelak-Medium.eot");
+  src: url("./fonts/Pelak-FontFamily/ttf/Pelak-Medium.ttf") format("ttf"),
+    /* IE6-8 */ url("./fonts/Pelak-FontFamily/webfonts/woff/Pelak-Medium.woff")
+      format("woff");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 }
 @font-face {
-    font-family: "PelakFA";
-    font-style: normal;
-    font-weight: 600;
-    src: url('./fonts/Pelak-FontFamily/webfonts/eot/Pelak-SemiBold.eot');
-    src: url('./fonts/Pelak-FontFamily/ttf/Pelak-SemiBold.ttf') format('ttf'),
-        /* IE6-8 */
-        url('./fonts/Pelak-FontFamily/webfonts/woff/Pelak-SemiBold.woff') format('woff');
-    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-family: "PelakFA";
+  font-style: normal;
+  font-weight: 600;
+  src: url("./fonts/Pelak-FontFamily/webfonts/eot/Pelak-SemiBold.eot");
+  src: url("./fonts/Pelak-FontFamily/ttf/Pelak-SemiBold.ttf") format("ttf"),
+    /* IE6-8 */
+      url("./fonts/Pelak-FontFamily/webfonts/woff/Pelak-SemiBold.woff")
+      format("woff");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 }
 @font-face {
-    font-family: "PelakFA";
-    font-style: normal;
-    font-weight: 800;
-    src: url('./fonts/Pelak-FontFamily/webfonts/eot/Pelak-Bold.eot');
-    src: url('./fonts/Pelak-FontFamily/ttf/Pelak-Bold.ttf') format('ttf'),
-        /* IE6-8 */
-        url('./fonts/Pelak-FontFamily/webfonts/woff/Pelak-Bold.woff') format('woff');
-    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-family: "PelakFA";
+  font-style: normal;
+  font-weight: 800;
+  src: url("./fonts/Pelak-FontFamily/webfonts/eot/Pelak-Bold.eot");
+  src: url("./fonts/Pelak-FontFamily/ttf/Pelak-Bold.ttf") format("ttf"),
+    /* IE6-8 */ url("./fonts/Pelak-FontFamily/webfonts/woff/Pelak-Bold.woff")
+      format("woff");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 }
 
 @font-face {
-    font-family: "Farhang";
-    font-style: normal;
-    font-weight: normal;
-    src: url('./fonts/Farhang/woff/Farhang2-Medium.woff') format('woff'),
-        /* IE6-8 */
-        url('./fonts/Farhang/ttf/Farhang2-Medium.ttf') format('ttf');
-    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+  font-family: "Tavana";
+  font-style: normal;
+  font-weight: 300;
+  src: url("./fonts/tavana/EOT/TAVANADemo036-Light.eot");
+  src: url("./fonts/tavana/ttf/TAVANADemo036-Light.ttf") format("ttf"),
+    /* IE6-8 */ url("./fonts/tavana/WOFF/TAVANADemo036-Light.woff")
+      format("woff");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+  font-family: "Tavana";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./fonts/tavana/EOT/TAVANADemo036-Regular.eot");
+  src: url("./fonts/tavana/ttf/TAVANADemo036-Regular.ttf") format("ttf"),
+    /* IE6-8 */ url("./fonts/tavana/WOFF/TAVANADemo036-Regular.woff")
+      format("woff");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+  font-family: "Tavana";
+  font-style: normal;
+  font-weight: 500;
+  src: url("./fonts/tavana/EOT/TAVANADemo036-SemiBold.eot");
+  src: url("./fonts/tavana/ttf/TAVANADemo036-SemiBold.ttf") format("ttf"),
+    /* IE6-8 */ url("./fonts/tavana/WOFF/TAVANADemo036-SemiBold.woff")
+      format("woff");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+  font-family: "Tavana";
+  font-style: normal;
+  font-weight: 700;
+  src: url("./fonts/tavana/EOT/TAVANADemo036-Bold.eot");
+  src: url("./fonts/tavana/ttf/TAVANADemo036-Bold.ttf") format("ttf"),
+    /* IE6-8 */ url("./fonts/tavana/WOFF/TAVANADemo036-Bold.woff")
+      format("woff");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+
+@font-face {
+  font-family: "Tavana";
+  font-style: normal;
+  font-weight: 800;
+  src: url("./fonts/tavana/EOT/TAVANADemo036-ExtraBold.eot");
+  src: url("./fonts/tavana/ttf/TAVANADemo036-ExtraBold.ttf") format("ttf"),
+    /* IE6-8 */ url("./fonts/tavana/WOFF/TAVANADemo036-ExtraBold.woff")
+      format("woff");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+
+@font-face {
+  font-family: "Tavana";
+  font-style: normal;
+  font-weight: 900;
+  src: url("./fonts/tavana/EOT/TAVANADemo036-Black.eot");
+  src: url("./fonts/tavana/ttf/TAVANADemo036-Black.ttf") format("ttf"),
+    /* IE6-8 */ url("./fonts/tavana/WOFF/TAVANADemo036-Black.woff")
+      format("woff");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+
+@font-face {
+  font-family: "Farhang";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./fonts/Farhang/woff/Farhang2-Medium.woff") format("woff"),
+    /* IE6-8 */ url("./fonts/Farhang/ttf/Farhang2-Medium.ttf") format("ttf");
+  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
 }
