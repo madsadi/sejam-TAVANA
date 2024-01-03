@@ -31,7 +31,7 @@ export default function TestLevel() {
     {
       title: "در نماد وبانک، حرف اول *و* چه چیز را نشان می دهد؟",
       options: ["صنعت", "نوع اوراق", "نام شرکت", "هیچکدام"],
-      answer: "0",
+      answer: "1",
     },
     {
       title: "اولوّیت انجام معاملات به چه صورتی می باشد؟",
@@ -41,7 +41,7 @@ export default function TestLevel() {
         "زمان سپس قیمت ورود",
         "زمان سفارش",
       ],
-      answer: "1",
+      answer: "2",
     },
     {
       title: "کارگزار ناظر کیست؟",
@@ -51,12 +51,12 @@ export default function TestLevel() {
         "کارگزاری است که سهامداران می توانند دارایی سهام خود تحت نظر آن کارگزار را صرفاً از طریق همان کارگزار به فروش برسانند",
         "همه موارد",
       ],
-      answer: "2",
+      answer: "3",
     },
     {
       title: "تسویه معاملات در چند روز بعد از انجام معامله صورت می گیرد؟",
       options: ["٢ روز", "٣ روز", "٣ روز کاری", "٢ روز کاری"],
-      answer: "3",
+      answer: "4",
     },
     {
       title: "کدام یک از وظایف مجمع عمومی فوق العاده است؟",
@@ -66,7 +66,7 @@ export default function TestLevel() {
         "تغییر سرمایه شرکت",
         "همه موارد",
       ],
-      answer: "3",
+      answer: "4",
     },
     {
       title: "نماد شپنا مربوط به کدامیک از شرکت های زیر می باشد؟",
@@ -76,7 +76,7 @@ export default function TestLevel() {
         "پالایش نفت اصفهان",
         "پالایش نفت بندرعباس",
       ],
-      answer: "2",
+      answer: "3",
     },
     {
       title: "جامع ترین و بهترین گزینه کدام است؟",
@@ -86,7 +86,7 @@ export default function TestLevel() {
         "قیمت سهام در بازار توسط فروشنده تعیین می شود",
         "قیمت سهام در بازار توسط شرکت بورس تعیین می شود",
       ],
-      answer: "1",
+      answer: "2",
     },
     {
       title: ' کدام "دامنه نوسان قیمت مجاز" در بازار سرمایه صحیح است:',
@@ -96,7 +96,7 @@ export default function TestLevel() {
         "از -3 تا +3",
         "همه موارد (پاسخ صحیح)",
       ],
-      answer: "3",
+      answer: "4",
     },
     {
       title: " معاملات اوراق بهادار در بورس تهران در چه ساعاتی انجام می گیرد؟",
@@ -106,12 +106,12 @@ export default function TestLevel() {
         "08:50 تا 12:50",
         "08:30 تا 12:00",
       ],
-      answer: "0",
+      answer: "1",
     },
     {
       title: "ارزش اسمی هر سهم شرکت‌های سهامی عام معمولاً چند ریال است؟",
       options: ["100 ریال", "10000 ریال", "10 ریال", "1000 ریال"],
-      answer: "1",
+      answer: "2",
     },
   ];
 
@@ -144,6 +144,8 @@ export default function TestLevel() {
       .catch((err) => toast.error(`${err?.response?.data?.error?.message}`));
   };
 
+  console.log(answers);
+
   return (
     <>
       <div>
@@ -168,17 +170,17 @@ export default function TestLevel() {
                         className={"checkbox checkbox-accent"}
                         checked={
                           answers[index] !== ""
-                            ? Number(answers[index]) === i
+                            ? Number(answers[index]) === i + 1
                             : false
                         }
-                        onChange={() => answerHandler(i, index)}
+                        onChange={() => answerHandler(i + 1, index)}
                         type="checkbox"
                       />
                       <label
                         className={`mr-2 ${
                           +question.answer !== answers[index] &&
-                          answers[index] >= 0 &&
-                          answers[index] === i
+                          answers[index] >= 1 &&
+                          answers[index] === i + 1
                             ? "text-red-500"
                             : ""
                         }`}
