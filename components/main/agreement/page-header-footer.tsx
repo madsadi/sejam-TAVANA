@@ -26,6 +26,8 @@ const PageHeaderFooter = () => {
               }
               fill
               alt="signPhoto"
+              objectPosition="right"
+              objectFit="contain"
               quality={0}
               unoptimized={true}
             />
@@ -33,9 +35,21 @@ const PageHeaderFooter = () => {
         </div>
         <div className="text-left">
           <div className={"titleValue"}>امضاء مسئول پذیرش :</div>
-          <div className="sign-card relative">
-            <Image src={"/taheri-signature.png"} fill alt="seal" />
-            <Image src={"/tavana-seal.png"} fill alt="seal" />
+          <div className="sign-card relative ">
+            <Image
+              src={"/taheri-signature.png"}
+              fill
+              objectFit="contain"
+              objectPosition="left"
+              alt="seal"
+            />
+            <Image
+              src={"/tavana-seal.png"}
+              fill
+              objectFit="contain"
+              objectPosition="left"
+              alt="seal"
+            />
           </div>
         </div>
       </div>
