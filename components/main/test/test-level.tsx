@@ -144,8 +144,6 @@ export default function TestLevel() {
       .catch((err) => toast.error(`${err?.response?.data?.error?.message}`));
   };
 
-  console.log(answers);
-
   return (
     <>
       <div>
