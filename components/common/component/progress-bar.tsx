@@ -74,7 +74,7 @@ export default function ProgressBar(props: ProgressBarProps) {
       name: "پروفایل",
       description: `${data?.result?.firstName + " " + data?.result?.lastName}`,
       href: "/profile",
-      icon: ChartPieIcon,
+      icon: UserCircleIcon,
     },
   ];
   return (
@@ -169,7 +169,7 @@ export default function ProgressBar(props: ProgressBarProps) {
                   key={step.level}
                 >
                   <p
-                    className={`absolute text-[#262626] flex flex-col text-center justify-center top-0 right-0 w-full h-full text-[120px] font-black ${
+                    className={`absolute text-[#262626] flex flex-col text-center justify-center top-0 right-0 w-full h-full md:text-[120px] text-[60px] font-black ${
                       level > step.level
                         ? ""
                         : level === step.level
@@ -183,7 +183,7 @@ export default function ProgressBar(props: ProgressBarProps) {
                   </p>
                   <p
                     className={
-                      "pb-5 md:-translate-y-1/2 translate-y-1/2 text-2xl md:text-sm md:p-0"
+                      "pb-5 md:-translate-y-1/2 translate-y-1/2 md:text-sm text-base md:p-0"
                     }
                   >
                     {step.title}

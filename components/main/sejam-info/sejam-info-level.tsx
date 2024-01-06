@@ -192,10 +192,7 @@ export default function SejamInfoLevel() {
         <AccordionComponent title={"اطلاعات شغلی"}>
           <div className="grid md:grid-cols-4 grid-cols-2  gap-3">
             <LabelValue title={"نام شرکت"} value={data?.jobInfo?.companyName} />
-            <LabelValue
-              title={"ایمیل کاری"}
-              value={data?.jobInfo?.companyEmail}
-            />
+
             <LabelValue
               title={"شماره شرکت"}
               value={
@@ -229,6 +226,10 @@ export default function SejamInfoLevel() {
             <LabelValue
               title={"آدرس شرکت"}
               value={data?.jobInfo?.companyAddress}
+            />
+            <LabelValue
+              title={"ایمیل کاری"}
+              value={data?.jobInfo?.companyEmail}
             />
           </div>
         </AccordionComponent>
@@ -380,7 +381,6 @@ export default function SejamInfoLevel() {
                 className={"grid md:grid-cols-4 grid-cols-2  gap-3 w-full"}
                 key={item?.alley + item?.plaque}
               >
-                <LabelValue key={index} title={"ایمیل"} value={item?.email} />
                 <LabelValue
                   key={index}
                   title={"شماره همراه"}
@@ -422,6 +422,8 @@ export default function SejamInfoLevel() {
                     (item?.plaque ? item?.plaque : "")
                   }
                 />
+                <div className="hidden md:block" />
+                <LabelValue key={index} title={"ایمیل"} value={item?.email} />
               </div>
             );
           })}
