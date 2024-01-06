@@ -111,7 +111,7 @@ export default function TestLevel() {
     {
       title: "ارزش اسمی هر سهم شرکت‌های سهامی عام معمولاً چند ریال است؟",
       options: ["100 ریال", "10000 ریال", "10 ریال", "1000 ریال"],
-      answer: "2",
+      answer: "4",
     },
   ];
 
@@ -144,6 +144,8 @@ export default function TestLevel() {
       .catch((err) => toast.error(`${err?.response?.data?.error?.message}`));
   };
 
+  console.log(answers);
+
   return (
     <>
       <div>
@@ -171,14 +173,14 @@ export default function TestLevel() {
                             ? Number(answers[index]) === i + 1
                             : false
                         }
-                        onChange={() => answerHandler(i + 1, index)}
+                        onChange={() => answerHandler(`${i + 1}`, index)}
                         type="checkbox"
                       />
                       <label
                         className={`mr-2 ${
-                          +question.answer !== answers[index] &&
-                          answers[index] >= 1 &&
-                          answers[index] === i + 1
+                          question.answer !== answers[index] &&
+                          answers[index] >= "1" &&
+                          answers[index] === `${i + 1}`
                             ? "text-red-500"
                             : ""
                         }`}
@@ -197,7 +199,7 @@ export default function TestLevel() {
         condition={
           Object.values(answers).every((item: any) => item !== "") &&
           Object.values(answers).filter(
-            (item: any, index: number) => item === +questions[index].answer
+            (item: any, index: number) => item === questions[index].answer
           ).length > 6
         }
         onConfirm={sendExamResult}
