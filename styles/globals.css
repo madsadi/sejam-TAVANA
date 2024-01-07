@@ -299,6 +299,6 @@ input[type="number"] {
     @apply text-white bg-tavanaGreen text-center py-3 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50;
   }
   .prevButton {
-    @apply text-white bg-tavanaPurple text-center py-2 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50;
+    @apply text-black bg-white font-bold text-center py-2 px-5 w-full hover:opacity-80 transition-opacity disabled:opacity-50;
   }
 }
