@@ -9,9 +9,9 @@ const PageHeaderFooter = () => {
     <>
       <div className="page-header">
         <div className="logo-card relative">
-          <img src={"/logo-black.svg"} className={"h-20 w-20"} alt="tavana" />
+          <img src={"/Tavana.svg"} className={"h-24 w-24"} alt="tavana" />
         </div>
-        <div className="mt-5 flex font-weight-bold">
+        <div className="mt-5 flex font-weight-bold ">
           <div className={"text-sm ml-2"}> تاریخ :</div>
           <span>{moment().locale("fa").format("YYYY/MM/DD")}</span>
         </div>
