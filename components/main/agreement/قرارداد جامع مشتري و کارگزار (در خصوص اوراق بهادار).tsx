@@ -96,6 +96,7 @@ export default function TotalBrokerageAgreement() {
                     <a href="https://www.tavanaco.ir/">www.tavanaco.ir/</a> که
                     {/* eslint-disable-next-line react/no-unescaped-entities */}
                     از این پس در این قرارداد "کارگزار" نامیده می‌شود از یک طرف و
+                    {/* eslint-disable-next-line react/no-unescaped-entities */}
                     "مشتري" با مشخصات مندرج در جدول زیر از طرف دیگر، به شرح مواد
                     ذیل منعقد گردید.
                   </p>

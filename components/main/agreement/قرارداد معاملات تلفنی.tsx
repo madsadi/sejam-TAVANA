@@ -84,8 +84,8 @@ export default function PhoneTradingAgreement() {
                         021-42906، شماره نمابر: 89774797-021، آدرس سایت
                         www.tavanaco.ir/ ، آدرس: تهران،خیابان میرعماد، نبش کوچه
                         ی سوم , روبروی فرمانداری پلاک 10 طبقه ی دوم شرقی:
-                        {/* eslint-disable-next-line react/no-unescaped-entities */}
                         1587946317 و مشتري حقیقی به مشخصات زیر که از این پس در
+                        {/* eslint-disable-next-line react/no-unescaped-entities */}
                         این قرارداد "مشتري" نامیده می‌شود:
                       </p>
                     </div>

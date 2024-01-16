@@ -88,8 +88,8 @@ export default function OnlineTradingAgreement() {
                   <div>
                     <h5>ماده 1- طرفین قرارداد</h5>
                     <p>
-                      {/* eslint-disable-next-line react/no-unescaped-entities */}
                       این قرارداد بین شرکت کارگزاري به مشخصات زیر که از این پس
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
                       در این قرارداد "کارگزاري" نامیده می‌شود:
                     </p>
 
@@ -98,8 +98,8 @@ export default function OnlineTradingAgreement() {
                       42906-021، شماره نمابر: 89774797-021، آدرس سایت:
                       www.tavanaco.ir/ آدرس: تهران،خیابان میرعماد، نبش کوچه ی
                       سوم , روبروی فرمانداری پلاک 10 طبقه ی دوم شرقی ، کد پستی:
-                      {/* eslint-disable-next-line react/no-unescaped-entities */}
                       1587946317 و مشتري حقیقی به مشخصات زیر که از این پس در این
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
                       قرارداد "مشتري" نامیده می‌شود:
                     </p>
                   </div>
