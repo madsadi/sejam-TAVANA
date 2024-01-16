@@ -84,94 +84,17 @@ export default function OptionalAgreement() {
                   </div>
 
                   <div>
-                    <table className={"table table-compact w-full"}>
-                      <thead>
-                        <tr>
-                          <td>
-                            <h5>ماده 1- طرفین قرارداد</h5>
-                            <p>
-                              {/* eslint-disable-next-line react/no-unescaped-entities */}
-                              این قرارداد بین شرکت کارگزاری با مشخصات زیر:
-                            </p>
-                          </td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <LabelValue
-                              title={"عضو"}
-                              value={"شرکت کارگزاری توانا "}
-                            />
-                          </td>
-                          <td>
-                            <LabelValue title={"شماره ثبت"} value={"159302"} />
-                          </td>
-                          <td>
-                            <LabelValue
-                              title={"تاریخ ثبت"}
-                              value={"09/11/78"}
-                            />
-                          </td>
-                          <td>
-                            <LabelValue title={"محل ثبت"} value={"تهران"} />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <LabelValue
-                              title={"شماره ثبت نزد سازمان بورس"}
-                              value={"10637"}
-                            />
-                          </td>
-                          <td>
-                            <LabelValue
-                              title={"شماره تلفن دفتر مرکزی"}
-                              value={"021-42906"}
-                            />
-                          </td>
-                          <td>
-                            <LabelValue
-                              title={"شماره فاکس دفتر مرکزی"}
-                              value={" 021-42906 داخلی 6"}
-                            />
-                          </td>
-                          <td>
-                            <LabelValue title={"کدپستی"} value={"1587946313"} />
-                          </td>
-                        </tr>
-                        <tr className={"col-span-12"}>
-                          <td>
-                            <LabelValue
-                              title={"آخرین صاحب امضاء مجاز"}
-                              value={"حمیدرضا طریقی"}
-                            />
-                          </td>
-                          <td>
-                            <LabelValue title={"سمت"} value={" مدیرعامل و"} />
-                            <LabelValue title={""} value={"عضو هیئت مدیره"} />
-                          </td>
-                          <td>
-                            <LabelValue
-                              title={"آدرس دفتر مرکزی"}
-                              value={"تهران، خیابان مطهری"}
-                            />
-                            <LabelValue title={""} value={"، خیابان میرعماد"} />
-                            <LabelValue title={""} value={"، نبش کوچه سوم"} />
-                            <LabelValue
-                              title={""}
-                              value={" پلاک 10، طبقه دوم"}
-                            />
-                          </td>
-                          <td>
-                            <LabelValue
-                              title={"آدرس پست الکترونیکی"}
-                              value={"info@tavana.net"}
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <div>
+                      <h5>ماده 1- طرفین قرارداد</h5>
+                      <p>
+                        شرکت کارگزاری توانا به شماره ثبت: 159302 و نمایندگی:
+                        آقاي حمیدرضا طریقی با سمت مدیرعامل و عضو هیئت مدیره محل
+                        ثبت: تهران، تاریخ ثبت: 09/11/1378، شماره تلفن:
+                        021-42906، شماره نمابر: 89774797-021، آدرس سایت
+                        www.tavanaco.ir ، آدرس: تهران،خیابان میرعماد، نبش کوچه ی
+                        سوم , روبروی فرمانداری پلاک 10 طبقه ی دوم شرقی
+                      </p>
+                    </div>
                     <p>و مشتری با مشخصات زیر:</p>
                   </div>
                   <div className=" mt-4">

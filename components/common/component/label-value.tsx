@@ -6,7 +6,7 @@ export default function LabelValue({
   value: any;
 }) {
   return (
-    <div className={"space-y-2 font-medium text-lg"}>
+    <div className={"space-y-2 font-medium text-sm"}>
       {title && <div>{title}:</div>}
       <div>{value ? value : "-"}</div>
     </div>

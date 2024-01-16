@@ -91,9 +91,9 @@ export default function PrivatePersonValue() {
                     پلاک 10 کدپستی 1587946317 ، شماره تلفن: 42906 ، شماره نمابر:
                     89774797 ،
                     {/* eslint-disable-next-line react/no-unescaped-entities */}
-                    نشانی سایت اینترنتیTavana.net ، که از این پس در این قرارداد
-                    `کارگزار اعتبار دهنده` &lrm; نامیده می‌شود به عنوان طرف اول
-                    و &lrm; &lrm;آقاي/خانم:&lrm; &lrm;
+                    نشانی سایت اینترنتیtavanaco.ir/ ، که از این پس در این
+                    قرارداد `کارگزار اعتبار دهنده` &lrm; نامیده می‌شود به عنوان
+                    طرف اول و &lrm; &lrm;آقاي/خانم:&lrm; &lrm;
                     <span className="font-bold">
                       {userData?.privatePerson?.firstName +
                         " " +

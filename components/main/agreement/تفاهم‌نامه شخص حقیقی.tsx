@@ -65,7 +65,7 @@ export default function PrivatePersonAgreement() {
                                             فرمانداری پلاک
                                             10 طبقه ی دوم شرقی
                                             کد پستی 1587946317 شماره تلفن <span className="font-semibold">42906-021</span> و
-                                            نشانی سایت اینترنتی <a href="https://www.tavana.net">www.tavana.net</a> که
+                                            نشانی سایت اینترنتی <a href="https://www.tavanaco.ir/">www.tavanaco.ir/</a> که
                                             داراي پایگاه
                                             اطلاعاتی سامان بورس از یکسو و آقا/خانم
                                             &lrm;
