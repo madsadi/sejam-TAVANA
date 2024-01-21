@@ -93,7 +93,7 @@ export default function TotalBrokerageAgreement() {
                     دوم شرقی کد پستی 1587946317 شماره تلفن{" "}
                     <span className="font-bold">42906-021</span> و نشانی سایت
                     اینترنتی{" "}
-                    <a href="https://www.tavanaco.ir/">www.tavanaco.ir/</a> که
+                    <a href="https://www.tavanaco.ir">www.tavanaco.ir</a> که
                     {/* eslint-disable-next-line react/no-unescaped-entities */}
                     از این پس در این قرارداد "کارگزار" نامیده می‌شود از یک طرف و
                     {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -360,8 +360,7 @@ export default function TotalBrokerageAgreement() {
                     کلیه اطلاع‌رسانی‌های کارگزار به مشتري در خصوص وضعیت اجراي
                     سفارشِ ارائه شده یا دریافت‌ها یا پرداخت‌های انجام شده
                     فی‌مابین کارگزار و مشتري، از طریق سایت اینترنتی کارگزار به
-                    نشانی{" "}
-                    <a href="https://www.tavanaco.ir/">www.tavanaco.ir/</a>
+                    نشانی <a href="https://www.tavanaco.ir">www.tavanaco.ir</a>
                     انجام می‌شود و مشتري با استفاده از نام کاربري و گذرواژه‌ای
                     که به شماره تلفن همراهِ معرفی شده توسط وي در صدر این قرارداد
                     ارسال می‌گردد، قادر به دسترسی به اطلاعات مزبور خواهد بود.
