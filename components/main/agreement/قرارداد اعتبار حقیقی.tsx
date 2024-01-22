@@ -117,16 +117,16 @@ export default function PrivatePersonValue() {
                       )?.code
                     }
                     &lrm; &lrm; به نشانی :{" "}
-                    {userData?.addresses?.[0]?.city.name +
-                      " " +
-                      userData?.addresses?.[0]?.province.name +
-                      " " +
+                    {userData?.addresses?.[0]?.province.name +
+                      ", " +
+                      userData?.addresses?.[0]?.city.name +
+                      ", " +
                       userData?.addresses?.[0]?.section.name +
-                      " " +
+                      ", " +
                       userData?.addresses?.[0]?.remnantAddress +
-                      " " +
+                      ", " +
                       userData?.addresses?.[0]?.alley +
-                      " " +
+                      ", " +
                       userData?.addresses?.[0]?.plaque}
                     &lrm; &lrm; کدپستی: {userData?.addresses?.[0]?.postalCode}
                     &lrm; &lrm; شماره تماس: {userData?.addresses?.[0]?.tel}&lrm;

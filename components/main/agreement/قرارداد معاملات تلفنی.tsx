@@ -187,16 +187,16 @@ export default function PhoneTradingAgreement() {
                                 valueClassName="break-words"
                                 title={"آدرس منزل"}
                                 value={
-                                  userData?.addresses?.[0]?.city.name +
-                                  " " +
                                   userData?.addresses?.[0]?.province.name +
-                                  " " +
+                                  ", " +
+                                  userData?.addresses?.[0]?.city.name +
+                                  ", " +
                                   userData?.addresses?.[0]?.section.name +
-                                  " " +
+                                  ", " +
                                   userData?.addresses?.[0]?.remnantAddress +
-                                  " " +
+                                  ", " +
                                   userData?.addresses?.[0]?.alley +
-                                  " " +
+                                  ", " +
                                   userData?.addresses?.[0]?.plaque
                                 }
                               />
