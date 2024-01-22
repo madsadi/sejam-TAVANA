@@ -6,10 +6,14 @@ import moment from "jalali-moment";
 import PageHeaderFooter from "./page-header-footer";
 import { legalPersonTypeCategoryEnums } from "../../common/enums";
 import LabelValue from "../../common/component/label-value";
+import { useSWRConfig } from "swr";
+import { IDP_URL } from "../../../api/constants";
 
 export default function TotalBrokerageAgreement() {
   const { userData, userDefaultBank } = useContext<any>(SejamContext);
   const [loading, setLoading] = useState(false);
+  const { cache } = useSWRConfig();
+  const idpInfo = cache.get(`${IDP_URL}/api/users/GetCurrentUserInfo`);
 
   const componentRef = useRef(null);
 
@@ -130,12 +134,7 @@ export default function TotalBrokerageAgreement() {
                           <td>
                             <LabelValue
                               title={"شماره شناسنامه"}
-                              value={
-                                userData?.privatePerson?.serial +
-                                `/` +
-                                userData?.privatePerson?.seriShChar +
-                                userData?.privatePerson?.seriSh
-                              }
+                              value={userData?.privatePerson?.shNumber}
                             />
                           </td>
                           <td>
@@ -161,13 +160,13 @@ export default function TotalBrokerageAgreement() {
                           <td>
                             <LabelValue
                               title={"شماره تلفن همراه"}
-                              value={userData?.addresses?.[0]?.mobile}
+                              value={idpInfo?.result?.phoneNumber}
                             />
                           </td>
                           <td>
                             <LabelValue
                               title={"آدرس پست الکترونیکی"}
-                              value={userData?.addresses?.[0]?.email}
+                              value={idpInfo?.result?.email}
                             />
                           </td>
                         </tr>
@@ -269,7 +268,7 @@ export default function TotalBrokerageAgreement() {
                               title={"نشانی پست الکترونیک"}
                               value={
                                 userData?.legalPerson
-                                  ? userData?.addresses?.[0]?.email
+                                  ? idpInfo?.result?.email
                                   : ""
                               }
                             />
