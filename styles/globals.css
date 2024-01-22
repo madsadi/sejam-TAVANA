@@ -267,6 +267,9 @@ input[type="number"] {
   .font-sans {
     font-family: "Tavana", system-ui, sans-serif;
   }
+  .font-english {
+    font-family: "Robotto", system-ui, sans-serif;
+  }
 }
 
 @layer components {

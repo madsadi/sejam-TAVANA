@@ -13,10 +13,14 @@ import { PrinterIcon } from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
 import PageHeaderFooter from "./page-header-footer";
 import LabelValue from "../../common/component/label-value";
+import { useSWRConfig } from "swr";
+import { IDP_URL } from "../../../api/constants";
 
 export default function OptionalAgreement() {
   const { userData, userDefaultBank } = useContext<any>(SejamContext);
   const [loading, setLoading] = useState(false);
+  const { cache } = useSWRConfig();
+  const idpInfo = cache.get(`${IDP_URL}/api/users/GetCurrentUserInfo`);
 
   const componentRef = useRef(null);
 
@@ -87,12 +91,15 @@ export default function OptionalAgreement() {
                     <div>
                       <h5>ماده 1- طرفین قرارداد</h5>
                       <p>
-                        شرکت کارگزاری توانا به شماره ثبت: 159302 و نمایندگی:
-                        آقاي حمیدرضا طریقی با سمت مدیرعامل و عضو هیئت مدیره محل
+                        ثبت: 159302 و نمایندگی: آقاي حمیدرضا طریقی با سمت
+                        مدیرعامل طبق روزنامه رسمی: 21794، مورخ: 1398/10/18، محل
                         ثبت: تهران، تاریخ ثبت: 09/11/1378، شماره تلفن:
                         021-42906، شماره نمابر: 89774797-021، آدرس سایت
                         www.tavanaco.ir ، آدرس: تهران،خیابان میرعماد، نبش کوچه ی
-                        سوم , روبروی فرمانداری پلاک 10 طبقه ی دوم شرقی
+                        سوم , روبروی فرمانداری پلاک 10 طبقه ی دوم شرقی:
+                        1587946317 و مشتري حقیقی به مشخصات زیر که از این پس در
+                        {/* eslint-disable-next-line react/no-unescaped-entities */}
+                        این قرارداد "مشتري" نامیده می‌شود:
                       </p>
                     </div>
                     <p>و مشتری با مشخصات زیر:</p>
@@ -127,12 +134,7 @@ export default function OptionalAgreement() {
                           <td>
                             <LabelValue
                               title={"شماره شناسنامه"}
-                              value={
-                                userData?.privatePerson?.serial +
-                                `/` +
-                                userData?.privatePerson?.seriShChar +
-                                userData?.privatePerson?.seriSh
-                              }
+                              value={userData?.privatePerson?.shNumber}
                             />
                           </td>
                           <td>
@@ -158,13 +160,14 @@ export default function OptionalAgreement() {
                           <td>
                             <LabelValue
                               title={"شماره تلفن همراه"}
-                              value={userData?.addresses?.[0]?.mobile}
+                              value={idpInfo?.result?.phoneNumber}
                             />
                           </td>
                           <td>
                             <LabelValue
+                              valueClassName="font-english"
                               title={"آدرس پست الکترونیکی"}
-                              value={userData?.addresses?.[0]?.email}
+                              value={idpInfo?.result?.email}
                             />
                           </td>
                         </tr>
@@ -187,10 +190,25 @@ export default function OptionalAgreement() {
                               value={userDefaultBank?.accountNumber}
                             />
                           </td>
+                        </tr>
+                        <tr>
                           <td>
                             <LabelValue
+                              valueClassName="break-words"
                               title={"آدرس منزل"}
-                              value={userData?.addresses?.[0]?.remnantAddress}
+                              value={
+                                userData?.addresses?.[0]?.city.name +
+                                " " +
+                                userData?.addresses?.[0]?.province.name +
+                                " " +
+                                userData?.addresses?.[0]?.section.name +
+                                " " +
+                                userData?.addresses?.[0]?.remnantAddress +
+                                " " +
+                                userData?.addresses?.[0]?.alley +
+                                " " +
+                                userData?.addresses?.[0]?.plaque
+                              }
                             />
                           </td>
                         </tr>
@@ -248,10 +266,11 @@ export default function OptionalAgreement() {
                           </td>
                           <td>
                             <LabelValue
+                              valueClassName="font-english"
                               title={"نشانی پست الکترونیک"}
                               value={
                                 userData?.legalPerson
-                                  ? userData?.addresses?.[0]?.email
+                                  ? idpInfo?.result?.email
                                   : ""
                               }
                             />
@@ -551,8 +570,11 @@ export default function OptionalAgreement() {
                     <p>١) حضوری و اخذ امضای مشتری؛</p>
                     <p>
                       ) ارسال به شماره فاكس {userData?.addresses?.[0]?.fax} و
-                      پست الكترونيكي به آدرس {userData?.addresses?.[0]?.email} و
-                      يا تماس با شماره {userData?.addresses?.[0]?.mobile}2
+                      پست الكترونيكي به آدرس{" "}
+                      <span className="font-english">
+                        {idpInfo?.result?.email}
+                      </span>{" "}
+                      و يا تماس با شماره {idpInfo?.result?.phoneNumber}2
                     </p>
                     <p>
                       1٤ . كارگزار موظف است اگر مشتری مشمول دريافت اخطاريه
@@ -634,9 +656,11 @@ export default function OptionalAgreement() {
                         ? userData?.addresses[0].fax
                         : ".................."}{" "}
                       و پست الكترونيكي به آدرس{" "}
-                      {userData?.addresses?.[0]?.email
-                        ? userData?.addresses?.[0]?.email
-                        : "......................."}
+                      <span className="font-english">
+                        {idpInfo?.result?.email
+                          ? idpInfo?.result?.email
+                          : "......................."}
+                      </span>
                     </p>
                     <p>3) آنلاین</p>
                     ٤. اگر دارنده موقعيت باز خريد، قرارداد اختيار معامله را
@@ -898,12 +922,13 @@ export default function OptionalAgreement() {
                       &lrm;به موجب اين سند، اينجانب/اين شركت&lrm; &lrm;
                       {userData?.privatePerson?.firstName +
                         " " +
-                        userData?.privatePerson?.lastName}
-                      &lrm; بيانيه ريسك را دريافت و مطالعه نموده و ضمن اعلام
-                      اطلاع از كليه مقررات و خصوصيات معاملاتي و تمامي ريسك هايي
-                      كه در بازار قرارداد اختيار معامله متصور بوده و يا احتمال
-                      وقوع دارد و نيز با شناخت و درك كامل از ماهيت امر و پذيرش
-                      مقررات مربوطه، مراتب را تاييد كرده و ملتزم ميگردد.
+                        userData?.privatePerson?.lastName}{" "}
+                      به کد ملی {userData?.uniqueIdentifier} &lrm; بيانيه ريسك
+                      را دريافت و مطالعه نموده و ضمن اعلام اطلاع از كليه مقررات
+                      و خصوصيات معاملاتي و تمامي ريسك هايي كه در بازار قرارداد
+                      اختيار معامله متصور بوده و يا احتمال وقوع دارد و نيز با
+                      شناخت و درك كامل از ماهيت امر و پذيرش مقررات مربوطه، مراتب
+                      را تاييد كرده و ملتزم ميگردد.
                     </p>
                   </div>
                 </div>

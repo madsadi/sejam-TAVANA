@@ -170,6 +170,8 @@ export default function OTCFaraBourseTradingRiskAgreement() {
                           " " +
                           userData?.privatePerson?.lastName}
                       </span>{" "}
+                      به کد ملی
+                      {userData?.uniqueIdentifier}
                       اقرارنامه و بیانیه پذیرش ریسک معاملات سهام و حق تقدم خرید
                       سهام در بازار توافقی و همچنین مفاد دستورالعمل درج و نحوه
                       انجام معاملات اوراق بهادار در بازار توافقی فرابورس ایران{" "}

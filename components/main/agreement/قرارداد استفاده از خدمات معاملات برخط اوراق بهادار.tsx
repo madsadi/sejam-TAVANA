@@ -1,20 +1,20 @@
 import React, { useCallback, useContext, useRef, useState } from "react";
 import { SejamContext } from "../../../pages/main";
 import { jalali } from "../../common/functions";
-import {
-  accountTypeEnums,
-  legalPersonTypeCategoryEnums,
-} from "../../common/enums";
+import { legalPersonTypeCategoryEnums } from "../../common/enums";
 import ReactToPrint from "react-to-print";
 import { PrinterIcon } from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
 import PageHeaderFooter from "./page-header-footer";
 import LabelValue from "../../common/component/label-value";
+import { useSWRConfig } from "swr";
+import { IDP_URL } from "../../../api/constants";
 
 export default function OnlineTradingAgreement() {
   const { userData, userDefaultBank } = useContext<any>(SejamContext);
+  const { cache } = useSWRConfig();
   const [loading, setLoading] = useState(false);
-
+  const idpInfo = cache.get(`${IDP_URL}/api/users/GetCurrentUserInfo`);
   const componentRef = useRef(null);
 
   const reactToPrintContent = useCallback(() => {
@@ -164,13 +164,14 @@ export default function OnlineTradingAgreement() {
                           <td>
                             <LabelValue
                               title={"شماره تلفن همراه"}
-                              value={userData?.addresses?.[0]?.mobile}
+                              value={idpInfo.result?.phoneNumber}
                             />
                           </td>
                           <td>
                             <LabelValue
+                              valueClassName="font-english"
                               title={"آدرس پست الکترونیکی"}
-                              value={userData?.addresses?.[0]?.email}
+                              value={idpInfo.result?.email}
                             />
                           </td>
                         </tr>
@@ -193,10 +194,25 @@ export default function OnlineTradingAgreement() {
                               value={userDefaultBank?.accountNumber}
                             />
                           </td>
+                        </tr>
+                        <tr>
                           <td>
                             <LabelValue
+                              valueClassName="break-words"
                               title={"آدرس منزل"}
-                              value={userData?.addresses?.[0]?.remnantAddress}
+                              value={
+                                userData?.addresses?.[0]?.city.name +
+                                " " +
+                                userData?.addresses?.[0]?.province.name +
+                                " " +
+                                userData?.addresses?.[0]?.section.name +
+                                " " +
+                                userData?.addresses?.[0]?.remnantAddress +
+                                " " +
+                                userData?.addresses?.[0]?.alley +
+                                " " +
+                                userData?.addresses?.[0]?.plaque
+                              }
                             />
                           </td>
                         </tr>
@@ -254,10 +270,11 @@ export default function OnlineTradingAgreement() {
                           </td>
                           <td>
                             <LabelValue
-                              title={"نشانی پست الکترونیک"}
+                              valueClassName="font-english"
+                              title={"آدرس پست الکترونیکی"}
                               value={
                                 userData?.legalPerson
-                                  ? userData?.addresses?.[0]?.email
+                                  ? idpInfo.result?.email
                                   : ""
                               }
                             />
@@ -964,7 +981,7 @@ export default function OnlineTradingAgreement() {
                           userData?.privatePerson?.lastName}
                       </span>
                       &lrm; به شماره شناسنامه
-                      <span>{userData?.uniqueIdentifier}</span>
+                      <span>{userData?.privatePerson?.shNumber}</span>
                       &lrm;، صادره از&lrm; &lrm;
                       <span>{userData?.privatePerson?.placeOfIssue}</span>&lrm;
                       متولد
@@ -1054,8 +1071,8 @@ export default function OnlineTradingAgreement() {
                       </span>
                       &lrm; فرزند
                       <span>{userData?.privatePerson?.fatherName}</span>
-                      به شماره شناسنامه
-                      <span>{userData?.uniqueIdentifier}</span>و کد ملی
+                      به شماره شناسنامه{" "}
+                      <span>{userData?.privatePerson?.shNumber}</span>و کد ملی
                       <span>{userData?.uniqueIdentifier}</span>
                       &lrm;متولد&lrm; &lrm;
                       <span>{userData?.privatePerson?.placeOfBirth}</span>&lrm;

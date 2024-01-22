@@ -4,10 +4,14 @@ import ReactToPrint from "react-to-print";
 import { PrinterIcon } from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
 import PageHeaderFooter from "./page-header-footer";
+import { useSWRConfig } from "swr";
+import { IDP_URL } from "../../../api/constants";
 
 export default function PrivatePersonValue() {
   const { userData } = useContext<any>(SejamContext);
   const [loading, setLoading] = useState(false);
+  const { cache } = useSWRConfig();
+  const idpInfo = cache.get(`${IDP_URL}/api/users/GetCurrentUserInfo`);
 
   const componentRef = useRef(null);
 
@@ -45,6 +49,8 @@ export default function PrivatePersonValue() {
       </button>
     ); // eslint-disable-line max-len
   };
+
+  console.log(userData);
 
   return (
     <>
@@ -91,30 +97,45 @@ export default function PrivatePersonValue() {
                     پلاک 10 کدپستی 1587946317 ، شماره تلفن: 42906 ، شماره نمابر:
                     89774797 ،
                     {/* eslint-disable-next-line react/no-unescaped-entities */}
-                    نشانی سایت اینترنتیtavanaco.ir/ ، که از این پس در این
-                    قرارداد `کارگزار اعتبار دهنده` &lrm; نامیده می‌شود به عنوان
-                    طرف اول و &lrm; &lrm;آقاي/خانم:&lrm; &lrm;
+                    نشانی سایت اینترنتیtavanaco.ir ، که از این پس در این قرارداد
+                    `کارگزار اعتبار دهنده` &lrm; نامیده می‌شود به عنوان طرف اول
+                    و &lrm; &lrm;آقاي/خانم:&lrm; &lrm;
                     <span className="font-bold">
                       {userData?.privatePerson?.firstName +
                         " " +
                         userData?.privatePerson?.lastName}
                     </span>{" "}
                     و &lrm; فرزند: {userData?.privatePerson?.fatherName}&lrm;
-                    &lrm; به شماره شناسنامه:{" "}
-                    {userData?.privatePerson?.serial +
-                      `/` +
-                      userData?.privatePerson?.seriShChar +
-                      userData?.privatePerson?.seriSh}
+                    &lrm; به شماره شناسنامه: {userData?.privatePerson?.shNumber}
                     &lrm; &lrm; محل صدور:{" "}
                     {userData?.privatePerson?.placeOfBirth}&lrm; &lrm; دارای
                     کدملی: {userData?.uniqueIdentifier}&lrm; &lrm; ، دارای کد
-                    بورسی: {userData?.uniqueIdentifier}&lrm; &lrm; به نشانی :{" "}
-                    {userData?.addresses?.[0]?.remnantAddress}&lrm; &lrm;
-                    کدپستی: {userData?.addresses?.[0]?.postalCode}&lrm; &lrm;
-                    شماره تماس: {userData?.addresses?.[0]?.tel}&lrm; &lrm; نشانی
-                    پست الکترونیکی: {userData?.addresses?.[0]?.email}&lrm; که از
-                    این پس در این قرارداد مشتری نامیده می شود از طرف دیگر به شرح
-                    منعقد می گردد.
+                    بورسی:{" "}
+                    {
+                      userData?.tradingCodes.find(
+                        (item: any) => item.type === "StockExchange"
+                      )?.code
+                    }
+                    &lrm; &lrm; به نشانی :{" "}
+                    {userData?.addresses?.[0]?.city.name +
+                      " " +
+                      userData?.addresses?.[0]?.province.name +
+                      " " +
+                      userData?.addresses?.[0]?.section.name +
+                      " " +
+                      userData?.addresses?.[0]?.remnantAddress +
+                      " " +
+                      userData?.addresses?.[0]?.alley +
+                      " " +
+                      userData?.addresses?.[0]?.plaque}
+                    &lrm; &lrm; کدپستی: {userData?.addresses?.[0]?.postalCode}
+                    &lrm; &lrm; شماره تماس: {userData?.addresses?.[0]?.tel}&lrm;
+                    &lrm; نشانی پست الکترونیکی:{" "}
+                    <span className="font-english">
+                      {idpInfo?.result?.email}
+                    </span>
+                    &lrm; که از این پس در این قرارداد مشتری نامیده می شود از طرف
+                    دیگر به شرح منعقد می گردد.
                     <p>
                       {/* eslint-disable-next-line react/no-unescaped-entities */}
                       2 . در این قرارداد سازمان بورس و اوراق بهادار اختصاراً
@@ -550,8 +571,15 @@ export default function PrivatePersonValue() {
                     </p>
                     <ol className={"list-disc"}>
                       <li> -ابلاغ حضوری</li>
-                      <li>- پست الکترونیکی به نشانی: .....................</li>
-                      <li>- ارسال پیامک به شماره :...............</li>
+                      <li>
+                        - پست الکترونیکی به نشانی:{" "}
+                        <span className="font-english">
+                          {idpInfo?.result?.email}
+                        </span>
+                      </li>
+                      <li>
+                        - ارسال پیامک به شماره : {idpInfo?.result?.phoneNumber}
+                      </li>
                       <li>- اعلام در سامانه معاملات بر خط مشتری</li>
                     </ol>
                     <p>

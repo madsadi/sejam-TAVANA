@@ -9,10 +9,14 @@ import { PrinterIcon } from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
 import PageHeaderFooter from "./page-header-footer";
 import LabelValue from "../../common/component/label-value";
+import { useSWRConfig } from "swr";
+import { IDP_URL } from "../../../api/constants";
 
 export default function PhoneTradingAgreement() {
   const { userData, userDefaultBank } = useContext<any>(SejamContext);
   const [loading, setLoading] = useState(false);
+  const { cache } = useSWRConfig();
+  const idpInfo = cache.get(`${IDP_URL}/api/users/GetCurrentUserInfo`);
 
   const componentRef = useRef(null);
 
@@ -120,12 +124,7 @@ export default function PhoneTradingAgreement() {
                             <td>
                               <LabelValue
                                 title={"شماره شناسنامه"}
-                                value={
-                                  userData?.privatePerson?.serial +
-                                  `/` +
-                                  userData?.privatePerson?.seriShChar +
-                                  userData?.privatePerson?.seriSh
-                                }
+                                value={userData?.privatePerson?.shNumber}
                               />
                             </td>
                             <td>
@@ -151,13 +150,14 @@ export default function PhoneTradingAgreement() {
                             <td>
                               <LabelValue
                                 title={"شماره تلفن همراه"}
-                                value={userData?.addresses?.[0]?.mobile}
+                                value={idpInfo?.result?.phoneNumber}
                               />
                             </td>
                             <td>
                               <LabelValue
+                                valueClassName="font-english"
                                 title={"آدرس پست الکترونیکی"}
-                                value={userData?.addresses?.[0]?.email}
+                                value={idpInfo?.result?.email}
                               />
                             </td>
                           </tr>
@@ -180,10 +180,25 @@ export default function PhoneTradingAgreement() {
                                 value={userDefaultBank?.accountNumber}
                               />
                             </td>
+                          </tr>
+                          <tr>
                             <td>
                               <LabelValue
+                                valueClassName="break-words"
                                 title={"آدرس منزل"}
-                                value={userData?.addresses?.[0]?.remnantAddress}
+                                value={
+                                  userData?.addresses?.[0]?.city.name +
+                                  " " +
+                                  userData?.addresses?.[0]?.province.name +
+                                  " " +
+                                  userData?.addresses?.[0]?.section.name +
+                                  " " +
+                                  userData?.addresses?.[0]?.remnantAddress +
+                                  " " +
+                                  userData?.addresses?.[0]?.alley +
+                                  " " +
+                                  userData?.addresses?.[0]?.plaque
+                                }
                               />
                             </td>
                           </tr>
@@ -241,10 +256,11 @@ export default function PhoneTradingAgreement() {
                             </td>
                             <td>
                               <LabelValue
+                                valueClassName="font-english"
                                 title={"نشانی پست الکترونیک"}
                                 value={
                                   userData?.legalPerson
-                                    ? userData?.addresses?.[0]?.email
+                                    ? idpInfo?.result?.email
                                     : ""
                                 }
                               />
