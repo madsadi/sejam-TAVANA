@@ -141,12 +141,7 @@ export default function OnlineRegistrationAgreement() {
                           <td>
                             <LabelValue
                               title={"شماره شناسنامه"}
-                              value={
-                                userData?.privatePerson?.serial +
-                                `/` +
-                                userData?.privatePerson?.seriShChar +
-                                userData?.privatePerson?.seriSh
-                              }
+                              value={userData?.privatePerson?.shNumber}
                             />
                           </td>
                           <td>
