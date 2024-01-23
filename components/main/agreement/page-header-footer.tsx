@@ -9,7 +9,11 @@ const PageHeaderFooter = () => {
     <>
       <div className="page-header">
         <div className="logo-card relative">
-          <img src={"/Tavana.svg"} className={"h-24 w-24"} alt="tavana" />
+          <img
+            src={"/logo-tavana.png"}
+            className={"object-contain"}
+            alt="tavana"
+          />
         </div>
         <div className="mt-5 flex font-weight-bold ">
           <div className={"text-sm ml-2"}> تاریخ :</div>
